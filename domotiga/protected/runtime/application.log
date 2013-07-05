@@ -1,0 +1,57 @@
+2013/07/03 21:15:50 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: could not find driver' in /var/www/framework/db/CDbConnection.php:382
+Stack trace:
+#0 /var/www/framework/db/CDbConnection.php(331): CDbConnection->open()
+#1 /var/www/framework/db/CDbConnection.php(309): CDbConnection->setActive(true)
+#2 /var/www/framework/base/CModule.php(388): CDbConnection->init()
+#3 /var/www/framework/cli/commands/MigrateCommand.php(443): CModule->getComponent('db')
+#4 /var/www/framework/cli/commands/MigrateCommand.php(452): MigrateCommand->getDbConnection()
+#5 /var/www/framework/cli/commands/MigrateCommand.php(483): MigrateCommand->getMigrationHistory(-1)
+#6 /var/www/framework/cli/commands/MigrateCommand.php(85): MigrateCommand->getNewMigrations()
+#7 [internal function]: MigrateCommand->actionUp(Array)
+#8 /var/www/framework/console/CConsoleCommand.php(173): ReflectionMethod->invokeArgs(Object(MigrateCommand), Array)
+#9 /var/www/framework/console/CConsoleCommandRunner.php(68): CConsoleCommand->run(Array)
+#10 /var/www/framework/console/CConsoleApplication.php(92): CConsoleCommandRunner->run(Array)
+#11 /var/www/framework/base/CApplication.php(162): CConsoleApplication->processRequest()
+#12 /var/www/framework/yiic.php(34): CApplication->run()
+#13 /var/www/domotiga/protected/yiic.php(7): require_once('/var/www/framew...')
+#14 /var/www/domotiga/protected/yiic(4): require_once('/var/www/domoti...')
+#15 {main}
+---
+2013/07/03 21:17:17 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: could not find driver' in /var/www/framework/db/CDbConnection.php:382
+Stack trace:
+#0 /var/www/framework/db/CDbConnection.php(331): CDbConnection->open()
+#1 /var/www/framework/db/CDbConnection.php(309): CDbConnection->setActive(true)
+#2 /var/www/framework/base/CModule.php(388): CDbConnection->init()
+#3 /var/www/framework/cli/commands/MigrateCommand.php(443): CModule->getComponent('db')
+#4 /var/www/framework/cli/commands/MigrateCommand.php(452): MigrateCommand->getDbConnection()
+#5 /var/www/framework/cli/commands/MigrateCommand.php(483): MigrateCommand->getMigrationHistory(-1)
+#6 /var/www/framework/cli/commands/MigrateCommand.php(85): MigrateCommand->getNewMigrations()
+#7 [internal function]: MigrateCommand->actionUp(Array)
+#8 /var/www/framework/console/CConsoleCommand.php(173): ReflectionMethod->invokeArgs(Object(MigrateCommand), Array)
+#9 /var/www/framework/console/CConsoleCommandRunner.php(68): CConsoleCommand->run(Array)
+#10 /var/www/framework/console/CConsoleApplication.php(92): CConsoleCommandRunner->run(Array)
+#11 /var/www/framework/base/CApplication.php(162): CConsoleApplication->processRequest()
+#12 /var/www/framework/yiic.php(34): CApplication->run()
+#13 /var/www/domotiga/protected/yiic.php(7): require_once('/var/www/framew...')
+#14 /var/www/domotiga/protected/yiic(4): require_once('/var/www/domoti...')
+#15 {main}
+---
+2013/07/03 21:18:43 [error] [exception.CDbException] exception 'CDbException' with message 'CDbConnection failed to open the DB connection: could not find driver' in /var/www/framework/db/CDbConnection.php:382
+Stack trace:
+#0 /var/www/framework/db/CDbConnection.php(331): CDbConnection->open()
+#1 /var/www/framework/db/CDbConnection.php(309): CDbConnection->setActive(true)
+#2 /var/www/framework/base/CModule.php(388): CDbConnection->init()
+#3 /var/www/framework/cli/commands/MigrateCommand.php(443): CModule->getComponent('db')
+#4 /var/www/framework/cli/commands/MigrateCommand.php(452): MigrateCommand->getDbConnection()
+#5 /var/www/framework/cli/commands/MigrateCommand.php(483): MigrateCommand->getMigrationHistory(-1)
+#6 /var/www/framework/cli/commands/MigrateCommand.php(85): MigrateCommand->getNewMigrations()
+#7 [internal function]: MigrateCommand->actionUp(Array)
+#8 /var/www/framework/console/CConsoleCommand.php(173): ReflectionMethod->invokeArgs(Object(MigrateCommand), Array)
+#9 /var/www/framework/console/CConsoleCommandRunner.php(68): CConsoleCommand->run(Array)
+#10 /var/www/framework/console/CConsoleApplication.php(92): CConsoleCommandRunner->run(Array)
+#11 /var/www/framework/base/CApplication.php(162): CConsoleApplication->processRequest()
+#12 /var/www/framework/yiic.php(34): CApplication->run()
+#13 /var/www/domotiga/protected/yiic.php(7): require_once('/var/www/framew...')
+#14 /var/www/domotiga/protected/yiic(4): require_once('/var/www/domoti...')
+#15 {main}
+---
