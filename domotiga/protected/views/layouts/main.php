@@ -186,6 +186,7 @@
         <?php endif; ?>
     <?php endforeach; ?>
 	<div id="footer">
+(c)2013 by Ron Klinkien
 	</div><!-- footer -->
 
 </div><!-- page -->

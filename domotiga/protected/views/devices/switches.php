@@ -2,7 +2,6 @@
 /* @var $this DevicesController */
 /* @var $dataProvider CActiveDataProvider */
 
-global $locations;
 $this->breadcrumbs=array(
 	'Devices',
 );
@@ -18,7 +17,7 @@ function do_xmlrpc($request) {
    }
 }
 
-// get list of all devices
+// get list of switches
 function get_device_list() {
    $request = xmlrpc_encode_request("device.list",null);
    $response = do_xmlrpc($request);
@@ -27,20 +26,21 @@ if (false) {
        trigger_error("xmlrpc: $response[faultString] ($response[faultCode])");
    } else {
       $index=0;
-$locations = array();
       foreach($response AS $item) {
          list($retarr[$index]['id'], $retarr[$index]['deviceicon'], $retarr[$index]['devicename'], $retarr[$index]['devicelocation'], $retarr[$index]['devicevalue'], $retarr[$index]['devicelabel'], $retarr[$index]['devicevalue2'], $retarr[$index]['devicelabel2'], $retarr[$index]['devicevalue3'], $retarr[$index]['devicelabel3'], $retarr[$index]['devicevalue4'], $retarr[$index]['devicelabel4'], $retarr[$index]['devicelastseen'], $retarr[$index]['dimmable'], $retarr[$index]['switchable']) = explode (';;', $item);
-if (strlen($retarr[$index]['devicelocation'])) {
-$locations[$index]['label'] = $retarr[$index]['devicelocation'];
-$locations[$index]['url'] = $retarr[$index]['devicelocation'];
-}
+
          if (strlen($retarr[$index]['devicevalue']) && $retarr[$index]['devicelabel']) { $retarr[$index]['devicevalue'] = $retarr[$index]['devicevalue']. " ".$retarr[$index]['devicelabel']; }
          if (strlen($retarr[$index]['devicevalue2']) && $retarr[$index]['devicelabel2']) { $retarr[$index]['devicevalue2'] = $retarr[$index]['devicevalue2']. " ".$retarr[$index]['devicelabel2']; }
          if (strlen($retarr[$index]['devicevalue3']) && $retarr[$index]['devicelabel3']) { $retarr[$index]['devicevalue3'] = $retarr[$index]['devicevalue3']. " ".$retarr[$index]['devicelabel3']; }
          if (strlen($retarr[$index]['devicevalue4']) && $retarr[$index]['devicelabel4']) { $retarr[$index]['devicevalue4'] = $retarr[$index]['devicevalue4']. " ".$retarr[$index]['devicelabel4']; }
+if ($retarr[$index]['switchable'] == true) {
          $index++;
+}
       }
-//yiibooster tabs, wizards, basic box
+if ($retarr[$index]['switchable'] <> true) {
+ $retarr[$index] = NULL;
+}
+
       if (isset($retarr)) {
          return $retarr;
       } else {
@@ -60,17 +60,10 @@ $this->widget('bootstrap.widgets.TbMenu', array(
     'type'=>'tabs',
     'stacked'=>false,
     'items'=>array(
-        array('label'=>'All', 'url'=>'index', 'active'=>true),
+        array('label'=>'All', 'url'=>'index'),
         array('label'=>'Sensors', 'url'=>'sensors'),
         array('label'=>'Dimmers', 'url'=>'dimmers'),
-        array('label'=>'Switches', 'url'=>'switches'),
-/*
-        array('label'=>'Locations', 'url'=>'#', 'items'=>array(
-           array('label'=>'Basement', 'url'=>'#'),
-           array('label'=>'Garden', 'url'=>'#'),
-           array('label'=>'Kitchen', 'url'=>'#'),
-        )),
-*/
+        array('label'=>'Switches', 'url'=>'switches', 'active'=>true),
     ),
 ));
 
