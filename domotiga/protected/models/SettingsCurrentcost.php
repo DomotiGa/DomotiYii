@@ -5,10 +5,10 @@
  *
  * The followings are the available columns in table 'settings_currentcost':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $serialport
  * @property string $baudrate
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsCurrentcost extends CActiveRecord
 {
@@ -39,8 +39,10 @@ class SettingsCurrentcost extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, debug', 'numerical', 'integerOnly'=>true),
-			array('serialport, baudrate', 'length', 'max'=>32),
+			array('id', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('baudrate', 'length', 'max'=>32),
+			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, serialport, baudrate, debug', 'safe', 'on'=>'search'),

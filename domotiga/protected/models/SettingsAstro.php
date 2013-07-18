@@ -11,10 +11,10 @@
  * @property string $twilight
  * @property string $seasons
  * @property string $seasonstarts
- * @property integer $debug
+ * @property boolean $debug
  * @property string $temperature
  * @property string $currency
- * @property integer $dst
+ * @property boolean $dst
  */
 class SettingsAstro extends CActiveRecord
 {
@@ -45,7 +45,8 @@ class SettingsAstro extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, timezone, debug, dst', 'numerical', 'integerOnly'=>true),
+			array('id, timezone', 'numerical', 'integerOnly'=>true),
+			array('debug, dst', 'boolean', 'trueValue'=>-1),
 			array('latitude, longitude, twilight, seasons, seasonstarts', 'length', 'max'=>32),
 			array('temperature, currency', 'length', 'max'=>6),
 			// The following rule is used by search().
@@ -77,7 +78,7 @@ class SettingsAstro extends CActiveRecord
 			'timezone' => 'Timezone',
 			'twilight' => 'Twilight',
 			'seasons' => 'Seasons',
-			'seasonstarts' => 'Seasonstarts',
+			'seasonstarts' => 'Season starts',
 			'debug' => 'Debug',
 			'temperature' => 'Temperature',
 			'currency' => 'Currency',

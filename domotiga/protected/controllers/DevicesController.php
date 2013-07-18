@@ -2,6 +2,22 @@
 
 class DevicesController extends Controller
 {
+
+public function renderButtons() {
+   $this->widget('bootstrap.widgets.TbButtonGroup', array(
+    'size'=>'large',
+    'type'=>'inverse', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+    'buttons'=>array(
+       array('label'=>'Inverse', 'items'=>array(
+       array('label'=>'Action', 'url'=>'#'),
+       array('label'=>'Another action', 'url'=>'#'),
+       array('label'=>'Something else', 'url'=>'#'),
+       '---',
+       array('label'=>'Separate link', 'url'=>'#'),
+    )),
+    ),
+));
+}
 	public function actionIndex()
 	{
     		$model = Devices::model();
@@ -22,21 +38,7 @@ class DevicesController extends Controller
     		$model = Devices::model();
 		$this->render('sensors', array('model'=>$model));
 	}
-/*
-	public function getAllDevices()
-	{
-		$criteria=new CDbCriteria;
-		$criteria->condition = "enabled=true";
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-	public function actionView()
-	{
-    		$model = Devices::model()->findByPk(1);
-		$this->render('view', array('model'=>$model));
-	}
-*/
+
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()

@@ -5,12 +5,12 @@
  *
  * The followings are the available columns in table 'settings_digitemp':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $command
  * @property string $config
  * @property integer $polltime
  * @property integer $readtime
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsDigitemp extends CActiveRecord
 {
@@ -41,7 +41,8 @@ class SettingsDigitemp extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, polltime, readtime, debug', 'numerical', 'integerOnly'=>true),
+			array('id, polltime, readtime', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('command, config', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

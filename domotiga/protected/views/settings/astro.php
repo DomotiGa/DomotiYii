@@ -5,49 +5,28 @@
 ?>
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'settings-astro-astro-form',
-	'type'=>'horizontal',
+        'id'=>'login-form',
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
 <legend>Astro and Location Settings</legend>
-		<?php echo $form->errorSummary($model); ?>
 
-		<?php echo $form->textFieldRow($model,'timezone'); ?>
-		<?php echo $form->error($model,'timezone'); ?>
-
-		<?php echo $form->checkBoxRow($model,'dst'); ?>
-		<?php echo $form->error($model,'dst'); ?>
-
-		<?php echo $form->textFieldRow($model,'latitude'); ?>
-		<?php echo $form->error($model,'latitude'); ?>
-
-		<?php echo $form->textFieldRow($model,'longitude'); ?>
-		<?php echo $form->error($model,'longitude'); ?>
-
-		<?php echo $form->dropDownListRow($model,'twilight', array('nautical' => 'nautical', 'civil' => 'civil', 'astronomical' => 'astronomical')); ?>
-		<?php echo $form->error($model,'twilight'); ?>
-
-		<?php echo $form->textFieldRow($model,'seasons'); ?>
-		<?php echo $form->error($model,'seasons'); ?>
-
-		<?php echo $form->textFieldRow($model,'seasonstarts'); ?>
-		<?php echo $form->error($model,'seasonstarts'); ?>
-
-		<?php echo $form->dropDownListRow($model,'temperature', array('°C' => '°C', '°F' => '°F')); ?>
-		<?php echo $form->error($model,'temperature'); ?>
-
-		<?php echo $form->dropDownListRow($model,'currency', array('€' => '€', '$' => '$')); ?>
-		<?php echo $form->error($model,'currency'); ?>
-
-		<?php echo $form->checkBoxRow($model,'debug'); ?>
-		<?php echo $form->error($model,'debug'); ?>
+		<?php echo $form->textFieldControlGroup($model,'timezone'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'dst', array('value'=>-1)); ?>
+		<?php echo $form->textFieldControlGroup($model,'latitude'); ?>
+		<?php echo $form->textFieldControlGroup($model,'longitude'); ?>
+		<?php echo $form->dropDownListControlGroup($model,'twilight', array('nautical' => 'nautical', 'civil' => 'civil', 'astronomical' => 'astronomical')); ?>
+		<?php echo $form->textFieldControlGroup($model,'seasons'); ?>
+		<?php echo $form->textFieldControlGroup($model,'seasonstarts'); ?>
+		<?php echo $form->dropDownListControlGroup($model,'temperature', array('°C' => '°C', '°F' => '°F')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'currency', array('€' => '€', '$' => '$')); ?>
+		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 
 </fieldset>
 
-<div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Submit')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Reset')); ?>
-</div>
-
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('Reset'),
+)); ?>
 <?php $this->endWidget(); ?>

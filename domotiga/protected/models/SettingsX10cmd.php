@@ -5,12 +5,12 @@
  *
  * The followings are the available columns in table 'settings_x10cmd':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $command
  * @property integer $monitor
  * @property integer $globalx10
  * @property integer $type
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsX10cmd extends CActiveRecord
 {
@@ -41,7 +41,8 @@ class SettingsX10cmd extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, monitor, globalx10, type, debug', 'numerical', 'integerOnly'=>true),
+			array('id, type', 'numerical', 'integerOnly'=>true),
+			array('enabled, monitor, globalx10, debug', 'boolean', 'trueValue'=>-1),
 			array('command', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -70,7 +71,7 @@ class SettingsX10cmd extends CActiveRecord
 			'enabled' => 'Enabled',
 			'command' => 'Command',
 			'monitor' => 'Monitor',
-			'globalx10' => 'Globalx10',
+			'globalx10' => 'Global X10',
 			'type' => 'Type',
 			'debug' => 'Debug',
 		);

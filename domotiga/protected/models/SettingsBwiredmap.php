@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'settings_bwiredmap':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $website
  * @property string $websitepicurl
  * @property string $title
@@ -16,7 +16,7 @@
  * @property string $gpslat
  * @property string $gpslong
  * @property integer $pushtime
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsBwiredmap extends CActiveRecord
 {
@@ -47,7 +47,8 @@ class SettingsBwiredmap extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, pushtime, debug', 'numerical', 'integerOnly'=>true),
+			array('id, pushtime', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('website, websitepicurl, title, city, user, password, screenname, gpslat, gpslong', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -75,14 +76,14 @@ class SettingsBwiredmap extends CActiveRecord
 			'id' => 'ID',
 			'enabled' => 'Enabled',
 			'website' => 'Website',
-			'websitepicurl' => 'Websitepicurl',
+			'websitepicurl' => 'Website picurl',
 			'title' => 'Title',
 			'city' => 'City',
 			'user' => 'User',
 			'password' => 'Password',
 			'screenname' => 'Screenname',
-			'gpslat' => 'Gpslat',
-			'gpslong' => 'Gpslong',
+			'gpslat' => 'GPS latitude',
+			'gpslong' => 'GPS longitude',
 			'pushtime' => 'Pushtime',
 			'debug' => 'Debug',
 		);

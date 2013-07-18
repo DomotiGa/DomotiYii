@@ -5,40 +5,25 @@
 ?>
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'settings-callerid-callerid-form',
-	'type'=>'horizontal',
+        'id'=>'settings-callerid-form',
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
 <legend>CallerID Settings</legend>
-		<?php echo $form->errorSummary($model); ?>
 
-		<?php echo $form->checkBoxRow($model,'enabled'); ?>
-		<?php echo $form->error($model,'enabled'); ?>
-
-		<?php echo $form->textFieldRow($model,'countrycode'); ?>
-		<?php echo $form->error($model,'countrycode'); ?>
-
-		<?php echo $form->textFieldRow($model,'areacode'); ?>
-		<?php echo $form->error($model,'areacode'); ?>
-
-		<?php echo $form->textFieldRow($model,'prefixnational'); ?>
-		<?php echo $form->error($model,'prefixnational'); ?>
-
-		<?php echo $form->textFieldRow($model,'prefixinternational'); ?>
-		<?php echo $form->error($model,'prefixinternational'); ?>
-
-		<?php echo $form->checkBoxRow($model,'autocreatecontacts'); ?>
-		<?php echo $form->error($model,'autocreatecontacts'); ?>
-
-		<?php echo $form->checkBoxRow($model,'debug'); ?>
-		<?php echo $form->error($model,'debug'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
+		<?php echo $form->numberFieldControlGroup($model,'countrycode'); ?>
+		<?php echo $form->numberFieldControlGroup($model,'areacode'); ?>
+		<?php echo $form->numberFieldControlGroup($model,'prefixnational'); ?>
+		<?php echo $form->numberFieldControlGroup($model,'prefixinternational'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'autocreatecontacts', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 
 </fieldset>
 
-<div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Submit')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Reset')); ?>
-</div>
-
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('Reset'),
+)); ?>
 <?php $this->endWidget(); ?>

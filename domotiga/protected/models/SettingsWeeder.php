@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table 'settings_weeder':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $serialport
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsWeeder extends CActiveRecord
 {
@@ -38,8 +38,9 @@ class SettingsWeeder extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, debug', 'numerical', 'integerOnly'=>true),
-			array('serialport', 'length', 'max'=>32),
+			array('id', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, serialport, debug', 'safe', 'on'=>'search'),

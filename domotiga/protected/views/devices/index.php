@@ -55,13 +55,12 @@ $deviceitems = new CArrayDataProvider(get_device_list(), array(
             'pageVar' => 'page'
         ),
 ));
-
-$this->widget('bootstrap.widgets.TbMenu', array(
+$this->widget('bootstrap.widgets.TbNav', array(
     'type'=>'tabs',
     'stacked'=>false,
     'items'=>array(
         array('label'=>'All', 'url'=>'index', 'active'=>true),
-        array('label'=>'Sensors', 'url'=>'sensors'),
+        array('label'=>'Sensors', 'url' => 'sensors'),
         array('label'=>'Dimmers', 'url'=>'dimmers'),
         array('label'=>'Switches', 'url'=>'switches'),
 /*
@@ -74,7 +73,9 @@ $this->widget('bootstrap.widgets.TbMenu', array(
     ),
 ));
 
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('application.extensions.LiveTbGridView.RefreshGridView', array(
+    'id'=>'all-devices-grid',
+    'refreshTime'=>Yii::app()->params['refreshDevices'], // 5 second refresh
     'type'=>'striped condensed',
     'dataProvider'=>$deviceitems,
     'template'=>'{items}{pager}',
@@ -87,5 +88,5 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array('name'=>'devicevalue4', 'header'=>'Value4', 'htmlOptions'=>array('width'=>'40')),
         array('name'=>'devicelocation', 'header'=>'Location', 'htmlOptions'=>array('width'=>'120')),
         array('name'=>'devicelastseen', 'header'=>'Last Seen', 'htmlOptions'=>array('width'=>'120')),
-	),
+    ),
 )); ?>

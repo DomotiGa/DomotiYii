@@ -5,10 +5,10 @@
  *
  * The followings are the available columns in table 'settings_temp08':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $serialport
  * @property integer $baudrate
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsTemp08 extends CActiveRecord
 {
@@ -39,8 +39,9 @@ class SettingsTemp08 extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, baudrate, debug', 'numerical', 'integerOnly'=>true),
-			array('serialport', 'length', 'max'=>32),
+			array('id, baudrate', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, serialport, baudrate, debug', 'safe', 'on'=>'search'),

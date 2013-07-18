@@ -6,13 +6,13 @@
  * The followings are the available columns in table 'settings_sms':
  * @property integer $id
  * @property integer $polltime
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $serialport
  * @property string $baudrate
  * @property string $pin
  * @property string $servicecentre
  * @property string $contact
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsSms extends CActiveRecord
 {
@@ -43,8 +43,10 @@ class SettingsSms extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, polltime, enabled, debug', 'numerical', 'integerOnly'=>true),
-			array('serialport, baudrate, pin, servicecentre, contact', 'length', 'max'=>32),
+			array('id, polltime', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('baudrate, pin, servicecentre, contact', 'length', 'max'=>32),
+			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, polltime, enabled, serialport, baudrate, pin, servicecentre, contact, debug', 'safe', 'on'=>'search'),
@@ -73,8 +75,8 @@ class SettingsSms extends CActiveRecord
 			'enabled' => 'Enabled',
 			'serialport' => 'Serialport',
 			'baudrate' => 'Baudrate',
-			'pin' => 'Pin',
-			'servicecentre' => 'Servicecentre',
+			'pin' => 'Pin code',
+			'servicecentre' => 'Service centre',
 			'contact' => 'Contact',
 			'debug' => 'Debug',
 		);

@@ -1,20 +1,22 @@
 <?php
-// Define a path alias for the Bootstrap extension as it's used internally.
-// In this example we assume that you unzipped the extension under protected/extensions.
-Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
-
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'DomotiGa',
+	// path aliases
+	'aliases'=>array(
+		'bootstrap'=> realpath(__DIR__).'/../extensions/bootstrap',
+	),
 	// preloading 'log' component
-	'preload'=>array('log'),
-
+	'preload'=>array(
+		'log'
+	),
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'bootstrap.helpers.TbHtml',
 	),
 	'modules'=>array(
 		'gii'=>array(
@@ -67,7 +69,7 @@ return array(
 			),
 		),
 		'bootstrap'=>array(
-			'class'=>'bootstrap.components.Bootstrap',
+			'class'=>'bootstrap.components.TbApi',
 		),
 	),
 
@@ -77,5 +79,6 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'support@domotiga.nl',
 		'xmlrpcHost'=>'http://localhost:9009',
+		'refreshDevices'=>'5000', // 5 second refresh
 	),
 );

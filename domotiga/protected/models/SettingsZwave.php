@@ -5,19 +5,18 @@
  *
  * The followings are the available columns in table 'settings_zwave':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $serialport
  * @property string $baudrate
- * @property integer $reloadnodes
- * @property integer $useozw
+ * @property boolean $reloadnodes
  * @property integer $polltime
- * @property integer $debug
+ * @property boolean $debug
  * @property string $polltimesleeping
- * @property integer $enablepollsleeping
- * @property integer $enablepolllistening
+ * @property boolean $enablepollsleeping
+ * @property boolean $enablepolllistening
  * @property string $polltimelistening
- * @property string $updateneighbor
- * @property integer $enableupdateneighbor
+ * @property boolean $updateneighbor
+ * @property boolean $enableupdateneighbor
  */
 class SettingsZwave extends CActiveRecord
 {
@@ -48,12 +47,14 @@ class SettingsZwave extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, reloadnodes, useozw, polltime, debug, enablepollsleeping, enablepolllistening, enableupdateneighbor', 'numerical', 'integerOnly'=>true),
-			array('serialport, baudrate', 'length', 'max'=>32),
+			array('id, polltime', 'numerical', 'integerOnly'=>true),
+			array('reloadnodes, enablepollsleeping, enablepolllistening, enableupdateneighbor, enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('baudrate', 'length', 'max'=>32),
+			array('serialport', 'length', 'max'=>128),
 			array('polltimesleeping, polltimelistening, updateneighbor', 'length', 'max'=>16),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enabled, serialport, baudrate, reloadnodes, useozw, polltime, debug, polltimesleeping, enablepollsleeping, enablepolllistening, polltimelistening, updateneighbor, enableupdateneighbor', 'safe', 'on'=>'search'),
+			array('id, enabled, serialport, baudrate, reloadnodes, polltime, debug, polltimesleeping, enablepollsleeping, enablepolllistening, polltimelistening, updateneighbor, enableupdateneighbor', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,16 +79,15 @@ class SettingsZwave extends CActiveRecord
 			'enabled' => 'Enabled',
 			'serialport' => 'Serialport',
 			'baudrate' => 'Baudrate',
-			'reloadnodes' => 'Reloadnodes',
-			'useozw' => 'Useozw',
+			'reloadnodes' => 'Reload nodes',
 			'polltime' => 'Polltime',
 			'debug' => 'Debug',
-			'polltimesleeping' => 'Polltimesleeping',
-			'enablepollsleeping' => 'Enablepollsleeping',
-			'enablepolllistening' => 'Enablepolllistening',
-			'polltimelistening' => 'Polltimelistening',
-			'updateneighbor' => 'Updateneighbor',
-			'enableupdateneighbor' => 'Enableupdateneighbor',
+			'polltimesleeping' => 'Polltime sleeping',
+			'enablepollsleeping' => 'Enable poll sleeping',
+			'enablepolllistening' => 'Enable poll listening',
+			'polltimelistening' => 'Polltime listening',
+			'updateneighbor' => 'Update neighbor',
+			'enableupdateneighbor' => 'Enable update neighbor',
 		);
 	}
 
@@ -107,7 +107,6 @@ class SettingsZwave extends CActiveRecord
 		$criteria->compare('serialport',$this->serialport,true);
 		$criteria->compare('baudrate',$this->baudrate,true);
 		$criteria->compare('reloadnodes',$this->reloadnodes);
-		$criteria->compare('useozw',$this->useozw);
 		$criteria->compare('polltime',$this->polltime);
 		$criteria->compare('debug',$this->debug);
 		$criteria->compare('polltimesleeping',$this->polltimesleeping,true);

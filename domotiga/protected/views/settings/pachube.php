@@ -5,34 +5,23 @@
 ?>
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'settings-pachube-pachube-form',
-	'type'=>'horizontal',
+        'id'=>'login-form',
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
-<legend>Pachube Settings</legend>
-		<?php echo $form->errorSummary($model); ?>
+<legend>Pachube/COSM Settings</legend>
 
-		<?php echo $form->checkBoxRow($model,'enabled'); ?>
-		<?php echo $form->error($model,'enabled'); ?>
-
-		<?php echo $form->textFieldRow($model,'feed'); ?>
-		<?php echo $form->error($model,'feed'); ?>
-
-		<?php echo $form->textFieldRow($model,'pushtime'); ?>
-		<?php echo $form->error($model,'pushtime'); ?>
-
-		<?php echo $form->textFieldRow($model,'apikey'); ?>
-		<?php echo $form->error($model,'apikey'); ?>
-
-		<?php echo $form->checkBoxRow($model,'debug'); ?>
-		<?php echo $form->error($model,'debug'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
+		<?php echo $form->numberFieldControlGroup($model,'feed'); ?>
+		<?php echo $form->numberFieldControlGroup($model,'pushtime'); ?>
+		<?php echo $form->textFieldControlGroup($model,'apikey',array('class'=>'span7')); ?>
+		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 
 </fieldset>
 
-<div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Submit')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Reset')); ?>
-</div>
-
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('Reset'),
+)); ?>
 <?php $this->endWidget(); ?>

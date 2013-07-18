@@ -5,12 +5,12 @@
  *
  * The followings are the available columns in table 'settings_weatherbug':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $weatherbugid
  * @property string $city
  * @property string $citycode
  * @property string $countryname
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsWeatherbug extends CActiveRecord
 {
@@ -41,7 +41,8 @@ class SettingsWeatherbug extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, debug', 'numerical', 'integerOnly'=>true),
+			array('id', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('weatherbugid, citycode, countryname', 'length', 'max'=>32),
 			array('city', 'length', 'max'=>128),
 			// The following rule is used by search().
@@ -69,10 +70,10 @@ class SettingsWeatherbug extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'weatherbugid' => 'Weatherbugid',
+			'weatherbugid' => 'Weatherbug id',
 			'city' => 'City',
-			'citycode' => 'Citycode',
-			'countryname' => 'Countryname',
+			'citycode' => 'City code',
+			'countryname' => 'Country name',
 			'debug' => 'Debug',
 		);
 	}

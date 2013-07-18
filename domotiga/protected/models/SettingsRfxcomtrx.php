@@ -5,17 +5,17 @@
  *
  * The followings are the available columns in table 'settings_rfxcomtrx':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $tcphost
  * @property integer $tcpport
  * @property string $type
  * @property string $serialport
  * @property string $baudrate
- * @property integer $debug
- * @property integer $relayenabled
+ * @property boolean $debug
+ * @property boolean $relayenabled
  * @property integer $relayport
- * @property integer $globalx10
- * @property integer $oldaddrfmt
+ * @property boolean $globalx10
+ * @property boolean $oldaddrfmt
  */
 class SettingsRfxcomtrx extends CActiveRecord
 {
@@ -46,8 +46,10 @@ class SettingsRfxcomtrx extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, tcpport, debug, relayenabled, relayport, globalx10, oldaddrfmt', 'numerical', 'integerOnly'=>true),
-			array('tcphost, type, serialport, baudrate', 'length', 'max'=>32),
+			array('id, tcpport, relayport', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug, relayenabled, globalx10, oldaddrfmt', 'boolean', 'trueValue'=>-1),
+			array('tcphost, type, baudrate', 'length', 'max'=>32),
+			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, tcphost, tcpport, type, serialport, baudrate, debug, relayenabled, relayport, globalx10, oldaddrfmt', 'safe', 'on'=>'search'),
@@ -79,10 +81,10 @@ class SettingsRfxcomtrx extends CActiveRecord
 			'serialport' => 'Serialport',
 			'baudrate' => 'Baudrate',
 			'debug' => 'Debug',
-			'relayenabled' => 'Relayenabled',
+			'relayenabled' => 'Relay enabled',
 			'relayport' => 'Relayport',
-			'globalx10' => 'Globalx10',
-			'oldaddrfmt' => 'Oldaddrfmt',
+			'globalx10' => 'Global x10',
+			'oldaddrfmt' => 'Old address format',
 		);
 	}
 

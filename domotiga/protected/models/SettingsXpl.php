@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table 'settings_xpl':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property integer $heartbeat
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsXpl extends CActiveRecord
 {
@@ -38,7 +38,8 @@ class SettingsXpl extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, heartbeat, debug', 'numerical', 'integerOnly'=>true),
+			array('id, heartbeat', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, heartbeat, debug', 'safe', 'on'=>'search'),

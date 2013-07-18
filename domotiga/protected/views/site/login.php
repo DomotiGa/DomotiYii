@@ -11,24 +11,22 @@ $this->breadcrumbs=array(
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id'=>'login-form',
-        'type'=>'horizontal',
+	'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
 <legend>Login</legend>
 
-		<?php echo $form->textFieldRow($model,'username'); ?>
-		<?php echo $form->error($model,'username'); ?>
+<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-		<?php echo $form->passwordFieldRow($model,'password'); ?>
-
-		<?php echo $form->checkBoxRow($model,'rememberMe'); ?>
-		<?php echo $form->error($model,'rememberMe'); ?>
+		<?php echo $form->textFieldControlGroup($model,'username'); ?>
+		<?php echo $form->passwordFieldControlGroup($model,'password'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'rememberMe'); ?>
 
 </fieldset>
 
-<div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Login')); ?>
-</div>
-
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('Reset'),
+)); ?>
 <?php $this->endWidget(); ?>

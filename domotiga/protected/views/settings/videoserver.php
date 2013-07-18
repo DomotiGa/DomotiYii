@@ -5,49 +5,28 @@
 ?>
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'settings-videoserver-videoserver-form',
-	'type'=>'horizontal',
+        'id'=>'settings-videoserver-form',
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
 <legend>IP9100 Videoserver Settings</legend>
-		<?php echo $form->errorSummary($model); ?>
 
-		<?php echo $form->checkBoxRow($model,'enabled'); ?>
-		<?php echo $form->error($model,'enabled'); ?>
-
-		<?php echo $form->textFieldRow($model,'tcphost'); ?>
-		<?php echo $form->error($model,'tcphost'); ?>
-
-		<?php echo $form->textFieldRow($model,'tcpport'); ?>
-		<?php echo $form->error($model,'tcpport'); ?>
-
-		<?php echo $form->textFieldRow($model,'user'); ?>
-		<?php echo $form->error($model,'user'); ?>
-
-		<?php echo $form->passwordFieldRow($model,'password'); ?>
-		<?php echo $form->error($model,'password'); ?>
-
-		<?php echo $form->textFieldRow($model,'channel1'); ?>
-		<?php echo $form->error($model,'channel1'); ?>
-
-		<?php echo $form->textFieldRow($model,'channel2'); ?>
-		<?php echo $form->error($model,'channel2'); ?>
-
-		<?php echo $form->textFieldRow($model,'channel3'); ?>
-		<?php echo $form->error($model,'channel3'); ?>
-
-		<?php echo $form->textFieldRow($model,'channel4'); ?>
-		<?php echo $form->error($model,'channel4'); ?>
-
-		<?php echo $form->checkBoxRow($model,'debug'); ?>
-		<?php echo $form->error($model,'debug'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
+		<?php echo $form->textFieldControlGroup($model,'tcphost'); ?>
+		<?php echo $form->numberFieldControlGroup($model,'tcpport'); ?>
+		<?php echo $form->textFieldControlGroup($model,'user'); ?>
+		<?php echo $form->passwordFieldControlGroup($model,'password'); ?>
+		<?php echo $form->textFieldControlGroup($model,'channel1'); ?>
+		<?php echo $form->textFieldControlGroup($model,'channel2'); ?>
+		<?php echo $form->textFieldControlGroup($model,'channel3'); ?>
+		<?php echo $form->textFieldControlGroup($model,'channel4'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 
 </fieldset>
 
-<div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Submit')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Reset')); ?>
-</div>
-
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('Reset'),
+)); ?>
 <?php $this->endWidget(); ?>

@@ -5,12 +5,12 @@
  *
  * The followings are the available columns in table 'settings_voicetext':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $engine
  * @property string $prefixcmd
  * @property string $voicesmale
  * @property string $voicesfemale
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsVoicetext extends CActiveRecord
 {
@@ -41,7 +41,8 @@ class SettingsVoicetext extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, debug', 'numerical', 'integerOnly'=>true),
+			array('id', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('engine, prefixcmd, voicesmale, voicesfemale', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -69,9 +70,9 @@ class SettingsVoicetext extends CActiveRecord
 			'id' => 'ID',
 			'enabled' => 'Enabled',
 			'engine' => 'Engine',
-			'prefixcmd' => 'Prefixcmd',
-			'voicesmale' => 'Voicesmale',
-			'voicesfemale' => 'Voicesfemale',
+			'prefixcmd' => 'Prefix cmd',
+			'voicesmale' => 'Voices male',
+			'voicesfemale' => 'Voices female',
 			'debug' => 'Debug',
 		);
 	}

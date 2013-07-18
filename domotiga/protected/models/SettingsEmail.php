@@ -5,12 +5,12 @@
  *
  * The followings are the available columns in table 'settings_email':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $fromaddress
  * @property string $toaddress
  * @property string $smtpserver
  * @property integer $smtpport
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsEmail extends CActiveRecord
 {
@@ -41,7 +41,8 @@ class SettingsEmail extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, smtpport, debug', 'numerical', 'integerOnly'=>true),
+			array('id, smtpport', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('fromaddress, toaddress, smtpserver', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -68,10 +69,10 @@ class SettingsEmail extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'fromaddress' => 'Fromaddress',
-			'toaddress' => 'Toaddress',
-			'smtpserver' => 'Smtpserver',
-			'smtpport' => 'Smtpport',
+			'fromaddress' => 'From address',
+			'toaddress' => 'To address',
+			'smtpserver' => 'SMTP server',
+			'smtpport' => 'SMTP port',
 			'debug' => 'Debug',
 		);
 	}

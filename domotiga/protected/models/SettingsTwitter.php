@@ -5,11 +5,11 @@
  *
  * The followings are the available columns in table 'settings_twitter':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $username
  * @property string $password
  * @property integer $sendtimestamp
- * @property integer $debug
+ * @property boolean $boolean
  */
 class SettingsTwitter extends CActiveRecord
 {
@@ -40,7 +40,8 @@ class SettingsTwitter extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, sendtimestamp, debug', 'numerical', 'integerOnly'=>true),
+			array('id, sendtimestamp', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('username, password', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -69,7 +70,7 @@ class SettingsTwitter extends CActiveRecord
 			'enabled' => 'Enabled',
 			'username' => 'Username',
 			'password' => 'Password',
-			'sendtimestamp' => 'Sendtimestamp',
+			'sendtimestamp' => 'Send timestamp',
 			'debug' => 'Debug',
 		);
 	}

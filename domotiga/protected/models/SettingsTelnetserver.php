@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table 'settings_telnetserver':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property integer $telnetport
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsTelnetserver extends CActiveRecord
 {
@@ -38,7 +38,8 @@ class SettingsTelnetserver extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, telnetport, debug', 'numerical', 'integerOnly'=>true),
+			array('id, telnetport', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, telnetport, debug', 'safe', 'on'=>'search'),
@@ -64,7 +65,7 @@ class SettingsTelnetserver extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'telnetport' => 'Telnetport',
+			'telnetport' => 'Telnet port',
 			'debug' => 'Debug',
 		);
 	}

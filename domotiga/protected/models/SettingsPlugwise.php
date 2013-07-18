@@ -5,11 +5,10 @@
  *
  * The followings are the available columns in table 'settings_plugwise':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $serialport
  * @property integer $polltime
- * @property integer $firmware
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsPlugwise extends CActiveRecord
 {
@@ -40,11 +39,12 @@ class SettingsPlugwise extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, polltime, firmware, debug', 'numerical', 'integerOnly'=>true),
-			array('serialport', 'length', 'max'=>32),
+			array('id, polltime', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enabled, serialport, polltime, firmware, debug', 'safe', 'on'=>'search'),
+			array('id, enabled, serialport, polltime, debug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,7 +69,6 @@ class SettingsPlugwise extends CActiveRecord
 			'enabled' => 'Enabled',
 			'serialport' => 'Serialport',
 			'polltime' => 'Polltime',
-			'firmware' => 'Firmware',
 			'debug' => 'Debug',
 		);
 	}
@@ -89,7 +88,6 @@ class SettingsPlugwise extends CActiveRecord
 		$criteria->compare('enabled',$this->enabled);
 		$criteria->compare('serialport',$this->serialport,true);
 		$criteria->compare('polltime',$this->polltime);
-		$criteria->compare('firmware',$this->firmware);
 		$criteria->compare('debug',$this->debug);
 
 		return new CActiveDataProvider($this, array(

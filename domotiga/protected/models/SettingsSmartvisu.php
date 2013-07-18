@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table 'settings_smartvisu':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property integer $tcpport
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsSmartvisu extends CActiveRecord
 {
@@ -38,7 +38,8 @@ class SettingsSmartvisu extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, tcpport, debug', 'numerical', 'integerOnly'=>true),
+			array('id, tcpport', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, tcpport, debug', 'safe', 'on'=>'search'),

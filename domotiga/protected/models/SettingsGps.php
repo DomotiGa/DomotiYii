@@ -5,11 +5,11 @@
  *
  * The followings are the available columns in table 'settings_gps':
  * @property integer $id
- * @property integer $polltime
+ * @property boolean $polltime
  * @property integer $enabled
  * @property string $serialport
  * @property integer $baudrate
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsGps extends CActiveRecord
 {
@@ -40,8 +40,9 @@ class SettingsGps extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, polltime, enabled, baudrate, debug', 'numerical', 'integerOnly'=>true),
-			array('serialport', 'length', 'max'=>32),
+			array('id, polltime, baudrate', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+                        array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, polltime, enabled, serialport, baudrate, debug', 'safe', 'on'=>'search'),

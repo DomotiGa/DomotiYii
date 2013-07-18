@@ -5,11 +5,11 @@
  *
  * The followings are the available columns in table 'settings_oww':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $tcphost
  * @property integer $tcpport
  * @property string $servertype
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsOww extends CActiveRecord
 {
@@ -40,7 +40,8 @@ class SettingsOww extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, tcpport, debug', 'numerical', 'integerOnly'=>true),
+			array('id, tcpport', 'numerical', 'integerOnly'=>true),
+			array('enabled debug', 'boolean', 'trueValue'=>-1),
 			array('tcphost, servertype', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

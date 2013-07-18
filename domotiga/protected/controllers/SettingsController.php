@@ -3,6 +3,74 @@
 class SettingsController extends Controller
 {
 
+public function actionKmtronicudp()
+{
+    $model = SettingsKmtronicudp::model()->findByPk(1);
+
+    if(isset($_POST['SettingsKmtronicudp']))
+    {
+        $model->attributes=$_POST['SettingsKmtronicudp'];
+        if($model->validate())
+        {
+            // form inputs are valid, do something here
+            $model->save();
+            $this->do_xmlrpc("module.restart","kmtronicudp");
+        }
+    }
+    $this->render('kmtronicudp',array('model'=>$model));
+}
+
+public function actionVisonic()
+{
+    $model = SettingsVisonic::model()->findByPk(1);
+
+    if(isset($_POST['SettingsVisonic']))
+    {
+        $model->attributes=$_POST['SettingsVisonic'];
+        if($model->validate())
+        {
+            // form inputs are valid, do something here
+            $model->save();
+            $this->do_xmlrpc("module.restart","visonic");
+        }
+    }
+    $this->render('visonic',array('model'=>$model));
+}
+
+public function actionPvoutput()
+{
+    $model = SettingsPvoutput::model()->findByPk(1);
+
+    if(isset($_POST['SettingsPvoutput']))
+    {
+        $model->attributes=$_POST['SettingsPvoutput'];
+        if($model->validate())
+        {
+            // form inputs are valid, do something here
+            $model->save();
+            $this->do_xmlrpc("module.restart","pvoutput");
+        }
+    }
+    $this->render('pvoutput',array('model'=>$model));
+}
+
+public function actionMqtt()
+{
+    $model = SettingsMqtt::model()->findByPk(1);
+
+    if(isset($_POST['SettingsMqtt']))
+    {
+        $model->attributes=$_POST['SettingsMqtt'];
+        if($model->validate())
+        {
+            // form inputs are valid, do something here
+           $model->save();
+	   $this->do_xmlrpc("module.restart","mqtt");
+        }
+    }
+    $this->render('mqtt',array('model'=>$model));
+}
+
 public function actionSmartvisu()
 {
     $model = SettingsSmartvisu::model()->findByPk(1);
@@ -81,8 +149,7 @@ public function actionMain()
         if($model->validate())
         {
            // form inputs are valid, do something here
-           $model->save();
-	   $this->do_xmlrpc("module.restart","main");
+           $this->do_save($model);
         }
     }
     $this->render('main',array('model'=>$model));
@@ -98,8 +165,7 @@ public function actionCallerid()
         if($model->validate())
         {
             // form inputs are valid, do something here
-           $model->save();
-	   $this->do_xmlrpc("module.restart","callerid");
+  	    $this->do_save($model);
         }
     }
     $this->render('callerid',array('model'=>$model));
@@ -224,23 +290,6 @@ public function actionVoicetext()
     $this->render('voicetext',array('model'=>$model));
 }
 
-public function actionWebserver()
-{
-    $model=SettingsWebserver::model()->findByPk(1);
-
-    if(isset($_POST['SettingsWebserver']))
-    {
-        $model->attributes=$_POST['SettingsWebserver'];
-        if($model->validate())
-        {
-           // form inputs are valid, do something here
-           $model->save();
-           $this->do_xmlrpc("module.restart","webserver");
-        }
-    }
-    $this->render('webserver',array('model'=>$model));
-}
-
 public function actionTelnetserver()
 {
     $model=SettingsTelnetserver::model()->findByPk(1);
@@ -320,7 +369,6 @@ public function actionXmlrpc()
         {
            // form inputs are valid, do something here
            $model->save();
-           $this->do_xmlrpc("module.restart","xmlrpc");
         }
     }
     $this->render('xmlrpc',array('model'=>$model));
@@ -1210,12 +1258,12 @@ public function actionPioneer()
     $this->render('pioneer',array('model'=>$model));
 }
 
-protected function get_result($file) {
+protected function do_save($model) {
 
-    if ( xmlrpc_decode($file) == "1" ) {
-       return "OK";
+    if ( $model->save() === FALSE ) {
+       Yii::app()->user->setFlash('error', "Saving settings... Failed!");
     } else {
-       return "Failed";
+       Yii::app()->user->setFlash('success', "Saving settings... Successful.");
     }
 }
 
@@ -1227,7 +1275,11 @@ protected function do_xmlrpc($procedure, $data = array()) {
     if ( $file === FALSE ) {
        Yii::app()->user->setFlash('error', "Couldn't connect to XML-RPC service on '" . Yii::app()->params['xmlrpcHost'] . "'");
     } else {
-       Yii::app()->user->setFlash('success', "Restarting module '" . ucfirst($data) . "' ... " . $this->get_result($file) );
+       if ( xmlrpc_decode($file) == "1" ) {
+          Yii::app()->user->setFlash('success', "Saving settings, restarting module '" . ucfirst($data) . "'... Successful.");
+       } else {
+          Yii::app()->user->setFlash('error', "Saving settings, restarting module '" . ucfirst($data) . "'... Failed!");
+       }
     }
   }
 

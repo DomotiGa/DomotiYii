@@ -5,55 +5,30 @@
 ?>
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'settings-bwiredmap-bwiredmap-form',
-	'type'=>'horizontal',
+        'id'=>'login-form',
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
 <legend>BwiredMap Settings</legend>
-		<?php echo $form->errorSummary($model); ?>
 
-		<?php echo $form->checkBoxRow($model,'enabled'); ?>
-		<?php echo $form->error($model,'enabled'); ?>
-
-		<?php echo $form->textFieldRow($model,'pushtime'); ?>
-		<?php echo $form->error($model,'pushtime'); ?>
-
-		<?php echo $form->textFieldRow($model,'website'); ?>
-		<?php echo $form->error($model,'website'); ?>
-
-		<?php echo $form->textFieldRow($model,'websitepicurl'); ?>
-		<?php echo $form->error($model,'websitepicurl'); ?>
-
-		<?php echo $form->textFieldRow($model,'title'); ?>
-		<?php echo $form->error($model,'title'); ?>
-
-		<?php echo $form->textFieldRow($model,'city'); ?>
-		<?php echo $form->error($model,'city'); ?>
-
-		<?php echo $form->textFieldRow($model,'user'); ?>
-		<?php echo $form->error($model,'user'); ?>
-
-		<?php echo $form->passwordFieldRow($model,'password'); ?>
-		<?php echo $form->error($model,'password'); ?>
-
-		<?php echo $form->textFieldRow($model,'screenname'); ?>
-		<?php echo $form->error($model,'screenname'); ?>
-
-		<?php echo $form->textFieldRow($model,'gpslat'); ?>
-		<?php echo $form->error($model,'gpslat'); ?>
-
-		<?php echo $form->textFieldRow($model,'gpslong'); ?>
-		<?php echo $form->error($model,'gpslong'); ?>
-
-		<?php echo $form->checkBoxRow($model,'debug'); ?>
-		<?php echo $form->error($model,'debug'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
+		<?php echo $form->numberFieldControlGroup($model,'pushtime'); ?>
+		<?php echo $form->textFieldControlGroup($model,'website'); ?>
+		<?php echo $form->textFieldControlGroup($model,'websitepicurl',array('class'=>'span7')); ?>
+		<?php echo $form->textFieldControlGroup($model,'title'); ?>
+		<?php echo $form->textFieldControlGroup($model,'city'); ?>
+		<?php echo $form->textFieldControlGroup($model,'user'); ?>
+		<?php echo $form->passwordFieldControlGroup($model,'password'); ?>
+		<?php echo $form->textFieldControlGroup($model,'screenname'); ?>
+		<?php echo $form->textFieldControlGroup($model,'gpslat'); ?>
+		<?php echo $form->textFieldControlGroup($model,'gpslong'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 
 </fieldset>
 
-<div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Submit')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Reset')); ?>
-</div>
-
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('Reset'),
+)); ?>
 <?php $this->endWidget(); ?>

@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'settings_nta8130':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $tcphost
  * @property integer $tcpport
  * @property string $type
@@ -15,7 +15,7 @@
  * @property integer $stopbits
  * @property integer $parity
  * @property string $requestline
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsNta8130 extends CActiveRecord
 {
@@ -46,8 +46,10 @@ class SettingsNta8130 extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, tcpport, databits, stopbits, parity, debug', 'numerical', 'integerOnly'=>true),
-			array('tcphost, type, serialport, baudrate, requestline', 'length', 'max'=>32),
+			array('id, tcpport, databits, stopbits, parity', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('tcphost, type, baudrate, requestline', 'length', 'max'=>32),
+			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, tcphost, tcpport, type, serialport, baudrate, databits, stopbits, parity, requestline, debug', 'safe', 'on'=>'search'),

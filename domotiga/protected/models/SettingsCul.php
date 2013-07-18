@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'settings_cul':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $tcphost
  * @property string $tcpport
  * @property string $type
@@ -13,7 +13,7 @@
  * @property string $baudrate
  * @property integer $model
  * @property string $fhtid
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsCul extends CActiveRecord
 {
@@ -44,8 +44,10 @@ class SettingsCul extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, model, debug', 'numerical', 'integerOnly'=>true),
-			array('tcphost, tcpport, type, serialport, baudrate, fhtid', 'length', 'max'=>32),
+			array('id, model', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('tcphost, tcpport, type, baudrate, fhtid', 'length', 'max'=>32),
+			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, tcphost, tcpport, type, serialport, baudrate, model, fhtid, debug', 'safe', 'on'=>'search'),
@@ -77,7 +79,7 @@ class SettingsCul extends CActiveRecord
 			'serialport' => 'Serialport',
 			'baudrate' => 'Baudrate',
 			'model' => 'Model',
-			'fhtid' => 'Fhtid',
+			'fhtid' => 'FHT Id',
 			'debug' => 'Debug',
 		);
 	}

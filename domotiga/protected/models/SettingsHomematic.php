@@ -5,11 +5,10 @@
  *
  * The followings are the available columns in table 'settings_homematic':
  * @property integer $id
- * @property integer $enabled
- * @property integer $debug
+ * @property boolean $enabled
+ * @property boolean $debug
  * @property string $tcphost
  * @property string $hmid
- * @property string $type
  * @property integer $model
  * @property integer $tcpport
  */
@@ -41,9 +40,9 @@ class SettingsHomematic extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('tcpport', 'required'),
-			array('id, enabled, debug, model, tcpport', 'numerical', 'integerOnly'=>true),
-			array('tcphost, hmid, type', 'length', 'max'=>32),
+			array('id, model, tcpport', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('tcphost, hmid', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, debug, tcphost, hmid, type, model, tcpport', 'safe', 'on'=>'search'),
@@ -71,8 +70,7 @@ class SettingsHomematic extends CActiveRecord
 			'enabled' => 'Enabled',
 			'debug' => 'Debug',
 			'tcphost' => 'Tcphost',
-			'hmid' => 'Hmid',
-			'type' => 'Type',
+			'hmid' => 'HmId',
 			'model' => 'Model',
 			'tcpport' => 'Tcpport',
 		);
@@ -94,7 +92,6 @@ class SettingsHomematic extends CActiveRecord
 		$criteria->compare('debug',$this->debug);
 		$criteria->compare('tcphost',$this->tcphost,true);
 		$criteria->compare('hmid',$this->hmid,true);
-		$criteria->compare('type',$this->type,true);
 		$criteria->compare('model',$this->model);
 		$criteria->compare('tcpport',$this->tcpport);
 

@@ -5,8 +5,8 @@
  *
  * The followings are the available columns in table 'settings_sound':
  * @property integer $id
- * @property integer $enabled
- * @property integer $debug
+ * @property boolean $enabled
+ * @property boolean $debug
  * @property integer $volume
  */
 class SettingsSound extends CActiveRecord
@@ -38,7 +38,8 @@ class SettingsSound extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, debug, volume', 'numerical', 'integerOnly'=>true),
+			array('id, volume', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, debug, volume', 'safe', 'on'=>'search'),

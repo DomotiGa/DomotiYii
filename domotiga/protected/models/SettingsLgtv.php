@@ -5,13 +5,13 @@
  *
  * The followings are the available columns in table 'settings_lgtv':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $tcphost
  * @property integer $tcpport
  * @property string $type
  * @property string $serialport
  * @property string $baudrate
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsLgtv extends CActiveRecord
 {
@@ -42,8 +42,10 @@ class SettingsLgtv extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, tcpport, debug', 'numerical', 'integerOnly'=>true),
-			array('tcphost, type, serialport, baudrate', 'length', 'max'=>32),
+			array('id, tcpport', 'numerical', 'integerOnly'=>true),
+			array('enabled debug', 'boolean', 'trueValue'=>-1),
+			array('tcphost, type, baudrate', 'length', 'max'=>32),
+			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, tcphost, tcpport, type, serialport, baudrate, debug', 'safe', 'on'=>'search'),

@@ -5,11 +5,11 @@
  *
  * The followings are the available columns in table 'settings_glatitude':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property integer $rangetype
  * @property integer $rangevalue
  * @property integer $polltime
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsGlatitude extends CActiveRecord
 {
@@ -40,7 +40,8 @@ class SettingsGlatitude extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, rangetype, rangevalue, polltime, debug', 'numerical', 'integerOnly'=>true),
+			array('id, rangetype, rangevalue, polltime', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, rangetype, rangevalue, polltime, debug', 'safe', 'on'=>'search'),
@@ -66,8 +67,8 @@ class SettingsGlatitude extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'rangetype' => 'Rangetype',
-			'rangevalue' => 'Rangevalue',
+			'rangetype' => 'Range type',
+			'rangevalue' => 'Range value',
 			'polltime' => 'Polltime',
 			'debug' => 'Debug',
 		);

@@ -41,8 +41,10 @@ class SettingsVisca extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, cameraaddress, debug', 'numerical', 'integerOnly'=>true),
-			array('serialport, baudrate, device', 'length', 'max'=>32),
+			array('id, cameraaddress', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('baudrate, device', 'length', 'max'=>32),
+			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, serialport, baudrate, cameraaddress, debug, device', 'safe', 'on'=>'search'),
@@ -70,7 +72,7 @@ class SettingsVisca extends CActiveRecord
 			'enabled' => 'Enabled',
 			'serialport' => 'Serialport',
 			'baudrate' => 'Baudrate',
-			'cameraaddress' => 'Cameraaddress',
+			'cameraaddress' => 'Camera address',
 			'debug' => 'Debug',
 			'device' => 'Device',
 		);

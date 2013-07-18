@@ -5,11 +5,11 @@
  *
  * The followings are the available columns in table 'settings_pwrctrl':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property integer $udpread
  * @property integer $udpsend
  * @property string $userpw
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsPwrctrl extends CActiveRecord
 {
@@ -40,7 +40,8 @@ class SettingsPwrctrl extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, udpread, udpsend, debug', 'numerical', 'integerOnly'=>true),
+			array('id, udpread, udpsend', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('userpw', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -67,9 +68,9 @@ class SettingsPwrctrl extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'udpread' => 'Udpread',
-			'udpsend' => 'Udpsend',
-			'userpw' => 'Userpw',
+			'udpread' => 'UDP readport',
+			'udpsend' => 'UDP sendport',
+			'userpw' => 'Password',
 			'debug' => 'Debug',
 		);
 	}

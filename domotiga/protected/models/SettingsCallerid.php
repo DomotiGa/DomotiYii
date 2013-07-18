@@ -5,13 +5,13 @@
  *
  * The followings are the available columns in table 'settings_callerid':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $countrycode
  * @property string $areacode
  * @property string $prefixnational
  * @property string $prefixinternational
- * @property integer $autocreatecontacts
- * @property integer $debug
+ * @property boolean $autocreatecontacts
+ * @property boolean $debug
  */
 class SettingsCallerid extends CActiveRecord
 {
@@ -42,8 +42,9 @@ class SettingsCallerid extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, autocreatecontacts, debug', 'numerical', 'integerOnly'=>true),
+			array('id', 'numerical', 'integerOnly'=>true),
 			array('countrycode, areacode, prefixnational, prefixinternational', 'length', 'max'=>16),
+			array('enabled, autocreatecontacts, debug', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, countrycode, areacode, prefixnational, prefixinternational, autocreatecontacts, debug', 'safe', 'on'=>'search'),
@@ -71,9 +72,9 @@ class SettingsCallerid extends CActiveRecord
 			'enabled' => 'Enabled',
 			'countrycode' => 'Countrycode',
 			'areacode' => 'Areacode',
-			'prefixnational' => 'Prefixnational',
-			'prefixinternational' => 'Prefixinternational',
-			'autocreatecontacts' => 'Autocreatecontacts',
+			'prefixnational' => 'Prefix national',
+			'prefixinternational' => 'Prefix international',
+			'autocreatecontacts' => 'Autocreate contacts',
 			'debug' => 'Debug',
 		);
 	}

@@ -6,8 +6,8 @@
  * The followings are the available columns in table 'settings_rrdtool':
  * @property integer $id
  * @property integer $polltime
- * @property integer $enabled
- * @property integer $debug
+ * @property boolean $enabled
+ * @property boolean $debug
  * @property string $rra
  */
 class SettingsRrdtool extends CActiveRecord
@@ -39,7 +39,8 @@ class SettingsRrdtool extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, polltime, enabled, debug', 'numerical', 'integerOnly'=>true),
+			array('id, polltime', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('rra', 'length', 'max'=>256),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

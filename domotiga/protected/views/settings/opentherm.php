@@ -5,43 +5,34 @@
 ?>
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'settings-opentherm-opentherm-form',
-	'type'=>'horizontal',
+        'id'=>'settings-opentherm-form',
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
 <legend>OpenTherm Settings</legend>
-		<?php echo $form->errorSummary($model); ?>
 
-		<?php echo $form->checkBoxRow($model,'enabled'); ?>
-		<?php echo $form->error($model,'enabled'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
+                <?php echo $form->dropDownListControlGroup($model,'type', array('serial' => 'serial', 'tcp' => 'tcp'), array('onchange'=>'switchType(this);')); ?>
+                <?php echo $form->textFieldControlGroup($model,'tcphost',
+array('readonly'=>($model->type == 'serial')? true : false, 'id'=>'tcphost')); ?>
+                <?php echo $form->numberFieldControlGroup($model,'tcpport',
+array('readonly'=>($model->type == 'serial')? true : false, 'id'=>'tcpport')); ?>
+                <?php echo $form->textFieldControlGroup($model,'serialport', array('class'=>'span5',
+'readonly'=>($model->type == 'serial')? false : true, 'id'=>'serialport')); ?>
 
-		<?php echo $form->textFieldRow($model,'serialport'); ?>
-		<?php echo $form->error($model,'serialport'); ?>
-
-		<?php echo $form->textFieldRow($model,'polltime'); ?>
-		<?php echo $form->error($model,'polltime'); ?>
-
-		<?php echo $form->dropDownListRow($model,'thermostat', array('Other' => 'Other', 'Remeha Celcia' => 'Remeha Celcia')); ?>
-		<?php echo $form->error($model,'thermostat'); ?>
-
-		<?php echo $form->dropDownListRow($model,'temperatureoverride', array('Constant' => 'Constant', 'Temporarily' => 'Temporarily')); ?>
-		<?php echo $form->error($model,'temperatureoverride'); ?>
-
-		<?php echo $form->checkBoxRow($model,'outsidesensor'); ?>
-		<?php echo $form->error($model,'outsidesensor'); ?>
-
-		<?php echo $form->checkBoxRow($model,'syncclock'); ?>
-		<?php echo $form->error($model,'syncclock'); ?>
-
-		<?php echo $form->checkBoxRow($model,'debug'); ?>
-		<?php echo $form->error($model,'debug'); ?>
+		<?php echo $form->numberFieldControlGroup($model,'polltime'); ?>
+		<?php echo $form->dropDownListControlGroup($model,'thermostat', array('Other' => 'Other', 'Remeha Celcia' => 'Remeha Celcia')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'temperatureoverride', array('Constant' => 'Constant', 'Temporarily' => 'Temporarily')); ?>
+		<?php echo $form->checkBoxControlGroup($model,'syncclock', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'relayenabled', array('onchange'=>'switchRelay(this);', 'value'=>-1)); ?>
+                <?php echo $form->numberFieldControlGroup($model,'relayport', array('readonly'=>($model->relayenabled <> 0)? false : true, 'id'=>'relayport')); ?>
+		<?php echo $form->checkBoxControlGroup($model,'debug' , array('value'=>-1)); ?>
 
 </fieldset>
 
-<div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Submit')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Reset')); ?>
-</div>
-
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('Reset'),
+)); ?>
 <?php $this->endWidget(); ?>

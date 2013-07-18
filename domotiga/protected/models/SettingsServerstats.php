@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table 'settings_serverstats':
  * @property string $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $servername
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsServerstats extends CActiveRecord
 {
@@ -37,7 +37,7 @@ class SettingsServerstats extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('enabled, debug', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('servername', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -64,7 +64,7 @@ class SettingsServerstats extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'servername' => 'Servername',
+			'servername' => 'Server name',
 			'debug' => 'Debug',
 		);
 	}

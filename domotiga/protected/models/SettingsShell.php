@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table 'settings_shell':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property integer $polltime
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsShell extends CActiveRecord
 {
@@ -38,7 +38,8 @@ class SettingsShell extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, polltime, debug', 'numerical', 'integerOnly'=>true),
+			array('id, polltime', 'numerical', 'integerOnly'=>true),
+			array('id, enabled, debug', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, polltime, debug', 'safe', 'on'=>'search'),

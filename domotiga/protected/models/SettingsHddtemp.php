@@ -5,12 +5,12 @@
  *
  * The followings are the available columns in table 'settings_hddtemp':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $tcphost
  * @property integer $tcpport
  * @property integer $polltime
  * @property integer $threshold
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsHddtemp extends CActiveRecord
 {
@@ -41,7 +41,8 @@ class SettingsHddtemp extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, tcpport, polltime, threshold, debug', 'numerical', 'integerOnly'=>true),
+			array('id, tcpport, polltime, threshold', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('tcphost', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

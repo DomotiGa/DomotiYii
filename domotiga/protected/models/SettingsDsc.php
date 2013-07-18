@@ -5,12 +5,12 @@
  *
  * The followings are the available columns in table 'settings_dsc':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $serialport
  * @property integer $baudrate
  * @property integer $type
  * @property string $mastercode
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsDsc extends CActiveRecord
 {
@@ -41,8 +41,9 @@ class SettingsDsc extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, baudrate, type, debug', 'numerical', 'integerOnly'=>true),
-			array('serialport', 'length', 'max'=>32),
+			array('id, baudrate, type', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('serialport', 'length', 'max'=>128),
 			array('mastercode', 'length', 'max'=>16),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

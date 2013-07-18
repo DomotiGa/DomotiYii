@@ -5,11 +5,11 @@
  *
  * The followings are the available columns in table 'settings_gmail':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $user
  * @property string $password
  * @property integer $polltime
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsGmail extends CActiveRecord
 {
@@ -40,7 +40,8 @@ class SettingsGmail extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, polltime, debug', 'numerical', 'integerOnly'=>true),
+			array('id, polltime', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('user, password', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

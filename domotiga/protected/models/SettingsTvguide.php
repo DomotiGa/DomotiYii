@@ -5,10 +5,10 @@
  *
  * The followings are the available columns in table 'settings_tvguide':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $xmlgrabcmd
  * @property string $xmlfile
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsTvguide extends CActiveRecord
 {
@@ -39,7 +39,8 @@ class SettingsTvguide extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, debug', 'numerical', 'integerOnly'=>true),
+			array('id', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('xmlgrabcmd, xmlfile', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -66,7 +67,7 @@ class SettingsTvguide extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'xmlgrabcmd' => 'Xmlgrabcmd',
+			'xmlgrabcmd' => 'Xml grab cmd',
 			'xmlfile' => 'Xmlfile',
 			'debug' => 'Debug',
 		);

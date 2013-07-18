@@ -33,13 +33,15 @@ if (false) {
          if (strlen($retarr[$index]['devicevalue2']) && $retarr[$index]['devicelabel2']) { $retarr[$index]['devicevalue2'] = $retarr[$index]['devicevalue2']. " ".$retarr[$index]['devicelabel2']; }
          if (strlen($retarr[$index]['devicevalue3']) && $retarr[$index]['devicelabel3']) { $retarr[$index]['devicevalue3'] = $retarr[$index]['devicevalue3']. " ".$retarr[$index]['devicelabel3']; }
          if (strlen($retarr[$index]['devicevalue4']) && $retarr[$index]['devicelabel4']) { $retarr[$index]['devicevalue4'] = $retarr[$index]['devicevalue4']. " ".$retarr[$index]['devicelabel4']; }
-if ($retarr[$index]['switchable'] == true OR $retarr[$index]['dimmable'] == true) {
-         $index++;
-}
+
+         if (strlen($retarr[$index]['switchable']) > 0 OR strlen($retarr[$index]['dimmable']) > 0) {
+            if (strcmp($retarr[$index]['switchable'],"T") AND strcmp($retarr[$index]['dimmable'],"T")) {
+              $retarr[$index] = NULL;
+            }
+         } else {
+            $index++;
+         }
       }
-if ($retarr[$index]['dimmable'] <> true OR $retarr[$index]['dimmable'] == true) {
- $retarr[$index] = NULL;
-}
 
       if (isset($retarr)) {
          return $retarr;
@@ -56,7 +58,7 @@ $deviceitems = new CArrayDataProvider(get_device_list(), array(
         ),
 ));
 
-$this->widget('bootstrap.widgets.TbMenu', array(
+$this->widget('bootstrap.widgets.TbNav', array(
     'type'=>'tabs',
     'stacked'=>false,
     'items'=>array(
@@ -67,7 +69,9 @@ $this->widget('bootstrap.widgets.TbMenu', array(
     ),
 ));
 
-$this->widget('bootstrap.widgets.TbGridView', array(
+$this->widget('application.extensions.LiveTbGridView.RefreshGridView', array(
+    'id'=>'sensors-devices-grid',
+    'refreshTime'=>Yii::app()->params['refreshDevices'], // 5 second refresh
     'type'=>'striped condensed',
     'dataProvider'=>$deviceitems,
     'template'=>'{items}{pager}',
@@ -80,5 +84,5 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array('name'=>'devicevalue4', 'header'=>'Value4', 'htmlOptions'=>array('width'=>'40')),
         array('name'=>'devicelocation', 'header'=>'Location', 'htmlOptions'=>array('width'=>'120')),
         array('name'=>'devicelastseen', 'header'=>'Last Seen', 'htmlOptions'=>array('width'=>'120')),
-	),
+    ),
 )); ?>

@@ -5,11 +5,11 @@
  *
  * The followings are the available columns in table 'settings_temperaturnu':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $city
  * @property string $apikey
  * @property integer $pushtime
- * @property integer $debug
+ * @property boolean $debug
  * @property integer $deviceid
  * @property string $devicevalue
  */
@@ -41,8 +41,9 @@ class SettingsTemperaturnu extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, deviceid, devicevalue', 'required'),
-			array('id, enabled, pushtime, debug, deviceid', 'numerical', 'integerOnly'=>true),
+			array('id', 'required'),
+			array('id, pushtime, deviceid', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('city, apikey', 'length', 'max'=>64),
 			array('devicevalue', 'length', 'max'=>8),
 			// The following rule is used by search().
@@ -71,11 +72,11 @@ class SettingsTemperaturnu extends CActiveRecord
 			'id' => 'ID',
 			'enabled' => 'Enabled',
 			'city' => 'City',
-			'apikey' => 'Apikey',
+			'apikey' => 'API key',
 			'pushtime' => 'Pushtime',
 			'debug' => 'Debug',
-			'deviceid' => 'Deviceid',
-			'devicevalue' => 'Devicevalue',
+			'deviceid' => 'Device Id',
+			'devicevalue' => 'Device value',
 		);
 	}
 

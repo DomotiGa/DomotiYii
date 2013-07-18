@@ -5,21 +5,21 @@
  *
  * The followings are the available columns in table 'settings_rfxcomtx':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $tcphost
  * @property integer $tcpport
  * @property string $type
  * @property string $serialport
  * @property string $baudrate
- * @property integer $relayenabled
- * @property integer $handshake
+ * @property boolean $relayenabled
+ * @property boolean $handshake
  * @property integer $relayport
- * @property integer $disablex10
- * @property integer $enablearc
- * @property integer $enableharrison
- * @property integer $enablekoppla
- * @property integer $rfxmitter
- * @property integer $debug
+ * @property boolean $disablex10
+ * @property boolean $enablearc
+ * @property boolean $enableharrison
+ * @property boolean $enablekoppla
+ * @property boolean $rfxmitter
+ * @property boolean $debug
  */
 class SettingsRfxcomtx extends CActiveRecord
 {
@@ -50,8 +50,10 @@ class SettingsRfxcomtx extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, tcpport, relayenabled, handshake, relayport, disablex10, enablearc, enableharrison, enablekoppla, rfxmitter, debug', 'numerical', 'integerOnly'=>true),
-			array('tcphost, type, serialport, baudrate', 'length', 'max'=>32),
+			array('id, tcpport, relayport', 'numerical', 'integerOnly'=>true),
+			array('enabled, relayenabled, handshake, disablex10, enablearc, enableharrison, enablekoppla, rfxmitter, debug', 'boolean', 'trueValue'=>-1),
+			array('tcphost, type, baudrate', 'length', 'max'=>32),
+			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, tcphost, tcpport, type, serialport, baudrate, relayenabled, handshake, relayport, disablex10, enablearc, enableharrison, enablekoppla, rfxmitter, debug', 'safe', 'on'=>'search'),
@@ -82,13 +84,13 @@ class SettingsRfxcomtx extends CActiveRecord
 			'type' => 'Type',
 			'serialport' => 'Serialport',
 			'baudrate' => 'Baudrate',
-			'relayenabled' => 'Relayenabled',
+			'relayenabled' => 'Relay enabled',
 			'handshake' => 'Handshake',
 			'relayport' => 'Relayport',
-			'disablex10' => 'Disablex10',
-			'enablearc' => 'Enablearc',
-			'enableharrison' => 'Enableharrison',
-			'enablekoppla' => 'Enablekoppla',
+			'disablex10' => 'Disable x10',
+			'enablearc' => 'Enable arc',
+			'enableharrison' => 'Enable harrison',
+			'enablekoppla' => 'Enable koppla',
 			'rfxmitter' => 'Rfxmitter',
 			'debug' => 'Debug',
 		);

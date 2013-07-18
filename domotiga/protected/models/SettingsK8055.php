@@ -5,12 +5,12 @@
  *
  * The followings are the available columns in table 'settings_k8055':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property integer $polltime
  * @property integer $boardaddress
  * @property integer $debouncetime1
  * @property integer $debouncetime2
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsK8055 extends CActiveRecord
 {
@@ -41,7 +41,8 @@ class SettingsK8055 extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, polltime, boardaddress, debouncetime1, debouncetime2, debug', 'numerical', 'integerOnly'=>true),
+			array('id, polltime, boardaddress, debouncetime1, debouncetime2', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, polltime, boardaddress, debouncetime1, debouncetime2, debug', 'safe', 'on'=>'search'),
@@ -68,9 +69,9 @@ class SettingsK8055 extends CActiveRecord
 			'id' => 'ID',
 			'enabled' => 'Enabled',
 			'polltime' => 'Polltime',
-			'boardaddress' => 'Boardaddress',
-			'debouncetime1' => 'Debouncetime1',
-			'debouncetime2' => 'Debouncetime2',
+			'boardaddress' => 'Board address',
+			'debouncetime1' => 'Debounce time1',
+			'debouncetime2' => 'Debounce time2',
 			'debug' => 'Debug',
 		);
 	}

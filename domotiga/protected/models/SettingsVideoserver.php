@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'settings_videoserver':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $tcphost
  * @property integer $tcpport
  * @property string $user
@@ -14,7 +14,7 @@
  * @property string $channel2
  * @property string $channel3
  * @property string $channel4
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsVideoserver extends CActiveRecord
 {
@@ -45,7 +45,8 @@ class SettingsVideoserver extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, tcpport, debug', 'numerical', 'integerOnly'=>true),
+			array('id, tcpport', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('tcphost, user, password, channel1, channel2, channel3, channel4', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -76,10 +77,10 @@ class SettingsVideoserver extends CActiveRecord
 			'tcpport' => 'Tcpport',
 			'user' => 'User',
 			'password' => 'Password',
-			'channel1' => 'Channel1',
-			'channel2' => 'Channel2',
-			'channel3' => 'Channel3',
-			'channel4' => 'Channel4',
+			'channel1' => 'Channel #1',
+			'channel2' => 'Channel #2',
+			'channel3' => 'Channel #3',
+			'channel4' => 'Channel #4',
 			'debug' => 'Debug',
 		);
 	}

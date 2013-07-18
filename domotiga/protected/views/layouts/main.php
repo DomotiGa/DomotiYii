@@ -16,6 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/domotiga.js"></script>
 
 	<?php Yii::app()->bootstrap->register(); ?>
 </head>
@@ -25,23 +26,19 @@
       <div id="header">
                 <div id="logo"></br></div>
         </div><!-- header -->
-
-<?php $this->widget('bootstrap.widgets.TbNavbar', array(
-    'type'=>'inverse', // null or 'inverse'
-    'brand'=> CHtml::encode(Yii::app()->name),
-    'brandUrl'=> array('/site/index'),
+<div class="navbar navbar-inverse">
+<?php $this->widget('bootstrap.widgets.TbNavbar',array(
     'collapse'=>true, // requires bootstrap-responsive.css
-    'fixed' => 'top',
     'items'=>array(
         array(
-            'class'=>'bootstrap.widgets.TbMenu',
+            'class'=>'bootstrap.widgets.TbNav',
             'items'=>array(
-                array('label'=>'Devices', 'url'=> array('/devices/index'), 'active'=>true),
+                array('label'=>'Devices', 'url'=> array('/devices/index')),
                 array('label'=>'Home', 'url'=> array('/site/index')),
                 array('label'=>'Setup', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                     array('label'=>'Main', 'url'=> array('settings/main')),
-                    array('label'=>'CallerID', 'url'=> array('settings/callerid')),
                     array('label'=>'Astro and Location', 'url'=> array('settings/astro')),
+                    array('label'=>'CallerID', 'url'=> array('settings/callerid')),
                     array('label'=>'E-mail', 'url'=> array('settings/email')),
                     array('label'=>'Google', 'url'=>'#', 'items'=>array(
                        array('label'=>'GMail', 'url'=> array('settings/gmail')),
@@ -51,7 +48,6 @@
                     array('label'=>'Servers', 'url'=>'#', 'items'=>array(
                        array('label'=>'Telnet Server', 'url'=> array('settings/telnetserver')),
                        array('label'=>'SmartVISU Server', 'url'=> array('settings/smartvisu')),
-                       array('label'=>'Web Server', 'url'=> array('settings/webserver')),
                        array('label'=>'XML-RPC Server', 'url'=> array('settings/xmlrpc')),
 		    )),
                     array('label'=>'Sound', 'url'=> array('settings/sound')),
@@ -67,7 +63,9 @@
                     )),
                     array('label'=>'Publish Data', 'url'=>'#', 'items'=>array(
                        array('label'=>'Bwired Map', 'url'=> array('settings/bwiredmap')),
+                       array('label'=>'MQTT', 'url'=> array('settings/mqtt')),
                        array('label'=>'Pachube', 'url'=> array('settings/pachube')),
+                       array('label'=>'PVoutput', 'url'=> array('settings/pvoutput')),
                        array('label'=>'TemperaturNu', 'url'=> array('settings/temperaturnu')),
                     )),
                     array('label'=>'Thermostat', 'url'=> array('settings/thermostat')),
@@ -110,7 +108,6 @@
                        )),
                     array('label'=>'Z-Wave', 'url'=> array('settings/zwave')),
                     )),
-                       array('label'=>'DSC Security', 'url'=> array('settings/dsc')),
                        array('label'=>'Energy Measurement', 'url'=>'#', 'items'=>array(
                           array('label'=>'Current Cost', 'url'=> array('settings/currentcost')),
                           array('label'=>'Plugwise', 'url'=> array('settings/plugwise')),
@@ -119,6 +116,7 @@
                        array('label'=>'HDDTemp', 'url'=> array('settings/hddtemp')),
                        array('label'=>'HomeMatic', 'url'=> array('settings/homematic')),
                        array('label'=>'Input/Output', 'url'=>'#', 'items'=>array(
+                          array('label'=>'KMTronic UDP', 'url'=> array('settings/kmtronicudp')),
                           array('label'=>'Velleman K8055', 'url'=> array('settings/k8055')),
                           array('label'=>'Weeder I/O', 'url'=> array('settings/weeder')),
                        )),
@@ -144,6 +142,10 @@
                           array('label'=>'RFXCom Transceiver', 'url'=> array('settings/rfxcomtrx')),
                           array('label'=>'RFXCom xPL', 'url'=> array('settings/rfxcomxpl')),
                        )),
+                       array('label'=>'Security', 'url'=>'#', 'items'=>array(
+                          array('label'=>'DSC Security', 'url'=> array('settings/dsc')),
+                          array('label'=>'Visonic', 'url'=> array('settings/visonic')),
+                       )),
                        array('label'=>'Shell', 'url'=> array('settings/shell')),
                        array('label'=>'UPS Monitor', 'url'=> array('settings/ups')),
                        array('label'=>'xPL', 'url'=> array('settings/xpl')),
@@ -153,16 +155,15 @@
         ),
         '<form class="navbar-search pull-right" action=""><input type="text" class="search-query span2" placeholder="Search"></form>',
         array(
-            'class'=>'bootstrap.widgets.TbMenu',
+            'class'=>'bootstrap.widgets.TbNav',
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
                 array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
-                '---',
                 array('label'=>'About', 'url'=>'#', 'items'=>array(
                     array('label'=>'Visit Project Website', 'url'=>'http://domotiga.nl'),
                     array('label'=>'Donate to Project', 'url'=>'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=NT48KZRT7F3FA&lc=US&item_name=DomotiGa%20Open%20Source%20Project&item_number=domotiga&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'),
-                    '---',
+		TbHtml::menuDivider(),
                     array('label'=>'Contact Support', 'url'=> array('/site/contact')),
                     array('label'=>'About DomotiGa', 'url'=> array('/site/about')),
                 )),
@@ -170,9 +171,9 @@
         ),
     ),
 )); ?>
-
-	<?php if(isset($this->breadcrumbs)):?>
-<?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
+</div>
+	<?php if(isset($this->breadcrumb)):?>
+<?php $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links'=>$this->breadcrumbs,
 )); ?>
 <?php endif?>
@@ -186,7 +187,7 @@
         <?php endif; ?>
     <?php endforeach; ?>
 	<div id="footer">
-(c)2013 by Ron Klinkien
+Credits and Copyright © <?php echo date("Y"); ?> <a href="http://www.domotiga.nl/" >DomotiGa</a> <a href="mailto:support@domotiga.nl"></a> created by Ron Klinkien
 	</div><!-- footer -->
 
 </div><!-- page -->

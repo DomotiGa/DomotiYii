@@ -5,12 +5,12 @@
  *
  * The followings are the available columns in table 'settings_rfxcomxpl':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $rxaddress
  * @property string $txaddress
- * @property integer $oldaddrfmt
- * @property integer $globalx10
- * @property integer $debug
+ * @property boolean $oldaddrfmt
+ * @property boolean $globalx10
+ * @property boolean $debug
  */
 class SettingsRfxcomxpl extends CActiveRecord
 {
@@ -41,7 +41,8 @@ class SettingsRfxcomxpl extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, oldaddrfmt, globalx10, debug', 'numerical', 'integerOnly'=>true),
+			array('id', 'numerical', 'integerOnly'=>true),
+			array('enabled, oldaddrfmt, globalx10, debug', 'boolean', 'trueValue'=>-1),
 			array('rxaddress, txaddress', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -68,10 +69,10 @@ class SettingsRfxcomxpl extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'rxaddress' => 'Rxaddress',
-			'txaddress' => 'Txaddress',
-			'oldaddrfmt' => 'Oldaddrfmt',
-			'globalx10' => 'Globalx10',
+			'rxaddress' => 'Rx address',
+			'txaddress' => 'Tx address',
+			'oldaddrfmt' => 'Old address format',
+			'globalx10' => 'Global x10',
 			'debug' => 'Debug',
 		);
 	}

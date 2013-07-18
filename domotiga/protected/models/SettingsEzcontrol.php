@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table 'settings_ezcontrol':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $udphost
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsEzcontrol extends CActiveRecord
 {
@@ -38,7 +38,8 @@ class SettingsEzcontrol extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, debug', 'numerical', 'integerOnly'=>true),
+			array('id', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('udphost', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

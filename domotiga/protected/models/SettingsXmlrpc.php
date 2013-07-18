@@ -40,7 +40,8 @@ class SettingsXmlrpc extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, httpport, maxconn, debug, broadcastudp', 'numerical', 'integerOnly'=>true),
+			array('id, httpport, maxconn', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug, broadcastudp', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, httpport, maxconn, debug, broadcastudp', 'safe', 'on'=>'search'),

@@ -5,12 +5,12 @@
  *
  * The followings are the available columns in table 'settings_ctx35':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $serialport
  * @property string $baudrate
  * @property integer $polltime
- * @property integer $globalx10
- * @property integer $debug
+ * @property boolean $globalx10
+ * @property boolean $debug
  */
 class SettingsCtx35 extends CActiveRecord
 {
@@ -41,8 +41,10 @@ class SettingsCtx35 extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, polltime, globalx10, debug', 'numerical', 'integerOnly'=>true),
-			array('serialport, baudrate', 'length', 'max'=>32),
+			array('id, polltime', 'numerical', 'integerOnly'=>true),
+			array('enabled, globalx10, debug', 'boolean', 'trueValue'=>-1),
+			array('baudrate', 'length', 'max'=>32),
+			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, serialport, baudrate, polltime, globalx10, debug', 'safe', 'on'=>'search'),
@@ -71,7 +73,7 @@ class SettingsCtx35 extends CActiveRecord
 			'serialport' => 'Serialport',
 			'baudrate' => 'Baudrate',
 			'polltime' => 'Polltime',
-			'globalx10' => 'Globalx10',
+			'globalx10' => 'Global X10',
 			'debug' => 'Debug',
 		);
 	}

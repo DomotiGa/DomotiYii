@@ -5,11 +5,11 @@
  *
  * The followings are the available columns in table 'settings_bluetooth':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $device
  * @property integer $threshold
  * @property integer $polltime
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsBluetooth extends CActiveRecord
 {
@@ -40,7 +40,8 @@ class SettingsBluetooth extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, threshold, polltime, debug', 'numerical', 'integerOnly'=>true),
+			array('id, threshold, polltime', 'numerical', 'integerOnly'=>true),
+			array('id, enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('device', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

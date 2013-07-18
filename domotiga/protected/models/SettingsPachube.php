@@ -5,11 +5,11 @@
  *
  * The followings are the available columns in table 'settings_pachube':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property integer $feed
  * @property string $apikey
  * @property integer $pushtime
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsPachube extends CActiveRecord
 {
@@ -40,7 +40,8 @@ class SettingsPachube extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, feed, pushtime, debug', 'numerical', 'integerOnly'=>true),
+			array('id, feed, pushtime', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('apikey', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -68,7 +69,7 @@ class SettingsPachube extends CActiveRecord
 			'id' => 'ID',
 			'enabled' => 'Enabled',
 			'feed' => 'Feed',
-			'apikey' => 'Apikey',
+			'apikey' => 'API key',
 			'pushtime' => 'Pushtime',
 			'debug' => 'Debug',
 		);

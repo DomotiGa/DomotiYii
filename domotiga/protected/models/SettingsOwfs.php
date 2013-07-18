@@ -5,11 +5,11 @@
  *
  * The followings are the available columns in table 'settings_owfs':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property integer $polltime
  * @property string $basedir
  * @property integer $cached
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsOwfs extends CActiveRecord
 {
@@ -40,7 +40,8 @@ class SettingsOwfs extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, polltime, cached, debug', 'numerical', 'integerOnly'=>true),
+			array('id, polltime', 'numerical', 'integerOnly'=>true),
+			array('enabled, cached, debug', 'boolean', 'trueValue'=>-1),
 			array('basedir', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

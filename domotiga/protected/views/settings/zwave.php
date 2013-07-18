@@ -5,59 +5,30 @@
 ?>
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'settings-zwave-zwave-form',
-	'type'=>'horizontal',
+        'id'=>'settings-zwave-form',
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
 <legend>Zwave Settings</legend>
-		<?php echo $form->errorSummary($model); ?>
 
-		<?php echo $form->checkBoxRow($model,'enabled'); ?>
-		<?php echo $form->error($model,'enabled'); ?>
-
-		<?php echo $form->textFieldRow($model,'serialport'); ?>
-		<?php echo $form->error($model,'serialport'); ?>
-
-		<?php echo $form->textFieldRow($model,'baudrate'); ?>
-		<?php echo $form->error($model,'baudrate'); ?>
-
-		<?php echo $form->checkBoxRow($model,'useozw'); ?>
-		<?php echo $form->error($model,'useozw'); ?>
-
-		<?php echo $form->textFieldRow($model,'polltime'); ?>
-		<?php echo $form->error($model,'polltime'); ?>
-
-
-		<?php echo $form->checkBoxRow($model,'enablepollsleeping'); ?>
-		<?php echo $form->error($model,'enablepollsleeping'); ?>
-
-		<?php echo $form->textFieldRow($model,'polltimesleeping'); ?>
-		<?php echo $form->error($model,'polltimesleeping'); ?>
-
-		<?php echo $form->checkBoxRow($model,'enablepolllistening'); ?>
-		<?php echo $form->error($model,'enablepolllistening'); ?>
-
-		<?php echo $form->textFieldRow($model,'polltimelistening'); ?>
-		<?php echo $form->error($model,'polltimelistening'); ?>
-
-		<?php echo $form->checkBoxRow($model,'enableupdateneighbor'); ?>
-		<?php echo $form->error($model,'enableupdateneighbor'); ?>
-
-		<?php echo $form->checkBoxRow($model,'reloadnodes'); ?>
-		<?php echo $form->error($model,'reloadnodes'); ?>
-
-		<?php echo $form->checkBoxRow($model,'updateneighbor'); ?>
-		<?php echo $form->error($model,'updateneighbor'); ?>
-
-		<?php echo $form->checkBoxRow($model,'debug'); ?>
-		<?php echo $form->error($model,'debug'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
+                <?php echo $form->textFieldControlGroup($model,'serialport', array('class'=>'span5')); ?>
+                <?php echo $form->dropDownListControlGroup($model,'baudrate', array('9600' => '9600', '19200' => '19200', '38400' => '38400', '57600' => '57600', '115200' => '115200')); ?>
+		<?php echo $form->numberFieldControlGroup($model,'polltime'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enablepollsleeping', array('value'=>-1)); ?>
+		<?php echo $form->textFieldControlGroup($model,'polltimesleeping'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enablepolllistening', array('value'=>-1)); ?>
+		<?php echo $form->textFieldControlGroup($model,'polltimelistening'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enableupdateneighbor', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'reloadnodes', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'updateneighbor', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 
 </fieldset>
 
-<div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Submit')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Reset')); ?>
-</div>
-
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('Reset'),
+)); ?>
 <?php $this->endWidget(); ?>

@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'settings_plcbus':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $serialport
  * @property string $baudrate
  * @property integer $polltime
@@ -13,7 +13,7 @@
  * @property integer $threephase
  * @property string $housecodes
  * @property integer $ack
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsPlcbus extends CActiveRecord
 {
@@ -44,8 +44,10 @@ class SettingsPlcbus extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, enabled, polltime, threephase, ack, debug', 'numerical', 'integerOnly'=>true),
-			array('serialport, baudrate, housecodes', 'length', 'max'=>32),
+			array('id, polltime, threephase, ack', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('baudrate, housecodes', 'length', 'max'=>32),
+			array('serialport', 'length', 'max'=>128),
 			array('usercode', 'length', 'max'=>16),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

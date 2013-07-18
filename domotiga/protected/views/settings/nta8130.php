@@ -5,46 +5,28 @@
 ?>
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'settings-nta8130-nta8130-form',
-	'type'=>'horizontal',
+        'id'=>'settings-nta8130-form',
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
-<legend>Nta8130 Settings</legend>
-		<?php echo $form->errorSummary($model); ?>
+<legend>Smartmeter Settings</legend>
 
-		<?php echo $form->checkBoxRow($model,'enabled'); ?>
-		<?php echo $form->error($model,'enabled'); ?>
-
-		<?php echo $form->dropDownListRow($model,'type', array('serial' => 'serial', 'tcp' => 'tcp')); ?>
-		<?php echo $form->error($model,'type'); ?>
-
-		<?php echo $form->textFieldRow($model,'tcphost'); ?>
-		<?php echo $form->error($model,'tcphost'); ?>
-
-		<?php echo $form->textFieldRow($model,'tcpport'); ?>
-		<?php echo $form->error($model,'tcpport'); ?>
-
-		<?php echo $form->textFieldRow($model,'serialport'); ?>
-		<?php echo $form->error($model,'serialport'); ?>
-
-		<?php echo $form->textFieldRow($model,'databits'); ?>
-		<?php echo $form->error($model,'databits'); ?>
-
-		<?php echo $form->textFieldRow($model,'stopbits'); ?>
-		<?php echo $form->error($model,'stopbits'); ?>
-
-		<?php echo $form->textFieldRow($model,'parity'); ?>
-		<?php echo $form->error($model,'parity'); ?>
-
-		<?php echo $form->checkBoxRow($model,'debug'); ?>
-		<?php echo $form->error($model,'debug'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
+                <?php echo $form->dropDownListControlGroup($model,'type', array('serial' => 'serial', 'tcp' => 'tcp'), array('onchange'=>'switchTypeExtra(this);')); ?>
+                <?php echo $form->textFieldControlGroup($model,'tcphost', array('readonly'=>($model->type == 'serial')? true : false, 'id'=>'tcphost')); ?>
+                <?php echo $form->numberFieldControlGroup($model,'tcpport', array('readonly'=>($model->type == 'serial')? true : false, 'id'=>'tcpport')); ?>
+                <?php echo $form->textFieldControlGroup($model,'serialport', array('class'=>'span5', 'readonly'=>($model->type == 'serial')? false : true, 'id'=>'serialport')); ?>
+                <?php echo $form->dropDownListControlGroup($model,'baudrate', array('9600' => '9600', '19200' => '19200', '38400' => '38400', '57600' => '57600', '115200' => '115200'), array('readonly'=>($model->type == 'serial')? false : true, 'id'=>'baudrate')); ?>
+		<?php echo $form->numberFieldControlGroup($model,'databits', array('readonly'=>($model->type == 'serial')? false : true, 'id'=>'databits')); ?>
+		<?php echo $form->numberFieldControlGroup($model,'stopbits', array('readonly'=>($model->type == 'serial')? false : true, 'id'=>'stopbits')); ?>
+		<?php echo $form->numberFieldControlGroup($model,'parity', array('readonly'=>($model->type == 'serial')? false : true, 'id'=>'parity')); ?>
+		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 
 </fieldset>
 
-<div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Submit')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Reset')); ?>
-</div>
-
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('Reset'),
+)); ?>
 <?php $this->endWidget(); ?>

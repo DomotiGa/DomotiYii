@@ -5,64 +5,33 @@
 ?>
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'settings-rfxcomtx-rfxcomtx-form',
-	'type'=>'horizontal',
+        'id'=>'settings-rfxcomtx-form',
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
 <legend>RFXComTX Settings</legend>
-		<?php echo $form->errorSummary($model); ?>
 
-		<?php echo $form->checkBoxRow($model,'enabled'); ?>
-		<?php echo $form->error($model,'enabled'); ?>
-
-		<?php echo $form->dropDownListRow($model,'type', array('serial' => 'serial', 'tcp' => 'tcp')); ?>
-		<?php echo $form->error($model,'type'); ?>
-
-		<?php echo $form->textFieldRow($model,'tcphost'); ?>
-		<?php echo $form->error($model,'tcphost'); ?>
-
-		<?php echo $form->textFieldRow($model,'tcpport'); ?>
-		<?php echo $form->error($model,'tcpport'); ?>
-
-		<?php echo $form->checkBoxRow($model,'relayenabled'); ?>
-		<?php echo $form->error($model,'relayenabled'); ?>
-
-		<?php echo $form->textFieldRow($model,'relayport'); ?>
-		<?php echo $form->error($model,'relayport'); ?>
-
-		<?php echo $form->textFieldRow($model,'serialport'); ?>
-		<?php echo $form->error($model,'serialport'); ?>
-
-		<?php echo $form->dropDownListRow($model,'baudrate', array('9600' => '9600', '19200' => '19200', '38400' => '38400')); ?>
-		<?php echo $form->error($model,'baudrate'); ?>
-
-		<?php echo $form->checkBoxRow($model,'disablex10'); ?>
-		<?php echo $form->error($model,'disablex10'); ?>
-
-		<?php echo $form->checkBoxRow($model,'enablearc'); ?>
-		<?php echo $form->error($model,'enablearc'); ?>
-
-		<?php echo $form->checkBoxRow($model,'enableharrison'); ?>
-		<?php echo $form->error($model,'enableharrison'); ?>
-
-		<?php echo $form->checkBoxRow($model,'enablekoppla'); ?>
-		<?php echo $form->error($model,'enablekoppla'); ?>
-
-		<?php echo $form->checkBoxRow($model,'rfxmitter'); ?>
-		<?php echo $form->error($model,'rfxmitter'); ?>
-
-		<?php echo $form->checkBoxRow($model,'handshake'); ?>
-		<?php echo $form->error($model,'handshake'); ?>
-
-		<?php echo $form->checkBoxRow($model,'debug'); ?>
-		<?php echo $form->error($model,'debug'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
+                <?php echo $form->dropDownListControlGroup($model,'type', array('serial' => 'serial', 'tcp' => 'tcp'), array('onchange'=>'switchType(this);')); ?>
+                <?php echo $form->textFieldControlGroup($model,'tcphost', array('readonly'=>($model->type == 'serial')? true : false, 'id'=>'tcphost')); ?>
+                <?php echo $form->numberFieldControlGroup($model,'tcpport', array('readonly'=>($model->type == 'serial')? true : false, 'id'=>'tcpport')); ?>
+                <?php echo $form->textFieldControlGroup($model,'serialport', array('class'=>'span5', 'readonly'=>($model->type == 'serial')? false : true, 'id'=>'serialport')); ?>
+                <?php echo $form->dropDownListControlGroup($model,'baudrate', array('9600' => '9600', '19200' => '19200', '38400' => '38400', '57600' => '57600', '115200' => '115200'), array('readonly'=>($model->type == 'serial')? false : true, 'id'=>'baudrate')); ?>
+                <?php echo $form->checkBoxControlGroup($model,'relayenabled', array('onchange'=>'switchRelay(this);', 'value'=>-1)); ?>
+                <?php echo $form->numberFieldControlGroup($model,'relayport', array('readonly'=>($model->relayenabled <> 0)? false : true, 'id'=>'relayport')); ?>
+		<?php echo $form->checkBoxControlGroup($model,'disablex10', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enablearc', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enableharrison', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'enablekoppla', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'rfxmitter', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'handshake', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 
 </fieldset>
 
-<div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Submit')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Reset')); ?>
-</div>
-
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('Reset'),
+)); ?>
 <?php $this->endWidget(); ?>

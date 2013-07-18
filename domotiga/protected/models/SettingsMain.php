@@ -7,18 +7,18 @@
  * @property integer $id
  * @property integer $sleeptime
  * @property integer $flushtime
- * @property integer $debug
+ * @property boolean $debug
  * @property integer $logbuffer
- * @property integer $authentication
+ * @property boolean $authentication
  * @property string $startpage
- * @property integer $debugevents
- * @property integer $debugdevices
- * @property integer $debugenergy
+ * @property boolean $debugevents
+ * @property boolean $debugdevices
+ * @property boolean $debugenergy
  * @property string $hometoppanel
  * @property string $homeleftpanel
  * @property string $homerightpanel
  * @property string $homebottompanel
- * @property integer $autodevicecreate
+ * @property boolean $autodevicecreate
  * @property string $logprefix
  */
 class SettingsMain extends CActiveRecord
@@ -51,6 +51,7 @@ class SettingsMain extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, sleeptime, flushtime, debug, logbuffer, authentication, debugevents, debugdevices, debugenergy, autodevicecreate', 'numerical', 'integerOnly'=>true),
+			array('debug, authentication, debugevents, debugdevices, debugenergy, autodevicecreate', 'boolean', 'trueValue'=>-1),
 			array('startpage', 'length', 'max'=>32),
 			array('hometoppanel, homeleftpanel, homerightpanel, homebottompanel', 'length', 'max'=>256),
 			array('logprefix', 'length', 'max'=>16),
@@ -80,18 +81,18 @@ class SettingsMain extends CActiveRecord
 			'id' => 'ID',
 			'sleeptime' => 'Sleeptime',
 			'flushtime' => 'Flushtime',
-			'debug' => 'Debug',
+			'debug' => 'Debug main',
 			'logbuffer' => 'Logbuffer',
 			'authentication' => 'Authentication',
 			'startpage' => 'Startpage',
-			'debugevents' => 'Debugevents',
-			'debugdevices' => 'Debugdevices',
-			'debugenergy' => 'Debugenergy',
+			'debugevents' => 'Debug events',
+			'debugdevices' => 'Debug devices',
+			'debugenergy' => 'Debug energy',
 			'hometoppanel' => 'Hometoppanel',
 			'homeleftpanel' => 'Homeleftpanel',
 			'homerightpanel' => 'Homerightpanel',
 			'homebottompanel' => 'Homebottompanel',
-			'autodevicecreate' => 'Autodevicecreate',
+			'autodevicecreate' => 'Autocreate devices',
 			'logprefix' => 'Logprefix',
 		);
 	}
