@@ -1,14 +1,13 @@
-Resources (just for reference, its included in this repository)
+Resources (just for reference, it is included in this repository)
 Yii-1.1.13
 wget http://yii.googlecode.com/files/yii-1.1.13.e9e4a0.tar.gz
-Yii-Bootstrap 2.1.0.r355
-wget http://www.yiiframework.com/extension/bootstrap/files/yii-bootstrap-2.1.0.r355.zip
+Yiistrap
 
 Install 'DomotiYii':
 Unpack/copy both directories to /var/www
 
-Directory called domotiga contains Yii project.
-framework is framework directory from Yii 1.1.13 file above.
+Directory called 'domotiga' contains Yii project.
+'framework' is the framework directory from Yii 1.1.13 file above and a handful of patches.
 If you want to use other name for this directory change path in domotiga/index.php
 
 Correct permissions:
