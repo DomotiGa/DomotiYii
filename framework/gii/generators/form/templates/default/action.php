@@ -9,16 +9,7 @@ $viewName=basename($this->viewName);
 ?>
 public function action<?php echo ucfirst(trim($viewName,'_')); ?>()
 {
-    $model=new <?php echo $this->modelClass; ?><?php echo empty($this->scenario) ? '' : "('{$this->scenario}')"; ?>;
-
-    // uncomment the following code to enable ajax-based validation
-    /*
-    if(isset($_POST['ajax']) && $_POST['ajax']==='<?php echo $this->class2id($this->modelClass); ?>-<?php echo $viewName; ?>-form')
-    {
-        echo CActiveForm::validate($model);
-        Yii::app()->end();
-    }
-    */
+    $model = <?php echo $this->modelClass; ?><?php echo "::model()->findByPk(1)"; ?>;
 
     if(isset($_POST['<?php echo $this->modelClass; ?>']))
     {
@@ -26,7 +17,8 @@ public function action<?php echo ucfirst(trim($viewName,'_')); ?>()
         if($model->validate())
         {
             // form inputs are valid, do something here
-            return;
+            $model->save();
+            $this->do_xmlrpc("module.restart","<?php echo $viewName; ?>");
         }
     }
     $this->render('<?php echo $viewName; ?>',array('model'=>$model));

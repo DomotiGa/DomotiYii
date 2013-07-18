@@ -22,19 +22,19 @@ class CMysqlColumnSchema extends CDbColumnSchema
 	 * @param string $dbType DB type
 	 */
 	protected function extractType($dbType)
-	{
-		if(strncmp($dbType,'enum',4)===0)
-			$this->type='string';
-		elseif(strpos($dbType,'float')!==false || strpos($dbType,'double')!==false)
-			$this->type='double';
-		elseif(strpos($dbType,'bool')!==false)
-			$this->type='boolean';
-		elseif(strpos($dbType,'int')===0 && strpos($dbType,'unsigned')===false || preg_match('/(bit|tinyint|smallint|mediumint)/',$dbType))
-			$this->type='integer';
-		else
-			$this->type='string';
-	}
-
+        {
+                if(strncmp($dbType,'enum',4)===0)
+                        $this->type='string';
+                else if(strpos($dbType,'float')!==false || strpos($dbType,'double')!==false)
+                        $this->type='double';
+                else if(strpos($dbType,'tinyint(1)')!==false)
+			//RON
+                        $this->type='boolean';
+                else if(strpos($dbType,'int')===0 && strpos($dbType,'unsigned')===false || preg_match('/(bit|tinyint|smallint|mediumint)/',$dbType))
+                        $this->type='integer';
+                else
+                        $this->type='string';
+        }
 	/**
 	 * Extracts the default value for the column.
 	 * The value is typecasted to correct PHP type.

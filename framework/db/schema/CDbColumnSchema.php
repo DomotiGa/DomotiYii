@@ -145,7 +145,8 @@ class CDbColumnSchema extends CComponent
 		{
 			case 'string': return (string)$value;
 			case 'integer': return (integer)$value;
-			case 'boolean': return (boolean)$value;
+			//RON case 'boolean': return (boolean)$value;
+			case 'boolean': return $value==0 ? 0 : -1;
 			case 'double':
 			default: return $value;
 		}
