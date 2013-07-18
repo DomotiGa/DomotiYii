@@ -82,5 +82,19 @@ $this->widget('application.extensions.LiveTbGridView.RefreshGridView', array(
         array('name'=>'devicevalue4', 'header'=>'Value4', 'htmlOptions'=>array('width'=>'40')),
         array('name'=>'devicelocation', 'header'=>'Location', 'htmlOptions'=>array('width'=>'120')),
         array('name'=>'devicelastseen', 'header'=>'Last Seen', 'htmlOptions'=>array('width'=>'120')),
+	array('class'=>'bootstrap.widgets.TbButtonColumn',
+	   'template'=>'{view}{update}{delete}',
+           'buttons'=>array(       
+              'view' => array(
+                 'url'=>'Yii::app()->controller->createUrl("devices/view", array("id"=>$data["id"]))',
+              ),
+              'update' => array(
+                 'url'=>'Yii::app()->controller->createUrl("devices/update", array("id"=>$data["id"]))',
+              ),
+              'delete' => array(
+                 'url'=>'Yii::app()->controller->createUrl("devices/delete", array("id"=>$data["id"],"command"=>"delete"))',
+              ),
+           ),
+        ),
     ),
 )); ?>
