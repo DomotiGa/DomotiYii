@@ -80,5 +80,6 @@ return array(
 		'adminEmail'=>'support@domotiga.nl',
 		'xmlrpcHost'=>'http://localhost:9009',
 		'refreshDevices'=>'5000', // 5 second refresh
+		'pagesizeDevices'=>'20', // 20 devices per page in gridview
 	),
 );

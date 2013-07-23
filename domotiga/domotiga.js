@@ -41,3 +41,7 @@ function switchRelay(element){
         $('#relayport').attr('readonly','readonly');
     }
 }
+
+function updateDevice(element){
+// http://stackoverflow.com/questions/7290064/calling-a-controller-action-from-an-onchange-event
+}

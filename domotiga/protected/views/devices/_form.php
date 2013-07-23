@@ -4,345 +4,107 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'devices-form',
-	'enableAjaxValidation'=>false,
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id'=>'edit-devices-form',
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+<fieldset>
+<legend>Device Editor</legend>
 
-	<?php echo $form->errorSummary($model); ?>
+<p class="note">Fields with <span class="required">*</span> are required.</p>
+<div id="main"><b>Main</b></div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'name'); ?>
-	</div>
+		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
+		<?php echo $form->textFieldControlGroup($model,'name',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->dropDownListControlGroup($model,'module', $model->getModules(), array('prompt'=>'', 'id'=>'module', 'onchange'=>'updateDevice(this);')); ?>
+		<?php echo $form->textFieldControlGroup($model,'', array('value' =>$model->devicetype->type, 'readonly'=>true, 'id'=>'type')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'interface', $model->getInterfaces(),array('prompt'=>'', 'id'=>'interface')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'address'); ?>
-		<?php echo $form->textField($model,'address',array('size'=>60,'maxlength'=>64)); ?>
-		<?php echo $form->error($model,'address'); ?>
-	</div>
+<div id="main"><b>Identification</b></div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'module'); ?>
-		<?php echo $form->textField($model,'module'); ?>
-		<?php echo $form->error($model,'module'); ?>
-	</div>
+		<?php echo $form->textFieldControlGroup($model,'address', array('size'=>60,'maxlength'=>64,'class'=>'span5')); ?>
+		<?php echo $form->textFieldControlGroup($model,'', array('value' =>$model->devicetype->addressformat, 'label' => 'Address format', 'readonly'=>true, 'size'=>60,'maxlength'=>64,'class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'location'); ?>
-		<?php echo $form->textField($model,'location'); ?>
-		<?php echo $form->error($model,'location'); ?>
-	</div>
+<div id="main"><b>Values</b></div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'value'); ?>
-		<?php echo $form->textArea($model,'value',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'value'); ?>
-	</div>
+		<?php echo $form->textFieldControlGroup($model,'value',array('class'=>'span5')); ?>
+		<?php echo $form->textFieldControlGroup($model,'value2',array('class'=>'span5')); ?>
+		<?php echo $form->textFieldControlGroup($model,'value3',array('class'=>'span5')); ?>
+		<?php echo $form->textFieldControlGroup($model,'value4',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'value2'); ?>
-		<?php echo $form->textArea($model,'value2',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'value2'); ?>
-	</div>
+		<?php echo $form->textFieldControlGroup($model,'label',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->textFieldControlGroup($model,'label2',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->textFieldControlGroup($model,'label3',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->textFieldControlGroup($model,'label4',array('size'=>32,'maxlength'=>32)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'value3'); ?>
-		<?php echo $form->textArea($model,'value3',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'value3'); ?>
-	</div>
+		<?php echo $form->textFieldControlGroup($model,'correction',array('class'=>'span5')); ?>
+		<?php echo $form->textFieldControlGroup($model,'correction2',array('class'=>'span5')); ?>
+		<?php echo $form->textFieldControlGroup($model,'correction3',array('class'=>'span5')); ?>
+		<?php echo $form->textFieldControlGroup($model,'correction4',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'value4'); ?>
-		<?php echo $form->textArea($model,'value4',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'value4'); ?>
-	</div>
+		<?php echo $form->textFieldControlGroup($model,'onicon',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->textFieldControlGroup($model,'dimicon',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->textFieldControlGroup($model,'officon',array('size'=>32,'maxlength'=>32)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'label'); ?>
-		<?php echo $form->textField($model,'label',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'label'); ?>
-	</div>
+<div id="main"><b>Groups</b></div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'label2'); ?>
-		<?php echo $form->textField($model,'label2',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'label2'); ?>
-	</div>
+		<?php echo $form->textFieldControlGroup($model,'groups',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->dropDownListControlGroup($model,'location', $model->getLocations(),array('id'=>'location')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'label3'); ?>
-		<?php echo $form->textField($model,'label3',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'label3'); ?>
-	</div>
+<div id="main"><b>Floorplans</b></div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'label4'); ?>
-		<?php echo $form->textField($model,'label4',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'label4'); ?>
-	</div>
+		<?php echo $form->dropDownListControlGroup($model,'floors', $model->getFloors(),array('name'=>'name')); ?>
+		<?php echo $form->textFieldControlGroup($model,'x'); ?>
+		<?php echo $form->textFieldControlGroup($model,'y'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'correction'); ?>
-		<?php echo $form->textArea($model,'correction',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'correction'); ?>
-	</div>
+<div id="main"><b>Graph</b></div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'correction2'); ?>
-		<?php echo $form->textArea($model,'correction2',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'correction2'); ?>
-	</div>
+		<?php echo $form->checkBoxControlGroup($model,'rrd', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'graph', array('value'=>-1)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'correction3'); ?>
-		<?php echo $form->textArea($model,'correction3',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'correction3'); ?>
-	</div>
+		<?php echo $form->textFieldControlGroup($model,'valuerrddsname',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->textFieldControlGroup($model,'value2rrddsname',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->textFieldControlGroup($model,'value3rrddsname',array('size'=>32,'maxlength'=>32)); ?>
+		<?php echo $form->textFieldControlGroup($model,'value4rrddsname',array('size'=>32,'maxlength'=>32)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'correction4'); ?>
-		<?php echo $form->textArea($model,'correction4',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'correction4'); ?>
-	</div>
+		<?php echo $form->dropDownListControlGroup($model,'valuerrdtype', array('GAUGE' => 'GAUGE', 'COUNTER' => 'COUNTER', 'DERIVE' => 'DERIVE', 'ABSOLUTE' => 'ABSOLUTE'), array('prompt'=>'')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'value2rrdtype', array('GAUGE' => 'GAUGE', 'COUNTER' => 'COUNTER', 'DERIVE' => 'DERIVE', 'ABSOLUTE' => 'ABSOLUTE'), array('prompt'=>'')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'value3rrdtype', array('GAUGE' => 'GAUGE', 'COUNTER' => 'COUNTER', 'DERIVE' => 'DERIVE', 'ABSOLUTE' => 'ABSOLUTE'), array('prompt'=>'')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'value4rrdtype', array('GAUGE' => 'GAUGE', 'COUNTER' => 'COUNTER', 'DERIVE' => 'DERIVE', 'ABSOLUTE' => 'ABSOLUTE'), array('prompt'=>'')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'onicon'); ?>
-		<?php echo $form->textField($model,'onicon',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'onicon'); ?>
-	</div>
+<div id="main"><b>Options</b></div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'officon'); ?>
-		<?php echo $form->textField($model,'officon',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'officon'); ?>
-	</div>
+		<?php echo $form->checkBoxControlGroup($model,'switchable', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'dimable', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'extcode', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'hide', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'log', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'logspeak', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'logdisplay', array('value'=>-1)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'dimicon'); ?>
-		<?php echo $form->textField($model,'dimicon',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'dimicon'); ?>
-	</div>
+		<?php echo $form->checkBoxControlGroup($model,'reset', array('value'=>-1)); ?>
+		<?php echo $form->textFieldControlGroup($model,'resetvalue'); ?>
+		<?php echo $form->numberFieldControlGroup($model,'resetperiod'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'interface'); ?>
-		<?php echo $form->textField($model,'interface'); ?>
-		<?php echo $form->error($model,'interface'); ?>
-	</div>
+		<?php echo $form->checkBoxControlGroup($model,'repeatstate', array('value'=>-1)); ?>
+		<?php echo $form->numberFieldControlGroup($model,'repeatperiod'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'firstseen'); ?>
-		<?php echo $form->textField($model,'firstseen'); ?>
-		<?php echo $form->error($model,'firstseen'); ?>
-	</div>
+		<?php echo $form->checkBoxControlGroup($model,'poll', array('value'=>-1)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'lastseen'); ?>
-		<?php echo $form->textField($model,'lastseen'); ?>
-		<?php echo $form->error($model,'lastseen'); ?>
-	</div>
+<div id="main"><b>Status</b></div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'enabled'); ?>
-		<?php echo $form->textField($model,'enabled'); ?>
-		<?php echo $form->error($model,'enabled'); ?>
-	</div>
+		<?php echo $form->textFieldControlGroup($model,'firstseen'); ?>
+		<?php echo $form->textFieldControlGroup($model,'lastseen'); ?>
+		<?php echo $form->textFieldControlGroup($model,'lastchanged'); ?>
+		<?php echo $form->textFieldControlGroup($model,'batterystatus',array('size'=>32,'maxlength'=>32)); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'hide'); ?>
-		<?php echo $form->textField($model,'hide'); ?>
-		<?php echo $form->error($model,'hide'); ?>
-	</div>
+		<?php echo $form->textAreaControlGroup($model,'comments',array('rows'=>3, 'cols'=>50, 'class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'log'); ?>
-		<?php echo $form->textField($model,'log'); ?>
-		<?php echo $form->error($model,'log'); ?>
-	</div>
+</fieldset>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'logdisplay'); ?>
-		<?php echo $form->textField($model,'logdisplay'); ?>
-		<?php echo $form->error($model,'logdisplay'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'logspeak'); ?>
-		<?php echo $form->textField($model,'logspeak'); ?>
-		<?php echo $form->error($model,'logspeak'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'groups'); ?>
-		<?php echo $form->textField($model,'groups',array('size'=>60,'maxlength'=>128)); ?>
-		<?php echo $form->error($model,'groups'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'rrd'); ?>
-		<?php echo $form->textField($model,'rrd'); ?>
-		<?php echo $form->error($model,'rrd'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'graph'); ?>
-		<?php echo $form->textField($model,'graph'); ?>
-		<?php echo $form->error($model,'graph'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'batterystatus'); ?>
-		<?php echo $form->textField($model,'batterystatus',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'batterystatus'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'tampered'); ?>
-		<?php echo $form->textField($model,'tampered'); ?>
-		<?php echo $form->error($model,'tampered'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'comments'); ?>
-		<?php echo $form->textArea($model,'comments',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'comments'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'valuerrddsname'); ?>
-		<?php echo $form->textField($model,'valuerrddsname',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'valuerrddsname'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'value2rrddsname'); ?>
-		<?php echo $form->textField($model,'value2rrddsname',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'value2rrddsname'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'value3rrddsname'); ?>
-		<?php echo $form->textField($model,'value3rrddsname',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'value3rrddsname'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'value4rrddsname'); ?>
-		<?php echo $form->textField($model,'value4rrddsname',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'value4rrddsname'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'valuerrdtype'); ?>
-		<?php echo $form->textField($model,'valuerrdtype',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'valuerrdtype'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'value2rrdtype'); ?>
-		<?php echo $form->textField($model,'value2rrdtype',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'value2rrdtype'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'value3rrdtype'); ?>
-		<?php echo $form->textField($model,'value3rrdtype',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'value3rrdtype'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'value4rrdtype'); ?>
-		<?php echo $form->textField($model,'value4rrdtype',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'value4rrdtype'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'switchable'); ?>
-		<?php echo $form->textField($model,'switchable'); ?>
-		<?php echo $form->error($model,'switchable'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'dimable'); ?>
-		<?php echo $form->textField($model,'dimable'); ?>
-		<?php echo $form->error($model,'dimable'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'extcode'); ?>
-		<?php echo $form->textField($model,'extcode'); ?>
-		<?php echo $form->error($model,'extcode'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'x'); ?>
-		<?php echo $form->textField($model,'x'); ?>
-		<?php echo $form->error($model,'x'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'y'); ?>
-		<?php echo $form->textField($model,'y'); ?>
-		<?php echo $form->error($model,'y'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'floorplan'); ?>
-		<?php echo $form->textField($model,'floorplan'); ?>
-		<?php echo $form->error($model,'floorplan'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'lastchanged'); ?>
-		<?php echo $form->textField($model,'lastchanged'); ?>
-		<?php echo $form->error($model,'lastchanged'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'repeatstate'); ?>
-		<?php echo $form->textField($model,'repeatstate'); ?>
-		<?php echo $form->error($model,'repeatstate'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'repeatperiod'); ?>
-		<?php echo $form->textField($model,'repeatperiod'); ?>
-		<?php echo $form->error($model,'repeatperiod'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'reset'); ?>
-		<?php echo $form->textField($model,'reset'); ?>
-		<?php echo $form->error($model,'reset'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'resetperiod'); ?>
-		<?php echo $form->textField($model,'resetperiod'); ?>
-		<?php echo $form->error($model,'resetperiod'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'resetvalue'); ?>
-		<?php echo $form->textArea($model,'resetvalue',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'resetvalue'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'poll'); ?>
-		<?php echo $form->textField($model,'poll'); ?>
-		<?php echo $form->error($model,'poll'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
-
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('Reset'),
+)); ?>
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

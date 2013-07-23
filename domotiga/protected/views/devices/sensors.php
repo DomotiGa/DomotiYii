@@ -53,8 +53,8 @@ if (false) {
 
 $deviceitems = new CArrayDataProvider(get_device_list(), array(
 'pagination' => array(
-            'pageSize' => 30,
-            'pageVar' => 'page'
+            'pageSize'=>Yii::app()->params['pagesizeDevices'],
+            'pageVar'=>'page'
         ),
 ));
 
@@ -85,16 +85,20 @@ $this->widget('application.extensions.LiveTbGridView.RefreshGridView', array(
         array('name'=>'devicelocation', 'header'=>'Location', 'htmlOptions'=>array('width'=>'120')),
         array('name'=>'devicelastseen', 'header'=>'Last Seen', 'htmlOptions'=>array('width'=>'120')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',
+           'header'=>'Actions',
            'template'=>'{view}{update}{delete}',
            'htmlOptions'=>array('width'=>'30'),
            'buttons'=>array(
               'view' => array(
+                 'label'=>'View device',
                  'url'=>'Yii::app()->controller->createUrl("devices/view", array("id"=>$data["id"]))',
               ),
               'update' => array(
+                 'label'=>'Edit device',
                  'url'=>'Yii::app()->controller->createUrl("devices/update", array("id"=>$data["id"]))',
               ),
               'delete' => array(
+                 'label'=>'Delete device',
                  'url'=>'Yii::app()->controller->createUrl("devices/delete", array("id"=>$data["id"],"command"=>"delete"))',
               ),
            ),

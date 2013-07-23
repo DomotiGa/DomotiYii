@@ -27,14 +27,14 @@
  * @property integer $interface
  * @property string $firstseen
  * @property string $lastseen
- * @property integer $enabled
- * @property integer $hide
- * @property integer $log
- * @property integer $logdisplay
- * @property integer $logspeak
+ * @property boolean $enabled
+ * @property boolean $hide
+ * @property boolean $log
+ * @property boolean $logdisplay
+ * @property boolean $logspeak
  * @property string $groups
- * @property integer $rrd
- * @property integer $graph
+ * @property boolean $rrd
+ * @property boolean $graph
  * @property string $batterystatus
  * @property integer $tampered
  * @property string $comments
@@ -46,9 +46,9 @@
  * @property string $value2rrdtype
  * @property string $value3rrdtype
  * @property string $value4rrdtype
- * @property integer $switchable
- * @property integer $dimable
- * @property integer $extcode
+ * @property boolean $switchable
+ * @property boolean $dimable
+ * @property boolean $extcode
  * @property integer $x
  * @property integer $y
  * @property integer $floorplan
@@ -58,7 +58,7 @@
  * @property integer $reset
  * @property integer $resetperiod
  * @property string $resetvalue
- * @property integer $poll
+ * @property boolean $poll
  */
 class Devices extends CActiveRecord
 {
@@ -80,6 +80,36 @@ class Devices extends CActiveRecord
 		return 'devices';
 	}
 
+    public function getInterfaces()
+    { 
+      //this function returns the list of interfaces to use in a dropdown        
+      return CHtml::listData(Interfaces::model()->findAll(), 'id', 'name');
+    }
+
+    public function getModules()
+    { 
+      //this function returns the list of modules to use in a dropdown        
+      return CHtml::listData(Devicetypes::model()->findAll(), 'id', 'name');
+    }
+
+    public function getLocations()
+    { 
+      //this function returns the list of locations to use in a dropdown        
+      return CHtml::listData(Locations::model()->findAll(), 'id', 'name');
+    }
+
+    public function getTypes()
+    { 
+      //this function returns the list of types to use in a dropdown        
+      return CHtml::listData(Devicetypes::model()->findAll(), 'type', 'type');
+    }
+
+    public function getFloors()
+    { 
+      //this function returns the list of floorplans to use in a dropdown        
+      return CHtml::listData(Floors::model()->findAll(), 'name', 'name');
+    }
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -93,6 +123,7 @@ class Devices extends CActiveRecord
 			array('address', 'length', 'max'=>64),
 			array('groups', 'length', 'max'=>128),
 			array('value, value2, value3, value4, correction, correction2, correction3, correction4, firstseen, lastseen, comments, lastchanged, resetvalue', 'safe'),
+			array('name, module, interface, address', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, address, module, location, value, value2, value3, value4, label, label2, label3, label4, correction, correction2, correction3, correction4, onicon, officon, dimicon, interface, firstseen, lastseen, enabled, hide, log, logdisplay, logspeak, groups, rrd, graph, batterystatus, tampered, comments, valuerrddsname, value2rrddsname, value3rrddsname, value4rrddsname, valuerrdtype, value2rrdtype, value3rrdtype, value4rrdtype, switchable, dimable, extcode, x, y, floorplan, lastchanged, repeatstate, repeatperiod, reset, resetperiod, resetvalue, poll', 'safe', 'on'=>'search'),
@@ -107,6 +138,7 @@ class Devices extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'devicetype' => array(self::BELONGS_TO, 'Devicetypes','module'),
 		);
 	}
 
@@ -119,58 +151,58 @@ class Devices extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'address' => 'Address',
-			'module' => 'Module',
+			'module' => 'Device',
 			'location' => 'Location',
-			'value' => 'Value',
+			'value' => 'Value1',
 			'value2' => 'Value2',
 			'value3' => 'Value3',
 			'value4' => 'Value4',
-			'label' => 'Label',
+			'label' => 'Label1',
 			'label2' => 'Label2',
 			'label3' => 'Label3',
 			'label4' => 'Label4',
-			'correction' => 'Correction',
+			'correction' => 'Correction1',
 			'correction2' => 'Correction2',
 			'correction3' => 'Correction3',
 			'correction4' => 'Correction4',
-			'onicon' => 'Onicon',
-			'officon' => 'Officon',
-			'dimicon' => 'Dimicon',
+			'onicon' => 'On icon',
+			'officon' => 'Off icon',
+			'dimicon' => 'Dim icon',
 			'interface' => 'Interface',
-			'firstseen' => 'Firstseen',
-			'lastseen' => 'Lastseen',
+			'firstseen' => 'First seen',
+			'lastseen' => 'Last seen',
 			'enabled' => 'Enabled',
-			'hide' => 'Hide',
-			'log' => 'Log',
-			'logdisplay' => 'Logdisplay',
-			'logspeak' => 'Logspeak',
+			'hide' => 'Hide device',
+			'log' => 'Log status changes to db',
+			'logdisplay' => 'Display status changes',
+			'logspeak' => 'Speak status changes',
 			'groups' => 'Groups',
-			'rrd' => 'Rrd',
-			'graph' => 'Graph',
-			'batterystatus' => 'Batterystatus',
+			'rrd' => 'Log RRD data',
+			'graph' => 'Enable simple graphing',
+			'batterystatus' => 'Battery status',
 			'tampered' => 'Tampered',
 			'comments' => 'Comments',
-			'valuerrddsname' => 'Valuerrddsname',
-			'value2rrddsname' => 'Value2rrddsname',
-			'value3rrddsname' => 'Value3rrddsname',
-			'value4rrddsname' => 'Value4rrddsname',
-			'valuerrdtype' => 'Valuerrdtype',
-			'value2rrdtype' => 'Value2rrdtype',
-			'value3rrdtype' => 'Value3rrdtype',
-			'value4rrdtype' => 'Value4rrdtype',
-			'switchable' => 'Switchable',
-			'dimable' => 'Dimable',
-			'extcode' => 'Extcode',
+			'valuerrddsname' => 'Value1 rrd dsname',
+			'value2rrddsname' => 'Value2 rrd dsname',
+			'value3rrddsname' => 'Value3 rrd dsname',
+			'value4rrddsname' => 'Value4 rrd dsname',
+			'valuerrdtype' => 'Value1 rrd type',
+			'value2rrdtype' => 'Value2 rrd type',
+			'value3rrdtype' => 'Value3 rrd type',
+			'value4rrdtype' => 'Value4 rrd type',
+			'switchable' => 'Device can be switched',
+			'dimable' => 'Device can be dimmed',
+			'extcode' => 'Supports extended X10',
 			'x' => 'X',
 			'y' => 'Y',
 			'floorplan' => 'Floorplan',
-			'lastchanged' => 'Lastchanged',
-			'repeatstate' => 'Repeatstate',
-			'repeatperiod' => 'Repeatperiod',
-			'reset' => 'Reset',
-			'resetperiod' => 'Resetperiod',
-			'resetvalue' => 'Resetvalue',
-			'poll' => 'Poll',
+			'lastchanged' => 'Last changed',
+			'repeatstate' => 'Repeat state enabled',
+			'repeatperiod' => 'Repeat period',
+			'reset' => 'Reset status enabled',
+			'resetperiod' => 'Reset period',
+			'resetvalue' => 'Reset value',
+			'poll' => 'Poll device (ZWave only)',
 		);
 	}
 
