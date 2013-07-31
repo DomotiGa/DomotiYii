@@ -61,18 +61,21 @@ class TbNavbar extends CWidget
      */
     public function init()
     {
-        if ($this->brandLabel !== false)
-        {
-            if (!isset($this->brandLabel))
+        if ($this->brandLabel !== false) {
+            if (!isset($this->brandLabel)) {
                 $this->brandLabel = CHtml::encode(Yii::app()->name);
+            }
 
-            if (!isset($this->brandUrl))
+            if (!isset($this->brandUrl)) {
                 $this->brandUrl = Yii::app()->homeUrl;
+            }
         }
-        if (isset($this->color))
-            $this->htmlOptions = TbHtml::defaultOption('color', $this->color, $this->htmlOptions);
-        if (isset($this->display) && $this->display !== TbHtml::NAVBAR_DISPLAY_NONE)
-            $this->htmlOptions = TbHtml::defaultOption('display', $this->display, $this->htmlOptions);
+        if (isset($this->color)) {
+            TbArray::defaultValue('color', $this->color, $this->htmlOptions);
+        }
+        if (isset($this->display) && $this->display !== TbHtml::NAVBAR_DISPLAY_NONE) {
+            TbArray::defaultValue('display', $this->display, $this->htmlOptions);
+        }
     }
 
     /**
@@ -84,40 +87,40 @@ class TbNavbar extends CWidget
             ? TbHtml::navbarBrandLink($this->brandLabel, $this->brandUrl, $this->brandOptions)
             : '';
         ob_start();
-        foreach ($this->items as $item)
-        {
-            if (is_string($item))
+        foreach ($this->items as $item) {
+            if (is_string($item)) {
                 echo $item;
-            else
-            {
-                $widgetClassName = TbHtml::popOption('class', $item);
-                if ($widgetClassName !== null)
+            } else {
+                $widgetClassName = TbArray::popValue('class', $item);
+                if ($widgetClassName !== null) {
                     $this->controller->widget($widgetClassName, $item);
+                }
             }
         }
         $items = ob_get_clean();
         ob_start();
-        if ($this->collapse !== false)
-        {
-            $this->collapseOptions = TbHtml::addClassName('nav-collapse', $this->collapseOptions);
-            // todo: fix collapse, currently it cannot be clicked when within a navbar
+        if ($this->collapse !== false) {
+            TbHtml::addCssClass('nav-collapse', $this->collapseOptions);
             ob_start();
             /* @var TbCollapse $collapseWidget */
-            $collapseWidget = $this->controller->widget('bootstrap.widgets.TbCollapse', array(
+            $collapseWidget = $this->controller->widget(
+                'bootstrap.widgets.TbCollapse',
+                array(
                     'toggle' => false, // navbars are collapsed by default
                     'content' => $items,
                     'htmlOptions' => $this->collapseOptions,
-                ));
+                )
+            );
             $collapseContent = ob_get_clean();
-            echo TbHtml::collapseIcon('#' . $collapseWidget->getId());
+            echo TbHtml::navbarCollapseLink('#' . $collapseWidget->getId());
             echo $brand . $collapseContent;
 
-        }
-        else
+        } else {
             echo $brand . $items;
+        }
         $containerContent = ob_get_clean();
-        $containerOptions = TbHtml::popOption('containerOptions', $this->htmlOptions, array());
-        $containerOptions = TbHtml::addClassName($this->fluid ? 'container-fluid' : 'container', $containerOptions);
+        $containerOptions = TbArray::popValue('containerOptions', $this->htmlOptions, array());
+        TbHtml::addCssClass($this->fluid ? 'container-fluid' : 'container', $containerOptions);
         ob_start();
         echo TbHtml::openTag('div', $containerOptions);
         echo $containerContent;

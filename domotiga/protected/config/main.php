@@ -73,6 +73,10 @@ return array(
 		),
 	),
 
+	// language settings
+	'sourceLanguage' => 'en_us',
+	'language' => 'nl_nl', // add new translations under protected/messages/ 
+
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
@@ -80,6 +84,8 @@ return array(
 		'adminEmail'=>'support@domotiga.nl',
 		'xmlrpcHost'=>'http://localhost:9009',
 		'refreshDevices'=>'5000', // 5 second refresh
-		'pagesizeDevices'=>'20', // 20 devices per page in gridview
+		'refreshPhonecalls'=>'5000', // 5 second refresh
+		'pagesizeDevices'=>'20', // 20 devices per page in devices gridview
+		'pagesizePhonecalls'=>'30', // 30 calls per page in phone gridview
 	),
 );

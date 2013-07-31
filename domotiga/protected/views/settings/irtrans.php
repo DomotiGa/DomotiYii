@@ -2,15 +2,20 @@
 /* @var $this SettingsIrtransController */
 /* @var $model SettingsIrtrans */
 /* @var $form bootstrap.widgets.TbActiveForm */
-?>
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$this->widget('bootstrap.widgets.TbBreadcrumb', array(
+    'links' => array(
+        Yii::t('translate','Interfaces') => '../index',
+        Yii::t('translate','IRTrans'),
+    ),
+));
+
+$form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id'=>'settings-irtrans-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
-<legend>IRtrans Settings</legend>
 
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'tcphost'); ?>
@@ -20,7 +25,7 @@
 </fieldset>
 
 <?php echo TbHtml::formActions(array(
-    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
-    TbHtml::resetButton('Reset'),
+    TbHtml::submitButton(Yii::t('translate','Submit'), array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton(Yii::t('translate','Reset')),
 )); ?>
 <?php $this->endWidget(); ?>

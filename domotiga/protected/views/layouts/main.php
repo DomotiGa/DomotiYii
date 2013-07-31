@@ -16,26 +16,27 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-	<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/domotiga.js"></script>
+	<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/static/domotiga.js"></script>
 
 	<?php Yii::app()->bootstrap->register(); ?>
 </head>
 <body>
 <div class="contain" id="page">
 
-      <div id="header">
-                <div id="logo"></br></div>
+	<div id="header">
+                <div id="logo"></div>
         </div><!-- header -->
 <div class="navbar navbar-inverse">
 <?php $this->widget('bootstrap.widgets.TbNavbar',array(
+    'brandLabel'=>'<img height="25" width="25" src="/domotiga/static/logo.png">',
     'collapse'=>true, // requires bootstrap-responsive.css
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.TbNav',
             'items'=>array(
-                array('label'=>'Devices', 'url'=> array('/devices/index')),
-                array('label'=>'Home', 'url'=> array('/site/index')),
-                array('label'=>'Setup', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
+                array('label'=>Yii::t('translate','Devices'), 'url'=> array('/devices/index')),
+                array('label'=>Yii::t('translate','Phone'), 'url'=> array('/cdr/index')),
+                array('label'=>Yii::t('translate','Setup'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                     array('label'=>'Main', 'url'=> array('settings/main')),
                     array('label'=>'Astro and Location', 'url'=> array('settings/astro')),
                     array('label'=>'CallerID', 'url'=> array('settings/callerid')),
@@ -54,6 +55,12 @@
                     array('label'=>'VoiceText', 'url'=> array('settings/voicetext')),
                     array('label'=>'Weather', 'url'=>'#', 'items'=>array(
                        array('label'=>'WeatherBug', 'url'=> array('settings/weatherbug')),
+                       array('label'=>'WeatherUnderground', 'url'=> array('settings/weatherug')),
+                    )),
+                    array('label'=>'Notifiers', 'url'=>'#', 'items'=>array(
+                       array('label'=>'Prowl', 'url'=> array('settings/prowl')),
+                       array('label'=>'Pushover', 'url'=> array('settings/pushover')),
+                       array('label'=>'NMA', 'url'=> array('settings/nma')),
                     )),
                     array('label'=>'Server Stats', 'url'=> array('settings/serverstats')),
                     array('label'=>'TV Guide', 'url'=>'#', 'items'=>array(
@@ -70,7 +77,7 @@
                     )),
                     array('label'=>'Thermostat', 'url'=> array('settings/thermostat')),
                  )),
-                 array('label'=>'Interfaces', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
+                 array('label'=>Yii::t('translate','Interfaces'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                     array('label'=>'1-Wire', 'url'=>'#', 'items'=>array(
                        array('label'=>'Digitemp', 'url'=> array('settings/digitemp')),
                        array('label'=>'Midon TEMP08', 'url'=> array('settings/temp08')),
@@ -150,7 +157,11 @@
                        array('label'=>'UPS Monitor', 'url'=> array('settings/ups')),
                        array('label'=>'xPL', 'url'=> array('settings/xpl')),
 		    )),
-                       array('label'=>'Gii', 'url'=> array('/gii')),
+                    array('label'=>'Edit', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
+                    array('label'=>'Contacts', 'url'=> array('contacts/index')),
+		),
+),
+                       array('label'=>'Gii', 'url'=> array('/gii'), 'visible'=>!Yii::app()->user->isGuest),
             ),
         ),
         '<form class="navbar-search pull-right" action=""><input type="text" class="search-query span2" placeholder="Search"></form>',
@@ -158,39 +169,33 @@
             'class'=>'bootstrap.widgets.TbNav',
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
-                array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
-                array('label'=>'About', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Visit Project Website', 'url'=>'http://domotiga.nl'),
-                    array('label'=>'Donate to Project', 'url'=>'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=NT48KZRT7F3FA&lc=US&item_name=DomotiGa%20Open%20Source%20Project&item_number=domotiga&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'),
+                array('label'=>Yii::t('translate','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                array('label'=>Yii::t('translate','Logout').' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+                array('label'=>Yii::t('translate','About'), 'url'=>'#', 'items'=>array(
+                    array('label'=>Yii::t('translate','Visit Project Website'), 'url'=>'http://domotiga.nl'),
+                    array('label'=>Yii::t('translate','Donate to Project'), 'url'=>'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=NT48KZRT7F3FA&lc=US&item_name=DomotiGa%20Open%20Source%20Project&item_number=domotiga&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'),
 		TbHtml::menuDivider(),
-                    array('label'=>'Contact Support', 'url'=> array('/site/contact')),
-                    array('label'=>'About DomotiGa', 'url'=> array('/site/about')),
+                    array('label'=>Yii::t('translate','Contact Support'), 'url'=> array('/site/contact')),
+                    array('label'=>Yii::t('translate','About DomotiGa'), 'url'=> array('/site/about')),
                 )),
             ),
         ),
     ),
 )); ?>
 </div>
-	<?php if(isset($this->breadcrumb)):?>
-<?php $this->widget('bootstrap.widgets.TbBreadcrumb', array(
-    'links'=>$this->breadcrumbs,
-)); ?>
-<?php endif?>
 
-    <?php echo $content; ?>
- <?php foreach(array('error', 'notice', 'success') as $key): ?>
+    <?php foreach(array('error', 'notice', 'success') as $key): ?>
         <?php if (Yii::app()->user->hasFlash($key)): ?>
             <div class="flash-<?php echo $key ?>">
                 <?php echo Yii::app()->user->getFlash($key) ?>
             </div>
         <?php endif; ?>
     <?php endforeach; ?>
+    <?php echo $content; ?>
 	<div id="footer">
-Credits and Copyright © <?php echo date("Y"); ?> <a href="http://www.domotiga.nl/" >DomotiGa</a> <a href="mailto:support@domotiga.nl"></a> created by Ron Klinkien
+Credits and Copyright © <?php echo date("Y"); ?> <a href="http://www.domotiga.nl/" >DomotiGa</a> <a href="mailto:support@domotiga.nl"></a> by Ron Klinkien
 	</div><!-- footer -->
 
 </div><!-- page -->
-
 </body>
 </html>

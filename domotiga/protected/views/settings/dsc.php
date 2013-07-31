@@ -2,15 +2,20 @@
 /* @var $this SettingsDscController */
 /* @var $model SettingsDsc */
 /* @var $form bootstrap.widgets.TbActiveForm */
-?>
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$this->widget('bootstrap.widgets.TbBreadcrumb', array(
+    'links' => array(
+        Yii::t('translate','Interfaces') => '../index',
+        Yii::t('translate','DSC'),
+    ),
+));
+
+$form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id'=>'settings-dsc-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
-<legend>DSC Settings</legend>
 
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
                 <?php echo $form->textFieldControlGroup($model,'serialport', array('class'=>'span5')); ?>
@@ -22,7 +27,7 @@
 </fieldset>
 
 <?php echo TbHtml::formActions(array(
-    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
-    TbHtml::resetButton('Reset'),
+    TbHtml::submitButton(Yii::t('translate','Submit'), array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton(Yii::t('translate','Reset')),
 )); ?>
 <?php $this->endWidget(); ?>

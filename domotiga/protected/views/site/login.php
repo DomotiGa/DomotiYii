@@ -4,12 +4,13 @@
 /* @var $form CActiveForm  */
 
 $this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
-);
-?>
+$this->widget('bootstrap.widgets.TbBreadcrumb', array(
+    'links' => array(
+        Yii::t('translate','Login'),
+    ),
+)); 
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id'=>'login-form',
 	'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>

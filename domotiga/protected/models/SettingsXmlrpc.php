@@ -70,7 +70,7 @@ class SettingsXmlrpc extends CActiveRecord
 			'httpport' => 'Httpport',
 			'maxconn' => 'Maxconn',
 			'debug' => 'Debug',
-			'broadcastudp' => 'Broadcastudp',
+			'broadcastudp' => 'Broadcast UDP',
 		);
 	}
 

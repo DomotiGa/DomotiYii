@@ -75,7 +75,7 @@ class SettingsPvoutput extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'api' => 'Api',
+			'api' => 'API key',
 			'pvoutputid' => 'Pvoutput Id',
 			'pushtime' => 'Pushtime',
 			'debug' => 'Debug',

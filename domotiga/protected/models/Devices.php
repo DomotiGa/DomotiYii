@@ -63,6 +63,60 @@
 class Devices extends CActiveRecord
 {
 	/**
+	 * @return array with device of type requested
+	 */
+	public function getDevices($type)
+	{
+		$deviceitems = new CArrayDataProvider($this->get_device_list($type), array(
+			'pagination' => array(
+			'pageSize'=>Yii::app()->params['pagesizeDevices'],
+			'pageVar'=>'page'
+			),
+		));
+		return $deviceitems;
+	}
+
+	/**
+         * @return dropdownlist with the list of interfaces
+	 */
+        public function getInterfaces()
+        {
+        	return CHtml::listData(Interfaces::model()->findAll(), 'id', 'name');
+        }
+
+	/**
+         * @return dropdownlist with the list of modules/devicetypes
+	 */
+        public function getModules()
+        {
+        	return CHtml::listData(Devicetypes::model()->findAll(), 'id', 'name');
+        }
+
+	/**
+         * @return dropdownlist with the list of locations
+	 */
+        public function getLocations()
+        {
+        	return CHtml::listData(Locations::model()->findAll(), 'id', 'name');
+        }
+
+	/**
+         * @return dropdownlist with the list of types/protocols
+	 */
+        public function getTypes()
+        {
+        	return CHtml::listData(Devicetypes::model()->findAll(), 'type', 'type');
+        }
+
+        /**
+         * @return dropdownlist with the list of floorplans
+         */
+        public function getFloors()
+        {
+                return CHtml::listData(Floors::model()->findAll(), 'name', 'name');
+        }
+
+	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return Devices the static model class
@@ -79,36 +133,6 @@ class Devices extends CActiveRecord
 	{
 		return 'devices';
 	}
-
-    public function getInterfaces()
-    { 
-      //this function returns the list of interfaces to use in a dropdown        
-      return CHtml::listData(Interfaces::model()->findAll(), 'id', 'name');
-    }
-
-    public function getModules()
-    { 
-      //this function returns the list of modules to use in a dropdown        
-      return CHtml::listData(Devicetypes::model()->findAll(), 'id', 'name');
-    }
-
-    public function getLocations()
-    { 
-      //this function returns the list of locations to use in a dropdown        
-      return CHtml::listData(Locations::model()->findAll(), 'id', 'name');
-    }
-
-    public function getTypes()
-    { 
-      //this function returns the list of types to use in a dropdown        
-      return CHtml::listData(Devicetypes::model()->findAll(), 'type', 'type');
-    }
-
-    public function getFloors()
-    { 
-      //this function returns the list of floorplans to use in a dropdown        
-      return CHtml::listData(Floors::model()->findAll(), 'name', 'name');
-    }
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -291,5 +315,82 @@ class Devices extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	/**
+	 * request an xmlrpc call
+	 */
+	protected function do_xmlrpc($request) {
+
+		$context = stream_context_create(array('http' => array('method' => "POST",'header' =>"Content-Type: text/xml",'content' => $request)));
+		if ($file = @file_get_contents(Yii::app()->params['xmlrpcHost'], false, $context)) {
+		$file=str_replace("i8","double",$file);
+		return xmlrpc_decode($file, "UTF-8");
+		} else {
+			Yii::app()->user->setFlash('error', "Couldn't connect to XML-RPC service on '" . Yii::app()->params['xmlrpcHost'] . "'");
+		}
+	}
+
+	/**
+	 * @return array with list of devices of type
+	 */
+	protected function get_device_list($type) {
+
+		$retarr = array();
+		$index = 0;
+		$locations = array();
+
+		$request = xmlrpc_encode_request("device.list",null);
+		$response = $this->do_xmlrpc($request);
+
+		if ($response === null) { return $retarr; }
+
+		if (is_array($response) && xmlrpc_is_fault($response)) {
+			Yii::app()->user->setFlash('error', "XMLRPC error received while fetching device list: ".$response['faultString']." (".$response['faultCode'].")");
+		} else {
+			foreach($response AS $item) {
+				list($retarr[$index]['id'], $retarr[$index]['deviceicon'], $retarr[$index]['devicename'], $retarr[$index]['devicelocation'], $retarr[$index]['devicevalue'], $retarr[$index]['devicelabel'], $retarr[$index]['devicevalue2'], $retarr[$index]['devicelabel2'], $retarr[$index]['devicevalue3'], $retarr[$index]['devicelabel3'], $retarr[$index]['devicevalue4'], $retarr[$index]['devicelabel4'], $retarr[$index]['devicelastseen'], $retarr[$index]['dimmable'], $retarr[$index]['switchable']) = explode (';;', $item);
+
+/*
+				if (strlen($retarr[$index]['devicelocation'])) {
+					$locations[$index]['label'] = $retarr[$index]['devicelocation'];
+					$locations[$index]['url'] = $retarr[$index]['devicelocation'];
+				}
+*/
+
+				// concat values and labels
+				$retarr[$index]['devicevalue'] = $retarr[$index]['devicevalue']. " ".$retarr[$index]['devicelabel'];
+				$retarr[$index]['devicevalue2'] = $retarr[$index]['devicevalue2']. " ".$retarr[$index]['devicelabel2'];
+				$retarr[$index]['devicevalue3'] = $retarr[$index]['devicevalue3']. " ".$retarr[$index]['devicelabel3'];
+				$retarr[$index]['devicevalue4'] = $retarr[$index]['devicevalue4']. " ".$retarr[$index]['devicelabel4'];
+
+				// sensor
+				if($type == "sensors") {
+					if ((strcmp($retarr[$index]['switchable'],"T") == 0) OR (strcmp($retarr[$index]['dimmable'],"T") == 0)) {
+						unset($retarr[$index]);
+					} else {
+						$index++;
+					}
+				// dimmers
+				} elseif ($type == "dimmers") {
+					if (strcmp($retarr[$index]['dimmable'],"T") == 0) {
+						$index++;
+					} else {
+						unset($retarr[$index]);
+					}
+				// switches
+				} elseif ($type == "switches") {
+					if (strcmp($retarr[$index]['switchable'],"T") == 0) {
+						$index++;
+					} else {
+						unset($retarr[$index]);
+					}
+				// all devices
+				} else {
+					$index++;
+				}
+			}
+			return $retarr;
+		}
 	}
 }

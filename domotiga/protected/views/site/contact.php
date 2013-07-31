@@ -4,12 +4,12 @@
 /* @var $form CActiveForm */
 
 $this->pageTitle=Yii::app()->name . ' - Contact Us';
-$this->breadcrumbs=array(
-	'Contact',
-);
+$this->widget('bootstrap.widgets.TbBreadcrumb', array(
+    'links' => array(
+        'Contact',
+    ),
+));
 ?>
-
-<h1>Contact Support</h1>
 
 <?php if(Yii::app()->user->hasFlash('contact')): ?>
 
@@ -19,47 +19,27 @@ $this->breadcrumbs=array(
 
 <?php else: ?>
 
-<p>
-If you have support questions, please fill out the following form to contact us. Thank you.
-</p>
 
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'contact-form',
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+        'id'=>'contact-form',
 	'enableClientValidation'=>true,
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
+<fieldset>
+<legend>Contact Support</legend>
+<p>
+If you have support questions, please fill out the following form to contact us. Thank you.
+</p>
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name'); ?>
-		<?php echo $form->error($model,'name'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email'); ?>
-		<?php echo $form->error($model,'email'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'subject'); ?>
-		<?php echo $form->textField($model,'subject',array('size'=>60,'maxlength'=>128)); ?>
-		<?php echo $form->error($model,'subject'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'body'); ?>
-		<?php echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'body'); ?>
-	</div>
+	<?php echo $form->textFieldControlGroup($model,'name'); ?>
+	<?php echo $form->emailFieldControlGroup($model,'email'); ?>
+	<?php echo $form->textFieldControlGroup($model,'subject',array('size'=>60,'maxlength'=>128)); ?>
+	<?php echo $form->textAreaControlGroup($model,'body',array('rows'=>6, 'cols'=>50)); ?>
 
 	<?php if(CCaptcha::checkRequirements()): ?>
 	<div class="row">
@@ -74,12 +54,12 @@ If you have support questions, please fill out the following form to contact us.
 	</div>
 	<?php endif; ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Submit'); ?>
-	</div>
+</fieldset>
 
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+)); ?>
 <?php $this->endWidget(); ?>
 
-</div><!-- form -->
-
 <?php endif; ?>
+

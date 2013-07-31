@@ -2,15 +2,20 @@
 /* @var $this SettingsMqttController */
 /* @var $model SettingsMqtt */
 /* @var $form CActiveForm */
-?>
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$this->widget('bootstrap.widgets.TbBreadcrumb', array(
+    'links' => array(
+        Yii::t('translate','Settings') => '../index',
+        Yii::t('translate','MQTT'),
+    ),
+));
+
+$form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'settings-mqtt-mqtt-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
-<legend>MQTT Settings</legend>
 
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'tcphost'); ?>
@@ -19,13 +24,13 @@
 		<?php echo $form->passwordFieldControlGroup($model,'password'); ?>
 		<?php echo $form->textFieldControlGroup($model,'pubtopic'); ?>
 		<?php echo $form->textFieldControlGroup($model,'subtopic'); ?>
-		<?php echo $form->numberFieldControlGroup($model,'heartbeat'); ?>
+		<?php echo $form->numberFieldControlGroup($model,'heartbeat', array('append' => 'Seconds')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 
 </fieldset>
 
 <?php echo TbHtml::formActions(array(
-    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
-    TbHtml::resetButton('Reset'),
+    TbHtml::submitButton(Yii::t('translate','Submit'), array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton(Yii::t('translate','Reset')),
 )); ?>
 <?php $this->endWidget(); ?>

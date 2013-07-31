@@ -68,12 +68,12 @@ class SettingsDigitemp extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'enabled' => 'Enabled',
-			'command' => 'Command',
-			'config' => 'Config',
-			'polltime' => 'Polltime',
-			'readtime' => 'Readtime',
-			'debug' => 'Debug',
+			'enabled' => Yii::t('translate','Enabled'),
+			'command' => Yii::t('translate','Command'),
+			'config' => Yii::t('translate','Config'),
+			'polltime' => Yii::t('translate','Polltime'),
+			'readtime' => Yii::t('translate','Readtime'),
+			'debug' => Yii::t('translate','Debug'),
 		);
 	}
 

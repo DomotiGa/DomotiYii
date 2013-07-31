@@ -2,25 +2,30 @@
 /* @var $this SettingsKmtronicudpController */
 /* @var $model SettingsKmtronicudp */
 /* @var $form CActiveForm */
-?>
 
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$this->widget('bootstrap.widgets.TbBreadcrumb', array(
+    'links' => array(
+        Yii::t('translate','Interfaces') => '../index',
+        Yii::t('translate','KMTronicUDP'),
+    ),
+));
+
+$form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'settings-kmtronicudp-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
-<legend>KMTronicUDP Settings</legend>
 
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->numberFieldControlGroup($model,'udpport'); ?>
-		<?php echo $form->numberFieldControlGroup($model,'polltime'); ?>
+		<?php echo $form->numberFieldControlGroup($model,'polltime', array('append' => 'Seconds')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 
 </fieldset>
 
 <?php echo TbHtml::formActions(array(
-    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
-    TbHtml::resetButton('Reset'),
+    TbHtml::submitButton(Yii::t('translate','Submit'), array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton(Yii::t('translate','Reset')),
 )); ?>
 <?php $this->endWidget(); ?>

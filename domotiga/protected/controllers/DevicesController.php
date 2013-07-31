@@ -2,6 +2,12 @@
 
 class DevicesController extends Controller
 {
+	public function actionControl()
+	{
+    		$model = Devices::model();
+		$this->render('control', array('model'=>$model));
+	}
+
 	public function actionIndex()
 	{
     		$model = Devices::model();
@@ -29,8 +35,6 @@ class DevicesController extends Controller
 	public function actionUpdate($id)
 	{
     		$model = Devices::model()->findByPk($id);
-		$this->render('update', array('model'=>$model));
-
 		if(isset($_POST['Devices']))
 		{
 			$model->attributes=$_POST['Devices'];
@@ -40,7 +44,15 @@ class DevicesController extends Controller
 				$this->do_save($model);
 			}
 		}
+                $this->render('update',array(
+                        'model'=>$model,
+                ));
+	}
 
+	public function actionDelete($id)
+	{
+		$model = Devices::model()->findByPk($id);
+		$this->do_delete($model);
 	}
 
 	// Uncomment the following methods and override them if needed
@@ -69,12 +81,22 @@ class DevicesController extends Controller
 		);
 	}
 	*/
+
 protected function do_save($model) {
 
-    if ( $model->save() === FALSE ) {
-       Yii::app()->user->setFlash('error', "Saving settings... Failed!");
+    if ( $model->save() === false ) {
+       Yii::app()->user->setFlash('error', "Saving device... Failed!");
     } else {
-       Yii::app()->user->setFlash('success', "Saving settings... Successful.");
+       Yii::app()->user->setFlash('success', "Saving device... Successful.");
+    }
+}
+
+protected function do_delete($model) {
+
+    if ( $model->delete() === false ) {
+       Yii::app()->user->setFlash('error', "Deleting device... Failed!");
+    } else {
+       Yii::app()->user->setFlash('success', "Deleting device... Successful.");
     }
 }
 

@@ -56,16 +56,18 @@ class TbCollapse extends CWidget
     {
         $this->attachBehavior('TbWidget', new TbWidget);
         $this->copyId();
-        $this->htmlOptions = TbHtml::addClassName('collapse', $this->htmlOptions);
-        if (isset($this->parent))
-            $this->htmlOptions = TbHtml::defaultOption('data-parent', $this->parent, $this->htmlOptions);
-        if (isset($this->toggle) && $this->toggle)
-            $this->htmlOptions = TbHtml::addClassName('in', $this->htmlOptions);
-        if (isset($this->view))
-        {
+        TbHtml::addCssClass('collapse', $this->htmlOptions);
+        if (isset($this->parent)) {
+            TbArray::defaultValue('data-parent', $this->parent, $this->htmlOptions);
+        }
+        if (isset($this->toggle) && $this->toggle) {
+            TbHtml::addCssClass('in', $this->htmlOptions);
+        }
+        if (isset($this->view)) {
             $controller = $this->getController();
-            if (isset($controller) && $controller->getViewFile($this->view) !== false)
+            if (isset($controller) && $controller->getViewFile($this->view) !== false) {
                 $this->content = $this->controller->renderPartial($this->view, $this->viewData, true);
+            }
         }
         echo TbHtml::openTag($this->tagName, $this->htmlOptions);
         echo $this->content;
