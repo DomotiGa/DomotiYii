@@ -17,8 +17,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 <fieldset>
 
-		<?php echo $form->textFieldControlGroup($model,'timezone'); ?>
-		<?php echo $form->checkBoxControlGroup($model,'dst', array('value'=>-1)); ?>
+		<?php echo $form->dropDownListControlGroup($model,'timezone', array(255 => 'Automatic', -12 => "-12", -11 => "-11", -10 => "-10", -9 => "-9 = AKST", -8 => "-8 = PST", -7 => "-7 = MST", -6 => "-6 = CST", -5 => "-5", -4 => "-4", -3 => "-3 =  ADT", -2 => "-2", -1 => "-1 = EGT", 0 => "0 = GMT/UTC/WET", 1 => "+1 = CET/IST", 2 => "+2 = EET", 3 => "+3", 4 => "+4 = MSD", 5 => "+5", 6 => "+6", 7 => "+7", 8 => "+8 = HKT/PHT/SGT", 9 => "+9 = JST/KST/MYT", 10 => "+10 = PGT", 11 => "+11", 12 => "+12 = FJT/NZST", 13 => "+13 = WST")); ?>
+		<?php if ( $model->timezone <> 255 ) echo $form->checkBoxControlGroup($model,'dst', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'latitude'); ?>
 		<?php echo $form->textFieldControlGroup($model,'longitude'); ?>
 		<?php echo $form->dropDownListControlGroup($model,'twilight', array('nautical' => 'nautical', 'civil' => 'civil', 'astronomical' => 'astronomical')); ?>
