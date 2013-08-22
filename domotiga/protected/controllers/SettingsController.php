@@ -3,6 +3,74 @@
 class SettingsController extends Controller
 {
 
+public function actionWeatherug()
+{
+    $model = SettingsWeatherug::model()->findByPk(1);
+
+    if(isset($_POST['SettingsWeatherug']))
+    {
+        $model->attributes=$_POST['SettingsWeatherug'];
+        if($model->validate())
+        {
+            // form inputs are valid, do something here
+            $model->save();
+            $this->do_xmlrpc("module.restart","weatherug");
+        }
+    }
+    $this->render('weatherug',array('model'=>$model));
+}
+
+public function actionNMA()
+{
+    $model = SettingsNMA::model()->findByPk(1);
+
+    if(isset($_POST['SettingsNMA']))
+    {
+        $model->attributes=$_POST['SettingsNMA'];
+        if($model->validate())
+        {
+            // form inputs are valid, do something here
+            $model->save();
+            $this->do_xmlrpc("module.restart","NMA");
+        }
+    }
+    $this->render('NMA',array('model'=>$model));
+}
+
+public function actionPushover()
+{
+    $model = SettingsPushover::model()->findByPk(1);
+
+    if(isset($_POST['SettingsPushover']))
+    {
+        $model->attributes=$_POST['SettingsPushover'];
+        if($model->validate())
+        {
+            // form inputs are valid, do something here
+            $model->save();
+            $this->do_xmlrpc("module.restart","pushover");
+        }
+    }
+    $this->render('pushover',array('model'=>$model));
+}
+
+public function actionProwl()
+{
+    $model = SettingsProwl::model()->findByPk(1);
+
+    if(isset($_POST['SettingsProwl']))
+    {
+        $model->attributes=$_POST['SettingsProwl'];
+        if($model->validate())
+        {
+            // form inputs are valid, do something here
+            $model->save();
+            $this->do_xmlrpc("module.restart","prowl");
+        }
+    }
+    $this->render('prowl',array('model'=>$model));
+}
+
 public function actionKmtronicudp()
 {
     $model = SettingsKmtronicudp::model()->findByPk(1);
@@ -220,23 +288,6 @@ public function actionGmail()
         }
     }
     $this->render('gmail',array('model'=>$model));
-}
-
-public function actionGlatitude()
-{
-    $model=SettingsGlatitude::model()->findByPk(1);
-
-    if(isset($_POST['SettingsGlatitude']))
-    {
-        $model->attributes=$_POST['SettingsGlatitude'];
-        if($model->validate())
-        {
-           // form inputs are valid, do something here
-           $model->save();
-	   $this->do_xmlrpc("module.restart","glatitude");
-        }
-    }
-    $this->render('glatitude',array('model'=>$model));
 }
 
 public function actionTwitter()

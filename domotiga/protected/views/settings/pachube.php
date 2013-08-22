@@ -5,8 +5,8 @@
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('translate','Settings') => '../index',
-        Yii::t('translate','Pachube/COSM'),
+        Yii::t('translate','Modules') => '../index',
+        Yii::t('translate','Pachube/COSM/Xively'),
     ),
 ));
 
@@ -19,7 +19,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->numberFieldControlGroup($model,'feed'); ?>
-		<?php echo $form->textFieldControlGroup($model,'apikey',array('class'=>'span7')); ?>
+		<?php echo $form->textFieldControlGroup($model,'apikey', array('class'=>'span7')); ?>
 		<?php echo $form->numberFieldControlGroup($model,'pushtime', array('append' => 'Seconds')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 

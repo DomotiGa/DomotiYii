@@ -36,14 +36,13 @@
             'items'=>array(
                 array('label'=>Yii::t('translate','Devices'), 'url'=> array('/devices/index')),
                 array('label'=>Yii::t('translate','Phone'), 'url'=> array('/cdr/index')),
-                array('label'=>Yii::t('translate','Setup'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
+                array('label'=>Yii::t('translate','Modules'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                     array('label'=>'Main', 'url'=> array('settings/main')),
                     array('label'=>'Astro and Location', 'url'=> array('settings/astro')),
                     array('label'=>'CallerID', 'url'=> array('settings/callerid')),
                     array('label'=>'E-mail', 'url'=> array('settings/email')),
                     array('label'=>'Google', 'url'=>'#', 'items'=>array(
                        array('label'=>'GMail', 'url'=> array('settings/gmail')),
-                       array('label'=>'GLatitude', 'url'=> array('settings/glatitude')),
 		    )),
                     array('label'=>'Twitter', 'url'=> array('settings/twitter')),
                     array('label'=>'Servers', 'url'=>'#', 'items'=>array(
