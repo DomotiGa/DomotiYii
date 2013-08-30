@@ -35,7 +35,6 @@
             'class'=>'bootstrap.widgets.TbNav',
             'items'=>array(
                 array('label'=>Yii::t('translate','Devices'), 'url'=> array('/devices/index')),
-                array('label'=>Yii::t('translate','Phone'), 'url'=> array('/cdr/index')),
                 array('label'=>Yii::t('translate','Modules'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                     array('label'=>'Main', 'url'=> array('settings/main')),
                     array('label'=>'Astro and Location', 'url'=> array('settings/astro')),
@@ -174,7 +173,6 @@
                     array('label'=>Yii::t('translate','Visit Project Website'), 'url'=>'http://domotiga.nl'),
                     array('label'=>Yii::t('translate','Donate to Project'), 'url'=>'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=NT48KZRT7F3FA&lc=US&item_name=DomotiGa%20Open%20Source%20Project&item_number=domotiga&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'),
 		TbHtml::menuDivider(),
-                    array('label'=>Yii::t('translate','Contact Support'), 'url'=> array('/site/contact')),
                     array('label'=>Yii::t('translate','About DomotiGa'), 'url'=> array('/site/about')),
                 )),
             ),
