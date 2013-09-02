@@ -32,6 +32,23 @@ class DevicesController extends Controller
 		$this->render('sensors', array('model'=>$model));
 	}
 
+        public function actionView($id)
+        {
+                $model = Devices::model()->findByPk($id);
+                if(isset($_POST['Devices']))
+                {
+                        $model->attributes=$_POST['Devices'];
+                        if($model->validate())
+                        {
+                                // form inputs are valid, do something here
+                                $this->do_save($model);
+                        }
+                }
+                $this->render('view',array(
+                        'model'=>$model,
+                ));
+        }
+
 	public function actionUpdate($id)
 	{
     		$model = Devices::model()->findByPk($id);
