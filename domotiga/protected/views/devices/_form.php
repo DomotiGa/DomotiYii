@@ -34,14 +34,14 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'id',array('readonly'=>true)); ?>
 		<?php echo $form->textFieldControlGroup($model,'name',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->dropDownListControlGroup($model,'module', $model->getModules(), array('prompt'=>'', 'id'=>'module', 'onchange'=>'updateDevice(this);')); ?>
-		<?php echo $form->textFieldControlGroup($model,'', array('value' =>$model->devicetype->type, 'readonly'=>true, 'id'=>'type')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'module', $model->getModules(), array('prompt'=>'', 'id'=>'module')); ?>
+		<?php echo $form->textFieldControlGroup($model,'', array('value'=>$model->devicetype->type, 'readonly'=>true, 'id'=>'type')); ?>
 		<?php echo $form->dropDownListControlGroup($model,'interface', $model->getInterfaces(),array('prompt'=>'', 'id'=>'interface')); ?>
 
 <div id="main"><b>Identification</b></div>
 
 		<?php echo $form->textFieldControlGroup($model,'address', array('size'=>60,'maxlength'=>64,'class'=>'span5')); ?>
-		<?php echo $form->textFieldControlGroup($model,'', array('value' =>$model->devicetype->addressformat, 'label' => 'Address format', 'readonly'=>true, 'size'=>60,'maxlength'=>64,'class'=>'span5')); ?>
+		<?php echo $form->textFieldControlGroup($model,'', array('value'=>$model->devicetype->addressformat, 'label' => 'Address format', 'readonly'=>true, 'size'=>60,'maxlength'=>64,'class'=>'span5')); ?>
 
       </div>
     </div>
