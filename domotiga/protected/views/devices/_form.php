@@ -59,30 +59,25 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <div id="main"><b>Raw Values</b></div>
 
 <?php echo TbHtml::controlsRow(array(
+		$form->label($model,'value'),
 		$form->textField($model,'value',array('label' => 'Value','span'=>4)),
 		$form->textField($model,'label',array('span'=>1)),
 )); ?>
 <?php echo TbHtml::controlsRow(array(
+		$form->label($model,'value2'),
 		$form->textField($model,'value2',array('label' => 'Value','span'=>4)),
 		$form->textField($model,'label2',array('span'=>1)),
 )); ?>
 <?php echo TbHtml::controlsRow(array(
+		$form->label($model,'value3'),
 		$form->textField($model,'value3',array('label' => 'Value','span'=>4)),
 		$form->textField($model,'label3',array('span'=>1)),
 )); ?>
 <?php echo TbHtml::controlsRow(array(
+		$form->label($model,'value4'),
 		$form->textField($model,'value4',array('label' => 'Value','span'=>4)),
 		$form->textField($model,'label4',array('span'=>1)),
 )); ?>
-		<?php echo $form->textFieldControlGroup($model,'value2',array('class'=>'span5')); ?>
-		<?php echo $form->textFieldControlGroup($model,'value2',array('class'=>'span5')); ?>
-		<?php echo $form->textFieldControlGroup($model,'value3',array('class'=>'span5')); ?>
-		<?php echo $form->textFieldControlGroup($model,'value4',array('class'=>'span5')); ?>
-
-		<?php echo $form->textFieldControlGroup($model,'label',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->textFieldControlGroup($model,'label2',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->textFieldControlGroup($model,'label3',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->textFieldControlGroup($model,'label4',array('size'=>32,'maxlength'=>32)); ?>
 
 		<?php echo $form->textFieldControlGroup($model,'correction',array('class'=>'span5')); ?>
 		<?php echo $form->textFieldControlGroup($model,'correction2',array('class'=>'span5')); ?>
