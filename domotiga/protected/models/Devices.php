@@ -81,7 +81,7 @@ class Devices extends CActiveRecord
 	 */
         public function getInterfaces()
         {
-        	return CHtml::listData(Interfaces::model()->findAll(), 'id', 'name');
+        	return CHtml::listData(Interfaces::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
         }
 
 	/**
@@ -89,7 +89,7 @@ class Devices extends CActiveRecord
 	 */
         public function getModules()
         {
-        	return CHtml::listData(Devicetypes::model()->findAll(), 'id', 'name');
+        	return CHtml::listData(Devicetypes::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
         }
 
 	/**
@@ -97,7 +97,7 @@ class Devices extends CActiveRecord
 	 */
         public function getLocations()
         {
-        	return CHtml::listData(Locations::model()->findAll(), 'id', 'name');
+        	return CHtml::listData(Locations::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
         }
 
 	/**
@@ -113,7 +113,7 @@ class Devices extends CActiveRecord
          */
         public function getFloors()
         {
-                return CHtml::listData(Floors::model()->findAll(), 'name', 'name');
+                return CHtml::listData(Floors::model()->findAll(array('order'=>'name ASC')), 'name', 'name');
         }
 
 	/**
