@@ -17,7 +17,7 @@ public function authenticate()
         $user = Users::model()->find('username=?', array($username));
         if($user === NULL)
                 $this->errorCode=self::ERROR_USERNAME_INVALID;
-        else if($user->validatePassword($this->password, $this->username))
+        else if(!$user->validatePassword($this->password, $this->username))
                 $this->errorCode=self::ERROR_PASSWORD_INVALID;
         else{
                 $this->username = $user->username;

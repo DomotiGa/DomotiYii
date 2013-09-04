@@ -19,17 +19,18 @@ class Users extends CActiveRecord
 /**
  * @return boolean validate user
  */
-public function validatePassword($password, $username){
-        return $this->hashPassword($password, $username) == $this->password;
+public function validatePassword($password){
+	if ( strlen($this->password) < 11 ) return false;
+	return $this->hashPassword($password, substr($this->password, 3, 8)) == $this->password;
 }
 /**
  * @return hashed value
  */
-public function hashPassword($phrase, $salt = null){
-        $md5 = md5($phrase, true);
-        $salt = substr($md5,3,8);
-	$md5 = substr($md5,(22*-1));
-        return 'MD5' . $salt . $md5;
+public function hashPassword($phrase, $salt){
+
+	$md5 = crypt($phrase, "\$1\$" . $salt . "\$");
+	$md5 = substr($md5, (22*-1));
+	return 'MD5' . $salt . $md5;
 }
 
 	/**
