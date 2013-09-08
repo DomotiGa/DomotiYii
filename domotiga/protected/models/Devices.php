@@ -87,7 +87,7 @@ class Devices extends CActiveRecord
 	/**
          * @return dropdownlist with the list of modules/devicetypes
 	 */
-        public function getModules()
+        public function getDeviceTypes()
         {
         	return CHtml::listData(Devicetypes::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
         }

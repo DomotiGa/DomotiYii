@@ -66,6 +66,26 @@ class DevicesController extends Controller
 		
 	}
 
+	public function actionUpdateModule()
+	{
+		// Update "#interface"
+
+		if(isset($_POST['Devices']['module']))
+		{
+			Yii::log("devices-module");
+		}
+	}
+
+	public function actionUpdateInterface()
+	{
+		// Update "#module"
+
+		if(isset($_POST['Devices']['interface']))
+		{
+			Yii::log("devices-interface");
+		}
+	}
+
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()

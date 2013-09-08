@@ -34,9 +34,21 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'id',array('readonly'=>true)); ?>
 		<?php echo $form->textFieldControlGroup($model,'name',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->dropDownListControlGroup($model,'module', $model->getModules(), array('prompt'=>'', 'id'=>'module')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'module', $model->getDeviceTypes(), array('prompt'=>'', 'id'=>'module',
+			'ajax' =>
+			array(
+			'type'=>'POST',
+			'url'=>CController::createUrl('UpdateModule'),
+			'update'=>'#interfaceX',
+			))); ?>
 		<?php echo $form->textFieldControlGroup($model,'', array('value'=>$model->devicetype->type, 'readonly'=>true, 'id'=>'type')); ?>
-		<?php echo $form->dropDownListControlGroup($model,'interface', $model->getInterfaces(),array('prompt'=>'', 'id'=>'interface')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'interface', $model->getInterfaces(),array('prompt'=>'', 'id'=>'interface',
+                        'ajax' =>
+                        array(
+                        'type'=>'POST',
+                        'url'=>CController::createUrl('UpdateInterface'),
+                        'update'=>'#moduleX',
+                        ))); ?>
 
 <div id="main"><b>Identification</b></div>
 
