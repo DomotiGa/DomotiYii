@@ -39,10 +39,10 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 			array(
 			'type'=>'POST',
 			'url'=>CController::createUrl('UpdateModule'),
-			'update'=>'#interfaceX',
+			'update'=>'#interface',
 			))); ?>
-		<?php echo $form->textFieldControlGroup($model,'', array('value'=>$model->devicetype->type, 'readonly'=>true, 'id'=>'type')); ?>
-		<?php echo $form->dropDownListControlGroup($model,'interface', $model->getInterfaces(),array('prompt'=>'', 'id'=>'interface',
+		<?php echo $form->textFieldControlGroup($model,'devicegroup', array('value'=>$model->devicetype->type, 'readonly'=>true, 'id'=>'devicegroup')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'interface', $model->getInterfacesByDeviceType($model->module),array('id'=>'interface',
                         'ajax' =>
                         array(
                         'type'=>'POST',

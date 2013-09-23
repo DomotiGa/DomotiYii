@@ -73,6 +73,8 @@ class DevicesController extends Controller
 		if(isset($_POST['Devices']['module']))
 		{
 			Yii::log("devices-module");
+			$moduleid = $_POST['Devices']['module'];
+			echo CHtml::DropDownList("interface", 'id', Devices::model()->getInterfacesByDeviceType($moduleid));
 		}
 	}
 

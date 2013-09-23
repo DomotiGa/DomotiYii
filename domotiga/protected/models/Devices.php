@@ -77,20 +77,29 @@ class Devices extends CActiveRecord
 	}
 
 	/**
-         * @return dropdownlist with the list of interfaces
-	 */
-        public function getInterfaces()
-        {
-        	return CHtml::listData(Interfaces::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
-        }
-
-	/**
          * @return dropdownlist with the list of modules/devicetypes
 	 */
         public function getDeviceTypes()
         {
         	return CHtml::listData(Devicetypes::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
         }
+
+	/**
+         * @return dropdownlist with the list of interfaces
+	 */
+        public function getInterfaces()
+        {
+		return CHtml::listData(Interfaces::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
+        }
+
+	/**
+         * @return dropdownlist with the list of interfaces, based on the DeviceType
+	 */
+	public function getInterfacesByDeviceType($id)
+	{
+		$devicetype = Devicetypes::model()->find('id=:id', array(':id'=>$id,));
+		return CHtml::listData(Interfaces::model()->findAll("type LIKE '%" . $devicetype->type . "%'", array('order'=>'name ASC')), 'id', 'name');
+	}
 
 	/**
          * @return dropdownlist with the list of locations
