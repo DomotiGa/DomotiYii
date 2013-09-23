@@ -1,4 +1,0 @@
-remove nta8130 requestline
-remove homematic type model
-tcpport required?
-rrdtool rra

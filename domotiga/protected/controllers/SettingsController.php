@@ -3,6 +3,40 @@
 class SettingsController extends Controller
 {
 
+public function actionRazberry()
+{
+    $model = SettingsRazberry::model()->findByPk(1);
+
+    if(isset($_POST['SettingsRazberry']))
+    {
+        $model->attributes=$_POST['SettingsRazberry'];
+        if($model->validate())
+        {
+            // form inputs are valid, do something here
+            $model->save();
+            $this->do_xmlrpc("module.restart","razberry");
+        }
+    }
+    $this->render('razberry',array('model'=>$model));
+}
+
+public function actionGenericio()
+{
+    $model = SettingsGenericio::model()->findByPk(1);
+
+    if(isset($_POST['SettingsGenericio']))
+    {
+        $model->attributes=$_POST['SettingsGenericio'];
+        if($model->validate())
+        {
+            // form inputs are valid, do something here
+            $model->save();
+            $this->do_xmlrpc("module.restart","genericio");
+        }
+    }
+    $this->render('genericio',array('model'=>$model));
+}
+
 public function actionWeatherug()
 {
     $model = SettingsWeatherug::model()->findByPk(1);
@@ -833,13 +867,13 @@ public function actionCtx35()
     $this->render('ctx35',array('model'=>$model));
 }
 
-public function actionZwave()
+public function actionOpenzwave()
 {
-    $model=SettingsZwave::model()->findByPk(1);
+    $model=SettingsOpenzwave::model()->findByPk(1);
 
-    if(isset($_POST['SettingsZwave']))
+    if(isset($_POST['SettingsOpenzwave']))
     {
-        $model->attributes=$_POST['SettingsZwave'];
+        $model->attributes=$_POST['SettingsOpenzwave'];
         if($model->validate())
         {
            // form inputs are valid, do something here
@@ -847,7 +881,7 @@ public function actionZwave()
            $this->do_xmlrpc("module.restart","zwave");
         }
     }
-    $this->render('zwave',array('model'=>$model));
+    $this->render('openzwave',array('model'=>$model));
 }
 
 public function actionDsc()

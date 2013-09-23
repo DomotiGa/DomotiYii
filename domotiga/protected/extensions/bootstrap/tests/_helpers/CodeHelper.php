@@ -118,6 +118,15 @@ class CodeHelper extends \Codeception\Module
 
     /**
      * @param \Symfony\Component\DomCrawler\Crawler $node
+     * @param array $name
+     */
+    public function dontSeeNodeAttribute($node, $name)
+    {
+        $this->assertEquals('', $node->attr($name));
+    }
+
+    /**
+     * @param \Symfony\Component\DomCrawler\Crawler $node
      * @param array $attributes
      */
     public function seeNodeAttributes($node, array $attributes)
@@ -129,13 +138,26 @@ class CodeHelper extends \Codeception\Module
 
     /**
      * @param \Symfony\Component\DomCrawler\Crawler $node
+     * @param array $attributes
+     */
+    public function dontSeeNodeAttributes($node, array $attributes)
+    {
+        foreach ($attributes as $name) {
+            $this->dontSeeNodeAttribute($node, $name);
+        }
+    }
+
+    /**
+     * @param \Symfony\Component\DomCrawler\Crawler $node
      * @param array $elements
      */
     public function seeNodeChildren($node, array $elements)
     {
         /** @var \DomElement $child */
         foreach ($node->children() as $i => $child) {
-            $this->assertTrue($this->nodeMatchesCssSelector($child, $elements[$i]));
+            if (isset($elements[$i])) {
+                $this->assertTrue($this->nodeMatchesCssSelector($child, $elements[$i]));
+            }
         }
     }
 
@@ -147,8 +169,20 @@ class CodeHelper extends \Codeception\Module
     {
         /** @var \DomElement $child */
         foreach ($node->children() as $i => $child) {
-            $this->assertFalse($this->nodeMatchesCssSelector($child, $elements[$i]));
+            if (isset($elements[$i])) {
+                $this->assertFalse($this->nodeMatchesCssSelector($child, $elements[$i]));
+            }
         }
+    }
+
+    /**
+     * @param \Symfony\Component\DomCrawler\Crawler $node
+     * @param integer $amount
+     */
+    public function seeNodeNumChildren($node, $amount, $filter = null)
+    {
+        $count = $filter !== null ? $node->filter($filter)->count() : $node->children()->count();
+        $this->assertEquals($amount, $count);
     }
 
     /**
@@ -167,15 +201,14 @@ class CodeHelper extends \Codeception\Module
 
     /**
      * @param mixed $content
-     * @param string $selector
+     * @param string $filter
      * @return \Symfony\Component\DomCrawler\Crawler
      */
-    public function createNode($content, $selector = null)
+    public function createNode($content, $filter = null)
     {
-        $crawler = new \Symfony\Component\DomCrawler\Crawler;
-        $crawler->add($content);
-        if ($selector !== null) {
-            $node = $crawler->filter($selector);
+        $crawler = new \Symfony\Component\DomCrawler\Crawler($content);
+        if ($filter !== null) {
+            $node = $crawler->filter($filter);
             $this->assertNotEquals(null, $node);
             return $node;
         }

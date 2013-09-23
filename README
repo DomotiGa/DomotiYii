@@ -1,19 +1,42 @@
-Resources (just for reference, it is included in this repository)
-Yii-1.1.13
-wget http://yii.googlecode.com/files/yii-1.1.13.e9e4a0.tar.gz
-Yiistrap
+Development info:
+----------------
+This version of DomotiYii is build with:
+Yii-1.1.14 - Framework
+from https://github.com/yiisoft/yii/releases/download/1.1.14/yii-1.1.14.f0fee9.tar.gz
+Yiistrap-1.1.1 - Twitter Bootstrap for Yii
+from https://github.com/Crisu83/yiistrap/archive/1.1.1.zip
 
 Install 'DomotiYii':
-Unpack/copy both directories to /var/www
+-------------------
+Unpack domotiga directory to /var/www, or put it's contents in the webroot.
+This directory contains the Yii project and the Yii framework.
 
-Directory called 'domotiga' contains Yii project.
-'framework' is the framework directory from Yii 1.1.13 file above and a handful of patches.
-If you want to use other name for this directory change path in domotiga/index.php
+
+Yii Framework:
+-------------
+The framework directory contains the code from the Yii 1.1.14 file above.
+
+If you want to use another name or location for this framework directory change it's path in domotiga/index.php.
+
+The framework directory also contains and handful of patches, you can find them with a fgrep -R 'RDNZL'
+
+These are the changed files:
+Correctly map booleans from mysql database tables:
+framework/db/schema/mysql/CMysqlColumnSchema.php
+framework/db/schema/CDbColumnSchema.php
+
+Generate correct settings forms with bootstrap widgets:
+framework/gii/generators/form/templates/default/action.php
+framework/gii/generators/form/templates/default/form.php
+
 
 Correct permissions:
+-------------------
 The domotiga/assets folder must be writable by the web server (ususally www-data), same for domotiga/protected/models so Gii can generate files there.
 
-Configure DomotiYii via Yii config file:
+
+Configure DomotiYii:
+-------------------
 Config file is protected/config/main.php
 
 Gii is enabled.
@@ -46,7 +69,9 @@ Check admin email address
                 'adminEmail'=>'support@domotiga.nl',
                 'xmlrpcHost'=>'http://localhost:9009',
 
-Change your Apache config:
+
+Apache config:
+-------------
 This is to give .htaccess permission so index.php is removed from urls.
 There is a .htaccess file in domotiga directory which does this.
 
@@ -62,7 +87,9 @@ Add this section to /etc/apache2/sites-enabled/000-default
 Restart
 $ sudo service apache2 restart
 
-For lighttpd: (untested)
+
+Lighttpd config: (untested)
+---------------
 Use this configuration inside the "$HTTP["host"]" block:
 
 $HTTP["host"] =~ "^(www\.)?example.com$" {
@@ -76,6 +103,9 @@ url.rewrite-if-not-file = (
 
 }
 
+
+Logging and debug:
+-----------------
 Optional Enable/disable logging on web pages:
                              // uncomment the following to show log messages on web pages
                                 array(
@@ -90,7 +120,9 @@ defined('YII_DEBUG') or define('YII_DEBUG',true);
 // specify how many levels of call stack should be shown in each log message
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
+
 Coding notes:
+------------
 To add a new 'static/no form' page like site/about:
 
 Edit protected/controllers/SiteController.php
@@ -127,13 +159,5 @@ settings/smartvisu
 Click preview, Click generate
 Copy controller class code (without first line <?php...) to controllers/SettingsController.php
 Alter code similar to other settings code.
+Add page to menu if needed.
 
-
-Created devices page:
-http://www.slideshare.net/andykelk/a-site-in-15-minutes-with-yii
-http://www.larryullman.com/2009/11/07/creating-models-views-and-controllers-in-yii-2/
-
-ToDo Tweaks:
-Set login page as default, in config:
-'defaultController' => 'login',
-Note that this particular line will not work out of the box as only the site controller exists. But you would make this change if you had created a protected/controllers/LoginController.php file (or if any controller file exists for whatever you make be the default). Also note that you add this line so that it.s a top-level array element being returned (i.e., it does not go within any other section; it.s easiest to add it between the .basePath. and .name. elements, for clarity).

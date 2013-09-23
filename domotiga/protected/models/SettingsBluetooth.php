@@ -41,7 +41,7 @@ class SettingsBluetooth extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, threshold, polltime', 'numerical', 'integerOnly'=>true),
-			array('id, enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('device', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

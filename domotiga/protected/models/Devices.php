@@ -89,7 +89,7 @@ class Devices extends CActiveRecord
 	 */
         public function getInterfaces()
         {
-		return CHtml::listData(Interfaces::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
+        	return CHtml::listData(Interfaces::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
         }
 
 	/**

@@ -4,6 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
+	<link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/static/favicon.ico" type="image/x-icon" />
 
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
@@ -82,6 +83,10 @@
                        array('label'=>'OWFS', 'url'=> array('settings/owfs')),
                        array('label'=>'OWW', 'url'=> array('settings/oww')),
                     )),
+                    array('label'=>'Arduino', 'url'=>'#', 'items'=>array(
+                       array('label'=>'GenericIO', 'url'=> array('settings/genericio')),
+                       array('label'=>'Jeelabs', 'url'=> array('settings/jeelabs')),
+                    )),
                     array('label'=>'Audio Video', 'url'=>'#', 'items'=>array(
                        array('label'=>'Denon AV', 'url'=> array('settings/denon')),
                        array('label'=>'iPort Dock', 'url'=> array('settings/iport')),
@@ -111,52 +116,54 @@
                           array('label'=>'X10Cmd', 'url'=> array('settings/x10cmd')),
                           array('label'=>'Xanura CTX35', 'url'=> array('settings/ctx35')),
                        )),
-                    array('label'=>'Z-Wave', 'url'=> array('settings/zwave')),
+                       array('label'=>'Z-Wave', 'url'=>'#', 'items'=>array(
+                          array('label'=>'OpenZWave', 'url'=> array('settings/openzwave')),
+                          array('label'=>'RaZberry', 'url'=> array('settings/razberry')),
+                       )),
                     )),
-                       array('label'=>'Energy Measurement', 'url'=>'#', 'items'=>array(
-                          array('label'=>'Current Cost', 'url'=> array('settings/currentcost')),
-                          array('label'=>'Plugwise', 'url'=> array('settings/plugwise')),
-                          array('label'=>'SmartMeter', 'url'=> array('settings/nta8130')),
-                       )),
-                       array('label'=>'HDDTemp', 'url'=> array('settings/hddtemp')),
-                       array('label'=>'HomeMatic', 'url'=> array('settings/homematic')),
-                       array('label'=>'Input/Output', 'url'=>'#', 'items'=>array(
-                          array('label'=>'KMTronic UDP', 'url'=> array('settings/kmtronicudp')),
-                          array('label'=>'Velleman K8055', 'url'=> array('settings/k8055')),
-                          array('label'=>'Weeder I/O', 'url'=> array('settings/weeder')),
-                       )),
-                       array('label'=>'Remote Control', 'url'=>'#', 'items'=>array(
-                          array('label'=>'CF iViewer', 'url'=> array('settings/iviewer')),
-                          array('label'=>'UIR/IRMan', 'url'=> array('settings/irman')),
-                          array('label'=>'IRTrans', 'url'=> array('settings/irtrans')),
-                          array('label'=>'LIRC', 'url'=> array('settings/lirc')),
-                       )),
-                       array('label'=>'Jeelabs', 'url'=> array('settings/jeelabs')),
-                       array('label'=>'LED Matrix', 'url'=> array('settings/ledmatrix')),
-                       array('label'=>'Mobile', 'url'=>'#', 'items'=>array(
-                          array('label'=>'Bluetooth', 'url'=> array('settings/bluetooth')),
-                          array('label'=>'SMS Modem', 'url'=> array('settings/sms')),
-                       )),
-                       array('label'=>'Network Ping', 'url'=> array('settings/ping')),
-                       array('label'=>'NMEA GPS', 'url'=> array('settings/gps')),
-                       array('label'=>'OpenTherm', 'url'=> array('settings/opentherm')),
-                       array('label'=>'RRDTool', 'url'=> array('settings/rrdtool')),
-                       array('label'=>'RFXCom', 'url'=>'#', 'items'=>array(
-                          array('label'=>'RFXCom Receiver', 'url'=> array('settings/rfxcomrx')),
-                          array('label'=>'RFXCom Transmitter', 'url'=> array('settings/rfxcomtx')),
-                          array('label'=>'RFXCom Transceiver', 'url'=> array('settings/rfxcomtrx')),
-                          array('label'=>'RFXCom xPL', 'url'=> array('settings/rfxcomxpl')),
-                       )),
-                       array('label'=>'Security', 'url'=>'#', 'items'=>array(
-                          array('label'=>'DSC Security', 'url'=> array('settings/dsc')),
-                          array('label'=>'Visonic', 'url'=> array('settings/visonic')),
-                       )),
-                       array('label'=>'Shell', 'url'=> array('settings/shell')),
-                       array('label'=>'UPS Monitor', 'url'=> array('settings/ups')),
-                       array('label'=>'xPL', 'url'=> array('settings/xpl')),
-		    )),
-                    array('label'=>'Edit', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
-                    array('label'=>'Contacts', 'url'=> array('contacts/index')),
+                    array('label'=>'Energy Measurement', 'url'=>'#', 'items'=>array(
+                       array('label'=>'Current Cost', 'url'=> array('settings/currentcost')),
+                       array('label'=>'Plugwise', 'url'=> array('settings/plugwise')),
+                       array('label'=>'SmartMeter', 'url'=> array('settings/nta8130')),
+                    )),
+                    array('label'=>'HDDTemp', 'url'=> array('settings/hddtemp')),
+                    array('label'=>'HomeMatic', 'url'=> array('settings/homematic')),
+                    array('label'=>'Input/Output', 'url'=>'#', 'items'=>array(
+                       array('label'=>'KMTronic UDP', 'url'=> array('settings/kmtronicudp')),
+                       array('label'=>'Velleman K8055', 'url'=> array('settings/k8055')),
+                       array('label'=>'Weeder I/O', 'url'=> array('settings/weeder')),
+                    )),
+                    array('label'=>'Remote Control', 'url'=>'#', 'items'=>array(
+                       array('label'=>'CF iViewer', 'url'=> array('settings/iviewer')),
+                       array('label'=>'UIR/IRMan', 'url'=> array('settings/irman')),
+                       array('label'=>'IRTrans', 'url'=> array('settings/irtrans')),
+                       array('label'=>'LIRC', 'url'=> array('settings/lirc')),
+                    )),
+                    array('label'=>'LED Matrix', 'url'=> array('settings/ledmatrix')),
+                    array('label'=>'Mobile', 'url'=>'#', 'items'=>array(
+                       array('label'=>'Bluetooth', 'url'=> array('settings/bluetooth')),
+                       array('label'=>'SMS Modem', 'url'=> array('settings/sms')),
+                    )),
+                    array('label'=>'Network Ping', 'url'=> array('settings/ping')),
+                    array('label'=>'NMEA GPS', 'url'=> array('settings/gps')),
+                    array('label'=>'OpenTherm', 'url'=> array('settings/opentherm')),
+                    array('label'=>'RRDTool', 'url'=> array('settings/rrdtool')),
+                    array('label'=>'RFXCom', 'url'=>'#', 'items'=>array(
+                       array('label'=>'RFXCom Receiver', 'url'=> array('settings/rfxcomrx')),
+                       array('label'=>'RFXCom Transmitter', 'url'=> array('settings/rfxcomtx')),
+                       array('label'=>'RFXCom Transceiver', 'url'=> array('settings/rfxcomtrx')),
+                       array('label'=>'RFXCom xPL', 'url'=> array('settings/rfxcomxpl')),
+                    )),
+                    array('label'=>'Security', 'url'=>'#', 'items'=>array(
+                       array('label'=>'DSC Security', 'url'=> array('settings/dsc')),
+                       array('label'=>'Visonic', 'url'=> array('settings/visonic')),
+                    )),
+                    array('label'=>'Shell', 'url'=> array('settings/shell')),
+                    array('label'=>'UPS Monitor', 'url'=> array('settings/ups')),
+                    array('label'=>'xPL', 'url'=> array('settings/xpl')),
+	         )),
+                 array('label'=>'Edit', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
+                 array('label'=>'Contacts', 'url'=> array('contacts/index')),
 		),
 ),
                        array('label'=>'Gii', 'url'=> array('/gii'), 'visible'=>!Yii::app()->user->isGuest),
