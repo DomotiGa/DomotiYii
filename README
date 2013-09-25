@@ -144,8 +144,9 @@ To add a new settings form:
 Login
 Enter Gii
 
+Generate a model:
 Goto Model Generator
-fill in database table to generate model for
+Fill in database table to generate model for
 Table Name:
 eg settings_smartvisu
 Model Class:
@@ -153,6 +154,7 @@ SettingsSmartvisu
 Click preview, Click generate
 If permission denied
 
+Generate a form:
 Goto Form Generator
 Model Class
 SettingsSmartvisu
