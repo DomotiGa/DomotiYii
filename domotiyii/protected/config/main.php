@@ -81,7 +81,6 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'support@domotiga.nl',
 		'xmlrpcHost'=>'http://localhost:9009',
 		'refreshDevices'=>'5000', // 5 second refresh
 		'refreshPhonecalls'=>'5000', // 5 second refresh
