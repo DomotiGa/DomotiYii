@@ -42,6 +42,3 @@ function switchRelay(element){
     }
 }
 
-function updateDevice(element){
-// http://stackoverflow.com/questions/7290064/calling-a-controller-action-from-an-onchange-event
-}

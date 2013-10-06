@@ -10,6 +10,7 @@ class Controller extends CController
 	**/
 	public function init()
 	{
+/*
 		if ( Yii::app()->user->isGuest ) {
 			Yii::app()->layout='//layouts/domotiga1';
 		}
@@ -17,6 +18,8 @@ class Controller extends CController
 		{
 			Yii::app()->layout='//layouts/domotiga2';
 		}
+*/
+		Yii::app()->layout='//layouts/domotiga2';
 	}
 
 	/**

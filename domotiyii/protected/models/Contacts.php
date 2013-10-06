@@ -27,6 +27,21 @@
  */
 class Contacts extends CActiveRecord
 {
+
+        /**
+         * @return array with all contacts
+         */
+        public function getContacts()
+        {
+                $contactitems = new CArrayDataProvider($this->findAll(array('order'=>'id ASC')), array(
+                        'pagination' => array(
+                        'pageSize'=>Yii::app()->params['pagesizeContacts'],
+                        'pageVar'=>'page'
+                        ),
+                ));
+                return $contactitems;
+        }
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.

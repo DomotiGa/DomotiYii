@@ -7,6 +7,9 @@ from https://github.com/yiisoft/yii/releases/download/1.1.14/yii-1.1.14.f0fee9.t
 Yiistrap-1.1.1 - Twitter Bootstrap for Yii
 from https://github.com/Crisu83/yiistrap/archive/1.1.1.zip
 
+Wiiwheels-1.0.3 - Extension library for Yiistrap
+from https://github.com/2amigos/yiiwheels/archive/1.0.3.zip
+
 Install 'DomotiYii':
 -------------------
 Unpack domotiyii directory to /var/www, or put it's contents in the webroot.

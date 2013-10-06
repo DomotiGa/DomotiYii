@@ -7,6 +7,7 @@ return array(
 	// path aliases
 	'aliases'=>array(
 		'bootstrap'=> realpath(__DIR__).'/../extensions/bootstrap',
+		'yiiwheels' => realpath(__DIR__ . '/../extensions/yiiwheels'),
 	),
 	// preloading 'log' component
 	'preload'=>array(
@@ -71,6 +72,9 @@ return array(
 		'bootstrap'=>array(
 			'class'=>'bootstrap.components.TbApi',
 		),
+		'yiiwheels' => array(
+			'class' => 'yiiwheels.YiiWheels',   
+		),
 	),
 
 	// language settings
@@ -84,7 +88,9 @@ return array(
 		'xmlrpcHost'=>'http://localhost:9009',
 		'refreshDevices'=>'5000', // 5 second refresh
 		'refreshPhonecalls'=>'5000', // 5 second refresh
-		'pagesizeDevices'=>'20', // 20 devices per page in devices gridview
-		'pagesizePhonecalls'=>'30', // 30 calls per page in phone gridview
+		'refreshContacts'=>'5000', // 5 second refresh
+		'pagesizeDevices'=>'20', // entries per page
+		'pagesizePhonecalls'=>'30', // entries per page
+		'pagesizeContacts'=>'20', // entries per page
 	),
 );

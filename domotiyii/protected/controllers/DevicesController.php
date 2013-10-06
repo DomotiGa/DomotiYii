@@ -68,8 +68,7 @@ class DevicesController extends Controller
 
 	public function actionUpdateModule()
 	{
-		// Update "#interface"
-
+		// update "#interface", todo "addressformat" and "devicegroup"
 		if(isset($_POST['Devices']['module']))
 		{
 			Yii::log("devices-module");
@@ -80,40 +79,32 @@ class DevicesController extends Controller
 
 	public function actionUpdateInterface()
 	{
-		// Update "#module"
-
+		// update "#module"
 		if(isset($_POST['Devices']['interface']))
 		{
 			Yii::log("devices-interface");
 		}
 	}
 
-	// Uncomment the following methods and override them if needed
-	/*
-	public function filters()
-	{
-		// return the filter configuration for this controller, e.g.:
-		return array(
-			'inlineFilterName',
-			array(
-				'class'=>'path.to.FilterClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
+        public function actionCreate()
+        {
+                $model=new Devices;
 
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-			'action1'=>'path.to.ActionClass',
-			'action2'=>array(
-				'class'=>'path.to.AnotherActionClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-	*/
+                // Uncomment the following line if AJAX validation is needed
+                // $this->performAjaxValidation($model);
+
+                if(isset($_POST['Devices']))
+                {
+                        $model->attributes=$_POST['Devices'];
+                        if($model->validate())
+                        {
+                                $this->do_save($model);
+                        }
+                }
+                $this->render('create',array(
+                        'model'=>$model,
+                ));
+        }
 
 protected function do_save($model) {
 

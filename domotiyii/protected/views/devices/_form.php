@@ -3,13 +3,6 @@
 /* @var $model Devices */
 /* @var $form CActiveForm */
 
-$this->widget('bootstrap.widgets.TbBreadcrumb', array(
-    'links' => array(
-        Yii::t('translate','Devices') => '../index',
-        Yii::t('translate','Device Editor'),
-    ),
-)); 
-
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id'=>'edit-devices-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
@@ -39,10 +32,10 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 			array(
 			'type'=>'POST',
 			'url'=>CController::createUrl('UpdateModule'),
-			'update'=>'#interface',
+			'update'=>'#addressformat',
 			))); ?>
 		<?php echo $form->textFieldControlGroup($model,'devicegroup', array('value'=>$model->devicetype->type, 'readonly'=>true, 'id'=>'devicegroup')); ?>
-		<?php echo $form->dropDownListControlGroup($model,'interface', $model->getInterfacesByDeviceType($model->module),array('id'=>'interface',
+		<?php echo $form->dropDownListControlGroup($model,'interface', $model->getInterfacesByDeviceType($model->module), array('id'=>'interface',
                         'ajax' =>
                         array(
                         'type'=>'POST',
@@ -52,8 +45,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 <div id="main"><b>Identification</b></div>
 
-		<?php echo $form->textFieldControlGroup($model,'address', array('size'=>60,'maxlength'=>64,'class'=>'span5')); ?>
-		<?php echo $form->textFieldControlGroup($model,'', array('value'=>$model->devicetype->addressformat, 'label' => 'Address format', 'readonly'=>true, 'size'=>60,'maxlength'=>64,'class'=>'span5')); ?>
+		<?php echo $form->textFieldControlGroup($model,'address', array('size'=>60,'maxlength'=>64,'class'=>'span5', 'id'=>'address')); ?>
+		<?php echo $form->textFieldControlGroup($model,'', array('value'=>$model->devicetype->addressformat, 'label' => 'Address format', 'readonly'=>true, 'size'=>60,'maxlength'=>64,'class'=>'span5','id'=>'addressformat')); ?>
 
       </div>
     </div>

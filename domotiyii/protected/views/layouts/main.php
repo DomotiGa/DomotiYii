@@ -35,7 +35,6 @@
         array(
             'class'=>'bootstrap.widgets.TbNav',
             'items'=>array(
-                array('label'=>Yii::t('translate','Devices'), 'url'=> array('/devices/index')),
                 array('label'=>Yii::t('translate','Modules'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                     array('label'=>'Main', 'url'=> array('settings/main')),
                     array('label'=>'Astro and Location', 'url'=> array('settings/astro')),
@@ -162,8 +161,12 @@
                     array('label'=>'UPS Monitor', 'url'=> array('settings/ups')),
                     array('label'=>'xPL', 'url'=> array('settings/xpl')),
 	         )),
-                 array('label'=>'Edit', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
-                 array('label'=>'Contacts', 'url'=> array('contacts/index')),
+                array('label'=>Yii::t('translate','Devices'), 'visible'=>!Yii::app()->user->isGuest, 'url'=> '#', 'items'=>array(
+                   array('label'=>Yii::t('translate','Add Device'), 'url'=> array('devices/create')),
+                   array('label'=>Yii::t('translate','Modules, Groups ...'), 'url'=> '#'),
+                )),
+                array('label'=>'Edit', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
+                   array('label'=>'Contacts', 'url'=> array('contacts/index')),
 		),
 ),
                        array('label'=>'Gii', 'url'=> array('/gii'), 'visible'=>!Yii::app()->user->isGuest),
