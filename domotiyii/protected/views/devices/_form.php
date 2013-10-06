@@ -32,7 +32,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 			array(
 			'type'=>'POST',
 			'url'=>CController::createUrl('UpdateModule'),
-			'update'=>'#addressformat',
+			'update'=>'#interface',
 			))); ?>
 		<?php echo $form->textFieldControlGroup($model,'devicegroup', array('value'=>$model->devicetype->type, 'readonly'=>true, 'id'=>'devicegroup')); ?>
 		<?php echo $form->dropDownListControlGroup($model,'interface', $model->getInterfacesByDeviceType($model->module), array('id'=>'interface',
