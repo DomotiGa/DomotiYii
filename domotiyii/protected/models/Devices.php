@@ -98,7 +98,14 @@ class Devices extends CActiveRecord
 	public function getInterfacesByDeviceType($id)
 	{
 		$devicetype = Devicetypes::model()->find('id=:id', array(':id'=>$id,));
-		return CHtml::listData(Interfaces::model()->findAll("type LIKE '%" . $devicetype->type . "%'", array('order'=>'name ASC')), 'id', 'name');
+		if ( $devicetype === null )
+		{
+			return CHtml::listData(Interfaces::model(), 'id', 'name');
+		}
+		else
+		{
+			return CHtml::listData(Interfaces::model()->findAll("type LIKE '%" . $devicetype->type . "%'", array('order'=>'name ASC')), 'id', 'name');
+		}	
 	}
 
 	/**

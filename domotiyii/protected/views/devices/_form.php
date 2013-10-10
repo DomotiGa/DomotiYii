@@ -34,7 +34,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 			'url'=>CController::createUrl('UpdateModule'),
 			'update'=>'#interface',
 			))); ?>
-		<?php echo $form->textFieldControlGroup($model,'devicegroup', array('value'=>$model->devicetype->type, 'readonly'=>true, 'id'=>'devicegroup')); ?>
+		<?php echo $form->textFieldControlGroup($model,'devicegroup', array('value'=>($model->devicetype===null)?"":$model->devicetype->type, 'readonly'=>true, 'id'=>'devicegroup')); ?>
 		<?php echo $form->dropDownListControlGroup($model,'interface', $model->getInterfacesByDeviceType($model->module), array('id'=>'interface',
                         'ajax' =>
                         array(
@@ -46,7 +46,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <div id="main"><b>Identification</b></div>
 
 		<?php echo $form->textFieldControlGroup($model,'address', array('size'=>60,'maxlength'=>64,'class'=>'span5', 'id'=>'address')); ?>
-		<?php echo $form->textFieldControlGroup($model,'', array('value'=>$model->devicetype->addressformat, 'label' => 'Address format', 'readonly'=>true, 'size'=>60,'maxlength'=>64,'class'=>'span5','id'=>'addressformat')); ?>
+		<?php echo $form->textFieldControlGroup($model,'', array('value'=>($model->devicetype===null)?"":$model->devicetype->addressformat, 'label' => 'Address format', 'readonly'=>true, 'size'=>60,'maxlength'=>64,'class'=>'span5','id'=>'addressformat')); ?>
 
       </div>
     </div>

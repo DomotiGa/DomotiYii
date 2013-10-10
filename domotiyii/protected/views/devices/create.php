@@ -13,4 +13,4 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 Create Device
 </legend>
 
-<?php echo $this->renderPartial('_create', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
