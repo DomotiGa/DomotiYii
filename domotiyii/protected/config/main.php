@@ -7,7 +7,6 @@ return array(
 	// path aliases
 	'aliases'=>array(
 		'bootstrap'=> realpath(__DIR__).'/../extensions/bootstrap',
-		'yiiwheels' => realpath(__DIR__ . '/../extensions/yiiwheels'),
 	),
 	// preloading 'log' component
 	'preload'=>array(
@@ -71,9 +70,6 @@ return array(
 		),
 		'bootstrap'=>array(
 			'class'=>'bootstrap.components.TbApi',
-		),
-		'yiiwheels' => array(
-			'class' => 'yiiwheels.YiiWheels',   
 		),
 	),
 

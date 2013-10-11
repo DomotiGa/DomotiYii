@@ -179,6 +179,8 @@ class Devices extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'devicetype' => array(self::BELONGS_TO, 'Devicetypes','module'),
+			'l_location' => array(self::BELONGS_TO, 'Locations','location'),
+			'l_interface' => array(self::BELONGS_TO, 'Interfaces','interface'),
 		);
 	}
 
@@ -193,6 +195,7 @@ class Devices extends CActiveRecord
 			'address' => 'Address',
 			'module' => 'Device',
 			'location' => 'Location',
+			'l_location.name' => 'Location',
 			'value' => 'Value1',
 			'value2' => 'Value2',
 			'value3' => 'Value3',
@@ -209,6 +212,7 @@ class Devices extends CActiveRecord
 			'officon' => 'Off icon',
 			'dimicon' => 'Dim icon',
 			'interface' => 'Interface',
+			'l_interface.name' => 'Interface',
 			'firstseen' => 'First seen',
 			'lastseen' => 'Last seen',
 			'enabled' => 'Enabled',
