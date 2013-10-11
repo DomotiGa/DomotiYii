@@ -6,7 +6,7 @@ return array(
 	'name'=>'DomotiGa',
 	// path aliases
 	'aliases'=>array(
-		'bootstrap'=> realpath(__DIR__).'/../extensions/bootstrap',
+		'bootstrap'=> realpath(__DIR__.'/../extensions/bootstrap'),
 	),
 	// preloading 'log' component
 	'preload'=>array(

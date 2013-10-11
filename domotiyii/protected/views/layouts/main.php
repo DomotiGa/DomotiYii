@@ -29,7 +29,7 @@
         </div><!-- header -->
 <div class="navbar navbar-inverse">
 <?php $this->widget('bootstrap.widgets.TbNavbar',array(
-    'brandLabel'=>'<img height="25" width="25" src="../static/logo.png">',
+    'brandLabel'=>'<img height="25" width="25" src="' . Yii::app()->request->baseUrl . '/static/logo.png">',
     'collapse'=>true, // requires bootstrap-responsive.css
     'items'=>array(
         array(
