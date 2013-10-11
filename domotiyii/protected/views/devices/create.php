@@ -9,8 +9,6 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     ),
 )); ?>
 
-<legend>
-Create Device
-</legend>
+<legend>Create Device</legend>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
