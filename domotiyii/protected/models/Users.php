@@ -12,26 +12,28 @@
  * @property string $comments
  * @property string $lastlogin
  * @property string $emailaddress
- * @property string $cookie
  */
 class Users extends CActiveRecord
 {
-/**
- * @return boolean validate user
- */
-public function validatePassword($password){
-	if ( strlen($this->password) < 11 ) return false;
-	return $this->hashPassword($password, substr($this->password, 3, 8)) == $this->password;
-}
-/**
- * @return hashed value
- */
-public function hashPassword($phrase, $salt){
+	/**
+	 * @return boolean validate user
+	 */
+	public function validatePassword($password)
+	{
+		if ( strlen($this->password) < 11 ) return false;
+		return $this->hashPassword($password, substr($this->password, 3, 8)) == $this->password;
+	}
 
-	$md5 = crypt($phrase, "\$1\$" . $salt . "\$");
-	$md5 = substr($md5, (22*-1));
-	return 'MD5' . $salt . $md5;
-}
+	/**
+	 * @return hashed value
+	 */
+
+	public function hashPassword($phrase, $salt)
+	{
+		$md5 = crypt($phrase, "\$1\$" . $salt . "\$");
+		$md5 = substr($md5, (22*-1));
+		return 'MD5' . $salt . $md5;
+	}
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -62,11 +64,10 @@ public function hashPassword($phrase, $salt){
 			array('admin', 'numerical', 'integerOnly'=>true),
 			array('username, fullname, lastlogin, emailaddress', 'length', 'max'=>32),
 			array('password', 'length', 'max'=>30),
-			array('cookie', 'length', 'max'=>64),
 			array('comments', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, password, fullname, admin, comments, lastlogin, emailaddress, cookie', 'safe', 'on'=>'search'),
+			array('id, username, password, fullname, admin, comments, lastlogin, emailaddress', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -95,7 +96,6 @@ public function hashPassword($phrase, $salt){
 			'comments' => 'Comments',
 			'lastlogin' => 'Lastlogin',
 			'emailaddress' => 'Emailaddress',
-			'cookie' => 'Cookie',
 		);
 	}
 
@@ -118,7 +118,6 @@ public function hashPassword($phrase, $salt){
 		$criteria->compare('comments',$this->comments,true);
 		$criteria->compare('lastlogin',$this->lastlogin,true);
 		$criteria->compare('emailaddress',$this->emailaddress,true);
-		$criteria->compare('cookie',$this->cookie,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

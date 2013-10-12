@@ -7,6 +7,7 @@ return array(
 	// path aliases
 	'aliases'=>array(
 		'bootstrap'=> realpath(__DIR__.'/../extensions/bootstrap'),
+		'domotiyii' => realpath(__DIR__ . '/../extensions/domotiyii'),
 	),
 	// preloading 'log' component
 	'preload'=>array(
@@ -71,6 +72,9 @@ return array(
 		'bootstrap'=>array(
 			'class'=>'bootstrap.components.TbApi',
 		),
+		'domotiyii' => array(
+			'class' => 'domotiyii',   
+		),
 	),
 
 	// language settings
@@ -82,11 +86,16 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'xmlrpcHost'=>'http://localhost:9009',
+		// refresh time and page size for specific gridviews
 		'refreshDevices'=>'5000', // 5 second refresh
 		'refreshPhonecalls'=>'5000', // 5 second refresh
 		'refreshContacts'=>'5000', // 5 second refresh
+		'refreshEvents'=>'5000', // 5 second refresh
+		'refreshTriggers'=>'5000', // 5 second refresh
 		'pagesizeDevices'=>'20', // entries per page
 		'pagesizePhonecalls'=>'30', // entries per page
 		'pagesizeContacts'=>'20', // entries per page
+		'pagesizeEvents'=>'20', // entries per page
+		'pagesizeTriggers'=>'20', // entries per page
 	),
 );

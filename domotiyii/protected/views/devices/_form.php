@@ -9,6 +9,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 )); ?>
 
 <fieldset>
+<legend>Device Editor</legend>
 
 <div class="accordion" id="accordion1">
   <div class="accordion-group">

@@ -38,10 +38,6 @@
 	<?php echo CHtml::encode($data->emailaddress); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('cookie')); ?>:</b>
-	<?php echo CHtml::encode($data->cookie); ?>
-	<br />
-
 	*/ ?>
 
 </div>

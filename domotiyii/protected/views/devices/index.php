@@ -6,9 +6,14 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
         Yii::t('translate','Devices'),
     ),
-)); ?>
+));
 
-<?php $this->widget('bootstrap.widgets.TbNav', array(
+echo TbHtml::linkButton('Create', array(
+        'rel'=>'Create device',
+        'url'=>array('create'),
+));
+
+$this->widget('bootstrap.widgets.TbNav', array(
     'type'=>'tabs',
     'stacked'=>false,
     'items'=>array(
@@ -19,7 +24,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     ),
 ));
 
-$this->widget('application.extensions.LiveTbGridView.RefreshGridView', array(
+$this->widget('domotiyii.LiveGridView', array(
     'id'=>'all-devices-grid',
     'refreshTime'=>Yii::app()->params['refreshDevices'], // x second refresh as defined in config
     'type'=>'striped condensed',
@@ -41,15 +46,15 @@ $this->widget('application.extensions.LiveTbGridView.RefreshGridView', array(
            'buttons'=>array(
               'view' => array(
                  'label'=>Yii::t('translate','View device'),
-                 'url'=>'Yii::app()->controller->createUrl("devices/view", array("id"=>$data["id"]))',
+                 'url'=>'Yii::app()->controller->createUrl("view", array("id"=>$data["id"]))',
               ),
               'update' => array(
                  'label'=>Yii::t('translate','Edit device'),
-                 'url'=>'Yii::app()->controller->createUrl("devices/update", array("id"=>$data["id"]))',
+                 'url'=>'Yii::app()->controller->createUrl("update", array("id"=>$data["id"]))',
               ),
               'delete' => array(
                  'label'=>Yii::t('translate','Delete device'),
-                 'url'=>'Yii::app()->controller->createUrl("devices/delete", array("id"=>$data["id"],"command"=>"delete"))',
+                 'url'=>'Yii::app()->controller->createUrl("delete", array("id"=>$data["id"],"command"=>"delete"))',
               ),
            ),
         ),

@@ -26,22 +26,6 @@
 		<?php echo $form->textFieldControlGroup($model,'cidmobile'); ?>
 		<?php echo $form->textFieldControlGroup($model,'type'); ?>
 		<?php echo $form->textFieldControlGroup($model,'birthday'); ?>
-
-<div class="input-append">
-<?php $this->widget(
-    'yiiwheels.widgets.datepicker.WhDatePicker',
-    array(
-	'model' => $model,
-        'name' => 'birthday',
-        'attribute' => 'birthday',
-	'pluginOptions' => array(
-		'format'=>'yyyy-mm-dd',
-	),
-    )
-);
-?>
-    <span class="add-on"><icon class="icon-calendar"></icon></span>
-</div>
 		<?php echo $form->checkBoxControlGroup($model,'holidaycard', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'firstseen',array('readonly'=>true)); ?>
 		<?php echo $form->textFieldControlGroup($model,'lastseen',array('readonly'=>true)); ?>

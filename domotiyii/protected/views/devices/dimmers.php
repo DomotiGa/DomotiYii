@@ -19,7 +19,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     ),
 ));
 
-$this->widget('application.extensions.LiveTbGridView.RefreshGridView', array(
+$this->widget('domotiyii.LiveGridView', array(
     'id'=>'all-devices-grid',
     'refreshTime'=>Yii::app()->params['refreshDevices'], // x second refresh as defined in config
     'type'=>'striped condensed',

@@ -33,13 +33,13 @@ class Contacts extends CActiveRecord
          */
         public function getContacts()
         {
-                $contactitems = new CArrayDataProvider($this->findAll(array('order'=>'id ASC')), array(
+                $data = new CArrayDataProvider($this->findAll(array('order'=>'id ASC')), array(
                         'pagination' => array(
                         'pageSize'=>Yii::app()->params['pagesizeContacts'],
                         'pageVar'=>'page'
                         ),
                 ));
-                return $contactitems;
+                return $data;
         }
 
 	/**

@@ -11,7 +11,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 
 <legend><?php echo $model->name;?></legend>
 
-<?php $this->widget('yiiwheels.widgets.detail.WhDetailView', array(
+<?php $this->widget('domotiyii.DetailView', array(
 	'type' => 'striped condensed',
 	'data'=>$model,
         'attributes'=>array(

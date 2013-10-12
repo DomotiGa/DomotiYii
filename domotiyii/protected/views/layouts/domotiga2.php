@@ -10,7 +10,7 @@
   						array('label' => Yii::t('translate','Devices'), 'url' => array('/devices/index'),'icon'=>'magic'),
    						array('label' => Yii::t('translate','Phone'), 'url' => array('cdr/index'), 'icon'=>'phone'),
 						TbHtml::menuDivider(),
-						array('label' => 'Help', 'url' => '#'),
+						array('label' => 'Help', 'icon'=>'flag', 'url' => '#'),
 					)
 				));
 				?>

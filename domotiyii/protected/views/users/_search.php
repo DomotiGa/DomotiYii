@@ -46,11 +46,6 @@
 		<?php echo $form->textField($model,'emailaddress',array('size'=>32,'maxlength'=>32)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'cookie'); ?>
-		<?php echo $form->textField($model,'cookie',array('size'=>60,'maxlength'=>64)); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>

@@ -29,6 +29,5 @@ $this->menu=array(
 		'comments',
 		'lastlogin',
 		'emailaddress',
-		'cookie',
 	),
 )); ?>

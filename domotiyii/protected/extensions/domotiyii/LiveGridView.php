@@ -1,10 +1,9 @@
 <?php
 /**
+ * Based upon:
  * LiveTbGridView class file based on CLiveGridView code by Nisanth Thulasi
  * CLiveGridView class file based on CGridView class file by Qiang Xue
  * Ref :http://www.yiiframework.com/forum/index.php/topic/10258-clivegridview/
-
- * @author Ron Klinkien
  *
  */
 
@@ -14,7 +13,7 @@ Yii::import('bootstrap.widgets.TbGridView');
  * CLiveGridView continuously refreshes the visible data items in the body of the TbGridView table
  *
  **/
-class RefreshGridView extends TbGridView
+class LiveGridView extends TbGridView
 {
 	/**
 	 * grid update interval in milliseconds

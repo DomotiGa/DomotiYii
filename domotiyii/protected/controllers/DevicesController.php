@@ -106,22 +106,23 @@ class DevicesController extends Controller
                 ));
         }
 
-protected function do_save($model) {
+	protected function do_save($model)
+	{
+		if ( $model->save() === false )
+		{
+			Yii::app()->user->setFlash('error', "Saving device... Failed!");
+		} else {
+			Yii::app()->user->setFlash('success', "Saving device... Successful.");
+		}
+	}
 
-    if ( $model->save() === false ) {
-       Yii::app()->user->setFlash('error', "Saving device... Failed!");
-    } else {
-       Yii::app()->user->setFlash('success', "Saving device... Successful.");
-    }
-}
-
-protected function do_delete($model) {
-
-    if ( $model->delete() === false ) {
-       Yii::app()->user->setFlash('error', "Deleting device... Failed!");
-    } else {
-       Yii::app()->user->setFlash('success', "Deleting device... Successful.");
-    }
-}
-
+	protected function do_delete($model)
+	{
+		if ( $model->delete() === false )
+		{
+			Yii::app()->user->setFlash('error', "Deleting device... Failed!");
+		} else {
+			Yii::app()->user->setFlash('success', "Deleting device... Successful.");
+		}
+	}
 }

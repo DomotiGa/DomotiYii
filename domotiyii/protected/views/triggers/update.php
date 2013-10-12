@@ -1,10 +1,10 @@
 <?php
-/* @var $this DevicesController */
-/* @var $model Devices */
+/* @var $this TriggersController */
+/* @var $model Triggers */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('translate','Devices') => '../index',
+        Yii::t('translate','Triggers') => '../index',
         Yii::t('translate','Update'),
     ),
 ));

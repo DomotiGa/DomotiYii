@@ -57,12 +57,6 @@
 		<?php echo $form->error($model,'emailaddress'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'cookie'); ?>
-		<?php echo $form->textField($model,'cookie',array('size'=>60,'maxlength'=>64)); ?>
-		<?php echo $form->error($model,'cookie'); ?>
-	</div>
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
