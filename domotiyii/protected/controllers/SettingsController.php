@@ -184,7 +184,7 @@ public function actionSmartvisu()
         {
             // form inputs are valid, do something here
            $model->save();
-	   $this->do_xmlrpc("module.restart","smartvisu");
+	   $this->do_xmlrpc("module.restart","smartvisuserver");
         }
     }
     $this->render('smartvisu',array('model'=>$model));
