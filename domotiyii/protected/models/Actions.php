@@ -17,6 +17,7 @@ class Actions extends CActiveRecord
         public function getActions($enabled)
         {
                 $data = new CArrayDataProvider($this->findAll(array('order'=>'event ASC')), array(
+			'keyField' => 'event',
                         'pagination' => array(
                         'pageSize'=>Yii::app()->params['pagesizeActions'],
                         'pageVar'=>'page'
