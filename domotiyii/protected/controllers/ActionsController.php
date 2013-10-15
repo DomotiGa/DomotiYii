@@ -54,6 +54,26 @@ class ActionsController extends Controller
                 $this->do_delete($model);
 	}
 
+        public function actionCreate()
+        {
+                $model=new Actions;
+
+                // Uncomment the following line if AJAX validation is needed
+                // $this->performAjaxValidation($model);
+
+                if(isset($_POST['Actions']))
+                {
+                        $model->attributes=$_POST['Actions'];
+                        if($model->validate())
+                        {
+                                $this->do_save($model);
+                        }
+                }
+                $this->render('create',array(
+                        'model'=>$model,
+                ));
+        }
+
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()

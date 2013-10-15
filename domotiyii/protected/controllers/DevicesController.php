@@ -132,6 +132,7 @@ class DevicesController extends Controller
 			Yii::app()->user->setFlash('success', "Deleting device... Successful.");
 		}
 	}
+
 protected function do_xmlrpc($procedure, $data = array()) {
 
     $request = xmlrpc_encode_request($procedure, $data);

@@ -75,9 +75,9 @@ return array(
 		'domotiyii' => array(
 			'class' => 'domotiyii',
 		),
-        'mobileDetect' => array(
-            'class' => 'domotiyii.MobileDetect'
-        ),
+		'mobileDetect' => array(
+			'class' => 'domotiyii.MobileDetect'
+		),
 	),
 
 	// language settings

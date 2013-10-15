@@ -8,6 +8,19 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     ),
 ));
 
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+    $('.search-form').slideToggle('fast');
+    return false;
+});
+$('.search-form form').submit(function(){
+    $.fn.yiiGridView.update('adjustment-grid', {
+        data: $(this).serialize()
+    });
+    return false;
+});
+");
+
 $this->beginWidget('zii.widgets.CPortlet', array(
         'htmlOptions'=>array(
                 'class'=>''
@@ -22,8 +35,15 @@ $this->widget('bootstrap.widgets.TbNav', array(
         ),
 ));
 $this->endWidget();
+?>
 
-$this->widget('domotiyii.LiveGridView', array(
+<div class="search-form" style="display:none">
+<?php $this->renderPartial('_search',array(
+        'model'=>$model,
+)); ?>
+</div><!-- search-form -->
+
+<?php $this->widget('domotiyii.LiveGridView', array(
     'id'=>'all-actions-grid',
     'refreshTime'=>Yii::app()->params['refreshActions'], // x second refresh as defined in config
     'type'=>'striped condensed',
