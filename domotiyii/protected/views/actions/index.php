@@ -14,7 +14,7 @@ $('.search-button').click(function(){
     return false;
 });
 $('.search-form form').submit(function(){
-    $.fn.yiiGridView.update('adjustment-grid', {
+    $.fn.yiiGridView.update('all-actions-grid', {
         data: $(this).serialize()
     });
     return false;
@@ -47,8 +47,8 @@ $this->endWidget();
     'id'=>'all-actions-grid',
     'refreshTime'=>Yii::app()->params['refreshActions'], // x second refresh as defined in config
     'type'=>'striped condensed',
-    'dataProvider'=>$model->getActions(true),
-    'template'=>'{items}{pager}',
+    'dataProvider'=>$model->search(),
+    'template'=>'{items}{pager}{summary}',
     'columns'=>array(
         array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
         array('name'=>'name', 'header'=>Yii::t('translate','Name'), 'htmlOptions'=>array('width'=>'150')),
@@ -60,21 +60,30 @@ $this->endWidget();
         array('name'=>'param4', 'header'=>Yii::t('translate','Param4'), 'htmlOptions'=>array('width'=>'50')),
         array('name'=>'param5', 'header'=>Yii::t('translate','Param5'), 'htmlOptions'=>array('width'=>'50')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',
-           'template'=> Yii::app()->user->isGuest ? '{view}' : '{view}{update}{delete}',
+           'template'=> Yii::app()->user->isGuest ? '{view}' : '{view} {update} {delete}',
            'header'=>Yii::t('translate','Actions'),
-           'htmlOptions'=>array('style'=>'width: 40px'),
+           'htmlOptions'=>array('style'=>'width: 115px'),
            'buttons'=>array(
               'view' => array(
                  'label'=>Yii::t('translate','View'),
                  'url'=>'Yii::app()->controller->createUrl("view", array("id"=>$data["id"]))',
+'options'=>array(
+                                                'class'=>'btn btn-small view'
+                                        )
               ),
               'update' => array(
                  'label'=>Yii::t('translate','Edit'),
                  'url'=>'Yii::app()->controller->createUrl("update", array("id"=>$data["id"]))',
+'options'=>array(
+                                                'class'=>'btn btn-small update'
+                                        )
               ),
               'delete' => array(
                  'label'=>Yii::t('translate','Delete'),
                  'url'=>'Yii::app()->controller->createUrl("delete", array("id"=>$data["id"],"command"=>"delete"))',
+'options'=>array(
+                                                'class'=>'btn btn-small delete'
+                                        )
               ),
            ),
         ),

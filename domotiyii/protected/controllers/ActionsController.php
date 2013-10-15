@@ -2,11 +2,30 @@
 
 class ActionsController extends Controller
 {
-        public function actionIndex()
-        {
-                $model = Actions::model();
-                $this->render('index', array('model'=>$model));
-        }
+	/**
+ 	* Lists all actions.
+	*/
+	public function actionIndex()
+	{
+		$session=new CHttpSession;
+		$session->open();           
+		$criteria = new CDbCriteria();            
+
+		$model=new Actions('search');
+		$model->unsetAttributes();  // clear any default values
+
+		if(isset($_GET['Actions']))
+		{
+			$model->attributes=$_GET['Actions'];
+
+			if (!empty($model->id)) $criteria->addCondition('id = "'.$model->id.'"');
+			if (!empty($model->name)) $criteria->addCondition('name = "'.$model->name.'"');
+			if (!empty($model->description)) $criteria->addCondition('description = "'.$model->description.'"');
+			if (!empty($model->type)) $criteria->addCondition('type = "'.$model->type.'"');
+		}
+		$session['Actions_records']=Actions::model()->findAll($criteria); 
+		$this->render('index', array('model'=>$model,));
+	}
 
         public function actionView($id)
         {
