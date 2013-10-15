@@ -73,8 +73,7 @@ return array(
 			'class'=>'bootstrap.components.TbApi',
 		),
 		'domotiyii' => array(
-			'class' => 'domotiyii',   
-        
+			'class' => 'domotiyii',
 		),
         'mobileDetect' => array(
             'class' => 'domotiyii.MobileDetect'
@@ -90,16 +89,21 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'xmlrpcHost'=>'http://localhost:9009',
-		// refresh time and page size for specific gridviews
+		// refresh time for specific gridviews
 		'refreshDevices'=>'5000', // 5 second refresh
 		'refreshPhonecalls'=>'5000', // 5 second refresh
 		'refreshContacts'=>'5000', // 5 second refresh
 		'refreshEvents'=>'5000', // 5 second refresh
 		'refreshTriggers'=>'5000', // 5 second refresh
+		'refreshConditions'=>'5000', // 5 second refresh
+		'refreshActions'=>'5000', // 5 second refresh
+		// page size for specific gridviews
 		'pagesizeDevices'=>'20', // entries per page
 		'pagesizePhonecalls'=>'30', // entries per page
 		'pagesizeContacts'=>'20', // entries per page
 		'pagesizeEvents'=>'20', // entries per page
 		'pagesizeTriggers'=>'20', // entries per page
+		'pagesizeConditions'=>'20', // entries per page
+		'pagesizeActions'=>'20', // entries per page
 	),
 );

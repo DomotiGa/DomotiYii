@@ -1,27 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "actions".
+ * This is the model class for table "events_actions".
  *
- * The followings are the available columns in table 'actions':
- * @property string $id
- * @property string $name
- * @property integer $type
- * @property string $description
- * @property string $param1
- * @property string $param2
- * @property string $param3
- * @property string $param4
- * @property string $param5
+ * The followings are the available columns in table 'events_actions':
+ * @property string $event
+ * @property integer $action
+ * @property integer $order
+ * @property integer $delay
  */
-class Actions extends CActiveRecord
+class EventsActions extends CActiveRecord
 {
         /**
          * @return array with all actions
          */
-        public function getActions($enabled)
+        public function getEventsActions($enabled)
         {
-                $data = new CArrayDataProvider($this->findAll(array('order'=>'id ASC')), array(
+                $data = new CArrayDataProvider($this->findAll(array('order'=>'event ASC')), array(
+			'keyField' => 'event',
                         'pagination' => array(
                         'pageSize'=>Yii::app()->params['pagesizeActions'],
                         'pageVar'=>'page'
@@ -30,20 +26,12 @@ class Actions extends CActiveRecord
                 return $data;
         }
 
-        /**
-         * @return typestring 
-         */
-        public function getActionType($id)
-        {
-                return CHtml::listData(Devicetypes::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
-        }
-
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'actions';
+		return 'events_actions';
 	}
 
 	/**
@@ -54,12 +42,12 @@ class Actions extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>64),
-			array('description, param1, param2, param3, param4, param5', 'safe'),
+			array('event, action, order, delay', 'required'),
+			array('action, order, delay', 'numerical', 'integerOnly'=>true),
+			array('event', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, type, description, param1, param2, param3, param4, param5', 'safe', 'on'=>'search'),
+			array('event, action, order, delay', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -80,15 +68,10 @@ class Actions extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
-			'type' => 'Type',
-			'description' => 'Description',
-			'param1' => 'Param1',
-			'param2' => 'Param2',
-			'param3' => 'Param3',
-			'param4' => 'Param4',
-			'param5' => 'Param5',
+			'event' => 'Event',
+			'action' => 'Action',
+			'order' => 'Order',
+			'delay' => 'Delay',
 		);
 	}
 
@@ -110,15 +93,10 @@ class Actions extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('param1',$this->param1,true);
-		$criteria->compare('param2',$this->param2,true);
-		$criteria->compare('param3',$this->param3,true);
-		$criteria->compare('param4',$this->param4,true);
-		$criteria->compare('param5',$this->param5,true);
+		$criteria->compare('event',$this->event,true);
+		$criteria->compare('action',$this->action);
+		$criteria->compare('order',$this->order);
+		$criteria->compare('delay',$this->delay);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -129,7 +107,7 @@ class Actions extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Actions the static model class
+	 * @return EventsActions the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

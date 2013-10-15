@@ -13,6 +13,15 @@ return array (
 'Visit Project Website' => 'Bezoek Project Website',
 'Donate to Project' => 'Doneer aan Project',
 'Contact Support' => 'Stuur mail naar Support',
+'Create' => 'Toevoegen',
+'List' => 'Lijst',
+'Search' => 'Zoeken',
+'Edit' => 'Bewerken',
+'View' => 'Bekijken',
+'Edit' => 'Bewerken',
+'Delete' => 'Wissen',
+'Disabled' => 'Uitgeschakeld',
+'Hidden' => 'Verborgen',
 
 // Devices
 'Sensors' => 'Sensoren',
@@ -25,9 +34,6 @@ return array (
 'Location' => 'Lokatie',
 'Actions' => 'Acties',
 'Last Seen' => 'Laatst gezien',
-'View device' => 'Bekijk apparaat',
-'Edit device' => 'Bewerk apparaat',
-'Delete device' => 'Wis apparaat',
 
 // Phone
 'Duration' => 'Duur',

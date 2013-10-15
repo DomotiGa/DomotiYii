@@ -8,10 +8,20 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     ),
 ));
 
-echo TbHtml::linkButton('Create', array(
-        'rel'=>'Create trigger',
-        'url'=>array('create'),
+$this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
 ));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('translate','Create'), 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
+                array('label'=>Yii::t('translate','List'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'),'active'=>true, 'linkOptions'=>array()),
+                array('label'=>Yii::t('translate','Search'), 'icon'=>'icon-search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
+        ),
+));
+$this->endWidget();
 
 $this->widget('domotiyii.LiveGridView', array(
     'id'=>'all-triggers-grid',

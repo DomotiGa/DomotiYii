@@ -1,25 +1,25 @@
 <?php
 
-class ActionsController extends Controller
+class EventsactionsController extends Controller
 {
         public function actionIndex()
         {
-                $model = Actions::model();
+                $model = Eventsactions::model();
                 $this->render('index', array('model'=>$model));
         }
 
         public function actionView($id)
         {
-                $model = Actions::model()->findByPk($id);
+                $model = Eventsactions::model()->findByPk($id);
                 $this->render('view', array('model'=>$model));
         }
 
         public function actionUpdate($id)
         {
-                $model = Actions::model()->findByPk($id);
-                if(isset($_POST['Actions']))
+                $model = Eventsactions::model()->findByPk($id);
+                if(isset($_POST['Eventsactions']))
                 {
-                        $model->attributes=$_POST['Actions'];
+                        $model->attributes=$_POST['Eventsactions'];
                         if($model->validate())
                         {
                                 // form inputs are valid, do something here
@@ -31,28 +31,33 @@ class ActionsController extends Controller
                 ));
         }
 
-        public function actionActions()
-        {
-            $model = Actions::model()->findByPk(1);
-
-            if(isset($_POST['Actions']))
-            {
-                $model->attributes=$_POST['Actions'];
-                if($model->validate())
-                {
-                    // form inputs are valid, do something here
-                    $model->save();
-                }
-            }
-            $this->render('actions',array('model'=>$model));
-        }
-
         public function actionDelete($id)
         {
-                // delete the entry from the "actions" table
-                $model = Actions::model()->findByPk($id);
+                // delete the entry from the "events_actions" table
+                $model = Eventsactions::model()->findByPk($id);
                 $this->do_delete($model);
-	}
+
+        }
+
+        public function actionCreate()
+        {
+                $model=new Eventsactions;
+
+                // Uncomment the following line if AJAX validation is needed
+                // $this->performAjaxValidation($model);
+
+                if(isset($_POST['Eventsactions']))
+                {
+                        $model->attributes=$_POST['Eventsactions'];
+                        if($model->validate())
+                        {
+                                $this->do_save($model);
+                        }
+                }
+                $this->render('create',array(
+                        'model'=>$model,
+                ));
+        }
 
 	// Uncomment the following methods and override them if needed
 	/*
@@ -85,9 +90,9 @@ class ActionsController extends Controller
         {
                 if ( $model->save() === false )
                 {
-                        Yii::app()->user->setFlash('error', "Saving action... Failed!");
+                        Yii::app()->user->setFlash('error', "Saving eventsaction... Failed!");
                 } else {
-                        Yii::app()->user->setFlash('success', "Saving action... Successful.");
+                        Yii::app()->user->setFlash('success', "Saving eventsaction... Successful.");
                 }
         }
 
@@ -96,9 +101,9 @@ class ActionsController extends Controller
 
                 if ( $model->delete() === false )
                 {
-                        Yii::app()->user->setFlash('error', "Deleting action... Failed!");
+                        Yii::app()->user->setFlash('error', "Deleting eventsaction... Failed!");
                 } else {
-                        Yii::app()->user->setFlash('success', "Deleting action... Successful.");
+                        Yii::app()->user->setFlash('success', "Deleting eventsaction... Successful.");
                 }
         }
 
