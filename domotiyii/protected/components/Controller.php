@@ -5,23 +5,11 @@
  */
 class Controller extends CController
 {
-	/**
-	 * Init function to show or not show the left sidebar. It is only showed it the user is authorized
-	**/
-	public function init()
-	{
-        
-        $detect = Yii::app()->mobileDetect;
-      
-        if (  $detect->isMobile() || $detect->isTablet() || $detect->isIphone() ) {
-		    Yii::app()->layout='//layouts/mobile';
-	    }
-		else
-		{
-			Yii::app()->layout='//layouts/normal';
-		}
-	}
 
+    /**
+     * @var object for browser detect
+    */
+	public $browserdetect=null;
 	/**
 	 * @var string the default layout for the controller view. Defaults to '//layouts/column1',
 	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
@@ -37,4 +25,22 @@ class Controller extends CController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
+
+	/**
+	 * Init function to show normal or mobile interface
+	**/
+	public function init()
+	{
+        
+        $this->browserdetect = Yii::app()->mobileDetect;
+      
+        if (  $this->browserdetect->isMobile() ) {
+		    Yii::app()->layout='//layouts/mobile';
+	    }
+		else
+		{
+			Yii::app()->layout='//layouts/normal';
+		}
+	}
+
 }
