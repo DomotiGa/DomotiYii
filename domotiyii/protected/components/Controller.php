@@ -10,16 +10,16 @@ class Controller extends CController
 	**/
 	public function init()
 	{
-/*
-		if ( Yii::app()->user->isGuest ) {
-			Yii::app()->layout='//layouts/domotiga1';
-		}
+        
+        $detect = Yii::app()->mobileDetect;
+      
+        if (  $detect->isMobile() || $detect->isTablet() || $detect->isIphone() ) {
+		    Yii::app()->layout='//layouts/mobile';
+	    }
 		else
 		{
-			Yii::app()->layout='//layouts/domotiga2';
+			Yii::app()->layout='//layouts/normal';
 		}
-*/
-		Yii::app()->layout='//layouts/domotiga2';
 	}
 
 	/**
