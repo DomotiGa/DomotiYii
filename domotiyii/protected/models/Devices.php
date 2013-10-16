@@ -160,6 +160,7 @@ class Devices extends CActiveRecord
 		return array(
 			array('module, location, interface, enabled, hide, log, logdisplay, logspeak, rrd, graph, tampered, switchable, dimable, extcode, x, y, floorplan, repeatstate, repeatperiod, reset, resetperiod, poll', 'numerical', 'integerOnly'=>true),
 			array('name, label, label2, label3, label4, onicon, officon, dimicon, batterystatus, valuerrddsname, value2rrddsname, value3rrddsname, value4rrddsname, valuerrdtype, value2rrdtype, value3rrdtype, value4rrdtype', 'length', 'max'=>32),
+	        array('name', 'notOnlyNumbers'),
 			array('address', 'length', 'max'=>64),
 			array('groups', 'length', 'max'=>128),
 			array('value, value2, value3, value4, correction, correction2, correction3, correction4, firstseen, lastseen, comments, lastchanged, resetvalue', 'safe'),
@@ -413,4 +414,15 @@ class Devices extends CActiveRecord
 			return $retarr;
 		}
 	}
+
+    /**
+    * check if the value not only contain numbers
+    * This is the 'notOnlyNumbers' validator as declared in rules().
+    */
+    public function notOnlyNumbers($attribute,$params)
+    {
+        if(!preg_match('/(?!^\d+$)^.+$/', $this->$attribute))
+            $this->addError($attribute, 'it cannot contain only numbers');
+    }
+
 }
