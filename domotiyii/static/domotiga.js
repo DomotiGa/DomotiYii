@@ -42,11 +42,11 @@ function switchRelay(element){
     }
 }
 
-function set_device(name,value) {
+function set_device(id,value) {
     $.ajax({
         type: "POST",        
         url: "setdevice",
-        data: {Device: { name: name, value: value}  },
+        data: {Device: { id: id, value: value}  },
         success: function () {
            console.log('done');
         }

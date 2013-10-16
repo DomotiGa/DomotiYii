@@ -101,11 +101,11 @@ class DevicesController extends Controller
         }
 
     public function actionSetDevice(){
-		if(isset($_POST['Device']['name']) && isset($_POST['Device']['value']))
+		if(isset($_POST['Device']['id']) && isset($_POST['Device']['value']))
 		{
-            $current_device_name = strip_tags($_POST['Device']['name']);                   
+            $current_device_id = strip_tags($_POST['Device']['id']);                   
             $current_device_value = strip_tags($_POST['Device']['value']);
-	        $result = $this->do_xmlrpc('device.setdevice',array($current_device_name,$current_device_value));
+	        $result = $this->do_xmlrpc('device.setdevice',array($current_device_id,$current_device_value));
 
             echo json_encode($result);
 		}
