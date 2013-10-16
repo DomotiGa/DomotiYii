@@ -17,7 +17,14 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-	<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/static/domotiga.js"></script>
+	
+    <?php if ($this->browserdetect->isMobile()): ?>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/static/domotiga_mobile.js"></script>
+    <?php else: ?>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/static/domotiga.js"></script>
+     <?php
+        endif;
+     ?>
 
 	<?php Yii::app()->bootstrap->register(); ?>
 </head>

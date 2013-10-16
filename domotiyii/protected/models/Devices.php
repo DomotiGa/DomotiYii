@@ -181,7 +181,7 @@ class Devices extends CActiveRecord
 		return array(
 			'devicetype' => array(self::BELONGS_TO, 'Devicetypes','module'),
 			'l_location' => array(self::BELONGS_TO, 'Locations','location'),
-			'l_interface' => array(self::BELONGS_TO, 'Interfaces','interface'),
+            'l_interface' => array(self::BELONGS_TO, 'Interfaces','interface'),
 		);
 	}
 
