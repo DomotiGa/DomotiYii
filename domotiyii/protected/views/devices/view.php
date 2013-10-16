@@ -7,13 +7,14 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         Yii::t('translate','Devices') => 'index',  
         Yii::t('translate','View'),
     ),
-)); ?>
+));
 
 $this->beginWidget('zii.widgets.CPortlet', array(
         'htmlOptions'=>array(
                 'class'=>''
         )
 ));
+
 $this->widget('bootstrap.widgets.TbNav', array(
         'type'=>TbHtml::NAV_TYPE_PILLS,
         'items'=>array(
@@ -22,7 +23,9 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 array('label'=>Yii::t('translate','Search'), 'icon'=>'icon-search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
         ),
 ));
+
 $this->endWidget();
+?>
 
 <legend><?php echo $model->name;?></legend>
 

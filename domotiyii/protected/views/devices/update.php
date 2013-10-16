@@ -14,6 +14,7 @@ $this->beginWidget('zii.widgets.CPortlet', array(
                 'class'=>''
         )
 ));
+
 $this->widget('bootstrap.widgets.TbNav', array(
         'type'=>TbHtml::NAV_TYPE_PILLS,
         'items'=>array(
@@ -22,5 +23,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 array('label'=>Yii::t('translate','Search'), 'icon'=>'icon-search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
         ),
 ));
+
+$this->endWidget();
 
 echo $this->renderPartial('_form', array('model'=>$model)); ?>
