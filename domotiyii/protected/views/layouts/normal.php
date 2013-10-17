@@ -177,8 +177,8 @@
 					'type' => TbHtml::NAV_TYPE_LIST,
 					'items' => array(
  						array('label' => 'MENU'),
-  						array('label' => Yii::t('translate','Devices'), 'url' => array('/devices/index'),'icon'=>'magic'),
-   						array('label' => Yii::t('translate','Phone'), 'url' => array('cdr/index'), 'icon'=>'phone'),
+  						array('label' => Yii::t('translate','Devices'), 'url' => array('/devices/index')),
+   						array('label' => Yii::t('translate','Phone'), 'url' => array('cdr/index')),
 						TbHtml::menuDivider(),
 						array('label' => 'Help', 'icon'=>'flag', 'url' => '#'),
 					)
