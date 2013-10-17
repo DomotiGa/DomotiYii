@@ -7,8 +7,17 @@ body
 	background: #EFEFEF;
 }
 
+ /* for mobile */
+@media (max-width: 767px)
+body {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+
 #footer
 {
+    margin-top: 20px;
 	padding: 10px;
 	font-size: 0.8em;
 	text-align: center;

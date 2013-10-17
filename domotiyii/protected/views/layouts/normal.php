@@ -134,6 +134,7 @@
                     array('label'=>'xPL', 'url'=> array('settings/xpl')),
 	         )),
                 array('label'=>Yii::t('translate','Devices'), 'visible'=>!Yii::app()->user->isGuest, 'url'=> '#', 'items'=>array(
+  					array('label' => Yii::t('translate','Devices'), 'url' => array('devices/index')),
                    array('label'=>Yii::t('translate','Add Device'), 'url'=> array('devices/create')),
                    array('label'=>Yii::t('translate','Modules, Groups ...'), 'url'=> '#'),
                 )),

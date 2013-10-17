@@ -4,7 +4,7 @@ function set_device(id,value) {
         url: "setdevice",
         data: {Device: { id: id, value: value}  },
         success: function () {
-           console.log('done');
+           
         }
       })
 }

@@ -8,7 +8,7 @@
         <?php echo $device['devicename']; ?>
         <button class="btn" type="button" onclick="set_device('<?php echo $device['id']; ?>','<?php echo (strcmp($device['devicevalue'],'On') == 1 ?'Off':'On'); ?>');"><?php echo (strcmp($device['devicevalue'],'On') == 1 ?'Off':'On'); ?></button>
 
-    </div
+    </div>
 <?php
     endforeach;
 ?>
