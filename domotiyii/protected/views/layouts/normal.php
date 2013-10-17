@@ -1,6 +1,6 @@
 <?php $this->beginContent('/layouts/main'); ?>
-<div class="navbar navbar-inverse">
 <?php $this->widget('bootstrap.widgets.TbNavbar',array(
+    'display'=> TbHtml::NAVBAR_COLOR_INVERSE, 
     'brandLabel'=>'<img height="25" width="25" src="' . Yii::app()->request->baseUrl . '/static/logo.png">',
     'collapse'=>true, // requires bootstrap-responsive.css
     'items'=>array(
@@ -166,28 +166,25 @@
         ),
     ),
 )); ?>
-</div>
 
 
 <div class="container-fluid" id="page">
 	<div class="row-fluid">
-		<div class="span2">
-			<div style="padding: 8px 0;" id="sidebar">
-				<?php $this->widget('bootstrap.widgets.TbNav', array(
-					'type' => TbHtml::NAV_TYPE_LIST,
-					'items' => array(
- 						array('label' => 'MENU'),
-  						array('label' => Yii::t('translate','Devices'), 'url' => array('/devices/index')),
-   						array('label' => Yii::t('translate','Phone'), 'url' => array('cdr/index')),
-						TbHtml::menuDivider(),
-						array('label' => 'Help', 'icon'=>'flag', 'url' => '#'),
-					)
-				));
-				?>
-			</div><!-- sidebar -->
-		</div><!-- span2 -->
+		<div class="span2" id="sidebar">
+			<?php $this->widget('bootstrap.widgets.TbNav', array(
+				'type' => TbHtml::NAV_TYPE_LIST,
+				'items' => array(
+ 					array('label' => 'MENU'),
+  					array('label' => Yii::t('translate','Devices'), 'url' => array('/devices/index')),
+   					array('label' => Yii::t('translate','Phone'), 'url' => array('cdr/index')),
+					TbHtml::menuDivider(),
+					array('label' => 'Help', 'icon'=>'flag', 'url' => '#'),
+				)
+			));
+			?>
+		</div><!-- sidebar -->
 		<div class="span10">
-			<div style="padding: 8px 0;" id="content">
+			<div id="content">
 	
             <?php foreach(array('error', 'notice', 'success') as $key): ?>
                 <?php if (Yii::app()->user->hasFlash($key)): ?>

@@ -1,6 +1,6 @@
 <?php $this->beginContent('/layouts/main'); ?>
-<div class="navbar navbar-inverse">
 <?php $this->widget('bootstrap.widgets.TbNavbar',array(
+    'display'=> TbHtml::NAVBAR_COLOR_INVERSE, 
     'brandLabel'=>'<img height="25" width="25" src="' . Yii::app()->request->baseUrl . '/static/logo.png">',
     'collapse'=>true, // requires bootstrap-responsive.css
     'items'=>array(
@@ -22,7 +22,6 @@
         ),
     ),
 )); ?>
-</div>
 
 
 <div class="container" id="page">
