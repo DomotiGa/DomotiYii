@@ -76,6 +76,18 @@ class Devices extends CActiveRecord
 		return $deviceitems;
 	}
 
+
+	/**
+	 * @return array with device of type requested without pagination
+	 */
+	public function getDevicesWithoutPagination($type)
+	{
+		$deviceitems = new CArrayDataProvider($this->get_device_list($type), array(
+			'pagination' => false,));
+		return $deviceitems;
+	}
+
+
 	/**
          * @return dropdownlist with the list of modules/devicetypes
 	 */

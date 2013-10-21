@@ -19,7 +19,7 @@ $(function() {
     
     // Toggle extra data and update icon
     $( ".device_name" ).click(function() {
-        detail = $(this).parent().parent().children(".device_rest_values");
+        detail = $(this).parent().parent().children(".device_info");
         if ( detail.is(":visible") ){
             $(this).children("i").removeClass("icon-chevron-up").addClass("icon-chevron-down");    
         }else{
@@ -27,6 +27,12 @@ $(function() {
         }    
         detail.slideToggle();
 
+    });
+
+    // Switch device
+    $(".switch_device > button").click(function() {
+        device = $(this).parent().parent().parent();
+        set_device(device.attr("id"), $(this).html());
     });
 
 });
