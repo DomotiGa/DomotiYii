@@ -170,9 +170,10 @@ class Devices extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('module, location, interface, enabled, hide, log, logdisplay, logspeak, rrd, graph, tampered, switchable, dimable, extcode, x, y, floorplan, repeatstate, repeatperiod, reset, resetperiod, poll', 'numerical', 'integerOnly'=>true),
+			array('module, location, interface, tampered, extcode, x, y, floorplan, repeatperiod, resetperiod, poll', 'numerical', 'integerOnly'=>true),
 			array('name, label, label2, label3, label4, onicon, officon, dimicon, batterystatus, valuerrddsname, value2rrddsname, value3rrddsname, value4rrddsname, valuerrdtype, value2rrdtype, value3rrdtype, value4rrdtype', 'length', 'max'=>32),
-	        array('name', 'notOnlyNumbers'),
+            array('enabled, hide, log, logdisplay, logspeak, rrd, graph, switchable, dimable, extcode, repeatstate, reset', 'boolean', 'trueValue'=> -1),	        
+            array('name', 'notOnlyNumbers'),
 			array('address', 'length', 'max'=>64),
 			array('groups', 'length', 'max'=>128),
 			array('value, value2, value3, value4, correction, correction2, correction3, correction4, firstseen, lastseen, comments, lastchanged, resetvalue', 'safe'),
