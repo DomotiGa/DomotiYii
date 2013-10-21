@@ -24,10 +24,10 @@ $this->widget('bootstrap.widgets.TbNav', array(
     'type'=>'tabs',
     'stacked'=>false,
     'items'=>array(
-        array('label'=>Yii::t('translate','All'), 'url'=>'index', 'active'=>true),
-        array('label'=>Yii::t('translate','Sensors'), 'url'=>'sensors'),
-        array('label'=>Yii::t('translate','Dimmers'), 'url'=>'dimmers'),
-        array('label'=>Yii::t('translate','Switches'), 'url'=>'switches'),
+        array('label'=>Yii::t('translate','All'), 'url'=>'index', 'active'=>Yii::app()->request->getParam('type','all') == 'all'),
+        array('label'=>Yii::t('translate','Sensors'), 'url'=>'index?type=sensors', 'active'=>Yii::app()->request->getParam('type','all') == 'sensors'),
+        array('label'=>Yii::t('translate','Dimmers'), 'url'=>'index?type=dimmers', 'active'=>Yii::app()->request->getParam('type','all') == 'dimmers'),
+        array('label'=>Yii::t('translate','Switches'), 'url'=>'index?type=switches', 'active'=>Yii::app()->request->getParam('type','all') == 'switches'),
     ),
 ));
 
@@ -35,7 +35,7 @@ $this->widget('domotiyii.LiveGridView', array(
     'id'=>'all-devices-grid',
     'refreshTime'=>Yii::app()->params['refreshDevices'], // x second refresh as defined in config
     'type'=>'striped condensed',
-    'dataProvider'=>$model->getDevices('all'),
+    'dataProvider'=>$model->getDevices(Yii::app()->request->getParam('type','all')),
     'template'=>'{items}{pager}',
     'columns'=>array(
         array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),

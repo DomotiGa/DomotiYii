@@ -8,23 +8,6 @@ class DevicesController extends Controller
 		$this->render('index', array('model'=>$model));
 	}
 
-	public function actionDimmers()
-	{
-    		$model = Devices::model();
-		$this->render('dimmers', array('model'=>$model));
-	}
-
-	public function actionSwitches()
-	{
-    		$model = Devices::model();
-		$this->render('switches', array('model'=>$model));
-	}
-
-	public function actionSensors()
-	{
-    		$model = Devices::model();
-		$this->render('sensors', array('model'=>$model));
-	}
 
     public function actionView($id)
     {
