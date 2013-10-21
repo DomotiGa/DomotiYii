@@ -17,7 +17,7 @@ body {
     float: left;
 }
 
-.device .device_location
+.device .device_status
 {
     float: right;
 }
@@ -27,8 +27,7 @@ body {
     display: none;
 }
 
-.device .debug
+.device [class^="icon-"], [class*=" icon-"]
 {
-    display: none;
+    padding-right: 5px;
 }
-
