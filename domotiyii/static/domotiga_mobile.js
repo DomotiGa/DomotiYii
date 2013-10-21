@@ -31,8 +31,10 @@ $(function() {
     $(".switch_device > button").click(function() {
         $(this).parent().children("button").removeClass("btn-primary");
         $(this).addClass("btn-primary");
+        device_value = $(this).html();
         device = $(this).parent().parent().parent();
-        set_device(device.attr("id"), $(this).html());
+        device.find(".device_status").html(device_value);
+        set_device(device.attr("id"), device_value);
     });
 
 });

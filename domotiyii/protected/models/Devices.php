@@ -67,7 +67,7 @@ class Devices extends CActiveRecord
 	 */
 	public function getDevices($type)
 	{
-		$deviceitems = new CArrayDataProvider($this->get_device_list($type), array(
+		$deviceitems = new CArrayDataProvider($this->get_device_list($type,'all'), array(
 			'pagination' => array(
 			'pageSize'=>Yii::app()->params['pagesizeDevices'],
 			'pageVar'=>'page'
@@ -80,9 +80,9 @@ class Devices extends CActiveRecord
 	/**
 	 * @return array with device of type requested without pagination
 	 */
-	public function getDevicesWithoutPagination($type)
+	public function getDevicesWithLocationWithoutPagination($type,$location)
 	{
-		$deviceitems = new CArrayDataProvider($this->get_device_list($type), array(
+		$deviceitems = new CArrayDataProvider($this->get_device_list($type,$location), array(
 			'pagination' => false,));
 		return $deviceitems;
 	}
@@ -366,9 +366,9 @@ class Devices extends CActiveRecord
 	}
 
 	/**
-	 * @return array with list of devices of type
+	 * @return array with list of devices of type and location(not filtering set it to all)
 	 */
-	protected function get_device_list($type) {
+	protected function get_device_list($type,$location) {
 
 		$retarr = array();
 		$index = 0;
@@ -398,6 +398,12 @@ class Devices extends CActiveRecord
 				$retarr[$index]['devicevalue3'] = $retarr[$index]['devicevalue3']. " ".$retarr[$index]['devicelabel3'];
 				$retarr[$index]['devicevalue4'] = $retarr[$index]['devicevalue4']. " ".$retarr[$index]['devicelabel4'];
 
+                // location
+                if($location != 'all' && $location != $retarr[$index]['devicelocation']){
+                    unset($retarr[$index]);
+                    continue;                
+                }
+
 				// sensor
 				if($type == "sensors") {
 					if ((strcmp($retarr[$index]['switchable'],"T") == 0) OR (strcmp($retarr[$index]['dimmable'],"T") == 0)) {
@@ -423,6 +429,7 @@ class Devices extends CActiveRecord
 				} else {
 					$index++;
 				}
+                
 			}
 			return $retarr;
 		}

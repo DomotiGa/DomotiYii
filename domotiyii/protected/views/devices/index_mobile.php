@@ -2,7 +2,40 @@
 /* @var $this DevicesController */
 /* @var $dataProvider CActiveDataProvider */
 
-    foreach($model->getDevicesWithoutPagination('all')->getData() as $device):
+    $type = Yii::app()->request->getParam('type','all');
+    $location = Yii::app()->request->getParam('location','all');
+
+    $this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>'tabs',
+        'stacked'=>false,
+        'items'=>array(
+            array('label'=>Yii::t('translate','All'), 'url'=>'index?location='.$location, 'active'=>$type == 'all'),
+            array('label'=>Yii::t('translate','Sensors'), 'url'=>'index?type=sensors&location='.$location, 'active'=>$type == 'sensors'),
+            array('label'=>Yii::t('translate','Dimmers'), 'url'=>'index?type=dimmers&location='.$location, 'active'=>$type == 'dimmers'),
+            array('label'=>Yii::t('translate','Switches'), 'url'=>'index?type=switches&location='.$location, 'active'=>$type == 'switches'),
+        ),
+    ));
+
+    
+    $links = array(array('label' => 'All', 'url'=>'index?type='.$type, 'active'=>$location == 'all'));
+  
+    foreach($locations as $currentlocation)
+    {
+        if ( $currentlocation['name'] != '')
+        {
+            array_push($links, array('label'=>$currentlocation['name'], 'url'=>'index?type='.$type.'&location='.$currentlocation['name'], 'active'=>$location == $currentlocation['name']));
+        }
+    }
+
+    $this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>'tabs',
+        'stacked'=>false,
+        'items'=>array(
+            array('label'=>Yii::t('translate','Location'), 'url'=>'#', 'items' => $links),
+        ),
+    ));
+
+    foreach($model->getDevicesWithLocationWithoutPagination(Yii::app()->request->getParam('type','all'),$location)->getData() as $device):
 ?>
 
     <div class="device" id="<?php echo $device['id']; ?>"> 

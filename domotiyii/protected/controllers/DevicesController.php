@@ -5,7 +5,9 @@ class DevicesController extends Controller
 	public function actionIndex()
 	{
     		$model = Devices::model();
-		$this->render('index', array('model'=>$model));
+            $locations = Locations::model()->findAll();
+
+		$this->render('index', array('model'=>$model,'locations'=>$locations));
 	}
 
 
