@@ -69,5 +69,11 @@ body {
 
 .slider-handle
 {
-    
+  background-color: #006dcc;
+  background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF0088cc', endColorstr='#FF0044cc', GradientType=0);
 }

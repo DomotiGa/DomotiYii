@@ -17,7 +17,7 @@ $(function() {
     
     // Toggle extra data and update icon
     $( ".device_name" ).click(function() {
-        detail = $(this).parent().parent().children(".device_info");
+        detail = $(this).parents(".device").children(".device_info");
         if ( detail.is(":visible") ){
             $(this).children("i").removeClass("icon-chevron-up").addClass("icon-chevron-down");    
         }else{
@@ -29,18 +29,44 @@ $(function() {
 
     // Switch device
     $(".switch_device > button").click(function() {
-        $(this).parent().children("button").removeClass("btn-primary");
-        $(this).addClass("btn-primary");
         device_value = $(this).html();
-        device = $(this).parent().parent().parent();
+        device = $(this).parents(".device");
+        device.find("button").removeClass("btn-primary");
+        $(this).addClass("btn-primary");
+        
+        if(device_value == "On"){
+            device.find(".slider input").slider('setValue', 100);
+        }else{
+            device.find(".slider input").slider('setValue', 0);
+        }
+
         device.find(".device_status").html(device_value);
         set_device(device.attr("id"), device_value);
     });
 
     $('.slider').slider()
-        .on('slide', function(ev){
-            console.log(ev);
-            return true;
+        .on('slideStop', function(ev){
+            device_value = ev.value;
+            device = $(this).parents(".device");
+
+            if( (device_value > 0 && device_value <= 100)){
+                device.find("button").removeClass("btn-primary");
+                device.find("button:nth-child(1)").addClass("btn-primary");                
+            }else{
+                device.find("button").removeClass("btn-primary");
+                device.find("button:nth-child(2)").addClass("btn-primary"); 
+            }
+
+            if(device_value == 0){
+                device_value = "Off";
+            }else if(device_value == 100){
+                device_value = "On";
+            }else{
+                device_value= "Dim " + device_value;
+            }
+            
+            device.find(".device_status").html(device_value);
+            set_device(device.attr("id"), device_value);   
         });
 
 });

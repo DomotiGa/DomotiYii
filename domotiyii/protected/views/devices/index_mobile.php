@@ -91,18 +91,17 @@
                 <p class="device_value_4"><i class="icon-tag"></i><?php echo $device['valuelabel4']; ?></p>
             <?php endif; ?>
         
-            <?php if($device['dimable']): ?>  
-                <p> TODO DIMABLE </p>
-            <?php elseif($device['switchable']): ?>
+            <?php if($device['switchable']): ?>
                 <div class="btn-group switch_device">
                     <button class="btn <?php echo (strcmp($device['valuelabel'],'On') == 1 ?'btn-primary':''); ?>">On</button>
                     <button class="btn <?php echo (strcmp($device['valuelabel'],'Off') == 1 ?'btn-primary':''); ?>">Off</button>
                 </div>            
             <?php endif; ?>
-            
-            <input type="text" class="slider" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">
-
-        
+            <?php if($device['dimable']): ?>  
+                <div>
+                    <input type="text" class="slider" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 
