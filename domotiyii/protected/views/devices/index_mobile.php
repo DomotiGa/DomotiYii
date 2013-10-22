@@ -75,10 +75,10 @@
         </div>
         <div class="clear"></div>   
         <div class="device_info">
-            <?php if($device['locationtext']): ?>
+            <?php if( $device['locationtext']): ?>
                 <h6 class="device_location"><i class="icon-map-marker"></i><?php echo $device['locationtext']; ?></h6>
             <?php endif; ?>
-            <?php if($device['valuelabel']): ?>
+            <?php if((!$device['switchable'] && !$device['dimable']) &&  $device['valuelabel']): ?>
                 <p class="device_value_1"><i class="icon-info-sign"></i><?php echo $device['valuelabel']; ?></p>
             <?php endif; ?>
             <?php if($device['valuelabel2']): ?>
@@ -90,7 +90,10 @@
             <?php if($device['valuelabel4']): ?>
                 <p class="device_value_4"><i class="icon-tag"></i><?php echo $device['valuelabel4']; ?></p>
             <?php endif; ?>
-        
+            <?php if($device['lastseentext']): ?>
+                <p class="device_lastseen"><i class="icon-time"></i><?php echo $device['lastseentext']; ?></p>
+            <?php endif; ?>
+
             <?php if($device['switchable']): ?>
                 <div class="btn-group switch_device">
                     <button class="btn <?php echo (strcmp($device['valuelabel'],'On') == 1 ?'btn-primary':''); ?>">On</button>

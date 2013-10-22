@@ -311,6 +311,9 @@ class Devices extends CActiveRecord
                                 'pageSize'=>Yii::app()->params['pagesizeDevices'],
                         ),
 			'criteria'=>$criteria,
+            'sort'=>array(
+                'defaultOrder'=>'name ASC',
+            ),
 		));
 	}
 
