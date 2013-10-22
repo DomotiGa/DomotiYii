@@ -4,18 +4,69 @@ class DevicesController extends Controller
 {
 	public function actionIndex()
 	{
-    		$model = Devices::model();
-            $locations = Locations::model()->findAll();
+		$criteria = new CDbCriteria();
+		$model=new Devices('search');
+		$model->unsetAttributes(); // clear any default values
 
+		if(isset($_GET['Devices']))
+		{
+			$model->attributes=$_GET['Devices'];
+
+			if (!empty($model->name)) $criteria->addCondition('name = "'.$model->name.'"');
+			if (!empty($model->address)) $criteria->addCondition('address = "'.$model->address.'"');
+			if (!empty($model->module)) $criteria->addCondition('module = "'.$model->module.'"');
+			if (!empty($model->interface)) $criteria->addCondition('interface = "'.$model->interface.'"');
+/*
+			if (!empty($model->enabled)) $criteria->addCondition('enabled = "'.$model->enabled.'"');
+			if (!empty($model->log)) $criteria->addCondition('log = "'.$model->log.'"');
+			if (!empty($model->hide)) $criteria->addCondition('hide = "'.$model->hide.'"');
+*/
+		}
+
+        $type = Yii::app()->getRequest()->getParam('type');
+
+        if ( isset($type) && !empty($type) ){
+            if($type == "sensors"){
+                $model->switchable=0;
+                $model->dimable=0;
+                $criteria->addCondition('switchable IS FALSE');
+                $criteria->addCondition('dimable IS FALSE');
+            }elseif($type == "dimmers"){
+                $model->dimable=-1;
+                $criteria->addCondition('dimable IS TRUE');
+            }elseif($type == "switches"){
+                $model->switchable=-1;
+                $criteria->addCondition('switchable IS TRUE');
+            }elseif($type == "hidden"){
+                $model->hide=-1;
+                $criteria->addCondition('hide IS TRUE');
+            }elseif($type == "disabled"){
+                $model->enabled=0;
+                $criteria->addCondition('enabled IS FALSE');
+            }
+        }
+
+        $location = Yii::app()->getRequest()->getParam('location');
+
+        if ( isset($location) && !empty($location) ){
+            if($type != "0"){
+                $model->location=$location;
+                $criteria->addCondition('location = "'.$location.'"');
+                $criteria->addCondition('dimable IS FALSE');
+            }
+        }
+
+		
+		$locations = Locations::model();
+        
 		$this->render('index', array('model'=>$model,'locations'=>$locations));
 	}
 
-
-    public function actionView($id)
-    {
-            $model = Devices::model()->findByPk($id);
-         $this->render('view', array('model'=>$model));
-    }
+	public function actionView($id)
+	{
+		$model = Devices::model()->findByPk($id);
+		$this->render('view', array('model'=>$model));
+	}
 
 	public function actionUpdate($id)
 	{
@@ -85,18 +136,16 @@ class DevicesController extends Controller
                 ));
         }
 
-    public function actionSetDevice(){
+	public function actionSetDevice()
+	{
 		if(isset($_POST['Device']['id']) && isset($_POST['Device']['value']))
 		{
-            $current_device_id = strip_tags($_POST['Device']['id']);                   
-            $current_device_value = strip_tags($_POST['Device']['value']);
-	        $result = $this->do_xmlrpc('device.setdevice',array($current_device_id,$current_device_value));
-
-            echo json_encode($result);
+			$current_device_id = strip_tags($_POST['Device']['id']);                   
+			$current_device_value = strip_tags($_POST['Device']['value']);
+			$result = $this->do_xmlrpc('device.setdevice',array($current_device_id,$current_device_value));
+			echo json_encode($result);
 		}
-
-    }
-
+	}
 
 	protected function do_save($model)
 	{
@@ -118,20 +167,21 @@ class DevicesController extends Controller
 		}
 	}
 
-protected function do_xmlrpc($procedure, $data = array()) {
-
-    $request = xmlrpc_encode_request($procedure, $data);
-    $context = stream_context_create(array('http' => array('method' => "POST",'header' =>"Content-Type: text/xml",'content' => $request)));
-    $file = @file_get_contents(Yii::app()->params['xmlrpcHost'], false, $context);
-    if ( $file === FALSE ) {
-       return array('error', "Couldn't connect to XML-RPC service on '" . Yii::app()->params['xmlrpcHost'] . "'");
-    } else {
-       if ( xmlrpc_decode($file) == "1" ) {
-          return array('success', "Change device... Successful.");
-       } else {
-           return array('error', "Change device... Failed!");
-       }
-    }
-  }
-
+	protected function do_xmlrpc($procedure, $data = array())
+	{
+		$request = xmlrpc_encode_request($procedure, $data);
+		$context = stream_context_create(array('http' => array('method' => "POST",'header' =>"Content-Type: text/xml",'content' => $request)));
+		$file = @file_get_contents(Yii::app()->params['xmlrpcHost'], false, $context);
+		if ( $file === FALSE )
+		{
+			return array('error', "Couldn't connect to XML-RPC service on '" . Yii::app()->params['xmlrpcHost'] . "'");
+		} else {
+			if ( xmlrpc_decode($file) == "1" )
+			{
+				return array('success', "Change device... Successful.");
+			} else {
+				return array('error', "Change device... Failed!");
+			}
+		}
+	}
 }

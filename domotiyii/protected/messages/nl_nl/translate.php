@@ -22,6 +22,7 @@ return array (
 'Delete' => 'Wissen',
 'Disabled' => 'Uitgeschakeld',
 'Hidden' => 'Verborgen',
+'Today' => 'Vandaag',
 
 // Devices
 'Sensors' => 'Sensoren',

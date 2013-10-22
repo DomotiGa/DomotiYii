@@ -51,7 +51,7 @@ class Devicetypes extends CActiveRecord
 			array('label, label2, label3, label4', 'numerical', 'integerOnly'=>true),
 			array('name, description, type, onicon, officon, dimicon', 'length', 'max'=>32),
 			array('addressformat', 'length', 'max'=>128),
-			array('switchable, dimable, extcode', 'safe'),
+			array('switchable, dimable, extcode', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, description, type, addressformat, onicon, officon, dimicon, switchable, dimable, extcode, label, label2, label3, label4', 'safe', 'on'=>'search'),
@@ -121,6 +121,9 @@ class Devicetypes extends CActiveRecord
 		$criteria->compare('label4',$this->label4);
 
 		return new CActiveDataProvider($this, array(
+			'pagination' => array(
+                                'pageSize'=>Yii::app()->params['pagesizeDevicetypes'],
+                        ),
 			'criteria'=>$criteria,
 		));
 	}

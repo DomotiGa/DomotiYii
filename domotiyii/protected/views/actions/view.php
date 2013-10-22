@@ -1,10 +1,10 @@
 <?php
-/* @var $this ConditionsController */
-/* @var $model Conditions */
+/* @var $this ActionsController */
+/* @var $model Actions */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('translate','Conditions') => 'index',  
+        Yii::t('translate','Actions') => 'index',  
         Yii::t('translate','View'),
     ),
 ));
@@ -21,7 +21,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 array('label'=>Yii::t('translate','Create'), 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
                 array('label'=>Yii::t('translate','View'), 'icon'=>'icon-eye-open', 'url'=>array('view', 'id'=>$model->id), 'active'=>true, 'linkOptions'=>array()),
                 array('label'=>Yii::t('translate','Edit'), 'icon'=>'icon-edit', 'url'=>array('update', 'id'=>$model->id)),
-                array('label'=>Yii::t('translate','Delete'), 'icon'=>'icon-trash', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>Yii::t('translate','Are you sure you want to delete this condition?')))
+                array('label'=>Yii::t('translate','Delete'), 'icon'=>'icon-trash', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>Yii::t('translate','Are you sure you want to delete this action?')))
         ),
 ));
 $this->endWidget();
@@ -36,6 +36,11 @@ $this->endWidget();
                 array('name' => 'id'),
                 array('name' => 'name'),
 		array('name' => 'description'),
-		array('name' => 'formula'),
+		array('name' => 'actiontype'),
+		array('name' => 'param1'),
+		array('name' => 'param2'),
+		array('name' => 'param3'),
+		array('name' => 'param4'),
+		array('name' => 'param5'),
 	),
 )); ?>

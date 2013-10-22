@@ -29,10 +29,11 @@ $this->beginWidget('zii.widgets.CPortlet', array(
 $this->widget('bootstrap.widgets.TbNav', array(
         'type'=>TbHtml::NAV_TYPE_PILLS,
         'items'=>array(
-                array('label'=>Yii::t('translate','Create'), 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
                 array('label'=>Yii::t('translate','List'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'),'active'=>true, 'linkOptions'=>array()),
                 array('label'=>Yii::t('translate','Search'), 'icon'=>'icon-search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
+                array('label'=>Yii::t('translate','Create'), 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
         ),
+	'htmlOptions'=>array('class'=>'center'),
 ));
 $this->endWidget();
 ?>
@@ -49,11 +50,16 @@ $this->endWidget();
     'type'=>'striped condensed',
     'dataProvider'=>$model->search(),
     'template'=>'{items}{pager}{summary}',
+    'selectableRows' => 1,
     'columns'=>array(
         array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
         array('name'=>'name', 'header'=>Yii::t('translate','Name'), 'htmlOptions'=>array('width'=>'150')),
-        array('name'=>'description', 'header'=>Yii::t('translate','Description'), 'htmlOptions'=>array('width'=>'100')),
-        array('name'=>'type', 'header'=>Yii::t('translate','Type'), 'htmlOptions'=>array('width'=>'150')),
+	array('name'=>'action',
+		'header'=>Yii::t('translate','Type'),
+		'type' => 'raw',
+		'value' => '$data->getActionText($data->type)',
+		'htmlOptions'=>array('width'=>'100'),
+	),
         array('name'=>'param1', 'header'=>Yii::t('translate','Param'), 'htmlOptions'=>array('width'=>'50')),
         array('name'=>'param2', 'header'=>Yii::t('translate','Param2'), 'htmlOptions'=>array('width'=>'50')),
         array('name'=>'param3', 'header'=>Yii::t('translate','Param3'), 'htmlOptions'=>array('width'=>'50')),
@@ -67,23 +73,14 @@ $this->endWidget();
               'view' => array(
                  'label'=>Yii::t('translate','View'),
                  'url'=>'Yii::app()->controller->createUrl("view", array("id"=>$data["id"]))',
-'options'=>array(
-                                                'class'=>'btn btn-small view'
-                                        )
               ),
               'update' => array(
                  'label'=>Yii::t('translate','Edit'),
                  'url'=>'Yii::app()->controller->createUrl("update", array("id"=>$data["id"]))',
-'options'=>array(
-                                                'class'=>'btn btn-small update'
-                                        )
               ),
               'delete' => array(
                  'label'=>Yii::t('translate','Delete'),
                  'url'=>'Yii::app()->controller->createUrl("delete", array("id"=>$data["id"],"command"=>"delete"))',
-'options'=>array(
-                                                'class'=>'btn btn-small delete'
-                                        )
               ),
            ),
         ),

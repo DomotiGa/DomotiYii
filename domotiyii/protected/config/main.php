@@ -97,6 +97,7 @@ return array(
 		'refreshTriggers'=>'5000', // 5 second refresh
 		'refreshConditions'=>'5000', // 5 second refresh
 		'refreshActions'=>'5000', // 5 second refresh
+		'refreshDevicetypes'=>'5000', // 5 second refresh
 		// page size for specific gridviews
 		'pagesizeDevices'=>'20', // entries per page
 		'pagesizePhonecalls'=>'30', // entries per page
@@ -105,5 +106,6 @@ return array(
 		'pagesizeTriggers'=>'20', // entries per page
 		'pagesizeConditions'=>'20', // entries per page
 		'pagesizeActions'=>'20', // entries per page
+		'pagesizeDevicetypes'=>'20', // entries per page
 	),
 );

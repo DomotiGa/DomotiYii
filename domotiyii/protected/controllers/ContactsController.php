@@ -2,11 +2,22 @@
 
 class ContactsController extends Controller
 {
-	public function actionIndex()
-	{
-                $model = Contacts::model();
+        public function actionIndex()
+        {
+                $criteria = new CDbCriteria();
+                $model=new Contacts('search');
+                $model->unsetAttributes(); // clear any default values
+
+                if(isset($_GET['Contacts']))
+                {
+                        $model->attributes=$_GET['Contacts'];
+
+                        if (!empty($model->name)) $criteria->addCondition('name = "'.$model->name.'"');
+                        if (!empty($model->description)) $criteria->addCondition('description = "'.$model->description.'"');
+                        if (!empty($model->type)) $criteria->addCondition('type = "'.$model->type.'"');
+                }
                 $this->render('index', array('model'=>$model));
-	}
+        }
 
         public function actionView($id)
         {

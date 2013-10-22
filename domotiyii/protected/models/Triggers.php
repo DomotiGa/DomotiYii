@@ -16,18 +16,56 @@
  */
 class Triggers extends CActiveRecord
 {
+
+/*
+' trigger database table
+' description        | type | param1   | param2  | param3  | param4 | param5  | param6 | param7
+' time now           |   1  | crontab
+' globalvar change   |   2  | variable | operand | value
+' device change      |   3  | id       | fieldno | operand | value
+' ir remote received |   4  | remote   | button  | repeat
+' iviewer remote     |   5  | remote   | join    | value
+' multi-trigger      |   6  |
+*/
+
         /**
-         * @return array with all triggers
+         * Define trigger names
          */
-        public function getTriggers($enabled)
+        private $triggernames = array();
+        public function __construct()
         {
-                $data = new CArrayDataProvider($this->findAll(array('order'=>'id ASC')), array(
-                        'pagination' => array(
-                        'pageSize'=>Yii::app()->params['pagesizeTriggers'],
-                        'pageVar'=>'page'
-                        ),
-                ));
-                return $data;
+                $this->triggernames = array(
+                        '1' => 'Time Now',
+                        '2' => 'GlobalVar Change',
+                        '3' => 'Device Change',
+                        '4' => 'IR Remote Received',
+                        '5' => 'iViewer Remote Received',
+                        '6' => 'Multi Trigger',
+                );
+        }
+
+        /**
+         * @return array with all triggertypes texts
+         */
+        public function getAllTriggerTypes()
+        {
+                return $this->triggernames;
+        }
+
+        /**
+         * @return triggername for $trigger
+         */
+        public function getTriggerText($trigger)
+        {
+                return isset($this->triggernames[$trigger]) ? $this->triggernames[$trigger] : null;
+        }
+
+        /**
+         * @return dropdownlist with the list of triggers
+         */
+        public function getAllTriggers()
+        {
+                return CHtml::listData(Triggers::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
         }
 
 	/**
@@ -76,6 +114,7 @@ class Triggers extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'type' => 'Type',
+			'triggertype' => 'Type',
 			'description' => 'Description',
 			'param1' => 'Param1',
 			'param2' => 'Param2',
@@ -114,6 +153,10 @@ class Triggers extends CActiveRecord
 		$criteria->compare('param5',$this->param5,true);
 
 		return new CActiveDataProvider($this, array(
+			'pagination' => array(
+				'pageSize'=>Yii::app()->params['pagesizeTriggers'],
+				'pageVar'=>'page'
+			),
 			'criteria'=>$criteria,
 		));
 	}
@@ -129,10 +172,12 @@ class Triggers extends CActiveRecord
 		return parent::model($className);
 	}
 
-        public static function getType($id)
+        /**
+         * @return triggertype
+         */
+        public function getTriggerType()
         {
-		$type = "teste";
-                return $type;
+                return isset($this->triggernames[$this->type]) ? $this->triggernames[$this->type] : null;
         }
 
 }

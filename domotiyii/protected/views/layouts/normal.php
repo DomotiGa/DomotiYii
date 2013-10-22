@@ -135,8 +135,8 @@
 	         )),
                 array('label'=>Yii::t('translate','Devices'), 'visible'=>!Yii::app()->user->isGuest, 'url'=> '#', 'items'=>array(
   					array('label' => Yii::t('translate','Devices'), 'url' => array('devices/index')),
-                   array('label'=>Yii::t('translate','Add Device'), 'url'=> array('devices/create')),
-                   array('label'=>Yii::t('translate','Modules, Groups ...'), 'url'=> '#'),
+                   array('label'=>Yii::t('translate','Device Types'), 'url'=> 'devicetypes/index'),
+                   array('label'=>Yii::t('translate','Device Groups'), 'url'=> '#'),
                 )),
                 array('label'=>'Edit', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                    array('label'=>'Contacts', 'url'=> array('contacts/index')),
@@ -146,6 +146,7 @@
                    array('label'=>'Triggers', 'url'=> array('triggers/index')),
                    array('label'=>'Conditions', 'url'=> array('conditions/index')),
                    array('label'=>'Actions', 'url'=> array('actions/index')),
+                   array('label'=>'Categories', 'url'=> array('category/index')),
 		)),
                        array('label'=>'Gii', 'url'=> array('/gii'), 'visible'=>!Yii::app()->user->isGuest),
             ),

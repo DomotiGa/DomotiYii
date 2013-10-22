@@ -1,6 +1,6 @@
 <?php
-/* @var $this EventsController */
-/* @var $model Events */
+/* @var $this TriggersController */
+/* @var $model Triggers */
 /* @var $form CActiveForm */
 ?>
 
@@ -10,16 +10,14 @@
 )); ?>
 
 <fieldset>
-
 		<?php echo $form->textFieldControlGroup($model,'name'); ?>
 		<?php echo $form->textFieldControlGroup($model,'description'); ?>
-		<?php echo $form->textFieldControlGroup($model,'type'); ?>
+		<?php echo $form->dropDownListControlGroup($model,'type', $model->getAllTriggerTypes(), array('prompt'=>'', 'id'=>'type')); ?>
 		<?php echo $form->textFieldControlGroup($model,'param1'); ?>
 		<?php echo $form->textFieldControlGroup($model,'param2'); ?>
 		<?php echo $form->textFieldControlGroup($model,'param3'); ?>
 		<?php echo $form->textFieldControlGroup($model,'param4'); ?>
 		<?php echo $form->textFieldControlGroup($model,'param5'); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

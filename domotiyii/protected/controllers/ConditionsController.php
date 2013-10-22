@@ -4,7 +4,19 @@ class ConditionsController extends Controller
 {
         public function actionIndex()
         {
-                $model = Conditions::model();
+                $criteria = new CDbCriteria();
+                $model=new Conditions('search');
+                $model->unsetAttributes(); // clear any default values
+
+                if(isset($_GET['Conditions']))
+                {
+                        $model->attributes=$_GET['Conditions'];
+
+                        if (!empty($model->name)) $criteria->addCondition('name = "'.$model->name.'"');
+                        if (!empty($model->description)) $criteria->addCondition('description = "'.$model->description.'"');
+                        if (!empty($model->type)) $criteria->addCondition('type = "'.$model->type.'"');
+                        if (!empty($model->addressformat)) $criteria->addCondition('addressformat = "'.$model->addressformat.'"');
+                }
                 $this->render('index', array('model'=>$model));
         }
 
@@ -31,28 +43,11 @@ class ConditionsController extends Controller
                 ));
         }
 
-        public function actionConditions()
-        {
-            $model = Conditions::model()->findByPk(1);
-
-            if(isset($_POST['Conditions']))
-            {
-                $model->attributes=$_POST['Conditions'];
-                if($model->validate())
-                {
-                    // form inputs are valid, do something here
-                    $model->save();
-                }
-            }
-            $this->render('conditions',array('model'=>$model));
-        }
-
         public function actionDelete($id)
         {
                 // delete the entry from the "conditions" table
                 $model = Conditions::model()->findByPk($id);
                 $this->do_delete($model);
-
         }
 
         public function actionCreate()

@@ -1,23 +1,32 @@
 <?php
 /* @var $this DevicetypesController */
 /* @var $model Devicetypes */
-?>
 
-<?php
-$this->breadcrumbs=array(
-	'Devicetypes'=>array('index'),
-	$model->name=>array('view','id'=>$model->id),
-	'Update',
-);
+$this->widget('bootstrap.widgets.TbBreadcrumb', array(
+    'links' => array(
+        Yii::t('translate','Devicetypes') => '../index',
+        Yii::t('translate','Update'),
+    ),
+));
 
-$this->menu=array(
-	array('label'=>'List Devicetypes', 'url'=>array('index')),
-	array('label'=>'Create Devicetypes', 'url'=>array('create')),
-	array('label'=>'View Devicetypes', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Devicetypes', 'url'=>array('admin')),
-);
-?>
+$this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
+));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('translate','List'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'), 'linkOptions'=>array()),
+                array('label'=>Yii::t('translate','Create'), 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
+                array('label'=>Yii::t('translate','View'), 'icon'=>'icon-eye-open', 'url'=>array('view', 'id'=>$model->id), 'linkOptions'=>array()),
+                array('label'=>Yii::t('translate','Edit'), 'icon'=>'icon-edit', 'url'=>array('update', 'id'=>$model->id), 'active'=>true),
+                array('label'=>Yii::t('translate','Delete'), 'icon'=>'icon-trash', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>Yii::t('translate','Are you sure you want to delete this devicetype?')))
 
-<h1>Update Devicetypes <?php echo $model->id; ?></h1>
+        ),
+));
+$this->endWidget(); ?>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<legend><?php echo $model->name;?></legend>
+
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

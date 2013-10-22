@@ -13,7 +13,6 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 DomotiGa is Open Source Home Automation Software for Linux.
 It's designed to control all sorts of devices, and receive input from various sensors.</br></br>
 
-
 <legend>About this WebGUI</legend>
 Running on PHP version
 <?php echo phpversion(); ?> and Yii framework version

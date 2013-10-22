@@ -1,5 +1,5 @@
 <?php  $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-        'id'=>'search-devicetypes-form',
+        'id'=>'search-events-form',
         'action'=>Yii::app()->createUrl($this->route),
 	'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
         'method'=>'get',
@@ -7,9 +7,8 @@
 
 <fieldset>
                 <?php echo $form->textFieldControlGroup($model,'name'); ?>
-                <?php echo $form->textFieldControlGroup($model,'description'); ?>
-                <?php echo $form->textFieldControlGroup($model,'type'); ?>
-                <?php echo $form->textFieldControlGroup($model,'addressformat'); ?>
+		<?php echo $form->dropDownListControlGroup($model,'trigger1', Triggers::getAllTriggers(), array('prompt'=>'', 'id'=>'trigger1')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'category', Category::getAllCategories(), array('prompt'=>'', 'id'=>'category')); ?>
 </fieldset>
 
 <?php echo TbHtml::formActions(array(
@@ -22,7 +21,7 @@ $this->endWidget();
 
  <script>
         $(".btnreset").click(function(){
-                $(":input","#search-devicetypes-form").each(function() {
+                $(":input","#search-events-form").each(function() {
                 var type = this.type;
                 var tag = this.tagName.toLowerCase(); // normalize case
                 if (type == "text" || type == "password" || tag == "textarea") this.value = "";

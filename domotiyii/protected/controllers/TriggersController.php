@@ -4,7 +4,17 @@ class TriggersController extends Controller
 {
         public function actionIndex()
         {
-                $model = Triggers::model();
+                $criteria = new CDbCriteria();
+                $model=new Triggers('search');
+                $model->unsetAttributes(); // clear any default values
+
+                if(isset($_GET['Triggers']))
+                {
+                        $model->attributes=$_GET['Triggers'];
+                        if (!empty($model->name)) $criteria->addCondition('name = "'.$model->name.'"');
+                        if (!empty($model->description)) $criteria->addCondition('description = "'.$model->description.'"');
+                        if (!empty($model->type)) $criteria->addCondition('type = "'.$model->type.'"');
+                }
                 $this->render('index', array('model'=>$model));
         }
 

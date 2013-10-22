@@ -1,22 +1,28 @@
 <?php
 
 /**
- * This is the model class for table "conditions".
+ * This is the model class for table "category".
  *
- * The followings are the available columns in table 'conditions':
+ * The followings are the available columns in table 'category':
  * @property string $id
  * @property string $name
- * @property string $description
- * @property string $formula
  */
-class Conditions extends CActiveRecord
+class Category extends CActiveRecord
 {
+        /**
+         * @return dropdownlist with the list of categories
+         */
+        public function getAllCategories()
+        {
+                return CHtml::listData(Category::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
+        }
+
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'conditions';
+		return 'category';
 	}
 
 	/**
@@ -27,11 +33,10 @@ class Conditions extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'length', 'max'=>64),
-			array('description, formula', 'safe'),
+			array('name', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, description, formula', 'safe', 'on'=>'search'),
+			array('id, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,8 +59,6 @@ class Conditions extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
-			'description' => 'Description',
-			'formula' => 'Formula',
 		);
 	}
 
@@ -79,15 +82,9 @@ class Conditions extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('formula',$this->formula,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'pagination' => array(
-				'pageSize'=>Yii::app()->params['pagesizeConditions'],
-				'pageVar'=>'page'
-			),
 		));
 	}
 
@@ -95,7 +92,7 @@ class Conditions extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Conditions the static model class
+	 * @return Category the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -13,7 +13,12 @@
 
 		<?php echo $form->textFieldControlGroup($model,'name'); ?>
 		<?php echo $form->textFieldControlGroup($model,'description',array('class'=>'span5')); ?>
-		<?php echo $form->textFieldControlGroup($model,'type',array('class'=>'span6')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'type', $model->getAllActionTypes(), array('prompt'=>'', 'id'=>'type')); ?>
+		<?php echo $form->textFieldControlGroup($model,'param1'); ?>
+		<?php echo $form->textFieldControlGroup($model,'param2'); ?>
+		<?php echo $form->textFieldControlGroup($model,'param3'); ?>
+		<?php echo $form->textFieldControlGroup($model,'param4'); ?>
+		<?php echo $form->textFieldControlGroup($model,'param5'); ?>
 
 </fieldset>
 

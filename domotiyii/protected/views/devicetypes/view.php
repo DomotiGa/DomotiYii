@@ -1,45 +1,42 @@
 <?php
 /* @var $this DevicetypesController */
-/* @var $model Devicetypes */
-?>
+/* @var $model Devcietypes */
 
-<?php
-$this->breadcrumbs=array(
-	'Devicetypes'=>array('index'),
-	$model->name,
-);
-
-$this->menu=array(
-	array('label'=>'List Devicetypes', 'url'=>array('index')),
-	array('label'=>'Create Devicetypes', 'url'=>array('create')),
-	array('label'=>'Update Devicetypes', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Devicetypes', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Devicetypes', 'url'=>array('admin')),
-);
-?>
-
-<h1>View Devicetypes #<?php echo $model->id; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView',array(
-    'htmlOptions' => array(
-        'class' => 'table table-striped table-condensed table-hover',
+$this->widget('bootstrap.widgets.TbBreadcrumb', array(
+    'links' => array(
+        Yii::t('translate','Devicetypes') => 'index',  
+        Yii::t('translate','View'),
     ),
-    'data'=>$model,
-    'attributes'=>array(
-		'id',
-		'name',
-		'description',
-		'type',
-		'addressformat',
-		'onicon',
-		'officon',
-		'dimicon',
-		'switchable',
-		'dimable',
-		'extcode',
-		'label',
-		'label2',
-		'label3',
-		'label4',
+));
+
+$this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
+));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('translate','List'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'), 'linkOptions'=>array()),
+                array('label'=>Yii::t('translate','Create'), 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
+                array('label'=>Yii::t('translate','View'), 'icon'=>'icon-eye-open', 'url'=>array('view', 'id'=>$model->id), 'active'=>true, 'linkOptions'=>array()),
+                array('label'=>Yii::t('translate','Edit'), 'icon'=>'icon-edit', 'url'=>array('update', 'id'=>$model->id)),
+                array('label'=>Yii::t('translate','Delete'), 'icon'=>'icon-trash', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>Yii::t('translate','Are you sure you want to delete this devicetype?')))
+        ),
+));
+$this->endWidget();
+?>
+
+<legend><?php echo $model->name;?></legend>
+
+<?php $this->widget('domotiyii.DetailView', array(
+	'type' => 'striped condensed',
+	'data'=>$model,
+        'attributes'=>array(
+                array('name' => 'id'),
+                array('name' => 'name'),
+		array('name' => 'description'),
+		array('name' => 'type'),
+		array('name' => 'addressformat'),
 	),
 )); ?>

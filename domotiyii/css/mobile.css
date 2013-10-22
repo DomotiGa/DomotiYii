@@ -1,9 +1,31 @@
  /* for mobile */
+
+/* override bootstrap */
 @media (max-width: 767px)
 body {
-    padding-right: 5px;
-    padding-left: 5px;
+    padding-right: 8px;
+    padding-left: 8px;
 }
+
+.navbar {
+    margin-bottom: 8px;
+}
+
+.breadcrumb {
+    padding: 8px 8px;
+    margin: 0 0 8px;
+}
+
+.nav {
+    margin-bottom: 8px;
+}
+
+.dropdown-menu {
+    padding: 0;
+    margin: 0;
+}
+/*end override bootstrap */
+
 
 .device
 {
@@ -22,6 +44,11 @@ body {
     float: right;
 }
 
+.device .device_name, .device_status
+{
+    margin: 5px 0;
+}
+
 .device .device_info
 {
     display: none;
@@ -30,4 +57,17 @@ body {
 .device [class^="icon-"], [class*=" icon-"]
 {
     padding-right: 5px;
+}
+
+/*
+.slider
+{
+   margin-top: 10px;
+   width: 90%;
+}
+*/
+
+.slider-handle
+{
+    
 }

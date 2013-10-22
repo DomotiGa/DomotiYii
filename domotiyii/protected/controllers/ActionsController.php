@@ -7,8 +7,6 @@ class ActionsController extends Controller
 	*/
 	public function actionIndex()
 	{
-		$session=new CHttpSession;
-		$session->open();           
 		$criteria = new CDbCriteria();            
 
 		$model=new Actions('search');
@@ -23,8 +21,7 @@ class ActionsController extends Controller
 			if (!empty($model->description)) $criteria->addCondition('description = "'.$model->description.'"');
 			if (!empty($model->type)) $criteria->addCondition('type = "'.$model->type.'"');
 		}
-		$session['Actions_records']=Actions::model()->findAll($criteria); 
-		$this->render('index', array('model'=>$model,));
+		$this->render('index', array('model'=>$model));
 	}
 
         public function actionView($id)
@@ -49,7 +46,7 @@ class ActionsController extends Controller
                         'model'=>$model,
                 ));
         }
-
+/*
         public function actionActions()
         {
             $model = Actions::model()->findByPk(1);
@@ -65,7 +62,7 @@ class ActionsController extends Controller
             }
             $this->render('actions',array('model'=>$model));
         }
-
+*/
         public function actionDelete($id)
         {
                 // delete the entry from the "actions" table
@@ -119,6 +116,16 @@ class ActionsController extends Controller
 		);
 	}
 	*/
+
+        protected function do_create_save($model)
+        {
+                if ( $model->save() === false )
+                {
+                        Yii::app()->user->setFlash('error', "Creating action... Failed!");
+                } else {
+                        Yii::app()->user->setFlash('success', "Created action... Successful.");
+                }
+        }
 
         protected function do_save($model)
         {

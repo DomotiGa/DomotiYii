@@ -62,31 +62,6 @@
  */
 class Devices extends CActiveRecord
 {
-	/**
-	 * @return array with device of type requested
-	 */
-	public function getDevices($type)
-	{
-		$deviceitems = new CArrayDataProvider($this->get_device_list($type,'all'), array(
-			'pagination' => array(
-			'pageSize'=>Yii::app()->params['pagesizeDevices'],
-			'pageVar'=>'page'
-			),
-		));
-		return $deviceitems;
-	}
-
-
-	/**
-	 * @return array with device of type requested without pagination
-	 */
-	public function getDevicesWithLocationWithoutPagination($type,$location)
-	{
-		$deviceitems = new CArrayDataProvider($this->get_device_list($type,$location), array(
-			'pagination' => false,));
-		return $deviceitems;
-	}
-
 
 	/**
          * @return dropdownlist with the list of modules/devicetypes
@@ -194,7 +169,7 @@ class Devices extends CActiveRecord
 		return array(
 			'devicetype' => array(self::BELONGS_TO, 'Devicetypes','module'),
 			'l_location' => array(self::BELONGS_TO, 'Locations','location'),
-            'l_interface' => array(self::BELONGS_TO, 'Interfaces','interface'),
+			'l_interface' => array(self::BELONGS_TO, 'Interfaces','interface'),
 		);
 	}
 
@@ -265,21 +240,6 @@ class Devices extends CActiveRecord
 	}
 
 	/**
-	 * Retrieves a list of devices
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-        public function displayDevices()
-        {
-                $criteria=new CDbCriteria;
-
-                $criteria->condition = "enabled=true";
-
-                return new CActiveDataProvider($this, array(
-                        'criteria'=>$criteria,
-                ));
-        }
-
-	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
@@ -347,6 +307,9 @@ class Devices extends CActiveRecord
 		$criteria->compare('poll',$this->poll);
 
 		return new CActiveDataProvider($this, array(
+			'pagination' => array(
+                                'pageSize'=>Yii::app()->params['pagesizeDevices'],
+                        ),
 			'criteria'=>$criteria,
 		));
 	}
@@ -366,83 +329,52 @@ class Devices extends CActiveRecord
 	}
 
 	/**
-	 * @return array with list of devices of type and location(not filtering set it to all)
+	 * Check if the value not only contain numbers
+	 * This is the 'notOnlyNumbers' validator as declared in rules().
 	 */
-	protected function get_device_list($type,$location) {
-
-		$retarr = array();
-		$index = 0;
-		$locations = array();
-
-		$request = xmlrpc_encode_request("device.list",null);
-		$response = $this->do_xmlrpc($request);
-
-		if ($response === null) { return $retarr; }
-
-		if (is_array($response) && xmlrpc_is_fault($response)) {
-			Yii::app()->user->setFlash('error', "XMLRPC error received while fetching device list: ".$response['faultString']." (".$response['faultCode'].")");
-		} else {
-			foreach($response AS $item) {
-				list($retarr[$index]['id'], $retarr[$index]['deviceicon'], $retarr[$index]['devicename'], $retarr[$index]['devicelocation'], $retarr[$index]['devicevalue'], $retarr[$index]['devicelabel'], $retarr[$index]['devicevalue2'], $retarr[$index]['devicelabel2'], $retarr[$index]['devicevalue3'], $retarr[$index]['devicelabel3'], $retarr[$index]['devicevalue4'], $retarr[$index]['devicelabel4'], $retarr[$index]['devicelastseen'], $retarr[$index]['dimmable'], $retarr[$index]['switchable']) = explode (';;', $item);
-
-/*
-				if (strlen($retarr[$index]['devicelocation'])) {
-					$locations[$index]['label'] = $retarr[$index]['devicelocation'];
-					$locations[$index]['url'] = $retarr[$index]['devicelocation'];
-				}
-*/
-
-				// concat values and labels
-				$retarr[$index]['devicevalue'] = $retarr[$index]['devicevalue']. " ".$retarr[$index]['devicelabel'];
-				$retarr[$index]['devicevalue2'] = $retarr[$index]['devicevalue2']. " ".$retarr[$index]['devicelabel2'];
-				$retarr[$index]['devicevalue3'] = $retarr[$index]['devicevalue3']. " ".$retarr[$index]['devicelabel3'];
-				$retarr[$index]['devicevalue4'] = $retarr[$index]['devicevalue4']. " ".$retarr[$index]['devicelabel4'];
-
-                // location
-                if($location != 'all' && $location != $retarr[$index]['devicelocation']){
-                    unset($retarr[$index]);
-                    continue;                
-                }
-
-				// sensor
-				if($type == "sensors") {
-					if ((strcmp($retarr[$index]['switchable'],"T") == 0) OR (strcmp($retarr[$index]['dimmable'],"T") == 0)) {
-						unset($retarr[$index]);
-					} else {
-						$index++;
-					}
-				// dimmers
-				} elseif ($type == "dimmers") {
-					if (strcmp($retarr[$index]['dimmable'],"T") == 0) {
-						$index++;
-					} else {
-						unset($retarr[$index]);
-					}
-				// switches
-				} elseif ($type == "switches") {
-					if (strcmp($retarr[$index]['switchable'],"T") == 0) {
-						$index++;
-					} else {
-						unset($retarr[$index]);
-					}
-				// all devices
-				} else {
-					$index++;
-				}
-                
-			}
-			return $retarr;
-		}
+	public function notOnlyNumbers($attribute,$params)
+	{
+		if(!preg_match('/(?!^\d+$)^.+$/', $this->$attribute))
+			$this->addError($attribute, 'it cannot contain only numbers');
 	}
 
-    /**
-    * check if the value not only contain numbers
-    * This is the 'notOnlyNumbers' validator as declared in rules().
-    */
-    public function notOnlyNumbers($attribute,$params)
-    {
-        if(!preg_match('/(?!^\d+$)^.+$/', $this->$attribute))
-            $this->addError($attribute, 'it cannot contain only numbers');
-    }
+	/**
+	 * Concatenate values and labels
+	 */
+	public function getValueLabel()
+	{
+		return $this->value." ".$this->label;
+	}
 
+	public function getValueLabel2()
+	{
+		return $this->value2." ".$this->label2;
+	}
+
+	public function getValueLabel3()
+	{
+		return $this->value3." ".$this->label3;
+	}
+
+	public function getValueLabel4()
+	{
+		return $this->value4." ".$this->label4;
+	}
+
+	/**
+	 * Location Name
+	 */
+	public function getLocationText()
+	{
+		if (!empty($this->l_location->name)) { return $this->l_location->name; }
+	}
+
+	/**
+	 * Replace date with 'Today'
+	 */
+	public function getLastSeenText()
+	{
+		return str_replace(date("Y-m-d"), "", $this->lastseen);
+
+	}
 }

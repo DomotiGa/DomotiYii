@@ -26,17 +26,35 @@
 class Events extends CActiveRecord
 {
         /**
-         * @return array with all events
+         * @return dropdownlist with the list of triggers
          */
-        public function getEvents($enabled)
+        public function getAllTriggers()
         {
-                $data = new CArrayDataProvider($this->findAll(array('order'=>'id ASC')), array(
-                        'pagination' => array(
-                        'pageSize'=>Yii::app()->params['pagesizeEvents'],
-                        'pageVar'=>'page'
-                        ),
-                ));
-                return $data;
+                return CHtml::listData(Triggers::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
+        }
+
+        /**
+         * @return dropdownlist with the list of conditions
+         */
+        public function getAllConditions()
+        {
+                return CHtml::listData(Conditions::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
+        }
+
+        /**
+         * @return dropdownlist with the list of actions
+         */
+        public function getAllActions()
+        {
+                return CHtml::listData(Actions::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
+        }
+
+        /**
+         * @return dropdownlist with the list of categories
+         */
+        public function getAllCategories()
+        {
+                return CHtml::listData(Category::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
         }
 
 	/**
@@ -73,7 +91,13 @@ class Events extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'triggers' => array(self::BELONGS_TO, 'Triggers', 'trigger1')
+			'triggers' => array(self::BELONGS_TO, 'Triggers', 'trigger1'),
+			'l_condition1' => array(self::BELONGS_TO, 'Conditions', 'condition1'),
+			'l_condition2' => array(self::BELONGS_TO, 'Conditions', 'condition2'),
+			'l_action1' => array(self::BELONGS_TO, 'Actions', 'action1'),
+			'l_action2' => array(self::BELONGS_TO, 'Actions', 'action2'),
+			'l_action3' => array(self::BELONGS_TO, 'Actions', 'action3'),
+			'l_category' => array(self::BELONGS_TO, 'Category', 'category'),
 		);
 	}
 
@@ -90,17 +114,24 @@ class Events extends CActiveRecord
 			'firstrun' => 'Firstrun',
 			'lastrun' => 'Lastrun',
 			'comments' => 'Comments',
-			'trigger1' => 'Trigger1',
+			'trigger1' => 'Trigger',
+			'triggername' => 'Trigger',
 			'condition1' => 'Condition1',
+			'conditionname1' => 'Condition1',
 			'operand' => 'Operand',
 			'condition2' => 'Condition2',
+			'conditionname2' => 'Condition2',
 			'action1' => 'Action1',
+			'actionname1' => 'Action1',
 			'action2' => 'Action2',
+			'actionname2' => 'Action2',
 			'action3' => 'Action3',
-			'rerunenabled' => 'Rerunenabled',
-			'rerunvalue' => 'Rerunvalue',
-			'reruntype' => 'Reruntype',
+			'actionname3' => 'Action3',
+			'rerunenabled' => 'Rerun enabled',
+			'rerunvalue' => 'Rerun value',
+			'reruntype' => 'Rerun type',
 			'category' => 'Category',
+			'categoryname' => 'Category',
 		);
 	}
 
@@ -143,6 +174,10 @@ class Events extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination' => array(
+				'pageSize'=>Yii::app()->params['pagesizeEvents'],
+				'pageVar'=>'page'
+                        ),
 		));
 	}
 
@@ -156,4 +191,94 @@ class Events extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+        /**
+         * Return trigger name
+         */
+        public function getTriggerName()
+        {
+                if (!empty($this->triggers->name)) { return $this->triggers->name; }
+        }
+
+        /**
+         * Return category name
+         */
+        public function getCategoryName()
+        {
+                if (!empty($this->category->name)) { return $this->category->name; }
+	}
+
+        /**
+         * Return action1 name
+         */
+        public function getActionName1()
+        {
+                if (!empty($this->l_action1->name))
+		{
+			return $this->l_action1->name;
+		} else {
+			return null;
+		}
+	}
+
+        /**
+         * Return action2 name
+         */
+        public function getActionName2()
+        {
+                if (!empty($this->l_action2->name))
+		{
+			return $this->l_action2->name;
+		} else {
+			return null;
+		}
+	}
+
+        /**
+         * Return action3 name
+         */
+        public function getActionName3()
+        {
+                if (!empty($this->l_action3->name))
+		{
+			return $this->l_action3->name;
+		} else {
+			return null;
+		}
+	}
+
+        /**
+         * Return condition1 name
+         */
+        public function getConditionName1()
+        {
+                if (!empty($this->l_condition1->name))
+		{
+			return $this->l_condition1->name;
+		} else {
+			return null;
+		}
+	}
+
+        /**
+         * Return condition2 name
+         */
+        public function getConditionName2()
+        {
+                if (!empty($this->l_condition2->name))
+		{
+			return $this->l_condition2->name;
+		} else {
+			return null;
+		}
+	}
+
+        /**
+         * Replace date with 'Today'
+         */
+        public function getLastRunText()
+        {
+                return str_replace(date("Y-m-d"), "", $this->lastrun);
+
+        }
 }

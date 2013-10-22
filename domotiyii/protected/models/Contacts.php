@@ -151,6 +151,9 @@ class Contacts extends CActiveRecord
 		$criteria->compare('lastseen',$this->lastseen,true);
 
 		return new CActiveDataProvider($this, array(
+			'pagination' => array(
+				'pageSize'=>Yii::app()->params['pagesizeContacts'],
+        		),
 			'criteria'=>$criteria,
 		));
 	}

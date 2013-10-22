@@ -4,7 +4,18 @@ class EventsController extends Controller
 {
         public function actionIndex()
         {
-                $model = Events::model();
+                $criteria = new CDbCriteria();
+                $model=new Events('search');
+                $model->unsetAttributes(); // clear any default values
+
+                if(isset($_GET['Events']))
+                {
+                        $model->attributes=$_GET['Events'];
+
+                        if (!empty($model->name)) $criteria->addCondition('name = "'.$model->name.'"');
+                        if (!empty($model->description)) $criteria->addCondition('description = "'.$model->description.'"');
+                        if (!empty($model->type)) $criteria->addCondition('type = "'.$model->type.'"');
+                }
                 $this->render('index', array('model'=>$model));
         }
 
@@ -106,5 +117,4 @@ class EventsController extends Controller
 			Yii::app()->user->setFlash('success', "Deleting event... Successful.");
 		}
 	}
-
 }

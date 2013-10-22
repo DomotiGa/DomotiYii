@@ -37,6 +37,12 @@ $(function() {
         set_device(device.attr("id"), device_value);
     });
 
+    $('.slider').slider()
+        .on('slide', function(ev){
+            console.log(ev);
+            return true;
+        });
+
 });
 
 

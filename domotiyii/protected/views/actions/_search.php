@@ -6,24 +6,17 @@
 ));  ?>
 
 <fieldset>
-
                 <?php echo $form->textFieldControlGroup($model,'name'); ?>
-                <?php echo $form->textFieldControlGroup($model,'description',array('class'=>'span5')); ?>
-                <?php echo $form->textFieldControlGroup($model,'type',array('class'=>'span6')); ?> 
-
+		<?php echo $form->dropDownListControlGroup($model,'type', $model->getAllActionTypes(), array('prompt'=>'', 'id'=>'type')); ?>
+                <?php echo $form->textFieldControlGroup($model,'description', array('class'=>'span5')); ?>
 </fieldset>
 
 <?php echo TbHtml::formActions(array(
     TbHtml::submitButton(Yii::t('translate','Search'), array('color' => TbHtml::BUTTON_COLOR_PRIMARY,'buttonType'=>'submit', 'type'=>'primary', 'icon'=>'search white', 'label'=>'Search')),
-    TbHtml::resetButton(Yii::t('translate','Clear'), array('buttonType'=>'button', 'icon'=>'icon-remove-sign white', 'label'=>'Reset')),
+    TbHtml::resetButton(Yii::t('translate','Reset'), array('buttonType'=>'button', 'icon'=>'icon-remove-sign white', 'label'=>'Reset')),
 ));
 
 $this->endWidget();
-
-$cs = Yii::app()->getClientScript();
-$cs->registerCoreScript('jquery');
-$cs->registerCoreScript('jquery.ui');
-$cs->registerCssFile(Yii::app()->request->baseUrl.'/css/bootstrap/jquery-ui.css');
 ?>
 
  <script>

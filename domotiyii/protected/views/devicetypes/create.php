@@ -1,20 +1,31 @@
 <?php
 /* @var $this DevicetypesController */
 /* @var $model Devicetypes */
+
+$this->widget('bootstrap.widgets.TbBreadcrumb', array(
+    'links' => array(
+        Yii::t('translate','Devicetypes') => 'index',
+        Yii::t('translate','Create'),
+    ),
+));
+
+$this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
+));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('translate','List'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'), 'linkOptions'=>array()),
+                array('label'=>Yii::t('translate','Create'), 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'active'=>true, 'linkOptions'=>array()),
+        ),
+));
+$this->endWidget();
 ?>
 
-<?php
-$this->breadcrumbs=array(
-	'Devicetypes'=>array('index'),
-	'Create',
-);
+<legend>
+Create Devicetype
+</legend>
 
-$this->menu=array(
-	array('label'=>'List Devicetypes', 'url'=>array('index')),
-	array('label'=>'Manage Devicetypes', 'url'=>array('admin')),
-);
-?>
-
-<h1>Create Devicetypes</h1>
-
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

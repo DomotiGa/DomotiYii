@@ -12,14 +12,15 @@
 <fieldset>
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'name'); ?>
-		<?php echo $form->textFieldControlGroup($model,'trigger1'); ?>
-		<?php echo $form->textFieldControlGroup($model,'condition1'); ?>
+		<?php echo $form->dropDownListControlGroup($model,'trigger1', $model->getAllTriggers(), array('prompt'=>'', 'id'=>'trigger1')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'condition1', $model->getAllConditions(), array('prompt'=>'', 'id'=>'condition1')); ?>
 		<?php echo $form->textFieldControlGroup($model,'operand'); ?>
-		<?php echo $form->textFieldControlGroup($model,'condition2'); ?>
-		<?php echo $form->textFieldControlGroup($model,'action1'); ?>
-		<?php echo $form->textFieldControlGroup($model,'action2'); ?>
-		<?php echo $form->textFieldControlGroup($model,'action3'); ?>
+		<?php echo $form->dropDownListControlGroup($model,'condition2', $model->getAllConditions(), array('prompt'=>'', 'id'=>'condition2')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'action1', $model->getAllActions(), array('prompt'=>'', 'id'=>'action1')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'action2', $model->getAllActions(), array('prompt'=>'', 'id'=>'action2')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'action3', $model->getAllActions(), array('prompt'=>'', 'id'=>'action3')); ?>
 		<?php echo $form->textFieldControlGroup($model,'category'); ?>
+		<?php echo $form->dropDownListControlGroup($model,'category', $model->getAllCategories(), array('prompt'=>'', 'id'=>'category')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'rerunenabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'reruntype'); ?>
 		<?php echo $form->textFieldControlGroup($model,'rerunvalue'); ?>

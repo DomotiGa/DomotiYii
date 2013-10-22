@@ -38,6 +38,10 @@ $this->widget('domotiyii.LiveGridView', array(
                         'name'=>'name',
                         'value'=>'$data->getCallerName($data)'
                 ),
+		'callno' => array (
+			'header'=>Yii::t('translate','Calls'),
+                        'name'=>'name',
+                ),
 		'src' => array (
 			'header'=>Yii::t('translate','Number'),
                         'type'=>'raw',
