@@ -56,7 +56,7 @@
  
     // end generate location and type menu
 
-    foreach($model->search()->getData() as $device):
+    foreach($model->search(false)->getData() as $device):
 ?>
 
        
