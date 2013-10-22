@@ -243,7 +243,8 @@ class Devices extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
+
+	public function search($enablepagination = true)
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
@@ -306,7 +307,8 @@ class Devices extends CActiveRecord
 		$criteria->compare('resetvalue',$this->resetvalue,true);
 		$criteria->compare('poll',$this->poll);
 
-		return new CActiveDataProvider($this, array(
+		if (  $enablepagination ) {
+        return new CActiveDataProvider($this, array(
 			'pagination' => array(
                                 'pageSize'=>Yii::app()->params['pagesizeDevices'],
                         ),
@@ -315,6 +317,17 @@ class Devices extends CActiveRecord
                 'defaultOrder'=>'name ASC',
             ),
 		));
+        }else{
+        return new CActiveDataProvider($this, array(
+			'pagination' => false,
+			'criteria'=>$criteria,
+            'sort'=>array(
+                'defaultOrder'=>'name ASC',
+            ),
+		));
+        }
+        
+
 	}
 
 	/**
