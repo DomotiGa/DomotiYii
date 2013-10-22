@@ -67,30 +67,24 @@
                 <i class="icon-chevron-down"></i>
             </h5>    
             <h6 class="device_status">
-            <?php if($device['dimable'] || $device['switchable'])
-            {
-                echo $device['valuelabel'];
-            } ?>
+            <?php echo $device['valuelabel']; ?>
             </h6>
         </div>
         <div class="clear"></div>   
         <div class="device_info">
-            <?php if( $device['locationtext']): ?>
+            <?php if( !(trim($device['locationtext']) === "") ): ?>
                 <h6 class="device_location"><i class="icon-map-marker"></i><?php echo $device['locationtext']; ?></h6>
             <?php endif; ?>
-            <?php if((!$device['switchable'] && !$device['dimable']) &&  $device['valuelabel']): ?>
-                <p class="device_value_1"><i class="icon-info-sign"></i><?php echo $device['valuelabel']; ?></p>
-            <?php endif; ?>
-            <?php if($device['valuelabel2']): ?>
+            <?php if( !(trim($device['valuelabel2']) === "") ): ?>
                 <p class="device_value_2"><i class="icon-tag"></i><?php echo $device['valuelabel2']; ?></p>
             <?php endif; ?>
-            <?php if($device['valuelabel3']): ?>
+            <?php if( !(trim($device['valuelabel3']) === "") ): ?>
                 <p class="device_value_3"><i class="icon-tag"></i><?php echo $device['valuelabel3']; ?></p>
             <?php endif; ?>
-            <?php if($device['valuelabel4']): ?>
+            <?php if( !(trim($device['valuelabel4']) === "") ): ?>
                 <p class="device_value_4"><i class="icon-tag"></i><?php echo $device['valuelabel4']; ?></p>
             <?php endif; ?>
-            <?php if($device['lastseentext']): ?>
+            <?php if( !(trim($device['lastseentext']) === "") ): ?>
                 <p class="device_lastseen"><i class="icon-time"></i><?php echo $device['lastseentext']; ?></p>
             <?php endif; ?>
 
