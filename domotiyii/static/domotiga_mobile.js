@@ -7,7 +7,7 @@ function set_device(id,value) {
             var data = JSON.parse(json_data);
             if($.inArray("error",data) >= 0){
                 console.log(data);
-                //$("#" + id + " .switch_device > button").removeClass("btn-primary").addClass("btn-danger");
+                $("#" + id + " .switch_device > button").removeClass("btn-primary").addClass("btn-danger");
             }  
         }
       })
