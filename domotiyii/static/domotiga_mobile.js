@@ -7,7 +7,7 @@ function set_device(id,value) {
             var data = JSON.parse(json_data);
             if($.inArray("error",data) >= 0){
                 console.log(data);
-                $("#" + id + " .switch_device > button").removeClass("btn-primary").addClass("btn-danger");
+                //$("#" + id + " .switch_device > button").removeClass("btn-primary").addClass("btn-danger");
             }  
         }
       })
@@ -44,6 +44,7 @@ $(function() {
         set_device(device.attr("id"), device_value);
     });
 
+    // dim device
     $('.slider').slider()
         .on('slideStop', function(ev){
             device_value = ev.value;
@@ -68,6 +69,20 @@ $(function() {
             device.find(".device_status").html(device_value);
             set_device(device.attr("id"), device_value);   
         });
+
+    $(".slider input").each(function (){ 
+        device = $(this).parents(".device");
+        device_value = device.find(".device_status").html();
+        device_value_number = device_value.replace(/[^\d.]/g,'');
+        if(!isNaN(device_value_number)){
+            device.find("button").removeClass("btn-primary");
+            device.find("button:nth-child(1)").addClass("btn-primary");      
+            $(this).slider('setValue', device_value_number); 
+        }else{
+            device.find("button").removeClass("btn-primary");
+            device.find("button:nth-child(2)").addClass("btn-primary"); 
+        }
+    });   
 
 });
 

@@ -67,7 +67,7 @@
                 <i class="icon-chevron-down"></i>
             </h5>    
             <h6 class="device_status">
-            <?php echo $device['valuelabel']; ?>
+            	<?php echo $device['valuelabel']; ?>
             </h6>
         </div>
         <div class="clear"></div>   
@@ -88,14 +88,14 @@
                 <p class="device_lastseen"><i class="icon-time"></i><?php echo $device['lastseentext']; ?></p>
             <?php endif; ?>
 
-            <?php if($device['switchable']): ?>
+            <?php if( $device['switchable'] || $device['dimable'] ): ?>
                 <div class="btn-group switch_device">
                     <button class="btn <?php echo (strcmp($device['valuelabel'],'On') == 1 ?'btn-primary':''); ?>">On</button>
                     <button class="btn <?php echo (strcmp($device['valuelabel'],'Off') == 1 ?'btn-primary':''); ?>">Off</button>
                 </div>            
             <?php endif; ?>
             <?php if($device['dimable']): ?>  
-                <div>
+                <div class="slider-container">
                     <input type="text" class="slider" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">
                 </div>
             <?php endif; ?>

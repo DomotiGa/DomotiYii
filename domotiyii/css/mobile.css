@@ -59,13 +59,15 @@ body {
     padding-right: 5px;
 }
 
-/*
-.slider
+.slider-container
 {
-   margin-top: 10px;
+   margin: 10px;
    width: 90%;
 }
-*/
+
+.slider.slider-horizontal{
+  width: 90%!important;
+}
 
 .slider-handle
 {
