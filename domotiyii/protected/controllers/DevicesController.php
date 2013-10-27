@@ -16,49 +16,46 @@ class DevicesController extends Controller
 			if (!empty($model->address)) $criteria->addCondition('address = "'.$model->address.'"');
 			if (!empty($model->module)) $criteria->addCondition('module = "'.$model->module.'"');
 			if (!empty($model->interface)) $criteria->addCondition('interface = "'.$model->interface.'"');
-/*
-			if (!empty($model->enabled)) $criteria->addCondition('enabled = "'.$model->enabled.'"');
-			if (!empty($model->log)) $criteria->addCondition('log = "'.$model->log.'"');
-			if (!empty($model->hide)) $criteria->addCondition('hide = "'.$model->hide.'"');
-*/
 		}
 
-        $type = Yii::app()->getRequest()->getParam('type');
+		$type = Yii::app()->getRequest()->getParam('type');
 
-        if ( isset($type) && !empty($type) ){
-            if($type == "sensors"){
-                $model->switchable=0;
-                $model->dimable=0;
-                $criteria->addCondition('switchable IS FALSE');
-                $criteria->addCondition('dimable IS FALSE');
-            }elseif($type == "dimmers"){
-                $model->dimable=-1;
-                $criteria->addCondition('dimable IS TRUE');
-            }elseif($type == "switches"){
-                $model->switchable=-1;
-                $criteria->addCondition('switchable IS TRUE');
-            }elseif($type == "hidden"){
-                $model->hide=-1;
-                $criteria->addCondition('hide IS TRUE');
-            }elseif($type == "disabled"){
-                $model->enabled=0;
-                $criteria->addCondition('enabled IS FALSE');
-            }
-        }
+		if (isset($type) && !empty($type))
+		{
+			if($type == "sensors")
+			{
+				$model->switchable=0;
+				$model->dimable=0;
+				$criteria->addCondition('switchable IS FALSE');
+				$criteria->addCondition('dimable IS FALSE');
+			} elseif($type == "dimmers") {
+				$model->dimable=-1;
+				$criteria->addCondition('dimable IS TRUE');
+			} elseif($type == "switches") {
+				$model->switchable=-1;
+				$criteria->addCondition('switchable IS TRUE');
+			} elseif($type == "hidden") {
+				$model->hide=-1;
+				$criteria->addCondition('hide IS TRUE');
+			} elseif($type == "disabled") {
+				$model->enabled=0;
+				$criteria->addCondition('enabled IS FALSE');
+			}
+		}
 
-        $location = Yii::app()->getRequest()->getParam('location');
+		$location = Yii::app()->getRequest()->getParam('location');
 
-        if ( isset($location) && !empty($location) ){
-            if($type != "0"){
-                $model->location=$location;
-                $criteria->addCondition('location = "'.$location.'"');
-                $criteria->addCondition('dimable IS FALSE');
-            }
-        }
+		if (isset($location) && !empty($location))
+		{
+			if($type != "0")
+			{
+				$model->location=$location;
+				$criteria->addCondition('location = "'.$location.'"');
+				$criteria->addCondition('dimable IS FALSE');
+			}
+		}
 
-		
 		$locations = Locations::model();
-        
 		$this->render('index', array('model'=>$model,'locations'=>$locations));
 	}
 
@@ -101,7 +98,7 @@ class DevicesController extends Controller
 		// update "#interface", todo "addressformat" and "devicegroup"
 		if(isset($_POST['Devices']['module']))
 		{
-			Yii::log("devices-module");
+			//Yii::log("devices-module");
 			$moduleid = $_POST['Devices']['module'];
 			echo CHtml::DropDownList("interface", 'id', Devices::model()->getInterfacesByDeviceType($moduleid));
 		}
@@ -178,9 +175,9 @@ class DevicesController extends Controller
 		} else {
 			if ( xmlrpc_decode($file) == "1" )
 			{
-				return array('success', "Change device... Successful.");
+				return array('success', "Control device... Successful.");
 			} else {
-				return array('error', "Change device... Failed!");
+				return array('error', "Control device... Failed!");
 			}
 		}
 	}

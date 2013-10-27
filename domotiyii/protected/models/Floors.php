@@ -37,6 +37,7 @@ class Floors extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, image', 'length', 'max'=>32),
+			array('name, image', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('floor, name, image', 'safe', 'on'=>'search'),
@@ -83,6 +84,11 @@ class Floors extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination' => array(
+				'pageSize'=>Yii::app()->params['pagesizeFloors'],
+				'pageVar'=>'page'
+			),
+
 		));
 	}
 }

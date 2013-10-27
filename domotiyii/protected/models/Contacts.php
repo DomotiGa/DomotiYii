@@ -71,7 +71,9 @@ class Contacts extends CActiveRecord
 			array('callnr, type', 'numerical', 'integerOnly'=>true),
 			array('name, address, city, country, phoneno, mobileno, email, cidphone, cidmobile, firstname, surname', 'length', 'max'=>32),
 			array('zipcode', 'length', 'max'=>11),
-			array('birthday, holidaycard, comments, firstseen, lastseen', 'safe'),
+			array('birthday, comments, firstseen, lastseen', 'safe'),
+			array('name', 'required'),
+			array('holidaycard', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, address, zipcode, city, country, phoneno, mobileno, email, cidphone, cidmobile, birthday, holidaycard, comments, firstname, surname, callnr, type, firstseen, lastseen', 'safe', 'on'=>'search'),

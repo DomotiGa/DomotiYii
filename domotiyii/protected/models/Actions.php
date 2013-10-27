@@ -44,31 +44,27 @@ class Actions extends CActiveRecord
 	/**
 	 * Define action names
 	 */
-	private $actionnames = array();
-	public function __construct()
-	{
-		$this->actionnames = array(
-			'1' => 'Set Device Value',
-			'2' => 'Set Globalvar',
-			'3' => 'Send e-mail',
-			'4' => 'Speak Text',
-			'5' => 'Execute Cmd',
-			'6' => 'Send Tweet',
-			'7' => 'Send SMS',
-			'8' => 'Send IRTrans',
-			'9' => 'Play Sound',
-			'10' => 'Write Log Entry',
-			'11' => 'Display LED Msg',
-			'12' => 'AV Control',
-			'13' => 'Timer Delay',
-			'14' => 'Notify Send',
-			'15' => 'Script',
-			'16' => 'JSON Post/Get',
-			'17' => 'Send Prowl PushMsg',
-			'18' => 'Send NMA PushMsg',
-			'19' => 'Send Pushover PushMsg'
-		);
-	}
+	private	$actionnames = array(
+		'1' => 'Set Device Value',
+		'2' => 'Set Globalvar',
+		'3' => 'Send e-mail',
+		'4' => 'Speak Text',
+		'5' => 'Execute Cmd',
+		'6' => 'Send Tweet',
+		'7' => 'Send SMS',
+		'8' => 'Send IRTrans',
+		'9' => 'Play Sound',
+		'10' => 'Write Log Entry',
+		'11' => 'Display LED Msg',
+		'12' => 'AV Control',
+		'13' => 'Timer Delay',
+		'14' => 'Notify Send',
+		'15' => 'Script',
+		'16' => 'JSON Post/Get',
+		'17' => 'Send Prowl PushMsg',
+		'18' => 'Send NMA PushMsg',
+		'19' => 'Send Pushover PushMsg'
+	);
 
         /**
          * @return array with all actiontypes texts

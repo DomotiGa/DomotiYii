@@ -5,7 +5,7 @@ $this->pageTitle=Yii::app()->name;
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('translate','Home'),
+        Yii::t('app','Home'),
     ),
 ));
 

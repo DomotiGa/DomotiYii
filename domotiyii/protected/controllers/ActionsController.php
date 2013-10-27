@@ -46,23 +46,7 @@ class ActionsController extends Controller
                         'model'=>$model,
                 ));
         }
-/*
-        public function actionActions()
-        {
-            $model = Actions::model()->findByPk(1);
 
-            if(isset($_POST['Actions']))
-            {
-                $model->attributes=$_POST['Actions'];
-                if($model->validate())
-                {
-                    // form inputs are valid, do something here
-                    $model->save();
-                }
-            }
-            $this->render('actions',array('model'=>$model));
-        }
-*/
         public function actionDelete($id)
         {
                 // delete the entry from the "actions" table
@@ -117,35 +101,24 @@ class ActionsController extends Controller
 	}
 	*/
 
-        protected function do_create_save($model)
-        {
-                if ( $model->save() === false )
-                {
-                        Yii::app()->user->setFlash('error', "Creating action... Failed!");
-                } else {
-                        Yii::app()->user->setFlash('success', "Created action... Successful.");
-                }
-        }
-
         protected function do_save($model)
         {
-                if ( $model->save() === false )
+                if ($model->save() === false)
                 {
-                        Yii::app()->user->setFlash('error', "Saving action... Failed!");
+                        Yii::app()->user->setFlash('error', Yii::t('app','Action save failed!'));
                 } else {
-                        Yii::app()->user->setFlash('success', "Saving action... Successful.");
+                        Yii::app()->user->setFlash('success', Yii::t('app','Action saved.'));
                 }
         }
 
         protected function do_delete($model)
         {
 
-                if ( $model->delete() === false )
+                if ($model->delete() === false)
                 {
-                        Yii::app()->user->setFlash('error', "Deleting action... Failed!");
+                        Yii::app()->user->setFlash('error', Yii::t('app','Action delete failed!'));
                 } else {
-                        Yii::app()->user->setFlash('success', "Deleting action... Successful.");
+                        Yii::app()->user->setFlash('success', Yii::t('app','Action deleted.'));
                 }
         }
-
 }

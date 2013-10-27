@@ -41,22 +41,6 @@ class TriggersController extends Controller
                 ));
         }
 
-        public function actionTriggers()
-        {
-            $model = Triggers::model()->findByPk(1);
-
-            if(isset($_POST['Triggers']))
-            {
-                $model->attributes=$_POST['Triggers'];
-                if($model->validate())
-                {
-                    // form inputs are valid, do something here
-                    $model->save();
-                }
-            }
-            $this->render('triggers',array('model'=>$model));
-        }
-
         public function actionDelete($id)
         {
                 // delete the entry from the "triggers" table

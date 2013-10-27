@@ -28,21 +28,17 @@ class Triggers extends CActiveRecord
 ' multi-trigger      |   6  |
 */
 
-        /**
-         * Define trigger names
-         */
-        private $triggernames = array();
-        public function __construct()
-        {
-                $this->triggernames = array(
-                        '1' => 'Time Now',
-                        '2' => 'GlobalVar Change',
-                        '3' => 'Device Change',
-                        '4' => 'IR Remote Received',
-                        '5' => 'iViewer Remote Received',
-                        '6' => 'Multi Trigger',
-                );
-        }
+	/**
+	 * Define trigger names
+	*/
+	private $triggernames = array(
+		'1' => 'Time Now',
+		'2' => 'GlobalVar Change',
+		'3' => 'Device Change',
+		'4' => 'IR Remote Received',
+		'5' => 'iViewer Remote Received',
+		'6' => 'Multi Trigger',
+	);
 
         /**
          * @return array with all triggertypes texts
@@ -87,6 +83,7 @@ class Triggers extends CActiveRecord
 			array('type', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>64),
 			array('description, param1, param2, param3, param4, param5', 'safe'),
+			array('name, type', 'required'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, type, description, param1, param2, param3, param4, param5', 'safe', 'on'=>'search'),

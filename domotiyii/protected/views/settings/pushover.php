@@ -5,8 +5,8 @@
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('translate','Modules') => '../index',
-        Yii::t('translate','Pushover'),
+        Yii::t('app','Modules') => '../index',
+        Yii::t('app','Pushover'),
     ),
 ));
 
@@ -26,7 +26,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 </fieldset>
 
 <?php echo TbHtml::formActions(array(
-    TbHtml::submitButton(Yii::t('translate','Submit'), array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
-    TbHtml::resetButton(Yii::t('translate','Reset')),
+    TbHtml::submitButton(Yii::t('app','Submit'), array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton(Yii::t('app','Reset')),
 )); ?>
 <?php $this->endWidget(); ?>

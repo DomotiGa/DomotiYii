@@ -7,7 +7,7 @@
         array(
             'class'=>'bootstrap.widgets.TbNav',
             'items'=>array(
-                array('label'=>Yii::t('translate','Modules'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
+                array('label'=>Yii::t('app','Modules'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                     array('label'=>'Main', 'url'=> array('settings/main')),
                     array('label'=>'Astro and Location', 'url'=> array('settings/astro')),
                     array('label'=>'CallerID', 'url'=> array('settings/callerid')),
@@ -47,7 +47,7 @@
                     )),
                     array('label'=>'Thermostat', 'url'=> array('settings/thermostat')),
                  )),
-                 array('label'=>Yii::t('translate','Interfaces'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
+                 array('label'=>Yii::t('app','Interfaces'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                     array('label'=>'1-Wire', 'url'=>'#', 'items'=>array(
                        array('label'=>'Digitemp', 'url'=> array('settings/digitemp')),
                        array('label'=>'Midon TEMP08', 'url'=> array('settings/temp08')),
@@ -133,10 +133,13 @@
                     array('label'=>'UPS Monitor', 'url'=> array('settings/ups')),
                     array('label'=>'xPL', 'url'=> array('settings/xpl')),
 	         )),
-                array('label'=>Yii::t('translate','Devices'), 'visible'=>!Yii::app()->user->isGuest, 'url'=> '#', 'items'=>array(
-  					array('label' => Yii::t('translate','Devices'), 'url' => array('devices/index')),
-                   array('label'=>Yii::t('translate','Device Types'), 'url'=> 'devicetypes/index'),
-                   array('label'=>Yii::t('translate','Device Groups'), 'url'=> '#'),
+                array('label'=>Yii::t('app','Devices'), 'visible'=>!Yii::app()->user->isGuest, 'url'=> '#', 'items'=>array(
+		array('label' => Yii::t('app','Devices'), 'url' => array('devices/index')),
+                   array('label'=>Yii::t('app','Types'), 'url'=> array('devicetypes/index')),
+                   array('label'=>Yii::t('app','Groups'), 'url'=> array('groups/index')),
+                   array('label'=>Yii::t('app','Locations'), 'url'=> array('locations/index')),
+                   array('label'=>Yii::t('app','Floors'), 'url'=> array('floors/index')),
+                   array('label'=>Yii::t('app','Blacklists'), 'url'=> array('blacklist/index')),
                 )),
                 array('label'=>'Edit', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                    array('label'=>'Contacts', 'url'=> array('contacts/index')),
@@ -156,13 +159,13 @@
             'class'=>'bootstrap.widgets.TbNav',
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
-                array('label'=>Yii::t('translate','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                array('label'=>Yii::t('translate','Logout').' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
-                array('label'=>Yii::t('translate','About'), 'url'=>'#', 'items'=>array(
-                    array('label'=>Yii::t('translate','Visit Project Website'), 'url'=>'http://domotiga.nl'),
-                    array('label'=>Yii::t('translate','Donate to Project'), 'url'=>'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=NT48KZRT7F3FA&lc=US&item_name=DomotiGa%20Open%20Source%20Project&item_number=domotiga&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'),
+                array('label'=>Yii::t('app','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                array('label'=>Yii::t('app','Logout').' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+                array('label'=>Yii::t('app','About'), 'url'=>'#', 'items'=>array(
+                    array('label'=>Yii::t('app','Visit Project Website'), 'url'=>'http://domotiga.nl'),
+                    array('label'=>Yii::t('app','Donate to Project'), 'url'=>'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=NT48KZRT7F3FA&lc=US&item_name=DomotiGa%20Open%20Source%20Project&item_number=domotiga&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted'),
 		TbHtml::menuDivider(),
-                    array('label'=>Yii::t('translate','About DomotiGa'), 'url'=> array('/site/about')),
+                    array('label'=>Yii::t('app','About DomotiGa'), 'url'=> array('/site/about')),
                 )),
             ),
         ),
@@ -177,8 +180,8 @@
 				'type' => TbHtml::NAV_TYPE_LIST,
 				'items' => array(
  					array('label' => 'MENU'),
-  					array('label' => Yii::t('translate','Devices'), 'url' => array('/devices/index')),
-   					array('label' => Yii::t('translate','Phone'), 'url' => array('cdr/index')),
+  					array('label' => Yii::t('app','Devices'), 'url' => array('/devices/index')),
+   					array('label' => Yii::t('app','Phone'), 'url' => array('cdr/index')),
 					TbHtml::menuDivider(),
 					array('label' => 'Help', 'icon'=>'flag', 'url' => '#'),
 				)

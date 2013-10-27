@@ -14,8 +14,7 @@ class ConditionsController extends Controller
 
                         if (!empty($model->name)) $criteria->addCondition('name = "'.$model->name.'"');
                         if (!empty($model->description)) $criteria->addCondition('description = "'.$model->description.'"');
-                        if (!empty($model->type)) $criteria->addCondition('type = "'.$model->type.'"');
-                        if (!empty($model->addressformat)) $criteria->addCondition('addressformat = "'.$model->addressformat.'"');
+                        if (!empty($model->formula)) $criteria->addCondition('formula = "'.$model->formula.'"');
                 }
                 $this->render('index', array('model'=>$model));
         }
@@ -99,23 +98,21 @@ class ConditionsController extends Controller
 
         protected function do_save($model)
         {
-                if ( $model->save() === false )
+                if ($model->save() === false)
                 {
-                        Yii::app()->user->setFlash('error', "Saving condition... Failed!");
+                        Yii::app()->user->setFlash('error', Yii::t('app','Condition save failed!'));
                 } else {
-                        Yii::app()->user->setFlash('success', "Saving condition... Successful.");
+                        Yii::app()->user->setFlash('success', Yii::t('app','Condition saved.'));
                 }
         }
 
         protected function do_delete($model)
         {
-
-                if ( $model->delete() === false )
+                if ($model->delete() === false)
                 {
-                        Yii::app()->user->setFlash('error', "Deleting condition... Failed!");
+                        Yii::app()->user->setFlash('error', Yii::t('app','Condition delete failed!'));
                 } else {
-                        Yii::app()->user->setFlash('success', "Deleting condition... Successful.");
+                        Yii::app()->user->setFlash('success', Yii::t('app','Condition deleted.'));
                 }
         }
-
 }

@@ -4,7 +4,7 @@
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('translate','Phonecalls'),
+        Yii::t('app','Phonecalls'),
     ),
 )); ?>
 
@@ -12,10 +12,10 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'type'=>'tabs',
     'stacked'=>false,
     'items'=>array(
-        array('label'=>Yii::t('translate','All'), 'url'=>'index'),
-        array('label'=>Yii::t('translate','Incoming'), 'url' => 'incoming'),
-        array('label'=>Yii::t('translate','Outgoing'), 'url'=>'outgoing', 'active'=>true),
-        array('label'=>Yii::t('translate','No Answer'), 'url'=>'noanswer'),
+        array('label'=>Yii::t('app','All'), 'url'=>'index'),
+        array('label'=>Yii::t('app','Incoming'), 'url' => 'incoming'),
+        array('label'=>Yii::t('app','Outgoing'), 'url'=>'outgoing', 'active'=>true),
+        array('label'=>Yii::t('app','No Answer'), 'url'=>'noanswer'),
     ),
 ));
 
@@ -27,41 +27,41 @@ $this->widget('domotiyii.LiveGridView', array(
     'template'=>'{items}{pager}',
     'columns'=>array(
 		'dcontext' => array (
-			'header'=>Yii::t('translate','Type'),
+			'header'=>Yii::t('app','Type'),
 			'type'=>'raw',
 			'name'=>'dcontext',
 			'value'=>'$data->getDirection($data->dcontext)'
 		),
 		'name' => array (
-			'header'=>Yii::t('translate','Name'),
+			'header'=>Yii::t('app','Name'),
                         'type'=>'raw',
                         'name'=>'name',
                         'value'=>'$data->getCallerName($data)'
                 ),
 		'src' => array (
-			'header'=>Yii::t('translate','Number'),
+			'header'=>Yii::t('app','Number'),
                         'type'=>'raw',
                         'name'=>'src',
                         'value'=>'$data->getFromTo($data)'
                 ),
 		'channel' => array (
-			'header'=>Yii::t('translate','Line'),
+			'header'=>Yii::t('app','Line'),
                         'name'=>'channel',
 		),
 		'calldate' => array (
-			'header'=>Yii::t('translate','Time'),
+			'header'=>Yii::t('app','Time'),
 			'type'=>'raw',
 			'name'=>'calldate',
 			'value'=>'$data->getTime($data->calldate)'
 		),
 		'billsec' => array (
-			'header'=>Yii::t('translate','Duration'),
+			'header'=>Yii::t('app','Duration'),
                         'type'=>'raw',
                         'name'=>'billsec',
 			'value'=>'$data->getDuration($data->billsec)'
 		),
 		'disposition' => array (
-			'header'=>Yii::t('translate','Status'),
+			'header'=>Yii::t('app','Status'),
 			'type'=>'raw',
                         'name'=>'disposition',
 			'value'=>'$data->getStatus($data->disposition, $data->billsec)'

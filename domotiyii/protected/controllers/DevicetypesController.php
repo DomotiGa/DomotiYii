@@ -75,9 +75,9 @@ class DevicetypesController extends Controller
         {
                 if ( $model->save() === false )
                 {
-                        Yii::app()->user->setFlash('error', "Saving devicetype... Failed!");
+                        Yii::app()->user->setFlash('error', Yii::t('app','Devicetype save failed!'));
                 } else {
-                        Yii::app()->user->setFlash('success', "Saving devicetype... Successful.");
+                        Yii::app()->user->setFlash('success', Yii::t('app','Devicetype saved.'));
                 }
         }
 
@@ -85,10 +85,9 @@ class DevicetypesController extends Controller
         {
                 if ( $model->delete() === false )
                 {
-                        Yii::app()->user->setFlash('error', "Deleting devicetype... Failed!");
+                        Yii::app()->user->setFlash('error', Yii::t('app','Devicetype delete failed!'));
                 } else {
-                        Yii::app()->user->setFlash('success', "Deleting devicetype... Successful.");
+                        Yii::app()->user->setFlash('success', Yii::t('app','Devicetype deleted.'));
                 }
         }
-
 }

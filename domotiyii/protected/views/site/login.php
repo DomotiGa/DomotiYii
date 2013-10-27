@@ -6,7 +6,7 @@
 $this->pageTitle=Yii::app()->name . ' - Login';
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('translate','Login'),
+        Yii::t('app','Login'),
     ),
 )); 
 

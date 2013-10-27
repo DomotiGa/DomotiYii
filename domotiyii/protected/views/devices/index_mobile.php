@@ -10,17 +10,17 @@
     $breadcrumb_links = array();
 
     if($location_id == '0' && $type == 'all'){
-        array_push($breadcrumb_links,Yii::t('translate','Devices'));
+        array_push($breadcrumb_links,Yii::t('app','Devices'));
     }else{
-        $breadcrumb_links[Yii::t('translate','Devices')] = 'index';
+        $breadcrumb_links[Yii::t('app','Devices')] = 'index';
         
         if($location_id != '0' && $type == 'all'){
             array_push($breadcrumb_links,$location_object->name);
         }elseif($location_id == '0' && $type != 'all'){
-            array_push($breadcrumb_links,Yii::t('translate',$type));
+            array_push($breadcrumb_links,Yii::t('app',$type));
         }else{
             $breadcrumb_links[$location_object->name] = 'index?location='.$location_id;
-            array_push($breadcrumb_links,Yii::t('translate',$type));
+            array_push($breadcrumb_links,Yii::t('app',$type));
         }
     }
    
@@ -30,7 +30,7 @@
 
 
     // generate location and type menu
-    $links_location = array(array('label'=>Yii::t('translate','All'), 'url'=>'index?type='.$type, 'active'=>$location_id == '0'));
+    $links_location = array(array('label'=>Yii::t('app','All'), 'url'=>'index?type='.$type, 'active'=>$location_id == '0'));
   
     foreach($locations->findAll(array('order'=>'name')) as $currentlocation){
         if ( $currentlocation['name'] != ''){
@@ -39,17 +39,17 @@
      }
  
     $links_type = array(
-        array('label'=>Yii::t('translate','All'), 'url'=>'index?location='.$location_id, 'active'=>$type == '0'),
-        array('label'=>Yii::t('translate','Sensors'), 'url'=>'index?type=sensors&location='.$location_id, 'active'=>$type == 'sensors'),
-        array('label'=>Yii::t('translate','Dimmers'), 'url'=>'index?type=dimmers&location='.$location_id, 'active'=>$type == 'dimmers'),
-        array('label'=>Yii::t('translate','Switches'), 'url'=>'index?type=switches&location='.$location_id, 'active'=>$type == 'switches'),
+        array('label'=>Yii::t('app','All'), 'url'=>'index?location='.$location_id, 'active'=>$type == '0'),
+        array('label'=>Yii::t('app','Sensors'), 'url'=>'index?type=sensors&location='.$location_id, 'active'=>$type == 'sensors'),
+        array('label'=>Yii::t('app','Dimmers'), 'url'=>'index?type=dimmers&location='.$location_id, 'active'=>$type == 'dimmers'),
+        array('label'=>Yii::t('app','Switches'), 'url'=>'index?type=switches&location='.$location_id, 'active'=>$type == 'switches'),
     );
 
      $this->widget('bootstrap.widgets.TbNav', array(
          'type'=>'tabs',
          'stacked'=>false,
          'items'=>array(
-            array('label'=>Yii::t('translate','Location'), 'icon'=>'map-marker', 'url'=>'#', 'items' => $links_location),
+            array('label'=>Yii::t('app','Location'), 'icon'=>'map-marker', 'url'=>'#', 'items' => $links_location),
             array('label'=>'Type', 'icon'=>'tags', 'url'=>'#', 'items' => $links_type),
          ),
      ));

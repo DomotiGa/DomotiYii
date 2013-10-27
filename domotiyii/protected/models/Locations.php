@@ -36,6 +36,7 @@ class Locations extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'length', 'max'=>32),
+			array('name', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name', 'safe', 'on'=>'search'),
@@ -80,6 +81,11 @@ class Locations extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination' => array(
+				'pageSize'=>Yii::app()->params['pagesizeLocations'],
+				'pageVar'=>'page'
+			),
+
 		));
 	}
 }

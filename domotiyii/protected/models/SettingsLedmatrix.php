@@ -5,12 +5,12 @@
  *
  * The followings are the available columns in table 'settings_ledmatrix':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property string $serialport
  * @property integer $color
  * @property integer $speed
  * @property integer $displayid
- * @property integer $debug
+ * @property boolean $debug
  */
 class SettingsLedmatrix extends CActiveRecord
 {

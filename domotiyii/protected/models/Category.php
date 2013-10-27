@@ -34,6 +34,7 @@ class Category extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'length', 'max'=>100),
+			array('name', 'required'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name', 'safe', 'on'=>'search'),
@@ -85,6 +86,10 @@ class Category extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination' => array(
+				'pageSize'=>Yii::app()->params['pagesizeCategories'],
+				'pageVar'=>'page'
+			),
 		));
 	}
 

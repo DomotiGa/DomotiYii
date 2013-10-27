@@ -13,8 +13,12 @@ class ContactsController extends Controller
                         $model->attributes=$_GET['Contacts'];
 
                         if (!empty($model->name)) $criteria->addCondition('name = "'.$model->name.'"');
-                        if (!empty($model->description)) $criteria->addCondition('description = "'.$model->description.'"');
-                        if (!empty($model->type)) $criteria->addCondition('type = "'.$model->type.'"');
+                        if (!empty($model->address)) $criteria->addCondition('address = "'.$model->address.'"');
+                        if (!empty($model->zipcode)) $criteria->addCondition('zipcode = "'.$model->zipcode.'"');
+                        if (!empty($model->email)) $criteria->addCondition('email = "'.$model->email.'"');
+                        if (!empty($model->phoneno)) $criteria->addCondition('phoneno = "'.$model->phoneno.'"');
+                        if (!empty($model->mobileno)) $criteria->addCondition('mobileno = "'.$model->mobileno.'"');
+                        if (!empty($model->email)) $criteria->addCondition('email = "'.$model->email.'"');
                 }
                 $this->render('index', array('model'=>$model));
         }
@@ -24,22 +28,6 @@ class ContactsController extends Controller
                 $model = Contacts::model()->findByPk($id);
                 $this->render('view', array('model'=>$model));
         }
-
-	public function actionContacts()
-	{
-	    $model = Contacts::model()->findByPk(1);
-
-	    if(isset($_POST['Contacts']))
-	    {
-	        $model->attributes=$_POST['Contacts'];
-	        if($model->validate())
-	        {
-	            // form inputs are valid, do something here
-	            $model->save();
-	        }
-	    }
-	    $this->render('contacts',array('model'=>$model));
-	}
 
         public function actionDelete($id)
         {
@@ -113,22 +101,24 @@ class ContactsController extends Controller
 	}
 	*/
 
-protected function do_save($model) {
+        protected function do_save($model)
+        {
+                if ($model->save() === false)
+                {
+                        Yii::app()->user->setFlash('error', Yii::t('app','Contact save failed!'));
+                } else {
+                        Yii::app()->user->setFlash('success', Yii::t('app','Contact saved.'));
+                }
+        }
 
-    if ( $model->save() === false ) {
-       Yii::app()->user->setFlash('error', "Saving contact... Failed!");
-    } else {
-       Yii::app()->user->setFlash('success', "Saving contact... Successful.");
-    }
-}
+        protected function do_delete($model)
+        {
 
-protected function do_delete($model) {
-
-    if ( $model->delete() === false ) {
-       Yii::app()->user->setFlash('error', "Deleting contact... Failed!");
-    } else {
-       Yii::app()->user->setFlash('success', "Deleting contact... Successful.");
-    }
-}
-
+                if ($model->delete() === false)
+                {
+                        Yii::app()->user->setFlash('error', Yii::t('app','Contact delete failed!'));
+                } else {
+                        Yii::app()->user->setFlash('success', Yii::t('app','Contact deleted.'));
+                }
+        }
 }

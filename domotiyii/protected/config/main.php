@@ -27,7 +27,6 @@ return array(
 			'generatorPaths' => array('bootstrap.gii'),
 		),
 	),
-
 	// application components
 	'components'=>array(
 		'user'=>array(
@@ -81,8 +80,8 @@ return array(
 	),
 
 	// language settings
-	'sourceLanguage' => 'en_us',
-	'language' => 'nl_nl', // add new translations under protected/messages/ 
+	'sourceLanguage' => 'en',
+	'language' => 'nl', // add new translations under protected/messages/ 
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
@@ -97,7 +96,12 @@ return array(
 		'refreshTriggers'=>'5000', // 5 second refresh
 		'refreshConditions'=>'5000', // 5 second refresh
 		'refreshActions'=>'5000', // 5 second refresh
+		'refreshCategories'=>'5000', // 5 second refresh
 		'refreshDevicetypes'=>'5000', // 5 second refresh
+		'refreshGroups'=>'5000', // 5 second refresh
+		'refreshLocations'=>'5000', // 5 second refresh
+		'refreshFloors'=>'5000', // 5 second refresh
+
 		// page size for specific gridviews
 		'pagesizeDevices'=>'20', // entries per page
 		'pagesizePhonecalls'=>'30', // entries per page
@@ -106,6 +110,10 @@ return array(
 		'pagesizeTriggers'=>'20', // entries per page
 		'pagesizeConditions'=>'20', // entries per page
 		'pagesizeActions'=>'20', // entries per page
+		'pagesizeCategories'=>'20', // entries per page
 		'pagesizeDevicetypes'=>'20', // entries per page
+		'pagesizeGroups'=>'20', // entries per page
+		'pagesizeLocations'=>'20', // entries per page
+		'pagesizeFloors'=>'20', // entries per page
 	),
 );

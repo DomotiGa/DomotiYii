@@ -1343,14 +1343,15 @@ public function actionPioneer()
     $this->render('pioneer',array('model'=>$model));
 }
 
-protected function do_save($model) {
-
-    if ( $model->save() === FALSE ) {
-       Yii::app()->user->setFlash('error', "Saving settings... Failed!");
-    } else {
-       Yii::app()->user->setFlash('success', "Saving settings... Successful.");
-    }
-}
+	protected function do_save($model)
+	{
+		if ($model->save() === false)
+		{
+			Yii::app()->user->setFlash('error', Yii::t('app','Saving settings failed!'));
+		} else {
+			Yii::app()->user->setFlash('success', Yii::t('app','Settings saved.'));
+		}
+	}
 
 protected function do_xmlrpc($procedure, $data = array()) {
 
@@ -1361,9 +1362,9 @@ protected function do_xmlrpc($procedure, $data = array()) {
        Yii::app()->user->setFlash('error', "Couldn't connect to XML-RPC service on '" . Yii::app()->params['xmlrpcHost'] . "'");
     } else {
        if ( xmlrpc_decode($file) == "1" ) {
-          Yii::app()->user->setFlash('success', "Saving settings, restarting module '" . ucfirst($data) . "'... Successful.");
+          Yii::app()->user->setFlash('success', Yii::t('app','Saved settings & restarted module.'));
        } else {
-          Yii::app()->user->setFlash('error', "Saving settings, restarting module '" . ucfirst($data) . "'... Failed!");
+          Yii::app()->user->setFlash('error', Yii::t('app','Saving settings & restarting module failed!'));
        }
     }
   }

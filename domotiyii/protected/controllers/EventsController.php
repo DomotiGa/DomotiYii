@@ -16,6 +16,17 @@ class EventsController extends Controller
                         if (!empty($model->description)) $criteria->addCondition('description = "'.$model->description.'"');
                         if (!empty($model->type)) $criteria->addCondition('type = "'.$model->type.'"');
                 }
+
+                $type = Yii::app()->getRequest()->getParam('type');
+  
+		if (isset($type) && !empty($type))
+		{
+			if ($type == "disabled")
+			{
+				$model->enabled=0;
+				$criteria->addCondition('enabled IS FALSE');
+                        }
+		} 
                 $this->render('index', array('model'=>$model));
         }
 

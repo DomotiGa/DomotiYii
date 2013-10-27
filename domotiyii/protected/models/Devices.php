@@ -307,7 +307,7 @@ class Devices extends CActiveRecord
 		$criteria->compare('resetvalue',$this->resetvalue,true);
 		$criteria->compare('poll',$this->poll);
 
-		if (  $enablepagination ) {
+		if ($enablepagination) {
         return new CActiveDataProvider($this, array(
 			'pagination' => array(
                                 'pageSize'=>Yii::app()->params['pagesizeDevices'],
@@ -317,7 +317,7 @@ class Devices extends CActiveRecord
                 'defaultOrder'=>'name ASC',
             ),
 		));
-        }else{
+        } else {
         return new CActiveDataProvider($this, array(
 			'pagination' => false,
 			'criteria'=>$criteria,
@@ -325,9 +325,7 @@ class Devices extends CActiveRecord
                 'defaultOrder'=>'name ASC',
             ),
 		));
-        }
-        
-
+        }     
 	}
 
 	/**
@@ -351,7 +349,7 @@ class Devices extends CActiveRecord
 	public function notOnlyNumbers($attribute,$params)
 	{
 		if(!preg_match('/(?!^\d+$)^.+$/', $this->$attribute))
-			$this->addError($attribute, 'it cannot contain only numbers');
+			$this->addError($attribute, Yii::t('app', 'Not allowed to only contain numbers.'));
 	}
 
 	/**

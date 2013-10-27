@@ -52,6 +52,7 @@ class Devicetypes extends CActiveRecord
 			array('name, description, type, onicon, officon, dimicon', 'length', 'max'=>32),
 			array('addressformat', 'length', 'max'=>128),
 			array('switchable, dimable, extcode', 'boolean', 'trueValue'=>-1),
+			array('name, type, addressformat', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, description, type, addressformat, onicon, officon, dimicon, switchable, dimable, extcode, label, label2, label3, label4', 'safe', 'on'=>'search'),

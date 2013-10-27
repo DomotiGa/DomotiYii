@@ -7,17 +7,17 @@
         array(
             'class'=>'bootstrap.widgets.TbNav',
             'items'=>array(
-                array('label'=>Yii::t('translate','Devices'), 'url'=> array('devices/index')),
-                array('label' => Yii::t('translate','Phone'), 'url' => array('cdr/index')),
-                array('label'=> Yii::t('translate','Contacts'), 'url'=> array('contacts/index')),
+                array('label'=>Yii::t('app','Devices'), 'url'=> array('devices/index')),
+                array('label' => Yii::t('app','Phone'), 'url' => array('cdr/index')),
+                array('label'=> Yii::t('app','Contacts'), 'url'=> array('contacts/index')),
             ),
         ),
         array(
             'class'=>'bootstrap.widgets.TbNav',
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
-                array('label'=>Yii::t('translate','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                array('label'=>Yii::t('translate','Logout').' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+                array('label'=>Yii::t('app','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                array('label'=>Yii::t('app','Logout').' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
             ),
         ),
     ),

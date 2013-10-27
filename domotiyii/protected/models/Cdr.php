@@ -65,9 +65,9 @@ class Cdr extends CActiveRecord
 	 */
 	public function getDirection($dcontext) {
 		if ($dcontext == 'default') {
-			return Yii::t('translate','Outgoing');
+			return Yii::t('app','Outgoing');
 		}
-		return Yii::t('translate','Incoming');
+		return Yii::t('app','Incoming');
 	}
 
 	/**
@@ -100,14 +100,14 @@ class Cdr extends CActiveRecord
 	public function getStatus($status, $duration) {
 		if ($status == "ANSWERED") {
 			if ($duration == '0') {
-				return Yii::t('translate','In Call');
+				return Yii::t('app','In Call');
 			} else {
-				return Yii::t('translate','Answered');
+				return Yii::t('app','Answered');
 			}
 		} elseif ($status == "NO ANSWER") {
-			return Yii::t('translate','No Answer');
+			return Yii::t('app','No Answer');
 		} else {
-			Yii::t('translate','Unknown');
+			Yii::t('app','Unknown');
 		}
 	}
 

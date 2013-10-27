@@ -4,7 +4,7 @@
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('translate','Devicetypes'),
+        Yii::t('app','Devicetypes'),
     ),
 ));
 
@@ -29,9 +29,9 @@ $this->beginWidget('zii.widgets.CPortlet', array(
 $this->widget('bootstrap.widgets.TbNav', array(
         'type'=>TbHtml::NAV_TYPE_PILLS,
         'items'=>array(
-                array('label'=>Yii::t('translate','List'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'),'active'=>true, 'linkOptions'=>array()),
-                array('label'=>Yii::t('translate','Search'), 'icon'=>'icon-search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
-                array('label'=>Yii::t('translate','Create'), 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
+                array('label'=>Yii::t('app','List'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'),'active'=>true, 'linkOptions'=>array()),
+                array('label'=>Yii::t('app','Search'), 'icon'=>'icon-search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
+                array('label'=>Yii::t('app','Create'), 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
         ),
 ));
 $this->endWidget();
@@ -51,25 +51,25 @@ $this->endWidget();
     'template'=>'{items}{pager}{summary}',
     'columns'=>array(
         array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
-        array('name'=>'name', 'header'=>Yii::t('translate','Name'), 'htmlOptions'=>array('width'=>'150')),
-        array('name'=>'description', 'header'=>Yii::t('translate','Description'), 'htmlOptions'=>array('width'=>'150')),
-        array('name'=>'addressformat', 'header'=>Yii::t('translate','AddressFormat'), 'htmlOptions'=>array('width'=>'150')),
-        array('name'=>'type', 'header'=>Yii::t('translate','Type'), 'htmlOptions'=>array('width'=>'150')),
+        array('name'=>'name', 'header'=>Yii::t('app','Name'), 'htmlOptions'=>array('width'=>'150')),
+        array('name'=>'description', 'header'=>Yii::t('app','Description'), 'htmlOptions'=>array('width'=>'150')),
+        array('name'=>'addressformat', 'header'=>Yii::t('app','AddressFormat'), 'htmlOptions'=>array('width'=>'150')),
+        array('name'=>'type', 'header'=>Yii::t('app','Type'), 'htmlOptions'=>array('width'=>'150')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',
            'template'=> Yii::app()->user->isGuest ? '{view}' : '{view}  {update}  {delete}',
-           'header'=>Yii::t('translate','Actions'),
+           'header'=>Yii::t('app','Actions'),
            'htmlOptions'=>array('style'=>'width: 40px'),
            'buttons'=>array(
               'view' => array(
-                 'label'=>Yii::t('translate','View'),
+                 'label'=>Yii::t('app','View'),
                  'url'=>'Yii::app()->controller->createUrl("view", array("id"=>$data["id"]))',
               ),
               'update' => array(
-                 'label'=>Yii::t('translate','Edit'),
+                 'label'=>Yii::t('app','Edit'),
                  'url'=>'Yii::app()->controller->createUrl("update", array("id"=>$data["id"]))',
               ),
               'delete' => array(
-                 'label'=>Yii::t('translate','Delete'),
+                 'label'=>Yii::t('app','Delete'),
                  'url'=>'Yii::app()->controller->createUrl("delete", array("id"=>$data["id"],"command"=>"delete"))',
               ),
            ),

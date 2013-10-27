@@ -5,8 +5,8 @@
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('translate','Interfaces') => '../index',
-        Yii::t('translate','GenericIO'),
+        Yii::t('app','Interfaces') => '../index',
+        Yii::t('app','GenericIO'),
     ),
 ));
 
