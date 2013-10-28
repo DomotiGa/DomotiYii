@@ -113,6 +113,7 @@ class ConditionsController extends Controller
                         Yii::app()->user->setFlash('error', Yii::t('app','Condition delete failed!'));
                 } else {
                         Yii::app()->user->setFlash('success', Yii::t('app','Condition deleted.'));
+                        $this->redirect(array('index'));
                 }
         }
 }

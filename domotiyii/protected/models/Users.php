@@ -20,7 +20,15 @@ class Users extends CActiveRecord
 	 */
 	public function validatePassword($password)
 	{
-		if ( strlen($this->password) < 11 ) return false;
+		if (strlen($this->password) < 11)
+		{
+			if($password == $this->password)
+			{
+				return true;
+			} else {
+				return false;
+			}
+		}
 		return $this->hashPassword($password, substr($this->password, 3, 8)) == $this->password;
 	}
 
@@ -61,10 +69,11 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('admin', 'numerical', 'integerOnly'=>true),
 			array('username, fullname, lastlogin, emailaddress', 'length', 'max'=>32),
-			array('password', 'length', 'max'=>30),
+			array('password', 'length', 'max'=>64),
 			array('comments', 'safe'),
+			array('username', 'required'),
+			array('admin', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, username, password, fullname, admin, comments, lastlogin, emailaddress', 'safe', 'on'=>'search'),
@@ -89,13 +98,13 @@ class Users extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'username' => 'Username',
-			'password' => 'Password',
-			'fullname' => 'Fullname',
-			'admin' => 'Admin',
-			'comments' => 'Comments',
-			'lastlogin' => 'Lastlogin',
-			'emailaddress' => 'Emailaddress',
+			'username' => Yii::t('app','Username'),
+			'password' => Yii::t('app','Password'),
+			'fullname' => Yii::t('app','Fullname'),
+			'admin' => Yii::t('app','Admin'),
+			'comments' => Yii::t('app','Comments'),
+			'lastlogin' => Yii::t('app','Lastlogin'),
+			'emailaddress' => Yii::t('app','Emailaddress'),
 		);
 	}
 
@@ -121,6 +130,10 @@ class Users extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+                        'pagination' => array(
+                                'pageSize'=>Yii::app()->params['pagesizeUsers'],
+                                'pageVar'=>'page'
+                        ),
 		));
 	}
 }

@@ -71,7 +71,7 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login()) {
-				Yii::app()->user->setFlash('success', "Successfully logged in.");
+				Yii::app()->user->setFlash('success', Yii::t('app','Successfully logged in.'));
 				$this->redirect(Yii::app()->user->returnUrl);
 			}
 		}
@@ -85,7 +85,7 @@ class SiteController extends Controller
 	public function actionLogout()
 	{
 		Yii::app()->user->logout();
-                Yii::app()->user->setFlash('success', "Logged out.");
+                Yii::app()->user->setFlash('success', Yii::t('app','Logged out.'));
 		$this->redirect(Yii::app()->homeUrl);
 	}
 

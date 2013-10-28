@@ -2,32 +2,44 @@
 /* @var $this UsersController */
 /* @var $model Users */
 
-$this->breadcrumbs=array(
-	'Users'=>array('index'),
-	$model->id,
-);
+$this->widget('bootstrap.widgets.TbBreadcrumb', array(
+    'links' => array(
+        Yii::t('app','Users') => 'index',  
+        Yii::t('app','View'),
+    ),
+));
 
-$this->menu=array(
-	array('label'=>'List Users', 'url'=>array('index')),
-	array('label'=>'Create Users', 'url'=>array('create')),
-	array('label'=>'Update Users', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Users', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Users', 'url'=>array('admin')),
-);
+$this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
+));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('app','List'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'), 'linkOptions'=>array()),
+                array('label'=>Yii::t('app','Create'), 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
+                array('label'=>Yii::t('app','View'), 'icon'=>'icon-eye-open', 'url'=>array('view', 'id'=>$model->id), 'active'=>true, 'linkOptions'=>array()),
+                array('label'=>Yii::t('app','Edit'), 'icon'=>'icon-edit', 'url'=>array('update', 'id'=>$model->id)),
+                array('label'=>Yii::t('app','Delete'), 'icon'=>'icon-trash', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>Yii::t('app','Are you sure you want to delete this user?')))
+        ),
+));
+$this->endWidget();
 ?>
 
-<h1>View Users #<?php echo $model->id; ?></h1>
+<legend><?php echo $model->fullname;?></legend>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php $this->widget('domotiyii.DetailView', array(
+	'type' => 'striped condensed',
 	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'username',
-		'password',
-		'fullname',
-		'admin',
-		'comments',
-		'lastlogin',
-		'emailaddress',
+        'attributes'=>array(
+                array('name' => 'id'),
+                array('name' => 'username'),
+                array('name' => 'fullname'),
+                array('name' => 'admin', 'type' =>'boolean'),
+                array('name' => 'password'),
+                array('name' => 'lastlogin'),
+                array('name' => 'emailaddress'),
+                array('name' => 'comments'),
 	),
 )); ?>

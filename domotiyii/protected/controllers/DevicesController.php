@@ -148,9 +148,9 @@ class DevicesController extends Controller
 	{
 		if ( $model->save() === false )
 		{
-			Yii::app()->user->setFlash('error', "Saving device... Failed!");
+			Yii::app()->user->setFlash('error', "Device save failed!");
 		} else {
-			Yii::app()->user->setFlash('success', "Saving device... Successful.");
+			Yii::app()->user->setFlash('success', "Device saved.");
 		}
 	}
 
@@ -158,9 +158,10 @@ class DevicesController extends Controller
 	{
 		if ( $model->delete() === false )
 		{
-			Yii::app()->user->setFlash('error', "Deleting device... Failed!");
+			Yii::app()->user->setFlash('error', "Device delete failed!");
 		} else {
-			Yii::app()->user->setFlash('success', "Deleting device... Successful.");
+			Yii::app()->user->setFlash('success', "Device deleted.");
+                        $this->redirect(array('index'));
 		}
 	}
 
@@ -175,9 +176,9 @@ class DevicesController extends Controller
 		} else {
 			if ( xmlrpc_decode($file) == "1" )
 			{
-				return array('success', "Control device... Successful.");
+				return array('success', "Device controlled.");
 			} else {
-				return array('error', "Control device... Failed!");
+				return array('error', "Device control failed!");
 			}
 		}
 	}

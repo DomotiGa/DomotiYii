@@ -21,6 +21,21 @@ class Floors extends CActiveRecord
 	}
 
 	/**
+	 * @return array with all floors
+	*/
+	public function getFloors()
+	{
+		$data = new CArrayDataProvider($this->findAll(array('order'=>'floor ASC')), array(
+			'keyField' => 'floor',
+			'pagination' => array(
+				'pageSize'=>Yii::app()->params['pagesizeFloors'],
+				'pageVar'=>'page'
+			),
+		));
+		return $data;
+	}
+
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()

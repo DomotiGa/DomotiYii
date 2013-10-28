@@ -14,7 +14,7 @@ class EventsActions extends CActiveRecord
         /**
          * @return array with all actions
          */
-        public function getEventsActions($enabled)
+        public function getEventsActions()
         {
                 $data = new CArrayDataProvider($this->findAll(array('order'=>'event ASC')), array(
 			'keyField' => 'event',

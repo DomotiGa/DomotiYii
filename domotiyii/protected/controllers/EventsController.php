@@ -58,7 +58,6 @@ class EventsController extends Controller
                 // delete the entry from the "events" table
                 $model = Events::model()->findByPk($id);
                 $this->do_delete($model);
-
         }
 
         public function actionCreate()
@@ -112,9 +111,9 @@ class EventsController extends Controller
 	{
 		if ( $model->save() === false )
 		{
-			Yii::app()->user->setFlash('error', "Saving event... Failed!");
+			Yii::app()->user->setFlash('error', "Event save failed!");
 		} else {
-			Yii::app()->user->setFlash('success', "Saving event... Successful.");
+			Yii::app()->user->setFlash('success', "Event saved.");
 		}
 	}
 
@@ -123,9 +122,10 @@ class EventsController extends Controller
 
 		if ( $model->delete() === false )
 		{
-			Yii::app()->user->setFlash('error', "Deleting event... Failed!");
+			Yii::app()->user->setFlash('error', "Event delete failed!");
 		} else {
-			Yii::app()->user->setFlash('success', "Deleting event... Successful.");
+			Yii::app()->user->setFlash('success', "Event deleted.");
+                        $this->redirect(array('index'));
 		}
 	}
 }

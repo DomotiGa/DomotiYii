@@ -47,7 +47,7 @@ $this->endWidget();
     'id'=>'all-floors-grid',
     'refreshTime'=>Yii::app()->params['refreshFloors'], // x second refresh as defined in config
     'type'=>'striped condensed',
-    'dataProvider'=>$model->search(),
+    'dataProvider'=>$model->GetFloors(),
     'template'=>'{items}{pager}{summary}',
     'selectableRows' => 1,
     'columns'=>array(

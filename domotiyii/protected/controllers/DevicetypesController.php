@@ -88,6 +88,7 @@ class DevicetypesController extends Controller
                         Yii::app()->user->setFlash('error', Yii::t('app','Devicetype delete failed!'));
                 } else {
                         Yii::app()->user->setFlash('success', Yii::t('app','Devicetype deleted.'));
+                        $this->redirect(array('index'));
                 }
         }
 }

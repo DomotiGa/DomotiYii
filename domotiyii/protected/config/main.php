@@ -101,6 +101,7 @@ return array(
 		'refreshGroups'=>'5000', // 5 second refresh
 		'refreshLocations'=>'5000', // 5 second refresh
 		'refreshFloors'=>'5000', // 5 second refresh
+		'refreshUsers'=>'5000', // 5 second refresh
 
 		// page size for specific gridviews
 		'pagesizeDevices'=>'20', // entries per page
@@ -115,5 +116,6 @@ return array(
 		'pagesizeGroups'=>'20', // entries per page
 		'pagesizeLocations'=>'20', // entries per page
 		'pagesizeFloors'=>'20', // entries per page
+		'pagesizeUsers'=>'20', // entries per page
 	),
 );

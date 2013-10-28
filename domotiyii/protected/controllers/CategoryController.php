@@ -113,6 +113,7 @@ class CategoryController extends Controller
                         Yii::app()->user->setFlash('error', Yii::t('app','Category delete failed!'));
                 } else {
                         Yii::app()->user->setFlash('success', Yii::t('app','Category deleted.'));
+                        $this->redirect(array('index'));
                 }
         }
 }

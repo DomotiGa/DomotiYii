@@ -113,6 +113,7 @@ class GroupsController extends Controller
                         Yii::app()->user->setFlash('error', Yii::t('app','Group delete failed!'));
                 } else {
                         Yii::app()->user->setFlash('success', Yii::t('app','Group deleted.'));
+			$this->redirect(array('index'));
                 }
         }
 }

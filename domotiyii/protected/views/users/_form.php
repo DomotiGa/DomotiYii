@@ -4,63 +4,25 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'users-form',
-	'enableAjaxValidation'=>false,
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+<fieldset>
+<p class="note"><?php echo Yii::t('app','Fields with <span class="required">*</span> are required.') ?></p>
 
-	<?php echo $form->errorSummary($model); ?>
+		<?php echo $form->textFieldControlGroup($model,'username'); ?>
+		<?php echo $form->textFieldControlGroup($model,'fullname'); ?>
+		<?php echo $form->passwordFieldControlGroup($model,'password',array('readonly'=>true)); ?>
+		<?php echo $form->textFieldControlGroup($model,'emailaddress'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'admin',array('value'=>-1)); ?>
+		<?php echo $form->textFieldControlGroup($model,'lastlogin'); ?>
+		<?php echo $form->textFieldControlGroup($model,'comments'); ?>
+</fieldset>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'username'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password',array('size'=>60,'maxlength'=>64)); ?>
-		<?php echo $form->error($model,'password'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'fullname'); ?>
-		<?php echo $form->textField($model,'fullname',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'fullname'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'admin'); ?>
-		<?php echo $form->textField($model,'admin'); ?>
-		<?php echo $form->error($model,'admin'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'comments'); ?>
-		<?php echo $form->textArea($model,'comments',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'comments'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'lastlogin'); ?>
-		<?php echo $form->textField($model,'lastlogin',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'lastlogin'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'emailaddress'); ?>
-		<?php echo $form->textField($model,'emailaddress',array('size'=>32,'maxlength'=>32)); ?>
-		<?php echo $form->error($model,'emailaddress'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
-
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton($model->isNewRecord ? Yii::t('app','Create') : Yii::t('app','Save'), array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('Reset'),
+)); ?>
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->

@@ -53,6 +53,18 @@ return array (
 'Graphs' => 'Grafieken',
 'Options' => 'Opties',
 
+// Users
+'Users' => 'Gebruikers',
+'Lastlogin' => 'Laatst Ingelogd',
+'Fullname' => 'Naam',
+'Username' => 'Loginnaam',
+'Admin' => 'Beheerder',
+'Password' => 'Wachtwoord',
+'Emailaddress' => 'Emailadres',
+'Comments' => 'Opmerkingen',
+'Successfully logged in.' => 'Succesvol ingelogd.',
+'Logged Out.' => 'Uitgelogd.',
+
 // Phone
 'Duration' => 'Duur',
 'Time' => 'Tijd',
@@ -93,8 +105,10 @@ return array (
 'Create Action' => 'Actie Toevoegen',
 'Create Category' => 'Categorie Toevoegen',
 'Create Location' => 'Lokatie Toevoegen',
+'Create User' => 'Gebruiker Toevoegen',
 'Description' => 'Omschrijving',
 'Last Run' => 'Laatst Actief',
+'Last Login' => 'Laatst Ingelogd',
 'Trigger' => 'Trigger',
 'Are you sure you want to delete this event?' => 'Weet je zeker dat je dit event wilt wissen?',
 'Are you sure you want to delete this trigger?' => 'Weet je zeker dat je deze trigger wilt wissen?',
@@ -105,6 +119,7 @@ return array (
 'Are you sure you want to delete this group?' => 'Weet je zeker dat je deze groep wilt wissen?',
 'Are you sure you want to delete this location?' => 'Weet je zeker dat je deze lokatie wilt wissen?',
 'Are you sure you want to delete this contact?' => 'Weet je zeker dat je dit contact wilt wissen?',
+'Are you sure you want to delete this user?' => 'Weet je zeker dat je deze gebruiker wilt wissen?',
 
 'Create Contact' => 'Contact Toevoegen',
 // Save / Delete
@@ -128,6 +143,8 @@ return array (
 'Device save failed!' => 'Opslaan van apparaat mislukt!',
 'Device deleted.' => 'Apparaat gewist.',
 'Device delete failed!' => 'Wissen van apparaat mislukt!',
+'Device controlled.' => 'Apparaat bestuurd.',
+'Device control failed!' => 'Besturing van apparaat mislukt!',
 'Devicetype saved.' => 'Apparaattype opgeslagen.',
 'Devicetype save failed!' => 'Opslaan van apparaattype mislukt!',
 'Devicetype deleted.' => 'Apparaattype gewist.',
@@ -148,5 +165,9 @@ return array (
 'Location save failed!' => 'Opslaan van lokatie mislukt!',
 'Location deleted.' => 'Lokatie gewist.',
 'Location delete failed!' => 'Wissen van lokatie mislukt!',
+'User saved.' => 'Gebruiker opgeslagen.',
+'User save failed!' => 'Opslaan van gebruiker mislukt!',
+'User deleted.' => 'Gebruiker gewist.',
+'User delete failed!' => 'Wissen van gebruiker mislukt!',
 );
 ?>

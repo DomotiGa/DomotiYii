@@ -5,7 +5,7 @@ class FloorsController extends Controller
         public function actionIndex()
         {
                 $criteria = new CDbCriteria();
-                $model=new Floors('search');
+                $model=new Floors('search', array('keyField' => 'floor'));
                 $model->unsetAttributes(); // clear any default values
 
                 if(isset($_GET['Floors']))
@@ -114,6 +114,7 @@ class FloorsController extends Controller
                         Yii::app()->user->setFlash('error', Yii::t('app','Floor delete failed!'));
                 } else {
                         Yii::app()->user->setFlash('success', Yii::t('app','Floor deleted.'));
+                        $this->redirect(array('index'));
                 }
         }
 }

@@ -100,18 +100,19 @@ class TriggersController extends Controller
         {
                 if ( $model->save() === false )
                 {
-                        Yii::app()->user->setFlash('error', "Saving trigger... Failed!");
+                        Yii::app()->user->setFlash('error', "Trigger save failed!");
                 } else {
-                        Yii::app()->user->setFlash('success', "Saving trigger... Successful.");
+                        Yii::app()->user->setFlash('success', "Trigger saved.");
                 }
         }
 
 	protected function do_delete($model)
 	{
 		if ( $model->delete() === false ) {
-			Yii::app()->user->setFlash('error', "Deleting event... Failed!");
+			Yii::app()->user->setFlash('error', "Trigged delete failed!");
 		} else {
-			Yii::app()->user->setFlash('success', "Deleting event... Successful.");
+			Yii::app()->user->setFlash('success', "Trigger deleted.");
+                        $this->redirect(array('index'));
 		}
 	}
 }

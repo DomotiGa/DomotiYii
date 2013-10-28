@@ -119,6 +119,7 @@ class ActionsController extends Controller
                         Yii::app()->user->setFlash('error', Yii::t('app','Action delete failed!'));
                 } else {
                         Yii::app()->user->setFlash('success', Yii::t('app','Action deleted.'));
+                        $this->redirect(array('index'));
                 }
         }
 }

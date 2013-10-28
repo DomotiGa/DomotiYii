@@ -1,55 +1,32 @@
-<?php
-/* @var $this UsersController */
-/* @var $model Users */
-/* @var $form CActiveForm */
+<?php  $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
+        'id'=>'search-users-form',
+        'action'=>Yii::app()->createUrl($this->route),
+	'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
+        'method'=>'get',
+));  ?>
+
+<fieldset>
+                <?php echo $form->textFieldControlGroup($model,'username'); ?>
+                <?php echo $form->textFieldControlGroup($model,'fullname'); ?>
+                <?php echo $form->checkBoxControlGroup($model,'admin', array('value'=>-1)); ?>
+</fieldset>
+
+<?php echo TbHtml::formActions(array(
+    TbHtml::submitButton(Yii::t('app','Search'), array('color' => TbHtml::BUTTON_COLOR_PRIMARY,'buttonType'=>'submit', 'type'=>'primary', 'icon'=>'search white', 'label'=>'Search')),
+    TbHtml::resetButton(Yii::t('app','Reset'), array('buttonType'=>'button', 'icon'=>'icon-remove-sign white', 'label'=>'Reset')),
+));
+
+$this->endWidget();
 ?>
 
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
-
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id',array('size'=>20,'maxlength'=>20)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'username'); ?>
-		<?php echo $form->textField($model,'username',array('size'=>32,'maxlength'=>32)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'fullname'); ?>
-		<?php echo $form->textField($model,'fullname',array('size'=>32,'maxlength'=>32)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'admin'); ?>
-		<?php echo $form->textField($model,'admin'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'comments'); ?>
-		<?php echo $form->textArea($model,'comments',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'lastlogin'); ?>
-		<?php echo $form->textField($model,'lastlogin',array('size'=>32,'maxlength'=>32)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'emailaddress'); ?>
-		<?php echo $form->textField($model,'emailaddress',array('size'=>32,'maxlength'=>32)); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
+ <script>
+        $(".btnreset").click(function(){
+                $(":input","#search-users-form").each(function() {
+                var type = this.type;
+                var tag = this.tagName.toLowerCase(); // normalize case
+                if (type == "text" || type == "password" || tag == "textarea") this.value = "";
+                else if (type == "checkbox" || type == "radio") this.checked = false;
+                else if (tag == "select") this.selectedIndex = "";
+          });
+        });
+ </script>

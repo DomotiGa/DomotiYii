@@ -119,6 +119,7 @@ class ContactsController extends Controller
                         Yii::app()->user->setFlash('error', Yii::t('app','Contact delete failed!'));
                 } else {
                         Yii::app()->user->setFlash('success', Yii::t('app','Contact deleted.'));
+                        $this->redirect(array('index'));
                 }
         }
 }

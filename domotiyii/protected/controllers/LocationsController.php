@@ -113,6 +113,7 @@ class LocationsController extends Controller
                         Yii::app()->user->setFlash('error', Yii::t('app','Location delete failed!'));
                 } else {
                         Yii::app()->user->setFlash('success', Yii::t('app','Location deleted.'));
+                        $this->redirect(array('index'));
                 }
         }
 }

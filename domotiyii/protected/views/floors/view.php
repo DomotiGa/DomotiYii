@@ -33,7 +33,7 @@ $this->endWidget();
 	'type' => 'striped condensed',
 	'data'=>$model,
         'attributes'=>array(
-                array('name' => 'id'),
+                array('name' => 'floor'),
                 array('name' => 'name'),
                 array('name' => 'image'),
 	),
