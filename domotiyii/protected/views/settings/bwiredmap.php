@@ -10,6 +10,21 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     ),
 ));
 
+$this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
+));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('app','Settings'), 'icon'=>'icon-wrench', 'url'=>Yii::app()->controller->createUrl('bwiredmap'),'active'=>true, 'linkOptions'=>array()),
+                array('label'=>Yii::t('app','Devices'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('devicesbwired/index'), 'linkOptions'=>array()),
+                array('label'=>Yii::t('app','DomoticaWorld'), 'icon'=>'icon-globe', 'url'=>'http://www.bwired.nl/domoticaworld.asp', 'linkOptions'=>array()),
+        ),
+));
+$this->endWidget();
+
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id'=>'login-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,

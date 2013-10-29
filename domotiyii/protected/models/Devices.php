@@ -62,6 +62,13 @@
  */
 class Devices extends CActiveRecord
 {
+        /**
+         * @return dropdownlist with the list of devices (used in temperaturenu, bwired, pachube devices)
+         */
+        public function getDevices()
+        {
+                return CHtml::listData(Devices::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
+        }
 
 	/**
          * @return dropdownlist with the list of modules/devicetypes

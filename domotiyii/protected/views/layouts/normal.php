@@ -73,7 +73,7 @@
                        array('label'=>'Ncid', 'url'=> array('settings/ncid')),
                     )),
                     array('label'=>'Cameras', 'url'=>'#', 'items'=>array(
-                       array('label'=>'Cameras', 'url'=> array('settings/cameras')),
+                       array('label'=>'Cameras', 'url'=> array('cameras/index')),
                        array('label'=>'IP Videoserver', 'url'=> array('settings/videoserver')),
                        array('label'=>'Sony Visca', 'url'=> array('settings/visca')),
                     )),

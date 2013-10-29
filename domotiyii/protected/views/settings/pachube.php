@@ -10,19 +10,32 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     ),
 ));
 
+$this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
+));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('app','Settings'), 'icon'=>'icon-wrench', 'url'=>Yii::app()->controller->createUrl('pachube'),'active'=>true, 'linkOptions'=>array()),
+                array('label'=>Yii::t('app','Devices'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('devicespachube/index'), 'linkOptions'=>array()),
+                array('label'=>Yii::t('app','Pachube Feed'), 'icon'=>'icon-globe', 'url'=>'http://www.xively.com/', 'linkOptions'=>array()),
+        ),
+));
+$this->endWidget();
+
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id'=>'login-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
-
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->numberFieldControlGroup($model,'feed'); ?>
 		<?php echo $form->textFieldControlGroup($model,'apikey', array('class'=>'span7')); ?>
 		<?php echo $form->numberFieldControlGroup($model,'pushtime', array('append' => 'Seconds')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

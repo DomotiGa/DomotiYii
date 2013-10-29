@@ -79,6 +79,8 @@ return array (
 'Unknown' => 'Onbekend',
 'In Call' => 'Gesprek bezig',
 
+// Cameras
+'Create Camera' => 'Camera Toevoegen',
 // Settings
 'Settings' => 'Instellingen',
 'Enabled' => 'Geactiveerd',
@@ -120,6 +122,7 @@ return array (
 'Are you sure you want to delete this location?' => 'Weet je zeker dat je deze lokatie wilt wissen?',
 'Are you sure you want to delete this contact?' => 'Weet je zeker dat je dit contact wilt wissen?',
 'Are you sure you want to delete this user?' => 'Weet je zeker dat je deze gebruiker wilt wissen?',
+'Are you sure you want to delete this camera?' => 'Weet je zeker dat je deze camera wilt wissen?',
 
 'Create Contact' => 'Contact Toevoegen',
 // Save / Delete
@@ -169,5 +172,9 @@ return array (
 'User save failed!' => 'Opslaan van gebruiker mislukt!',
 'User deleted.' => 'Gebruiker gewist.',
 'User delete failed!' => 'Wissen van gebruiker mislukt!',
+'Camera saved.' => 'Camera opgeslagen.',
+'Camera save failed!' => 'Opslaan van camera mislukt!',
+'Camera deleted.' => 'Camera gewist.',
+'Camera delete failed!' => 'Wissen van camera mislukt!',
 );
 ?>

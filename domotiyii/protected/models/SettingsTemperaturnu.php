@@ -75,8 +75,8 @@ class SettingsTemperaturnu extends CActiveRecord
 			'apikey' => 'API key',
 			'pushtime' => 'Pushtime',
 			'debug' => 'Debug',
-			'deviceid' => 'Device Id',
-			'devicevalue' => 'Device value',
+			'deviceid' => 'Device',
+			'devicevalue' => 'Value',
 		);
 	}
 
