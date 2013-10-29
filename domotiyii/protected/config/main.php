@@ -17,7 +17,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-		'bootstrap.helpers.TbHtml',
+		'bootstrap.helpers.TbHtml', 
 	),
 	'modules'=>array(
 		'gii'=>array(
@@ -37,9 +37,13 @@ return array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
 			'rules'=>array(
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
+				'mobile/<id:\d+>'=>'mobile/site/view',
+				'mobile/<action:\w+>/<id:\d+>'=>'mobile/site/<action>',
+				'mobile/<action:\w+>'=>'mobile/site/<action>',
+                '<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+				
 			),
 		),
 		'db'=>array(
