@@ -7,9 +7,7 @@
         array(
             'class'=>'bootstrap.widgets.TbNav',
             'items'=>array(
-                array('label'=>Yii::t('app','Devices'), 'url'=> array('devices/index')),
-                array('label' => Yii::t('app','Phone'), 'url' => array('cdr/index')),
-                array('label'=> Yii::t('app','Contacts'), 'url'=> array('contacts/index')),
+                array('label'=>Yii::t('app','Devices'), 'url'=> array('mobile/devices/index')),
             ),
         ),
         array(

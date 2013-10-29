@@ -133,17 +133,6 @@ class DevicesController extends Controller
                 ));
         }
 
-	public function actionSetDevice()
-	{
-		if(isset($_POST['Device']['id']) && isset($_POST['Device']['value']))
-		{
-			$current_device_id = strip_tags($_POST['Device']['id']);                   
-			$current_device_value = strip_tags($_POST['Device']['value']);
-			$result = $this->do_xmlrpc('device.setdevice',array($current_device_id,$current_device_value));
-			echo json_encode($result);
-		}
-	}
-
 	protected function do_save($model)
 	{
 		if ( $model->save() === false )
@@ -165,21 +154,4 @@ class DevicesController extends Controller
 		}
 	}
 
-	protected function do_xmlrpc($procedure, $data = array())
-	{
-		$request = xmlrpc_encode_request($procedure, $data);
-		$context = stream_context_create(array('http' => array('method' => "POST",'header' =>"Content-Type: text/xml",'content' => $request)));
-		$file = @file_get_contents(Yii::app()->params['xmlrpcHost'], false, $context);
-		if ( $file === FALSE )
-		{
-			return array('error', "Couldn't connect to XML-RPC service on '" . Yii::app()->params['xmlrpcHost'] . "'");
-		} else {
-			if ( xmlrpc_decode($file) == "1" )
-			{
-				return array('success', "Device controlled.");
-			} else {
-				return array('error', "Device control failed!");
-			}
-		}
-	}
 }
