@@ -8,7 +8,23 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         Yii::t('app','Modules') => '../index',
         Yii::t('app','NotifyMyAndroid'),
     ),
+)); ?>
+
+<legend>NotifyMyAndroid</legend>
+<?php $this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
 ));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('app','NotifyMyAndroid'), 'icon'=>'icon-globe', 'url'=>'https://www.notifymyandroid.com', 'linkOptions'=>array('target'=>'_blank')),
+                array('label'=>Yii::t('app','Your NotifyMyAndroid'), 'icon'=>'icon-globe', 'url'=>'https://www.notifymyandroid.com/login.jsp', 'linkOptions'=>array('target'=>'_blank')),
+                array('label'=>Yii::t('app','Register for API'), 'icon'=>'icon-globe', 'url'=>'https://www.notifymyandroid.com/register.jsp', 'linkOptions'=>array('target'=>'_blank')),
+        ),
+));
+$this->endWidget();
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'settings-nma-form',
@@ -16,13 +32,11 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 )); ?>
 
 <fieldset>
-
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'apikey', array('class'=>'span5')); ?>
 		<?php echo $form->textFieldControlGroup($model,'application'); ?>
 		<?php echo $form->textFieldControlGroup($model,'event'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

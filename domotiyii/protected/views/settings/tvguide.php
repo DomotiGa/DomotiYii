@@ -15,13 +15,12 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
+<legend>TV Guide</legend>
 <fieldset>
-
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'xmlgrabcmd', array('class'=>'span7')); ?>
 		<?php echo $form->textFieldControlGroup($model,'xmlfile', array('class'=>'span7')); ?>
 		<?php echo $form->checkboxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

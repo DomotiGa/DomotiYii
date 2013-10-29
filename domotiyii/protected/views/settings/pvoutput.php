@@ -8,7 +8,21 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         Yii::t('app','Modules') => '../index',
         Yii::t('app','PVoutput'),
     ),
+)); ?>
+
+<legend>PVOutput</legend>
+<?php $this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
 ));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('app','Your PVOutput Page'), 'icon'=>'icon-globe', 'url'=>'http://www.pvoutput.org/list.jsp?sid='.$model->pvoutputid, 'linkOptions'=>array('target'=>'_blank')),
+        ),
+));
+$this->endWidget();
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'settings-pvoutput-form',
@@ -28,7 +42,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 <?php echo $form->dropDownListControlGroup($model,'tempdevicevalue', array('0' => '', '1' => 'Value1', '2' => 'Value2', '3' => 'Value3', '4' => 'Value4')); ?>
 		<?php echo $form->numberFieldControlGroup($model,'pushtime', array('append' => 'Seconds')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

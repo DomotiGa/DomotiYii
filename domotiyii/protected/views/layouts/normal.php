@@ -16,6 +16,7 @@
                        array('label'=>'GMail', 'url'=> array('settings/gmail')),
 		    )),
                     array('label'=>'Twitter', 'url'=> array('settings/twitter')),
+                    array('label'=>'P2000 Scanner', 'url'=> array('settings/p2000')),
                     array('label'=>'Servers', 'url'=>'#', 'items'=>array(
                        array('label'=>'Telnet Server', 'url'=> array('settings/telnetserver')),
                        array('label'=>'SmartVISU Server', 'url'=> array('settings/smartvisu')),
@@ -80,6 +81,7 @@
                     array('label'=>'CUL', 'url'=> array('settings/cul')),
                     array('label'=>'Device Control', 'url'=>'#', 'items'=>array(
                        array('label'=>'Anel PwrCtrl', 'url'=> array('settings/pwrctrl')),
+                       array('label'=>'DMX Player', 'url'=> array('settings/dmxplayer')),
                        array('label'=>'EZcontrol', 'url'=> array('settings/ezcontrol')),
                        array('label'=>'KNX/EIB', 'url'=> array('settings/eib')),
                        array('label'=>'PLCBUS', 'url'=> array('settings/plcbus')),

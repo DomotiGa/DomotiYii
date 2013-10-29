@@ -17,7 +17,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-		'bootstrap.helpers.TbHtml', 
+		'bootstrap.helpers.TbHtml',
 	),
 	'modules'=>array(
 		'gii'=>array(
@@ -43,7 +43,6 @@ return array(
                 '<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-				
 			),
 		),
 		'db'=>array(
@@ -52,6 +51,9 @@ return array(
 			'username' => 'domouser',
 			'password' => 'kung-fu',
 			'charset' => 'utf8',
+			// uncomment the following to get sql statistics inside debug toolbar
+			'enableProfiling'=>true,
+			'enableParamLogging'=>true,
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
@@ -64,12 +66,13 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning, info',
 				),
-				// uncomment the following to show log messages on web pages
-		/*
+				// uncomment the following to show debug toolbar
+/*
 				array(
-					'class'=>'CWebLogRoute',
-				),
-		*/
+					'class' => 'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
+					'ipFilters'=>array('*'),
+				)
+*/
 			),
 		),
 		'bootstrap'=>array(

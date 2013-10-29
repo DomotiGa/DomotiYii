@@ -15,8 +15,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
+<legend>SmartMeter NTA8130</legend>
 <fieldset>
-
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
                 <?php echo $form->dropDownListControlGroup($model,'type', array('serial' => 'serial', 'tcp' => 'tcp'), array('onchange'=>'switchTypeExtra(this);')); ?>
                 <?php echo $form->textFieldControlGroup($model,'tcphost', array('readonly'=>($model->type == 'serial')? true : false, 'id'=>'tcphost')); ?>
@@ -27,7 +27,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->numberFieldControlGroup($model,'stopbits', array('readonly'=>($model->type == 'serial')? false : true, 'id'=>'stopbits')); ?>
 		<?php echo $form->numberFieldControlGroup($model,'parity', array('readonly'=>($model->type == 'serial')? false : true, 'id'=>'parity')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

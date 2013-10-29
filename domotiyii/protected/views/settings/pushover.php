@@ -8,7 +8,23 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         Yii::t('app','Modules') => '../index',
         Yii::t('app','Pushover'),
     ),
+)); ?>
+
+<legend>Pushover</legend>
+<?php $this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
 ));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('app','Pushover'), 'icon'=>'icon-globe', 'url'=>'https://pushover.net', 'linkOptions'=>array('target'=>'_blank')),
+                array('label'=>Yii::t('app','Your Pushover'), 'icon'=>'icon-globe', 'url'=>'https://pushover.net/login', 'linkOptions'=>array('target'=>'_blank')),
+                array('label'=>Yii::t('app','Register'), 'icon'=>'icon-globe', 'url'=>'https://pushover.net/login', 'linkOptions'=>array('target'=>'_blank')),
+        ),
+));
+$this->endWidget();
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'settings-pushover-form',
@@ -16,13 +32,11 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 )); ?>
 
 <fieldset>
-
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'token', array('class'=>'span4')); ?>
 		<?php echo $form->textFieldControlGroup($model,'user', array('class'=>'span4')); ?>
 		<?php echo $form->textFieldControlGroup($model,'device'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

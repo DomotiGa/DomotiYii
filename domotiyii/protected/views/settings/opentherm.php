@@ -15,8 +15,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
+<legend>OpenTherm</legend>
 <fieldset>
-
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
                 <?php echo $form->dropDownListControlGroup($model,'type', array('serial' => 'serial', 'tcp' => 'tcp'), array('onchange'=>'switchType(this);')); ?>
                 <?php echo $form->textFieldControlGroup($model,'tcphost',
@@ -33,7 +33,6 @@ array('readonly'=>($model->type == 'serial')? true : false, 'id'=>'tcpport')); ?
                 <?php echo $form->numberFieldControlGroup($model,'relayport', array('readonly'=>($model->relayenabled <> 0)? false : true, 'id'=>'relayport')); ?>
 		<?php echo $form->numberFieldControlGroup($model,'polltime', array('append' => 'Seconds')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug' , array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

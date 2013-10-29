@@ -8,7 +8,23 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         Yii::t('app','Modules') => '../index',
         Yii::t('app','Prowl'),
     ),
+)); ?>
+
+<legend>ProwlApp</legend>
+<?php $this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
 ));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('app','Prowl'), 'icon'=>'icon-globe', 'url'=>'http://www.prowlapp.com', 'linkOptions'=>array('target'=>'_blank')),
+                array('label'=>Yii::t('app','Your Prowl'), 'icon'=>'icon-globe', 'url'=>'https://www.prowlapp.com/login.php', 'linkOptions'=>array('target'=>'_blank')),
+                array('label'=>Yii::t('app','Register for API'), 'icon'=>'icon-globe', 'url'=>'https://www.prowlapp.com/register.php', 'linkOptions'=>array('target'=>'_blank')),
+        ),
+));
+$this->endWidget();
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'settings-prowl-form',
@@ -21,7 +37,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->textFieldControlGroup($model,'application'); ?>
 		<?php echo $form->textFieldControlGroup($model,'event'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

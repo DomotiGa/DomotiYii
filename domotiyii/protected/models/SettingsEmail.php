@@ -10,6 +10,9 @@
  * @property string $toaddress
  * @property string $smtpserver
  * @property integer $smtpport
+ * @property boolean $sslenabled
+ * @property string $username
+ * @property string $password
  * @property boolean $debug
  */
 class SettingsEmail extends CActiveRecord
@@ -42,8 +45,8 @@ class SettingsEmail extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, smtpport', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
-			array('fromaddress, toaddress, smtpserver', 'length', 'max'=>32),
+			array('enabled, debug, sslenabled', 'boolean', 'trueValue'=>-1),
+			array('fromaddress, toaddress, smtpserver, username, password', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, fromaddress, toaddress, smtpserver, smtpport, debug', 'safe', 'on'=>'search'),
@@ -73,6 +76,9 @@ class SettingsEmail extends CActiveRecord
 			'toaddress' => 'To address',
 			'smtpserver' => 'SMTP server',
 			'smtpport' => 'SMTP port',
+			'sslenabled' => 'SSL Enabled',
+			'username' => 'Username',
+			'password' => 'Password',
 			'debug' => 'Debug',
 		);
 	}
@@ -94,6 +100,9 @@ class SettingsEmail extends CActiveRecord
 		$criteria->compare('toaddress',$this->toaddress,true);
 		$criteria->compare('smtpserver',$this->smtpserver,true);
 		$criteria->compare('smtpport',$this->smtpport);
+		$criteria->compare('sslenabled',$this->smtpport);
+		$criteria->compare('username',$this->smtpport);
+		$criteria->compare('password',$this->smtpport);
 		$criteria->compare('debug',$this->debug);
 
 		return new CActiveDataProvider($this, array(

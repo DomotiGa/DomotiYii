@@ -15,13 +15,12 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
+<legend>iViewer</legend>
 <fieldset>
-
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->numberFieldControlGroup($model,'tcpport'); ?>
 		<?php echo $form->passwordFieldControlGroup($model,'password'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

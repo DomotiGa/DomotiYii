@@ -15,15 +15,14 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
+<legend>Digitemp</legend>
 <fieldset>
-
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'command'); ?>
 		<?php echo $form->textFieldControlGroup($model,'config'); ?>
 		<?php echo $form->numberFieldControlGroup($model,'polltime', array('append' => 'Seconds')); ?>
 		<?php echo $form->numberFieldControlGroup($model,'readtime', array('append' => 'mS')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

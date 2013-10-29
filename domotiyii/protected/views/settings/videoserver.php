@@ -15,8 +15,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
+<legend>VideoServer IP9100</legend>
 <fieldset>
-
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'tcphost'); ?>
 		<?php echo $form->numberFieldControlGroup($model,'tcpport'); ?>
@@ -27,7 +27,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->textFieldControlGroup($model,'channel3'); ?>
 		<?php echo $form->textFieldControlGroup($model,'channel4'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

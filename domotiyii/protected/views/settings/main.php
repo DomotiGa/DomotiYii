@@ -15,8 +15,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
+<legend>Main</legend>
 <fieldset>
-
 		<?php echo $form->numberFieldControlGroup($model,'sleeptime', array('append' => 'mS')); ?>
 		<?php echo $form->numberFieldControlGroup($model,'flushtime', array('append' => 'mS')); ?>
 		<?php echo $form->numberFieldControlGroup($model,'logbuffer', array('append' => 'Chars')); ?>
@@ -28,7 +28,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->checkBoxControlGroup($model,'autodevicecreate', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'startpage'); ?>
 		<?php echo $form->textFieldControlGroup($model,'logprefix'); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

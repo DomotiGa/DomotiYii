@@ -15,8 +15,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
+<legend>CallerID</legend>
 <fieldset>
-
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->numberFieldControlGroup($model,'countrycode'); ?>
 		<?php echo $form->numberFieldControlGroup($model,'areacode'); ?>
@@ -24,9 +24,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->numberFieldControlGroup($model,'prefixinternational'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'autocreatecontacts', array('value'=>-1)); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
-
 
 <?php echo TbHtml::formActions(array(
     TbHtml::submitButton(Yii::t('app','Submit'), array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),

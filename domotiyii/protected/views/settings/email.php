@@ -15,15 +15,17 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
+<legend>E-mail</legend>
 <fieldset>
-
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'smtpserver'); ?>
 		<?php echo $form->numberFieldControlGroup($model,'smtpport'); ?>
 		<?php echo $form->emailFieldControlGroup($model,'fromaddress'); ?>
 		<?php echo $form->emailFieldControlGroup($model,'toaddress'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'sslenabled', array('value'=>-1)); ?>
+		<?php echo $form->emailFieldControlGroup($model,'username'); ?>
+		<?php echo $form->emailFieldControlGroup($model,'password'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

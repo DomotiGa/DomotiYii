@@ -3,6 +3,23 @@
 class SettingsController extends Controller
 {
 
+public function actionP2000()
+{
+    $model = SettingsP2000::model()->findByPk(1);
+
+    if(isset($_POST['SettingsP2000']))
+    {
+        $model->attributes=$_POST['SettingsP2000'];
+        if($model->validate())
+        {
+            // form inputs are valid, do something here
+            $model->save();
+            $this->do_xmlrpc("module.restart","P2000");
+        }
+    }
+    $this->render('p2000',array('model'=>$model));
+}
+
 public function actionRazberry()
 {
     $model = SettingsRazberry::model()->findByPk(1);
@@ -1086,6 +1103,23 @@ public function actionLirc()
         }
     }
     $this->render('lirc',array('model'=>$model));
+}
+
+public function actionDmxPlayer()
+{
+    $model=SettingsDmxPlayer::model()->findByPk(1);
+
+    if(isset($_POST['SettingsDmxPlayer']))
+    {
+        $model->attributes=$_POST['SettingsDmxPlayer'];
+        if($model->validate())
+        {
+           // form inputs are valid, do something here
+           $model->save();
+           $this->do_xmlrpc("module.restart","dmxplayer");
+        }
+    }
+    $this->render('dmxplayer',array('model'=>$model));
 }
 
 public function actionJeelabs()

@@ -6,9 +6,10 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
         Yii::t('app','BwiredMap Devices'),
     ),
-));
+)); ?>
 
-Yii::app()->clientScript->registerScript('search', "
+<legend>BwiredMap Devices</legend>
+<?php Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
     $('.search-form').slideToggle('fast');
     return false;

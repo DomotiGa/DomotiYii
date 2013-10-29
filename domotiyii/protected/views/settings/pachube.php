@@ -8,9 +8,10 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         Yii::t('app','Modules') => '../index',
         Yii::t('app','Pachube/COSM/Xively'),
     ),
-));
+)); ?>
 
-$this->beginWidget('zii.widgets.CPortlet', array(
+<legend>Pachube/COSM/Xively</legend>
+<?php $this->beginWidget('zii.widgets.CPortlet', array(
         'htmlOptions'=>array(
                 'class'=>''
         )
@@ -20,7 +21,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
         'items'=>array(
                 array('label'=>Yii::t('app','Settings'), 'icon'=>'icon-wrench', 'url'=>Yii::app()->controller->createUrl('pachube'),'active'=>true, 'linkOptions'=>array()),
                 array('label'=>Yii::t('app','Devices'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('devicespachube/index'), 'linkOptions'=>array()),
-                array('label'=>Yii::t('app','Pachube Feed'), 'icon'=>'icon-globe', 'url'=>'http://www.xively.com/', 'linkOptions'=>array()),
+		array('label'=>Yii::t('app','Your Xively Feed'), 'icon'=>'icon-globe', 'url'=>'https://xively.com/feeds/'.$model->feed , 'linkOptions'=>array('target'=>'_blank')),
         ),
 ));
 $this->endWidget();

@@ -7,9 +7,10 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         Yii::t('app','Pachube Devices') => '../index',
         Yii::t('app','Update'),
     ),
-));
+)); ?>
 
-$this->beginWidget('zii.widgets.CPortlet', array(
+<legend>Pachube/COSM/Xively Devices</legend>
+<?php $this->beginWidget('zii.widgets.CPortlet', array(
         'htmlOptions'=>array(
                 'class'=>''
         )

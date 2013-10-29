@@ -7,9 +7,10 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         Yii::t('app','BwiredMap Devices') => 'index',
         Yii::t('app','Create'),
     ),
-));
+)); ?>
 
-$this->beginWidget('zii.widgets.CPortlet', array(
+<legend>BwiredMap Devices</legend>
+<?php $this->beginWidget('zii.widgets.CPortlet', array(
         'htmlOptions'=>array(
                 'class'=>''
         )
@@ -25,5 +26,4 @@ $this->endWidget();
 ?>
 
 <legend><?php echo Yii::t('app','Create BwiredMap Device') ?></legend>
-
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

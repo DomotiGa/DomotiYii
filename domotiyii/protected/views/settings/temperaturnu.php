@@ -8,7 +8,21 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         Yii::t('app','Modules') => '../index',
         Yii::t('app','TemperaturNu'),
     ),
+)); ?>
+
+<legend>Temperatur.nu</legend>
+<?php $this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
 ));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('app','Temperatur.nu'), 'icon'=>'icon-globe', 'url'=>'http://www.temperatur.nu', 'linkOptions'=>array('target'=>'_blank')),
+        ),
+));
+$this->endWidget();
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id'=>'login-form',
@@ -16,7 +30,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 )); ?>
 
 <fieldset>
-
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'city'); ?>
 		<?php echo $form->textFieldControlGroup($model,'apikey'); ?>
@@ -24,7 +37,6 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->dropDownListControlGroup($model,'devicevalue', array('0' => '', '1' => 'Value1', '2' => 'Value2', '3' => 'Value3', '4' => 'Value4')); ?>
 		<?php echo $form->numberFieldControlGroup($model,'pushtime', array('append' => 'Seconds')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

@@ -6,9 +6,10 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
         Yii::t('app','Pachube Devices'),
     ),
-));
+)); ?>
 
-Yii::app()->clientScript->registerScript('search', "
+<legend>Pachube/COSM/Xively Devices</legend>
+<?php Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
     $('.search-form').slideToggle('fast');
     return false;
