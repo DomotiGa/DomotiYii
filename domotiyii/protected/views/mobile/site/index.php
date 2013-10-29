@@ -39,7 +39,7 @@
      }
  
     $links_type = array(
-        array('label'=>Yii::t('app','All'), 'url'=>'index?location='.$location_id, 'active'=>$type == '0'),
+        array('label'=>Yii::t('app','All'), 'url'=>'index?location='.$location_id, 'active'=>$type == 'all'),
         array('label'=>Yii::t('app','Sensors'), 'url'=>'index?type=sensors&location='.$location_id, 'active'=>$type == 'sensors'),
         array('label'=>Yii::t('app','Dimmers'), 'url'=>'index?type=dimmers&location='.$location_id, 'active'=>$type == 'dimmers'),
         array('label'=>Yii::t('app','Switches'), 'url'=>'index?type=switches&location='.$location_id, 'active'=>$type == 'switches'),
@@ -53,7 +53,22 @@
             array('label'=>'Type', 'icon'=>'tags', 'url'=>'#', 'items' => $links_type),
          ),
      ));
- 
+?>
+    
+    <!-- TODO, first the server -->
+<!--    
+    <div class="scene" id="<?php  ?>"> 
+        <div>
+            <h5 class="scene_name">
+                Event xx
+            </h5>    
+           	<button class="btn btn-primary scene_action">Run</button>
+        </div>  
+        <div class="clear"></div>   
+    </div>
+-->
+
+<?php
     // end generate location and type menu
 
     foreach($model->search(false)->getData() as $device):

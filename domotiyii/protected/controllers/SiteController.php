@@ -31,7 +31,7 @@ class SiteController extends Controller
 		// using the default layout 'protected/views/layouts/main.php'
 		
         if($this->browserdetect->isMobile()){
-            $this->redirect('mobile/devices/index');
+            $this->redirect('mobile/index');
         }else{
             $this->render('index');
         }

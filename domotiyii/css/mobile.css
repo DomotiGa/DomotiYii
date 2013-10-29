@@ -26,6 +26,29 @@ body {
 }
 /*end override bootstrap */
 
+.scene
+{
+	border: 1px solid #C9E0ED;
+    padding: 5px;
+    margin-top: 2px;
+}
+
+.scene .scene_name
+{
+    float: left;
+}
+
+.scene .scene_action
+{
+    float: right;
+}
+
+.scene .scene_name, .scene_action
+{
+    margin: 5px 0;
+}
+
+
 
 .device
 {
