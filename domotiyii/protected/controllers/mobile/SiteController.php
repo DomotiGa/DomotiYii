@@ -4,6 +4,7 @@ class SiteController extends Controller
 {
 	public function actionIndex()
 	{
+        $this->pageTitle = 'DomotiGa - Mobile';
 		$criteria = new CDbCriteria();
 		$model=new Devices('search');
 		$model->unsetAttributes(); // clear any default values
