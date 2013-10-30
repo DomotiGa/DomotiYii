@@ -34,7 +34,7 @@ $(function() {
         device.find("button").removeClass("btn-primary");
         $(this).addClass("btn-primary");
         
-        if(device_value == "On"){
+        if(device_value.indexOf("On") !==-1){
             device.find(".slider input").slider('setValue', 100);
         }else{
             device.find(".slider input").slider('setValue', 0);
@@ -52,10 +52,10 @@ $(function() {
 
             if( (device_value > 0 && device_value <= 100)){
                 device.find("button").removeClass("btn-primary");
-                device.find("button:nth-child(1)").addClass("btn-primary");                
+                device.find("button:nth-child(2)").addClass("btn-primary");                
             }else{
                 device.find("button").removeClass("btn-primary");
-                device.find("button:nth-child(2)").addClass("btn-primary"); 
+                device.find("button:nth-child(1)").addClass("btn-primary"); 
             }
 
             if(device_value == 0){
@@ -74,13 +74,20 @@ $(function() {
         device = $(this).parents(".device");
         device_value = device.find(".device_status").html();
         device_value_number = device_value.replace(/[^\d.]/g,'');
-        if(!isNaN(device_value_number)){
+        
+        if(device_value.indexOf("On") !==-1){
+            device_value_number = 100;
+        }else if(device_value.indexOf("Off") !==-1){
+            device_value_number = 0;
+        }
+
+        $(this).slider('setValue', device_value_number); 
+        if(device_value_number > 0 && device_value_number <= 100){
             device.find("button").removeClass("btn-primary");
-            device.find("button:nth-child(1)").addClass("btn-primary");      
-            $(this).slider('setValue', device_value_number); 
+            device.find("button:nth-child(2)").addClass("btn-primary");      
         }else{
             device.find("button").removeClass("btn-primary");
-            device.find("button:nth-child(2)").addClass("btn-primary"); 
+            device.find("button:nth-child(1)").addClass("btn-primary"); 
         }
     });   
 
