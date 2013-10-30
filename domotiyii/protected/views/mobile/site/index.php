@@ -109,7 +109,7 @@
                     <button class="btn <?php echo ( (strpos($device['valuelabel'],'On') !== false) ?'btn-primary':''); ?>">On</button>
                 </div>            
             <?php endif; ?>
-            <?php if($device['dimable'] | true): ?>  
+            <?php if($device['dimable']): ?>  
                 <div class="slider-container">
                     <input type="text" class="slider" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">
                 </div>
