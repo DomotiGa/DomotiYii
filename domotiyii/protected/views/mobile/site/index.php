@@ -105,8 +105,8 @@
 
             <?php if( $device['switchable'] || $device['dimable'] ): ?>
                 <div class="btn-group switch_device">
-                    <button class="btn <?php echo (strcmp($device['valuelabel'],'On') == 1 ?'btn-primary':''); ?>">On</button>
-                    <button class="btn <?php echo (strcmp($device['valuelabel'],'Off') == 1 ?'btn-primary':''); ?>">Off</button>
+                    <button class="btn <?php echo ( (strpos($device['valuelabel'],'On') !== false) ?'btn-primary':''); ?>">On</button>
+                    <button class="btn <?php echo ( (strpos($device['valuelabel'],'Off') !== false) ?'btn-primary':''); ?>">Off</button>
                 </div>            
             <?php endif; ?>
             <?php if($device['dimable']): ?>  
