@@ -79,6 +79,7 @@ class Events extends CActiveRecord
 			array('enabled, log, rerunenabled', 'boolean', 'trueValue'=>-1),
 			array('firstrun, lastrun, comments', 'safe'),
 			array('name, trigger1, action1', 'required'),
+			array('name', 'unique', 'caseSensitive'=>false),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, enabled, name, log, firstrun, lastrun, comments, trigger1, condition1, operand, condition2, action1, action2, action3, rerunenabled, rerunvalue, reruntype, category', 'safe', 'on'=>'search'),

@@ -19,6 +19,32 @@
 class SettingsP2000 extends CActiveRecord
 {
 	/**
+	 * @return array with selected dropdown options
+	 */
+	public function getRegios()
+	{
+		$reg = explode(',',$this->regios);
+		$options = array();
+		foreach ($reg as $value) {
+        		$options[$value] = array('selected' => 'selected');
+		}
+		return $options;
+	}
+
+	/**
+	 * @return array with selected dropdown options
+	 */
+	public function getDisciplines()
+	{
+		$discip = explode(',',$this->discipline);
+		$options = array();
+		foreach ($discip as &$value) {
+			$options[$value] = array('selected' => 'selected');
+		}
+		return $options;
+	}
+
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()

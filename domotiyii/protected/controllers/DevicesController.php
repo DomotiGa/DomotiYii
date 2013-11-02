@@ -19,7 +19,6 @@ class DevicesController extends Controller
 		}
 
 		$type = Yii::app()->getRequest()->getParam('type');
-
 		if (isset($type) && !empty($type))
 		{
 			if($type == "sensors")
@@ -44,7 +43,6 @@ class DevicesController extends Controller
 		}
 
 		$location = Yii::app()->getRequest()->getParam('location');
-
 		if (isset($location) && !empty($location))
 		{
 			if($type != "0")
@@ -95,22 +93,39 @@ class DevicesController extends Controller
 
 	public function actionUpdateModule()
 	{
-		// update "#interface", todo "addressformat" and "devicegroup"
-		if(isset($_POST['Devices']['module']))
-		{
-			//Yii::log("devices-module");
-			$moduleid = $_POST['Devices']['module'];
-			echo CHtml::DropDownList("interface", 'id', Devices::model()->getInterfacesByDeviceType($moduleid));
+		// update "module" dropdown
+		$protocol = $_POST['protocol'];
+		if(strlen($protocol)) {
+
+			$data = Devices::model()->getDeviceTypesByType($protocol);
+			$dropDownModule = "<option value='null'>Select Module</option>";
+			foreach($data as $value=>$name)
+				$dropDownModule .= CHtml::tag('option', array('value'=>$value), CHtml::encode($name),true);
+		} else {
+			$data = Devices::model()->getDeviceTypes();
+			$dropDownModule = "<option value='null'>Select Module</option>";
+			foreach($data as $value=>$name)
+				$dropDownModule .= CHtml::tag('option', array('value'=>$value), CHtml::encode($name),true);
 		}
+
+		// update "interfaces" dropdown
+		$data = Devices::model()->getInterfacesByDeviceType($protocol);
+		$dropDownInterface = "<option value='null'>Select Interface</option>";
+
+		foreach($data as $value=>$name)
+			$dropDownInterface .= CHtml::tag('option', array('value'=>$value), CHtml::encode($name),true);
+
+			// return data in JSON format
+			echo CJSON::encode(array(
+				'dropDownModule'=>$dropDownModule,
+				'dropDownInterface'=>$dropDownInterface
+			));
 	}
 
-	public function actionUpdateInterface()
+	public function actionUpdateAddressFormat()
 	{
-		// update "#module"
-		if(isset($_POST['Devices']['interface']))
-		{
-			Yii::log("devices-interface");
-		}
+		// test
+		echo CHtml::textField('addressformat', array('value'=>'A01'));
 	}
 
         public function actionCreate()
@@ -126,6 +141,7 @@ class DevicesController extends Controller
                         if($model->validate())
                         {
                                 $this->do_save($model);
+				$this->redirect(array('update','id'=>$model->id));
                         }
                 }
                 $this->render('create',array(

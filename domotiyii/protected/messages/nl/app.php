@@ -30,6 +30,7 @@ return array (
 'Switches' => 'Schakelaars',
 'Dimmers' => 'Dimmers',
 'Value' => 'Waarde',
+'Value1' => 'Waarde1',
 'Value2' => 'Waarde2',
 'Value3' => 'Waarde3',
 'Value4' => 'Waarde4',
@@ -44,7 +45,8 @@ return array (
 'Locations' => 'Lokaties',
 'Update' => 'Bewerken',
 
-'Not allowed to only contain numbers.' => 'Mag niet alleen nummers bevatten.',
+'cannot be blank.' => 'mag niet leeg zijn.',
+'not allowed to only contain numbers.' => 'mag niet alleen nummers bevatten.',
 'Fields with <span class="required">*</span> are required.' => 'Velden met <span class="required">*</span> zijn verplicht.',
 'Main' => 'Algemeen',
 'Address' => 'Adres',

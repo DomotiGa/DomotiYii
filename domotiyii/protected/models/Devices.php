@@ -63,6 +63,11 @@
 class Devices extends CActiveRecord
 {
         /**
+         * used by protocol combobox inside device editor
+         */
+	public $protocol;
+
+        /**
          * @return dropdownlist with the list of devices (used in temperaturenu, bwired, pachube devices)
          */
         public function getDevices()
@@ -79,6 +84,14 @@ class Devices extends CActiveRecord
         }
 
 	/**
+         * @return dropdownlist with the list of modules/devicetypes protocols
+	 */
+        public function getDeviceProtocols()
+        {
+		return CHtml::listData(Devicetypes::model()->findAll(array('select'=>'type', 'order'=>'type ASC', 'distinct'=>true)), 'type', 'type');
+        }
+
+	/**
          * @return dropdownlist with the list of interfaces
 	 */
         public function getInterfaces()
@@ -86,20 +99,36 @@ class Devices extends CActiveRecord
         	return CHtml::listData(Interfaces::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
         }
 
+        /**
+         * @return dropdownlist with the list of interfaces, based on the device model id eg 112
+         */
+        public function getInterfacesByDeviceModel($id)
+        {
+                $devicetype = Devicetypes::model()->find('id=:id', array(':id'=>$id,));
+                if ($devicetype === null)
+                {
+                        return CHtml::listData(Interfaces::model(), 'id', 'name');
+                }
+                else
+                {
+                        return CHtml::listData(Interfaces::model()->findAll("type LIKE '%" . $devicetype->type . "%'", array('order'=>'name ASC')), 'id', 'name');
+                }
+        }
+
 	/**
-         * @return dropdownlist with the list of interfaces, based on the DeviceType
+         * @return dropdownlist with the list of interfaces, based on the DeviceType eg '1-Wire'
 	 */
-	public function getInterfacesByDeviceType($id)
+	public function getInterfacesByDeviceType($type)
 	{
-		$devicetype = Devicetypes::model()->find('id=:id', array(':id'=>$id,));
-		if ( $devicetype === null )
-		{
-			return CHtml::listData(Interfaces::model(), 'id', 'name');
-		}
-		else
-		{
-			return CHtml::listData(Interfaces::model()->findAll("type LIKE '%" . $devicetype->type . "%'", array('order'=>'name ASC')), 'id', 'name');
-		}	
+		return CHtml::listData(Interfaces::model()->findAll("type LIKE '%" . $type . "%'", array('order'=>'name ASC')), 'id', 'name');
+	}
+
+	/**
+         * @return dropdownlist with the list of devices, based on the DeviceType
+	 */
+	public function getDeviceTypesByType($protocol)
+	{
+		return CHtml::listData(Devicetypes::model()->findAll("type LIKE '%" . $protocol . "%'", array('order'=>'name ASC')), 'id', 'name');
 	}
 
 	/**
@@ -160,6 +189,8 @@ class Devices extends CActiveRecord
 			array('groups', 'length', 'max'=>128),
 			array('value, value2, value3, value4, correction, correction2, correction3, correction4, firstseen, lastseen, comments, lastchanged, resetvalue', 'safe'),
 			array('name, module, interface, address', 'required'),
+			array('name', 'unique', 'caseSensitive'=>false),
+//			array('address', 'unique'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, address, module, location, value, value2, value3, value4, label, label2, label3, label4, correction, correction2, correction3, correction4, onicon, officon, dimicon, interface, firstseen, lastseen, enabled, hide, log, logdisplay, logspeak, groups, rrd, graph, batterystatus, tampered, comments, valuerrddsname, value2rrddsname, value3rrddsname, value4rrddsname, valuerrdtype, value2rrdtype, value3rrdtype, value4rrdtype, switchable, dimable, extcode, x, y, floorplan, lastchanged, repeatstate, repeatperiod, reset, resetperiod, resetvalue, poll', 'safe', 'on'=>'search'),
@@ -186,63 +217,63 @@ class Devices extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
-			'address' => 'Address',
-			'module' => 'Device',
-			'location' => 'Location',
-			'l_location.name' => 'Location',
-			'value' => 'Value1',
-			'value2' => 'Value2',
-			'value3' => 'Value3',
-			'value4' => 'Value4',
-			'label' => 'Label1',
-			'label2' => 'Label2',
-			'label3' => 'Label3',
-			'label4' => 'Label4',
-			'correction' => 'Correction1',
-			'correction2' => 'Correction2',
-			'correction3' => 'Correction3',
-			'correction4' => 'Correction4',
-			'onicon' => 'On icon',
-			'officon' => 'Off icon',
-			'dimicon' => 'Dim icon',
-			'interface' => 'Interface',
-			'l_interface.name' => 'Interface',
-			'firstseen' => 'First seen',
-			'lastseen' => 'Last seen',
-			'enabled' => 'Enabled',
-			'hide' => 'Hide device',
-			'log' => 'Log status changes to db',
-			'logdisplay' => 'Display status changes',
-			'logspeak' => 'Speak status changes',
-			'groups' => 'Groups',
-			'rrd' => 'Log RRD data',
-			'graph' => 'Enable simple graphing',
-			'batterystatus' => 'Battery status',
-			'tampered' => 'Tampered',
-			'comments' => 'Comments',
-			'valuerrddsname' => 'Value1 rrd dsname',
-			'value2rrddsname' => 'Value2 rrd dsname',
-			'value3rrddsname' => 'Value3 rrd dsname',
-			'value4rrddsname' => 'Value4 rrd dsname',
-			'valuerrdtype' => 'Value1 rrd type',
-			'value2rrdtype' => 'Value2 rrd type',
-			'value3rrdtype' => 'Value3 rrd type',
-			'value4rrdtype' => 'Value4 rrd type',
-			'switchable' => 'Device can be switched',
-			'dimable' => 'Device can be dimmed',
-			'extcode' => 'Supports extended X10',
-			'x' => 'X',
-			'y' => 'Y',
-			'floorplan' => 'Floorplan',
-			'lastchanged' => 'Last changed',
-			'repeatstate' => 'Repeat state enabled',
-			'repeatperiod' => 'Repeat period',
-			'reset' => 'Reset status enabled',
-			'resetperiod' => 'Reset period',
-			'resetvalue' => 'Reset value',
-			'poll' => 'Poll device (ZWave only)',
+			'id' => Yii::t('app','ID'),
+			'name' => Yii::t('app','Name'),
+			'address' => Yii::t('app','Address'),
+			'module' => Yii::t('app','Device'),
+			'location' => Yii::t('app','Location'),
+			'l_location.name' => Yii::t('app','Location'),
+			'value' => Yii::t('app','Value1'),
+			'value2' => Yii::t('app','Value2'),
+			'value3' => Yii::t('app','Value3'),
+			'value4' => Yii::t('app','Value4'),
+			'label' => Yii::t('app','Label1'),
+			'label2' => Yii::t('app','Label2'),
+			'label3' => Yii::t('app','Label3'),
+			'label4' => Yii::t('app','Label4'),
+			'correction' => Yii::t('app','Correction1'),
+			'correction2' => Yii::t('app','Correction2'),
+			'correction3' => Yii::t('app','Correction3'),
+			'correction4' => Yii::t('app','Correction4'),
+			'onicon' => Yii::t('app','On icon'),
+			'officon' => Yii::t('app','Off icon'),
+			'dimicon' => Yii::t('app','Dim icon'),
+			'interface' => Yii::t('app','Interface'),
+			'l_interface.name' => Yii::t('app','Interface'),
+			'firstseen' => Yii::t('app','First seen'),
+			'lastseen' => Yii::t('app','Last seen'),
+			'enabled' => Yii::t('app','Enabled'),
+			'hide' => Yii::t('app','Hide device'),
+			'log' => Yii::t('app','Log status changes to db'),
+			'logdisplay' => Yii::t('app','Display status changes'),
+			'logspeak' => Yii::t('app','Speak status changes'),
+			'groups' => Yii::t('app','Groups'),
+			'rrd' => Yii::t('app','Log RRD data'),
+			'graph' => Yii::t('app','Enable simple graphing'),
+			'batterystatus' => Yii::t('app','Battery status'),
+			'tampered' => Yii::t('app','Tampered'),
+			'comments' => Yii::t('app','Comments'),
+			'valuerrddsname' => Yii::t('app','Value1 rrd dsname'),
+			'value2rrddsname' => Yii::t('app','Value2 rrd dsname'),
+			'value3rrddsname' => Yii::t('app','Value3 rrd dsname'),
+			'value4rrddsname' => Yii::t('app','Value4 rrd dsname'),
+			'valuerrdtype' => Yii::t('app','Value1 rrd type'),
+			'value2rrdtype' => Yii::t('app','Value2 rrd type'),
+			'value3rrdtype' => Yii::t('app','Value3 rrd type'),
+			'value4rrdtype' => Yii::t('app','Value4 rrd type'),
+			'switchable' => Yii::t('app','Device can be switched'),
+			'dimable' => Yii::t('app','Device can be dimmed'),
+			'extcode' => Yii::t('app','Supports extended X10'),
+			'x' => Yii::t('app','X'),
+			'y' => Yii::t('app','Y'),
+			'floorplan' => Yii::t('app','Floorplan'),
+			'lastchanged' => Yii::t('app','Last changed'),
+			'repeatstate' => Yii::t('app','Repeat state enabled'),
+			'repeatperiod' => Yii::t('app','Repeat period'),
+			'reset' => Yii::t('app','Reset status enabled'),
+			'resetperiod' => Yii::t('app','Reset period'),
+			'resetvalue' => Yii::t('app','Reset value'),
+			'poll' => Yii::t('app','Poll device (ZWave only)'),
 		);
 	}
 
@@ -315,24 +346,24 @@ class Devices extends CActiveRecord
 		$criteria->compare('poll',$this->poll);
 
 		if ($enablepagination) {
-        return new CActiveDataProvider($this, array(
-			'pagination' => array(
-                                'pageSize'=>Yii::app()->params['pagesizeDevices'],
-                        ),
-			'criteria'=>$criteria,
-            'sort'=>array(
-                'defaultOrder'=>'name ASC',
-            ),
-		));
-        } else {
-        return new CActiveDataProvider($this, array(
-			'pagination' => false,
-			'criteria'=>$criteria,
-            'sort'=>array(
-                'defaultOrder'=>'name ASC',
-            ),
-		));
-        }     
+			return new CActiveDataProvider($this, array(
+				'pagination' => array(
+					'pageSize'=>Yii::app()->params['pagesizeDevices'],
+                      	 	),
+				'criteria'=>$criteria,
+				'sort'=>array(
+					'defaultOrder'=>'name ASC',
+				),
+			));
+		} else {
+			return new CActiveDataProvider($this, array(
+				'pagination' => false,
+				'criteria'=>$criteria,
+				'sort'=>array(
+					'defaultOrder'=>'name ASC',
+				),
+			));
+		}
 	}
 
 	/**
@@ -342,21 +373,25 @@ class Devices extends CActiveRecord
 
 		$context = stream_context_create(array('http' => array('method' => "POST",'header' =>"Content-Type: text/xml",'content' => $request)));
 		if ($file = @file_get_contents(Yii::app()->params['xmlrpcHost'], false, $context)) {
-		$file=str_replace("i8","double",$file);
-		return xmlrpc_decode($file, "UTF-8");
+			$file=str_replace("i8","double",$file);
+			return xmlrpc_decode($file, "UTF-8");
 		} else {
 			Yii::app()->user->setFlash('error', "Couldn't connect to XML-RPC service on '" . Yii::app()->params['xmlrpcHost'] . "'");
 		}
 	}
 
 	/**
-	 * Check if the value not only contain numbers
+	 * Check if the value is not empty and does not only contain numbers
 	 * This is the 'notOnlyNumbers' validator as declared in rules().
 	 */
-	public function notOnlyNumbers($attribute,$params)
+	public function notOnlyNumbers($attribute, $params)
 	{
-		if(!preg_match('/(?!^\d+$)^.+$/', $this->$attribute))
-			$this->addError($attribute, Yii::t('app', 'Not allowed to only contain numbers.'));
+		if (!strlen($this->$attribute)) {
+			$this->addError($attribute, $this->getAttributeLabel($attribute)." ".Yii::t('app', 'cannot be blank.'));
+		} else {
+			if(!preg_match('/(?!^\d+$)^.+$/', $this->$attribute))
+				$this->addError($attribute, $this->getAttributeLabel($attribute)." ".Yii::t('app', 'not allowed to only contain numbers.'));
+		}
 	}
 
 	/**

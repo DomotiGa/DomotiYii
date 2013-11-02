@@ -102,6 +102,7 @@ class Actions extends CActiveRecord
 			array('name', 'length', 'max'=>64),
 			array('description, param1, param2, param3, param4, param5', 'safe'),
 			array('name, type', 'required'),
+			array('name', 'unique', 'caseSensitive'=>false),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, type, description, param1, param2, param3, param4, param5', 'safe', 'on'=>'search'),

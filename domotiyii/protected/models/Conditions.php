@@ -30,6 +30,7 @@ class Conditions extends CActiveRecord
 			array('name', 'length', 'max'=>64),
 			array('description, formula', 'safe'),
 			array('name, formula', 'required'),
+			array('name', 'unique', 'caseSensitive'=>false),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, description, formula', 'safe', 'on'=>'search'),
