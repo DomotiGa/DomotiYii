@@ -57,7 +57,7 @@
     
     <!-- TODO, first the server -->
 <!--    
-    <div class="scene" id="<?php  ?>"> 
+    <div class="scene" data-id="<?php  ?>"> 
         <div>
             <h5 class="scene_name">
                 Event xx
@@ -75,7 +75,7 @@
 ?>
 
        
-    <div class="device" id="<?php echo $device['id']; ?>"> 
+    <div class="device" data-id="<?php echo $device['id']; ?>"> 
         <div>
             <h5 class="device_name">
                 <?php echo $device['name']; ?>
