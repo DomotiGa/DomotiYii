@@ -52,7 +52,7 @@ $(function() {
             var error = false;            
             if (textStatus == "success"){
                 var json_data = JSON.parse(jqXHR);
-                if(json_data.result == undefined || json_data.error != undefined){
+                if(json_data.result == undefined || json_data.result == false || json_data.error != undefined){
                     error = true;
                 }else{
                     // parse data
