@@ -2,14 +2,25 @@ function set_device(id,value) {
     $.ajax({
         type: "POST",        
         url: "setdevice",
-        data: {Device: { id: id, value: value}  },
-        success: function (json_data) {
-            var data = JSON.parse(json_data);
-            if($.inArray("error",data) >= 0){
-                console.log(data);
+        data: {Device: { id: id, value: value}  }
+      }).always( function (jqXHR, textStatus, errorThrown) {
+            var error = false;            
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+            if (textStatus == "success"){
+               var json_data = JSON.parse(jqXHR);
+               console.log(json_data);
+               if(json_data.result != undefined && !json_data.result){
+                    error = true;
+               }
+            }else{
+                error = true;
+            }   
+
+            if(error){
                 $("#" + id + " .switch_device > button").removeClass("btn-primary").addClass("btn-danger");
             }  
-        }
       })
 }
 

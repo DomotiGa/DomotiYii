@@ -55,31 +55,31 @@ class SiteController extends Controller
 	{
 		if(isset($_POST['Device']['id']) && isset($_POST['Device']['value']))
 		{
-			$current_device_id = strip_tags($_POST['Device']['id']);                   
+			$current_device_id = intval(strip_tags($_POST['Device']['id']));                   
 			$current_device_value = strip_tags($_POST['Device']['value']);
-			$result = $this->do_xmlrpc('device.setdevice',array($current_device_id,$current_device_value));
+
+			$result = $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.set", "params" =>  array("deviceid"=>$current_device_id,"value"=>$current_device_value),'id'=>1));
 			echo json_encode($result);
 		}
 	}
 
-
-
-
-	protected function do_xmlrpc($procedure, $data = array())
+	protected function do_jsonrpc($data = array())
 	{
-		$request = xmlrpc_encode_request($procedure, $data);
-		$context = stream_context_create(array('http' => array('method' => "POST",'header' =>"Content-Type: text/xml",'content' => $request)));
-		$file = @file_get_contents(Yii::app()->params['xmlrpcHost'], false, $context);
-		if ( $file === FALSE )
-		{
-			return array('error', "Couldn't connect to XML-RPC service on '" . Yii::app()->params['xmlrpcHost'] . "'");
+		$request = json_encode($data);
+		$context = stream_context_create(
+            array('http' => 
+                array('method' => "POST",
+                        'header' =>"Content-Type: application/json\r\n" .
+                                 "Accept: application/json\r\n",
+                        'content' => $request)));
+		$file = @file_get_contents(Yii::app()->params['jsonrpcHost'], false, $context);
+        
+        if ( $file === FALSE )
+		{		
+            // could not connect
+            return array("jsonrpc"=>"2.0","result"=>false,"id"=>1);
 		} else {
-			if ( xmlrpc_decode($file) == "1" )
-			{
-				return array('success', "Device controlled.");
-			} else {
-				return array('error', "Device control failed!");
-			}
+            return json_decode($file);
 		}
 	}
 }
