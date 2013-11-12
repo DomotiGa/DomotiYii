@@ -41,9 +41,7 @@ $this->endWidget();
 		array('name' => 'conditionname1'),
 		array('name' => 'operand'),
 		array('name' => 'conditionname2'),
-		array('name' => 'actionname1'),
-		array('name' => 'actionname2'),
-		array('name' => 'actionname3'),
+        // TODO link to actions
 		array('name' => 'rerunenabled', 'type' =>'boolean'),
 		array('name' => 'rerunvalue'),
 		array('name' => 'reruntype'),

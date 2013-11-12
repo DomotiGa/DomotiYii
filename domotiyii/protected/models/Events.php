@@ -15,14 +15,16 @@
  * @property integer $condition1
  * @property string $operand
  * @property integer $condition2
- * @property integer $action1
- * @property integer $action2
- * @property integer $action3
  * @property boolean $rerunenabled
  * @property integer $rerunvalue
  * @property string $reruntype
  * @property integer $category
  */
+
+/**
+ * TODO link to actions
+ */
+
 class Events extends CActiveRecord
 {
         /**
@@ -73,16 +75,16 @@ class Events extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('trigger1, condition1, condition2, action1, action2, action3, rerunvalue, category', 'numerical', 'integerOnly'=>true),
+			array('trigger1, condition1, condition2, rerunvalue, category', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>64),
 			array('operand, reruntype', 'length', 'max'=>16),
 			array('enabled, log, rerunenabled', 'boolean', 'trueValue'=>-1),
 			array('firstrun, lastrun, comments', 'safe'),
-			array('name, trigger1, action1', 'required'),
+			array('name, trigger1', 'required'),
 			array('name', 'unique', 'caseSensitive'=>false),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, enabled, name, log, firstrun, lastrun, comments, trigger1, condition1, operand, condition2, action1, action2, action3, rerunenabled, rerunvalue, reruntype, category', 'safe', 'on'=>'search'),
+			array('id, enabled, name, log, firstrun, lastrun, comments, trigger1, condition1, operand, condition2, rerunenabled, rerunvalue, reruntype, category', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -97,9 +99,6 @@ class Events extends CActiveRecord
 			'triggers' => array(self::BELONGS_TO, 'Triggers', 'trigger1'),
 			'l_condition1' => array(self::BELONGS_TO, 'Conditions', 'condition1'),
 			'l_condition2' => array(self::BELONGS_TO, 'Conditions', 'condition2'),
-			'l_action1' => array(self::BELONGS_TO, 'Actions', 'action1'),
-			'l_action2' => array(self::BELONGS_TO, 'Actions', 'action2'),
-			'l_action3' => array(self::BELONGS_TO, 'Actions', 'action3'),
 			'l_category' => array(self::BELONGS_TO, 'Category', 'category'),
 		);
 	}
@@ -124,12 +123,6 @@ class Events extends CActiveRecord
 			'operand' => Yii::t('app','Operand'),
 			'condition2' => Yii::t('app','Condition2'),
 			'conditionname2' => Yii::t('app','Condition2'),
-			'action1' => Yii::t('app','Action1'),
-			'actionname1' => Yii::t('app','Action1'),
-			'action2' => Yii::t('app','Action2'),
-			'actionname2' => Yii::t('app','Action2'),
-			'action3' => Yii::t('app','Action3'),
-			'actionname3' => Yii::t('app','Action3'),
 			'rerunenabled' => Yii::t('app','Rerun enabled'),
 			'rerunvalue' => Yii::t('app','Rerun value'),
 			'reruntype' => Yii::t('app','Rerun type'),
@@ -167,9 +160,6 @@ class Events extends CActiveRecord
 		$criteria->compare('condition1',$this->condition1);
 		$criteria->compare('operand',$this->operand,true);
 		$criteria->compare('condition2',$this->condition2);
-		$criteria->compare('action1',$this->action1);
-		$criteria->compare('action2',$this->action2);
-		$criteria->compare('action3',$this->action3);
 		$criteria->compare('rerunenabled',$this->rerunenabled);
 		$criteria->compare('rerunvalue',$this->rerunvalue);
 		$criteria->compare('reruntype',$this->reruntype,true);
@@ -211,44 +201,6 @@ class Events extends CActiveRecord
                 if (!empty($this->category->name)) { return $this->category->name; }
 	}
 
-        /**
-         * Return action1 name
-         */
-        public function getActionName1()
-        {
-                if (!empty($this->l_action1->name))
-		{
-			return $this->l_action1->name;
-		} else {
-			return null;
-		}
-	}
-
-        /**
-         * Return action2 name
-         */
-        public function getActionName2()
-        {
-                if (!empty($this->l_action2->name))
-		{
-			return $this->l_action2->name;
-		} else {
-			return null;
-		}
-	}
-
-        /**
-         * Return action3 name
-         */
-        public function getActionName3()
-        {
-                if (!empty($this->l_action3->name))
-		{
-			return $this->l_action3->name;
-		} else {
-			return null;
-		}
-	}
 
         /**
          * Return condition1 name

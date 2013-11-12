@@ -18,9 +18,7 @@
 		<?php echo $form->dropDownListControlGroup($model,'condition1', $model->getAllConditions(), array('prompt'=>'', 'id'=>'condition1')); ?>
 		<?php echo $form->textFieldControlGroup($model,'operand'); ?>
 		<?php echo $form->dropDownListControlGroup($model,'condition2', $model->getAllConditions(), array('prompt'=>'', 'id'=>'condition2')); ?>
-		<?php echo $form->dropDownListControlGroup($model,'action1', $model->getAllActions(), array('prompt'=>'', 'id'=>'action1')); ?>
-		<?php echo $form->dropDownListControlGroup($model,'action2', $model->getAllActions(), array('prompt'=>'', 'id'=>'action2')); ?>
-		<?php echo $form->dropDownListControlGroup($model,'action3', $model->getAllActions(), array('prompt'=>'', 'id'=>'action3')); ?>
+        <!-- TODO link to actions -->
 		<?php echo $form->dropDownListControlGroup($model,'category', $model->getAllCategories(), array('prompt'=>'', 'id'=>'category')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'rerunenabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'reruntype'); ?>
