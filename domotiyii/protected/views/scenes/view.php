@@ -33,14 +33,15 @@ $this->endWidget();
 	'type' => 'striped condensed',
 	'data'=>$model,
         'attributes'=>array(
-                array('name' => 'id'),
+        array('name' => 'id'),
 		array('name' => 'enabled', 'type' =>'boolean'),
-                array('name' => 'name'),
-		array('name' => 'description'),
+        array('name' => 'name'),
 		array('name' => 'categoryname'),
 		array('name' => 'firstrun'),
 		array('name' => 'lastrun'),
 		array('name' => 'log', 'type' =>'boolean'),
 		array('name' => 'comments'),
+        array('name' => 'location.name'),
+        array('name' => 'event.name'),
 	),
 )); ?>

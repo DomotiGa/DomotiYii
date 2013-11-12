@@ -149,6 +149,7 @@
 		)),
                 array('label'=>'Events', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                    array('label'=>'Events', 'url'=> array('events/index')),
+                   array('label'=>'Scenes', 'url'=> array('scenes/index')),
                    array('label'=>'Triggers', 'url'=> array('triggers/index')),
                    array('label'=>'Conditions', 'url'=> array('conditions/index')),
                    array('label'=>'Actions', 'url'=> array('actions/index')),

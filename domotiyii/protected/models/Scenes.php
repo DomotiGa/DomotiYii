@@ -16,10 +16,6 @@
  * @property integer $event_id 
 */
 
-/**
- * TODO link to actions
- */
-
 class Scenes extends CActiveRecord
 {
         /**
@@ -94,10 +90,14 @@ class Scenes extends CActiveRecord
 			'lastrun' => Yii::t('app','Lastrun'),
 			'comments' => Yii::t('app','Comments'),
 			'category' => Yii::t('app','Category'),
-			'categoryname' => Yii::t('app','Category'),
+			'category.name' => Yii::t('app','Category'),
 			'location' => Yii::t('app','Location'),
+			'location_id' => Yii::t('app','Location'),
+            'location.name' => Yii::t('app','Location'),
 			'event' => Yii::t('app','Event'),
-		);
+			'event_id' => Yii::t('app','Event'),
+			'event.name' => Yii::t('app','Event'),		
+        );
 	}
 
 	/**
@@ -156,15 +156,6 @@ class Scenes extends CActiveRecord
         {
                 if (!empty($this->category->name)) { return $this->category->name; }
 	}
-
-
-        /**
-         * Return location name
-         */
-        public function getLocationName()
-        {
-                if (!empty($this->location->name)) { return $this->location->name; }
-        }
 
 
         /**

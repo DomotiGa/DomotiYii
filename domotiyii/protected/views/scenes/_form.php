@@ -18,8 +18,8 @@
 		<?php echo $form->textFieldControlGroup($model,'lastrun'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'log', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'comments'); ?>
-        <?php echo $form->dropDownListControlGroup($model,'location', $model->getLocations(),array('id'=>'location')); ?>
-        <?php echo $form->dropDownListControlGroup($model,'event', $model->getEvents(),array('id'=>'event')); ?>
+        <?php echo $form->dropDownListControlGroup($model,'location_id', $model->getLocations(),array('id'=>'location_id')); ?>
+        <?php echo $form->dropDownListControlGroup($model,'event_id', $model->getEvents(),array('id'=>'event_id')); ?>
 </fieldset>
 
 <?php echo TbHtml::formActions(array(
