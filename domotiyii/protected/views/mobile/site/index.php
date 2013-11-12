@@ -4,7 +4,7 @@
 
   $type = Yii::app()->request->getParam('type','all');
   $location_id = Yii::app()->request->getParam('location','0');
-  $location_object = $locations->findByPk($location_id);
+  $location_object = $model_locations->findByPk($location_id);
 
     // Generate breadcrumb
     $breadcrumb_links = array();
@@ -32,7 +32,7 @@
     // generate location and type menu
     $links_location = array(array('label'=>Yii::t('app','All'), 'url'=>'index?type='.$type, 'active'=>$location_id == '0'));
   
-    foreach($locations->findAll(array('order'=>'name')) as $currentlocation){
+    foreach($model_locations->findAll(array('order'=>'name')) as $currentlocation){
         if ( $currentlocation['name'] != ''){
             array_push($links_location, array('label'=>$currentlocation['name'], 'url'=>'index?type='.$type.'&location='.$currentlocation['id'], 'active'=>$location_id == $currentlocation['id']));
          }
@@ -54,24 +54,30 @@
          ),
      ));
 ?>
-    
-    <!-- TODO, first the server -->
-<!--    
-    <div class="scene" data-id="<?php  ?>"> 
+
+<?php
+    // end generate location and type menu
+
+    foreach($model_scenes->search(false)->getData() as $scene):
+?>
+    <div class="scene" data-id="<?php echo $scene['id']; ?>"> 
         <div>
             <h5 class="scene_name">
-                Event xx
+                <?php echo $scene['name'];  ?>
             </h5>    
            	<button class="btn btn-primary scene_action">Run</button>
         </div>  
         <div class="clear"></div>   
     </div>
--->
+<?php
+    endforeach;
+?>
+
 
 <?php
     // end generate location and type menu
 
-    foreach($model->search(false)->getData() as $device):
+    foreach($model_devices->search(false)->getData() as $device):
 ?>
 
        

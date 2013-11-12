@@ -5,49 +5,63 @@ class SiteController extends Controller
 	public function actionIndex()
 	{
         $this->pageTitle = 'DomotiGa - Mobile';
-		$criteria = new CDbCriteria();
-		$model=new Devices('search');
-		$model->unsetAttributes(); // clear any default values
-
+		
 		$type = Yii::app()->getRequest()->getParam('type');
+		$location = Yii::app()->getRequest()->getParam('location');
+
+
+        $criteria_devices = new CDbCriteria();
+		$model_devices=new Devices('search');
+		$model_devices->unsetAttributes(); // clear any default values
 
 		if (isset($type) && !empty($type))
 		{
 			if($type == "sensors")
 			{
-				$model->switchable=0;
-				$model->dimable=0;
-				$criteria->addCondition('switchable IS FALSE');
-				$criteria->addCondition('dimable IS FALSE');
+				$model_devices->switchable=0;
+				$model_devices->dimable=0;
+				$criteria_devices->addCondition('switchable IS FALSE');
+				$criteria_devices->addCondition('dimable IS FALSE');
 			} elseif($type == "dimmers") {
-				$model->dimable=-1;
-				$criteria->addCondition('dimable IS TRUE');
+				$model_devices->dimable=-1;
+				$criteria_devices->addCondition('dimable IS TRUE');
 			} elseif($type == "switches") {
-				$model->switchable=-1;
-				$criteria->addCondition('switchable IS TRUE');
+				$model_devices->switchable=-1;
+				$criteria_devices->addCondition('switchable IS TRUE');
 			} elseif($type == "hidden") {
-				$model->hide=-1;
-				$criteria->addCondition('hide IS TRUE');
+				$model_devices->hide=-1;
+				$criteria_devices->addCondition('hide IS TRUE');
 			} elseif($type == "disabled") {
-				$model->enabled=0;
-				$criteria->addCondition('enabled IS FALSE');
+				$model_devices->enabled=0;
+				$criteria_devices->addCondition('enabled IS FALSE');
 			}
 		}
-
-		$location = Yii::app()->getRequest()->getParam('location');
 
 		if (isset($location) && !empty($location))
 		{
-			if($type != "0")
+			if($location != "0")
 			{
-				$model->location=$location;
-				$criteria->addCondition('location = "'.$location.'"');
-				$criteria->addCondition('dimable IS FALSE');
+				$model_devices->location=$location;
+				$criteria_devices->addCondition('location = "'.$location.'"');
 			}
 		}
 
-		$locations = Locations::model();
-		$this->render('index', array('model'=>$model,'locations'=>$locations));
+        $criteria_scenes = new CDbCriteria();
+		$model_scenes=new Scenes('search');
+		$model_scenes->unsetAttributes(); // clear any default values
+
+		if (isset($location) && !empty($location))
+		{
+			if($location != "0")
+			{
+				$model_scenes->location_id=$location;
+				$criteria_scenes->addCondition('location_id = "'.$location.'"');
+			}
+		}
+
+		$model_locations = Locations::model();
+
+		$this->render('index', array('model_devices'=>$model_devices,'model_locations'=>$model_locations,'model_scenes'=>$model_scenes));
 	}
 
 
