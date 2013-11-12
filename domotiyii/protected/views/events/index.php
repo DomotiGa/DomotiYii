@@ -1,10 +1,10 @@
 <?php
-/* @var $this EventsController */
+/* @var $this ScenesController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Events'),
+        Yii::t('app','Scenes'),
     ),
 ));
 
@@ -14,7 +14,7 @@ $('.search-button').click(function(){
     return false;
 });
 $('.search-form form').submit(function(){
-    $.fn.yiiGridView.update('all-events-grid', {
+    $.fn.yiiGridView.update('all-scenes-grid', {
         data: $(this).serialize()
     });
     return false;
@@ -53,8 +53,8 @@ $this->endWidget();
 ));
 
 $this->widget('domotiyii.LiveGridView', array(
-    'id'=>'all-events-grid',
-    'refreshTime'=>Yii::app()->params['refreshEvents'], // x second refresh as defined in config
+    'id'=>'all-scenes-grid',
+    'refreshTime'=>5000, // x second refresh as defined in config
     'type'=>'striped condensed',
     'dataProvider'=>$model->search(),
     'template'=>'{items}{pager}{summary}',
@@ -62,7 +62,6 @@ $this->widget('domotiyii.LiveGridView', array(
         array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
         array('name'=>'name', 'header'=>Yii::t('app','Name'), 'htmlOptions'=>array('width'=>'150')),
         array('name'=>'description', 'header'=>Yii::t('app','Description'), 'htmlOptions'=>array('width'=>'100')),
-        array('name'=>'triggername', 'header'=>Yii::t('app','Trigger'), 'htmlOptions'=>array('width'=>'100')),
         array('name'=>'lastruntext', 'header'=>Yii::t('app','Last Run'), 'htmlOptions'=>array('width'=>'100')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',
            'template'=> Yii::app()->user->isGuest ? '{view}' : '{view}  {update}  {delete}',

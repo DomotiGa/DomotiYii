@@ -1,10 +1,10 @@
 <?php
-/* @var $this EventsController */
-/* @var $model Events */
+/* @var $this ScenesController */
+/* @var $model Scenes */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Events') => '../index',
+        Yii::t('app','Scenes') => '../index',
         Yii::t('app','Update'),
     ),
 ));
@@ -21,7 +21,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 array('label'=>Yii::t('app','Create'), 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
                 array('label'=>Yii::t('app','View'), 'icon'=>'icon-eye-open', 'url'=>array('view', 'id'=>$model->id), 'linkOptions'=>array()),
                 array('label'=>Yii::t('app','Edit'), 'icon'=>'icon-edit', 'url'=>array('update', 'id'=>$model->id), 'active'=>true),
-                array('label'=>Yii::t('app','Delete'), 'icon'=>'icon-trash', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>Yii::t('app','Are you sure you want to delete this event?')))
+                array('label'=>Yii::t('app','Delete'), 'icon'=>'icon-trash', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>Yii::t('app','Are you sure you want to delete this scene?')))
 
         ),
 ));

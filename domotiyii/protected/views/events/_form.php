@@ -1,11 +1,11 @@
 <?php
-/* @var $this EventsController */
-/* @var $model Events */
+/* @var $this ScenesController */
+/* @var $model Scenes */
 /* @var $form CActiveForm */
 ?>
 
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'events-form',
+	'id'=>'scenes-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
@@ -14,19 +14,12 @@
 
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'name'); ?>
-		<?php echo $form->dropDownListControlGroup($model,'trigger1', $model->getAllTriggers(), array('prompt'=>'', 'id'=>'trigger1')); ?>
-		<?php echo $form->dropDownListControlGroup($model,'condition1', $model->getAllConditions(), array('prompt'=>'', 'id'=>'condition1')); ?>
-		<?php echo $form->textFieldControlGroup($model,'operand'); ?>
-		<?php echo $form->dropDownListControlGroup($model,'condition2', $model->getAllConditions(), array('prompt'=>'', 'id'=>'condition2')); ?>
-        <!-- TODO link to actions -->
-		<?php echo $form->dropDownListControlGroup($model,'category', $model->getAllCategories(), array('prompt'=>'', 'id'=>'category')); ?>
-		<?php echo $form->checkBoxControlGroup($model,'rerunenabled', array('value'=>-1)); ?>
-		<?php echo $form->textFieldControlGroup($model,'reruntype'); ?>
-		<?php echo $form->textFieldControlGroup($model,'rerunvalue'); ?>
 		<?php echo $form->textFieldControlGroup($model,'firstrun'); ?>
 		<?php echo $form->textFieldControlGroup($model,'lastrun'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'log', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'comments'); ?>
+        <?php echo $form->dropDownListControlGroup($model,'location', $model->getLocations(),array('id'=>'location')); ?>
+        <?php echo $form->dropDownListControlGroup($model,'event', $model->getEvents(),array('id'=>'event')); ?>
 </fieldset>
 
 <?php echo TbHtml::formActions(array(
