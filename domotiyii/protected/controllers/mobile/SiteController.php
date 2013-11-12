@@ -79,7 +79,7 @@ class SiteController extends Controller
 
 	public function actionGetDeviceUpdate()
 	{
-        $result = $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all","fields"=>array("deviceid","value1","label1","value2","label2","value3","label3","value4","label4","lastseen")),'id'=>1));
+        $result = $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all","fields"=>array("device_id","value1","label1","value2","label2","value3","label3","value4","label4","lastseen")),'id'=>1));
 		echo json_encode($result);
 	}
 
