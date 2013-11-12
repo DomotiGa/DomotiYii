@@ -57,7 +57,7 @@ $(function() {
                 }else{
                     // parse data
                     $.each( json_data.result,function() {
-                        device = $(".device[data-id=" + this.deviceid+"]");
+                        device = $(".device[data-id=" + this.device_id+"]");
                         device.find(".device_status").html(this.value1 + " " + this.label1);
                         device.find(".device_lastseen").html(this.lastseen);                     
                         device.find(".device_value_2").html(this.value2 + " " + this.label2);             
