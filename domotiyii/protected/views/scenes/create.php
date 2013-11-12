@@ -4,7 +4,7 @@
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Events') => 'index',
+        Yii::t('app','Scenes') => 'index',
         Yii::t('app','Create'),
     ),
 ));
@@ -24,6 +24,6 @@ $this->widget('bootstrap.widgets.TbNav', array(
 $this->endWidget();
 ?>
 
-<legend><?php echo Yii::t('app','Create Event') ?></legend>
+<legend><?php echo Yii::t('app','Create Scene') ?></legend>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
