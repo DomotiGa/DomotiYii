@@ -34,6 +34,15 @@ class Scenes extends CActiveRecord
         	return CHtml::listData(Locations::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
         }
 
+        /**
+         * @return dropdownlist with the list of scenes
+         */
+        public function getCategories()
+        {
+                return CHtml::listData(Category::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
+        }
+
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -89,12 +98,9 @@ class Scenes extends CActiveRecord
 			'firstrun' => Yii::t('app','Firstrun'),
 			'lastrun' => Yii::t('app','Lastrun'),
 			'comments' => Yii::t('app','Comments'),
-			'category' => Yii::t('app','Category'),
-			'category.name' => Yii::t('app','Category'),
-			'location' => Yii::t('app','Location'),
+			'l_category.name' => Yii::t('app','Category'),
 			'location_id' => Yii::t('app','Location'),
             'location.name' => Yii::t('app','Location'),
-			'event' => Yii::t('app','Event'),
 			'event_id' => Yii::t('app','Event'),
 			'event.name' => Yii::t('app','Event'),		
         );
@@ -149,16 +155,7 @@ class Scenes extends CActiveRecord
 		return parent::model($className);
 	}
 
-        /**
-         * Return category name
-         */
-        public function getCategoryName()
-        {
-                if (!empty($this->category->name)) { return $this->category->name; }
-	}
-
-
-        /**
+         /**
          * Replace date with 'Today'
          */
         public function getLastRunText()

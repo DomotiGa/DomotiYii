@@ -14,6 +14,10 @@ class SiteController extends Controller
 		$model_devices=new Devices('search');
 		$model_devices->unsetAttributes(); // clear any default values
 
+
+	    $model_devices->enabled=-1;
+	    $criteria_devices->addCondition('enabled IS TRUE');
+
 		if (isset($type) && !empty($type))
 		{
 			if($type == "sensors")
@@ -28,12 +32,6 @@ class SiteController extends Controller
 			} elseif($type == "switches") {
 				$model_devices->switchable=-1;
 				$criteria_devices->addCondition('switchable IS TRUE');
-			} elseif($type == "hidden") {
-				$model_devices->hide=-1;
-				$criteria_devices->addCondition('hide IS TRUE');
-			} elseif($type == "disabled") {
-				$model_devices->enabled=0;
-				$criteria_devices->addCondition('enabled IS FALSE');
 			}
 		}
 
@@ -49,6 +47,9 @@ class SiteController extends Controller
         $criteria_scenes = new CDbCriteria();
 		$model_scenes=new Scenes('search');
 		$model_scenes->unsetAttributes(); // clear any default values
+
+	    $model_scenes->enabled=-1;
+	    $criteria_scenes->addCondition('enabled IS TRUE');
 
 		if (isset($location) && !empty($location))
 		{
