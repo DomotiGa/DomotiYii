@@ -78,6 +78,17 @@ class SiteController extends Controller
 		}
 	}
 
+    public function actionRunScene()
+	{
+		if(isset($_POST['Scene']['id']))
+		{
+			$current_scene_id = intval(strip_tags($_POST['Scene']['id']));                   
+
+			$result = $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"scene.run", "params" =>  array("scene_id"=>$current_scene_id),'id'=>1));
+			echo json_encode($result);
+		}
+	}
+
 	public function actionGetDeviceUpdate()
 	{
         $result = $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all","fields"=>array("device_id","value1","label1","value2","label2","value3","label3","value4","label4","lastseen")),'id'=>1));

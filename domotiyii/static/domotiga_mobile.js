@@ -20,6 +20,26 @@ $(function() {
       })
     }
 
+    function run_scene(id) {
+        $.ajax({
+            type: "POST",        
+            url: "runscene",
+            data: {Scene: { id: id}  }
+        }).always( function (jqXHR, textStatus, errorThrown) {
+            var error = false;            
+            if (textStatus == "success"){
+                var json_data = JSON.parse(jqXHR);
+                if((json_data.result != undefined && !json_data.result ) || json_data.error != undefined){
+                    error = true;
+                }
+            }else{ error = true; }   
+
+            if(error){
+                $(".scene[data-id=" + id + "] > button").removeClass("btn-primary").addClass("btn-danger");
+            }  
+      })
+    }
+
     function update_control(){
         // handle start values
         $(".device").each(function (){ 
@@ -87,6 +107,12 @@ $(function() {
         }    
         detail.slideToggle();
 
+    });
+
+    // Run scene
+    $(".scene button").click(function() {
+        scene = $(this).parents(".scene");
+        run_scene(scene.data("id"));
     });
 
     // Switch device

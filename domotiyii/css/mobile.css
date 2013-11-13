@@ -41,14 +41,13 @@ body {
 .scene .scene_action
 {
     float: right;
+    padding: 0px 8px;
 }
 
 .scene .scene_name, .scene_action
 {
-    margin: 5px 0;
+    margin: 4px 0;
 }
-
-
 
 .device
 {
