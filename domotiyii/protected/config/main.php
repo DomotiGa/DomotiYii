@@ -93,9 +93,11 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
+		// default timezone
+		'timeZone'=>'Europe/Amsterdam',
 		// server settings
 		'xmlrpcHost'=>'http://localhost:9009',
-        'jsonrpcHost'=>'http://localhost:9090',
+		'jsonrpcHost'=>'http://localhost:9090',
 		// refresh time for specific gridviews
 		'refreshDevices'=>'5000', // 5 second refresh
 		'refreshPhonecalls'=>'5000', // 5 second refresh

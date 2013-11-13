@@ -10,4 +10,9 @@ defined('YII_DEBUG') or define('YII_DEBUG',true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 require_once($yii);
-Yii::createWebApplication($config)->run();
+$app = Yii::createWebApplication($config);
+
+// set timezone if default is not set to keep PHP strict happy
+Yii::app()->setTimeZone(Yii::app()->params['timeZone']);
+
+$app->run();
