@@ -101,3 +101,15 @@ body {
   background-image: linear-gradient(to bottom, #0088cc, #0044cc);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF0088cc', endColorstr='#FF0044cc', GradientType=0);
 }
+
+.slider-handle-error
+{
+  background-color: #bd362f;
+  background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+  background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFee5f5b', endColorstr='#FFbd362f', GradientType=0);
+  opacity: 1;
+}

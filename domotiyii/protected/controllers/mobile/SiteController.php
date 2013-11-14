@@ -85,14 +85,14 @@ class SiteController extends Controller
 			$current_scene_id = intval(strip_tags($_POST['Scene']['id']));                   
 
 			$result = $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"scene.run", "params" =>  array("scene_id"=>$current_scene_id),'id'=>1));
-			echo json_encode($result);
+			echo $result;
 		}
 	}
 
 	public function actionGetDeviceUpdate()
 	{
         $result = $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all","fields"=>array("device_id","value1","label1","value2","label2","value3","label3","value4","label4","lastseen")),'id'=>1));
-		echo json_encode($result);
+		echo $result;
 	}
 
 	protected function do_jsonrpc($data = array())
@@ -109,9 +109,9 @@ class SiteController extends Controller
         if ( $file === FALSE )
 		{		
             // could not connect
-            return array("jsonrpc"=>"2.0","result"=>false,"id"=>1);
+            return json_encode(array("jsonrpc"=>"2.0","result"=>false,"id"=>1));
 		} else {
-            return json_decode($file);
+            return $file;
 		}
 	}
 }

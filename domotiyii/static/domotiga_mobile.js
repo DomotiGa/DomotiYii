@@ -16,6 +16,7 @@ $(function() {
 
             if(error){
                 $(".device[data-id=" + id + "] .switch_device > button").removeClass("btn-primary").addClass("btn-danger");
+                $(".device[data-id=" + id + "] .slider-handle").addClass("slider-handle-error");
             }  
       })
     }
@@ -90,6 +91,7 @@ $(function() {
 
             if(error){
                 $(".switch_device > button").removeClass("btn-primary").addClass("btn-danger");
+                $(".slider-handle").addClass("slider-handle-error");
             }else{
                 update_control();    
             }  
