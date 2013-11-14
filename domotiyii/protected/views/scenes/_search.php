@@ -7,7 +7,7 @@
 
 <fieldset>
                 <?php echo $form->textFieldControlGroup($model,'name'); ?>
-		<?php echo $form->dropDownListControlGroup($model,'category', Category::getAllCategories(), array('prompt'=>'', 'id'=>'category')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'category', $model->getCategories(), array('prompt'=>'', 'id'=>'category')); ?>
 </fieldset>
 
 <?php echo TbHtml::formActions(array(
