@@ -157,7 +157,7 @@ $(function() {
             }
             
             device.find(".device_status").html(device_value);
-            set_device(device.attr("id"), device_value);   
+            set_device(device.data("id"), device_value);   
         });
 
 
