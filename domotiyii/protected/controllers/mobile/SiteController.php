@@ -73,7 +73,7 @@ class SiteController extends Controller
 			$current_device_id = intval(strip_tags($_POST['Device']['id']));                   
 			$current_device_value = strip_tags($_POST['Device']['value']);
 
-			$result = $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.set", "params" =>  array("deviceid"=>$current_device_id,"value"=>$current_device_value),'id'=>1));
+			$result = $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.set", "params" =>  array("device_id"=>$current_device_id,"value"=>$current_device_value),'id'=>1));
 			echo json_encode($result);
 		}
 	}
