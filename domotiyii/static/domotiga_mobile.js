@@ -80,10 +80,10 @@ $(function() {
                     $.each( json_data.result,function() {
                         device = $(".device[data-id=" + this.device_id+"]");
                         device.find(".device_status").html(this.value1 + " " + this.label1);
-                        device.find(".device_lastseen").html(this.lastseen);                     
-                        device.find(".device_value_2").html(this.value2 + " " + this.label2);             
-                        device.find(".device_value_3").html(this.value3 + " " + this.label3);             
-                        device.find(".device_value_4").html(this.value4 + " " + this.label4);             
+                        device.find(".device_lastseen").html('<i class="icon-time"></i>' + this.lastseen);                     
+                        device.find(".device_value_2").html('<i class="icon-tag"></i>' + this.value2 + " " + this.label2);             
+                        device.find(".device_value_3").html('<i class="icon-tag"></i>' + this.value3 + " " + this.label3);             
+                        device.find(".device_value_4").html('<i class="icon-tag"></i>' + this.value4 + " " + this.label4);             
                         // add value 2,3,4 lastseen  
                     })
                 }
