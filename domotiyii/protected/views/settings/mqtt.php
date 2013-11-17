@@ -24,7 +24,9 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->passwordFieldControlGroup($model,'password'); ?>
 		<?php echo $form->textFieldControlGroup($model,'pubtopic'); ?>
 		<?php echo $form->textFieldControlGroup($model,'subtopic'); ?>
-		<?php echo $form->numberFieldControlGroup($model,'heartbeat', array('append' => 'Seconds')); ?>
+		<?php echo $form->numberFieldControlGroup($model,'heartbeat', array('append' => 'Seconds')); ?>\
+		<?php echo $form->checkBoxControlGroup($model,'retain', array('value'=>-1)); ?>
+		<?php echo $form->numberFieldControlGroup($model,'qos'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 </fieldset>
 

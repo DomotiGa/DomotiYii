@@ -13,6 +13,8 @@
  * @property string $pubtopic
  * @property string $subtopic
  * @property integer $heartbeat
+ * @property boolean $retain
+ * @property integer $qos
  * @property boolean $debug
  */
 class SettingsMqtt extends CActiveRecord
@@ -44,14 +46,15 @@ class SettingsMqtt extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, tcpport, heartbeat', 'numerical', 'integerOnly'=>true),
+			array('id, tcpport, heartbeat, qos', 'numerical', 'integerOnly'=>true),
+			array('qos', 'numerical', 'integerOnly'=>true, 'min'=>0, 'max'=>2),
 			array('tcphost', 'length', 'max'=>64),
 			array('username, password', 'length', 'max'=>32),
 			array('pubtopic, subtopic', 'length', 'max'=>256),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, retain, debug', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enabled, tcphost, tcpport, username, password, pubtopic, subtopic, heartbeat, debug', 'safe', 'on'=>'search'),
+			array('id, enabled, tcphost, tcpport, username, password, pubtopic, subtopic, heartbeat, retain, qos, debug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,6 +84,8 @@ class SettingsMqtt extends CActiveRecord
 			'pubtopic' => 'Pubtopic',
 			'subtopic' => 'Subtopic',
 			'heartbeat' => 'Heartbeat',
+			'retain' => 'Retain',
+			'qos' => 'Qos',			
 			'debug' => 'Debug',
 		);
 	}
@@ -105,6 +110,8 @@ class SettingsMqtt extends CActiveRecord
 		$criteria->compare('pubtopic',$this->pubtopic,true);
 		$criteria->compare('subtopic',$this->subtopic,true);
 		$criteria->compare('heartbeat',$this->heartbeat);
+		$criteria->compare('retain',$this->retain);
+		$criteria->compare('qos',$this->qos,true);
 		$criteria->compare('debug',$this->debug);
 
 		return new CActiveDataProvider($this, array(
