@@ -91,9 +91,17 @@ class SiteController extends Controller
 
 	public function actionGetDeviceUpdate()
 	{
-        $result = $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all","fields"=>array("device_id","value1","label1","value2","label2","value3","label3","value4","label4","lastseen")),'id'=>1));
-		echo $result;
-	}
+        if(isset($_GET['location']) && is_numeric($_GET['location']) )
+		{   
+            echo $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all",
+                "locations"=>array(intval(strip_tags($_GET['location']))),
+                "fields"=>array("device_id","value1","label1","value2","label2","value3","label3","value4","label4","lastseen")),'id'=>1));
+        }else{
+            echo $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all",
+                "fields"=>array("device_id","value1","label1","value2","label2","value3","label3","value4","label4","lastseen")),'id'=>1));
+        }	
+
+    }
 
 	protected function do_jsonrpc($data = array())
 	{
