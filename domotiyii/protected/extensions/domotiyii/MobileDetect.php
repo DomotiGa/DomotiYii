@@ -31,6 +31,10 @@
  *              GitHub Repository: https://github.com/serbanghita/Mobile-Detect
  *              Google Code Old Page: http://code.google.com/p/php-mobile-detect/
  * @version     0.1
+ * 
+ * 
+ * modified by JK, DomotiGa 
+ *     
  */
 
 class MobileDetect extends CApplicationComponent{
