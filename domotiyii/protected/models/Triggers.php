@@ -27,6 +27,7 @@ class Triggers extends CActiveRecord
 ' iviewer remote     |   5  | remote   | join    | value
 ' multi-trigger      |   6  |
 ' manually           |   7  |
+' device lastseen    |   8  |  id      | operand | value
 */
 
 	/**
@@ -40,6 +41,7 @@ class Triggers extends CActiveRecord
 		'5' => 'iViewer Remote Received',
 		'6' => 'Multi Trigger',
         '7' => 'Manually',
+        '8' => 'Device Lastseen',
 	);
 
         /**

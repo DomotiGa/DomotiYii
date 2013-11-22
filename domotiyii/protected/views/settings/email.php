@@ -24,7 +24,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->emailFieldControlGroup($model,'toaddress'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'sslenabled', array('value'=>-1)); ?>
 		<?php echo $form->emailFieldControlGroup($model,'username'); ?>
-		<?php echo $form->emailFieldControlGroup($model,'password'); ?>
+		<?php echo $form->passwordFieldControlGroup($model,'password'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 </fieldset>
 
