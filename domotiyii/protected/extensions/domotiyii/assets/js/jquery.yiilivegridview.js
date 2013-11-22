@@ -28,7 +28,7 @@
                         },
                         error: function(XMLHttpRequest, textStatus, errorThrown) {
                                 // $('#'+id).removeClass(settings.loadingClass);
-                                alert(XMLHttpRequest.responseText);
+                                // console.log(XMLHttpRequest.responseText);
                         }
                 }, options || {});
                 if(options.data!=undefined && options.type=='GET') {
