@@ -19,7 +19,7 @@
                     array('label'=>'P2000 Scanner', 'url'=> array('settings/p2000')),
                     array('label'=>'Servers', 'url'=>'#', 'items'=>array(
                        array('label'=>'Telnet Server', 'url'=> array('settings/telnetserver')),
-                       array('label'=>'SmartVISU Server', 'url'=> array('settings/smartvisu')),
+                       array('label'=>'SmartVISU Server', 'url'=> array('settings/smartvisuserver')),
                        array('label'=>'XML-RPC Server', 'url'=> array('settings/xmlrpc')),
 		    )),
                     array('label'=>'Sound', 'url'=> array('settings/sound')),

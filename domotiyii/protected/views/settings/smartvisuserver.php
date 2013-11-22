@@ -1,12 +1,12 @@
 <?php
-/* @var $this SettingsSmartvisuController */
-/* @var $model SettingsSmartvisu */
+/* @var $this SettingsSmartvisuserverController */
+/* @var $model SettingsSmartvisuserver */
 /* @var $form CActiveForm */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
         Yii::t('app','Modules') => '../index',
-        Yii::t('app','SmartVISU'),
+        Yii::t('app','SmartVISU Server'),
     ),
 ));
 
@@ -15,7 +15,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
-<legend>SmartVISU</legend>
+<legend>SmartVISU Server</legend>
 <fieldset>
 	<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 	<?php echo $form->numberFieldControlGroup($model,'tcpport'); ?>

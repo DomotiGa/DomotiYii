@@ -190,13 +190,13 @@ public function actionMqtt()
     $this->render('mqtt',array('model'=>$model));
 }
 
-public function actionSmartvisu()
+public function actionSmartvisuserver()
 {
-    $model = SettingsSmartvisu::model()->findByPk(1);
+    $model = SettingsSmartvisuserver::model()->findByPk(1);
 
-    if(isset($_POST['SettingsSmartvisu']))
+    if(isset($_POST['SettingsSmartvisuserver']))
     {
-        $model->attributes=$_POST['SettingsSmartvisu'];
+        $model->attributes=$_POST['SettingsSmartvisuserver'];
         if($model->validate())
         {
             // form inputs are valid, do something here
@@ -204,7 +204,7 @@ public function actionSmartvisu()
 	   $this->do_xmlrpc("module.restart","smartvisuserver");
         }
     }
-    $this->render('smartvisu',array('model'=>$model));
+    $this->render('smartvisuserver',array('model'=>$model));
 }
 
 public function actionFritzbox()

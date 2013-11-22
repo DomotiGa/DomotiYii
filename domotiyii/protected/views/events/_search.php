@@ -7,8 +7,8 @@
 
 <fieldset>
                 <?php echo $form->textFieldControlGroup($model,'name'); ?>
-		<?php echo $form->dropDownListControlGroup($model,'trigger1', Triggers::getAllTriggers(), array('prompt'=>'', 'id'=>'trigger1')); ?>
-		<?php echo $form->dropDownListControlGroup($model,'category', Category::getAllCategories(), array('prompt'=>'', 'id'=>'category')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'trigger1', $model->getAllTriggers(), array('prompt'=>'', 'id'=>'trigger1')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'category', $model->getAllCategories(), array('prompt'=>'', 'id'=>'category')); ?>
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

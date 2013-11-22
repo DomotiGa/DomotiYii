@@ -1,15 +1,15 @@
 <?php
 
 /**
- * This is the model class for table "settings_smartvisu".
+ * This is the model class for table "settings_smartvisuserver".
  *
- * The followings are the available columns in table 'settings_smartvisu':
+ * The followings are the available columns in table 'settings_smartvisuserver':
  * @property integer $id
  * @property boolean $enabled
  * @property integer $tcpport
  * @property boolean $debug
  */
-class SettingsSmartvisu extends CActiveRecord
+class SettingsSmartvisuserver extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -26,7 +26,7 @@ class SettingsSmartvisu extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'settings_smartvisu';
+		return 'settings_smartvisuserver';
 	}
 
 	/**
