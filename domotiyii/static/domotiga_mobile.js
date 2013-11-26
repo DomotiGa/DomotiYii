@@ -1,5 +1,11 @@
 $(function() {
 
+    // If no refresh rate is set set a fallback value of 5 seconds
+    window.refreshMobile = window.refreshMobile || 5000;
+
+    // Set a device by sending id and value to the server
+    // Finnaly check on result: 
+    // If failed set the buttons and slider to red. 
     function set_device(id,value) {
         $.ajax({
             type: "POST",        
@@ -20,7 +26,10 @@ $(function() {
             }  
       })
     }
-
+    
+    // Start a scene by id
+    // Finnaly check on result: 
+    // If failed set the button to red. 
     function run_scene(id) {
         $.ajax({
             type: "POST",        
@@ -41,6 +50,7 @@ $(function() {
       })
     }
 
+    // Handle for all on/off buttons and slider that the are in sync with its value.
     function update_control(){
         // handle start values
         $(".device").each(function (){ 
@@ -64,7 +74,10 @@ $(function() {
             }
         });   
     }
-
+    
+    // Update frequently the status of the devices.
+    // Finnaly check on result: 
+    // If failed set the button to red. 
     function getDeviceUpdates(){
         $.ajax({
             type: "GET",        
@@ -96,7 +109,7 @@ $(function() {
             }else{
                 update_control();    
             }  
-            window.setTimeout(getDeviceUpdates, 5000);
+            window.setTimeout(getDeviceUpdates, window.refreshMobile);
       })        
     }
 
@@ -111,6 +124,8 @@ $(function() {
         detail.slideToggle();
 
     });
+
+    // The click listeners
 
     // Run scene
     $(".scene button").click(function() {

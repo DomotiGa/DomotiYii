@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    window.refreshMobile = <?php echo Yii::app()->params['refreshMobile'] ?>;
+</script>
 <?php $this->beginContent('/layouts/main'); ?>
 <?php $this->widget('bootstrap.widgets.TbNavbar',array(
     'display'=> TbHtml::NAVBAR_COLOR_INVERSE, 

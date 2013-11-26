@@ -113,7 +113,8 @@ return array(
 		'refreshFloors'=>'5000', // 5 second refresh
 		'refreshUsers'=>'5000', // 5 second refresh
 		'refreshCameras'=>'5000', // 5 second refresh
-
+        'refreshMobile'=>'5000', // 5 second refresh
+		
 		// page size for specific gridviews
 		'pagesizeDevices'=>'20', // entries per page
 		'pagesizePhonecalls'=>'30', // entries per page
