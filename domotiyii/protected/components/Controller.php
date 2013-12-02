@@ -26,6 +26,31 @@ class Controller extends CController
 	 */
 	public $breadcrumbs=array();
 
+    /**
+     * Default filter for access rules
+    **/
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    /**
+     * Default access rules
+    **/
+    public function accessRules()
+    {
+        return array(
+            array('allow', // allow authenticated user 
+                'users'=>array('@'),
+            ),
+            array('deny',  // deny all users
+                'users'=>array('*'),
+            ),
+        );
+     }
+
 	/**
 	 * Init function to show normal or mobile interface
 	**/

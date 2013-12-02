@@ -2,6 +2,16 @@
 
 class SiteController extends Controller
 {
+    // overwrite default rules
+    public function accessRules()
+    {
+        return array(
+             array('allow',  // allow everybody
+                 'users'=>array('*'),
+             ),
+        );
+    }    
+
 	/**
 	 * Declares class-based actions.
 	 */
