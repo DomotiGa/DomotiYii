@@ -90,7 +90,7 @@ $ sudo service apache2 restart
 lighttpd config:
 ---------------
 
-# apt-get install php5-cgi lighttpd
+# apt-get install lighttpd php5-xmlrpc php5-cgi php5-json
 
 # vi /etc/php5/cgi/php.ini
 then uncomment line with cgi.fix_pathinfo = 1
