@@ -66,6 +66,8 @@ Check XMLRPC host url
         'params'=>array(
                 'xmlrpcHost'=>'http://localhost:9009',
 
+This code is tested with the folowing webserver configurations.
+Choose lighttpd if you want to use a small embedded system.
 
 Apache config:
 -------------
@@ -77,28 +79,28 @@ $ sudo a2enmod rewrite
 
 Add this section to /etc/apache2/sites-enabled/000-default
 
-        <Directory /var/www/domotiyii/>
-                AllowOverride All
-        </Directory>
+        <directory /var/www/domotiyii/>
+                allowoverride all
+        </directory>
 
-Restart
+restart
 $ sudo service apache2 restart
 
 
-Lighttpd config: (untested)
+lighttpd config:
 ---------------
-Use this configuration inside the "$HTTP["host"]" block:
 
-$HTTP["host"] =~ "^(www\.)?example.com$" {
-$HTTP["url"] =~ "^/protected/" { url.access-deny = ( "" ) }
+# apt-get install php5-cgi lighttpd
 
-url.rewrite-if-not-file = (
-  "^/(.*)\.(.*)" => "/$0",
-  "^/([^.]+)$" => "/index.php/$1",
-  "^/$" => "/index.php"
-)
+# vi /etc/php5/cgi/php.ini
+then uncomment line with cgi.fix_pathinfo = 1
 
-}
+# cp config/99-domotiyii.conf /etc/lighttpd/conf-available/
+
+# lighty-enable-mod domotiyii
+Enabling domotiyii: ok
+
+# /etc/init.d/lighttpd force-reload
 
 
 Logging and debug:
