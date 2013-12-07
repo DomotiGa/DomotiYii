@@ -5,10 +5,10 @@
  *
  * The followings are the available columns in table 'settings_xmlrpc':
  * @property integer $id
- * @property integer $enabled
+ * @property boolean $enabled
  * @property integer $httpport
  * @property integer $maxconn
- * @property integer $debug
+ * @property boolean $debug
  * @property integer $broadcastudp
  */
 class SettingsXmlrpc extends CActiveRecord
@@ -67,7 +67,7 @@ class SettingsXmlrpc extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'httpport' => 'Httpport',
+			'httpport' => 'Xmlrpcport',
 			'maxconn' => 'Maxconn',
 			'debug' => 'Debug',
 			'broadcastudp' => 'Broadcast UDP',

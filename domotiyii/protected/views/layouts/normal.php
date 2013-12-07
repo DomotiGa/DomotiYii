@@ -21,6 +21,7 @@
                        array('label'=>'Telnet Server', 'url'=> array('settings/telnetserver')),
                        array('label'=>'SmartVISU Server', 'url'=> array('settings/smartvisuserver')),
                        array('label'=>'XML-RPC Server', 'url'=> array('settings/xmlrpc')),
+                       array('label'=>'JSON-RPC Server', 'url'=> array('settings/jsonrpc')),
 		    )),
                     array('label'=>'Sound', 'url'=> array('settings/sound')),
                     array('label'=>'VoiceText', 'url'=> array('settings/voicetext')),

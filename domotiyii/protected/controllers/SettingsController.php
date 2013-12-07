@@ -3,6 +3,22 @@
 class SettingsController extends Controller
 {
 
+    public function actionJsonrpc()
+    {
+        $model = SettingsJsonrpc::model()->findByPk(1);
+
+        if(isset($_POST['SettingsJsonrpc']))
+        {
+            $model->attributes=$_POST['SettingsJsonrpc'];
+            if($model->validate())
+            {
+                // form inputs are valid, save and restart
+                $this->do_save($model);
+            }
+        }
+        $this->render('jsonrpc',array('model'=>$model));
+    }
+
     public function actionP2000()
     {
         $model = SettingsP2000::model()->findByPk(1);
@@ -470,7 +486,7 @@ class SettingsController extends Controller
             if($model->validate())
             {
                 // form inputs are valid, save data
-                $model->save();
+                $this->do_save($model);
             }
         }
         $this->render('xmlrpc',array('model'=>$model));
