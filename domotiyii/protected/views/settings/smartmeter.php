@@ -1,6 +1,6 @@
 <?php
-/* @var $this SettingsNta8130Controller */
-/* @var $model SettingsNta8130 */
+/* @var $this SettingsSmartmeterController */
+/* @var $model SettingsSmartmeter */
 /* @var $form bootstrap.widgets.TbActiveForm */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
@@ -11,11 +11,11 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 ));
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'settings-nta8130-form',
+        'id'=>'settings-smartmeter-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
-<legend>SmartMeter NTA8130</legend>
+<legend>SmartMeter</legend>
 <fieldset>
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
                 <?php echo $form->dropDownListControlGroup($model,'type', array('serial' => 'serial', 'tcp' => 'tcp'), array('onchange'=>'switchTypeExtra(this);')); ?>

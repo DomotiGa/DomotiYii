@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the model class for table "settings_zwave".
+ * This is the model class for table "settings_openzwave".
  *
  * The followings are the available columns in table 'settings_zwave':
  * @property integer $id
@@ -35,7 +35,7 @@ class SettingsOpenzwave extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'settings_zwave';
+		return 'settings_openzwave';
 	}
 
 	/**

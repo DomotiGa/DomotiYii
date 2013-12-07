@@ -1,4 +1,4 @@
-Development info:
+evelopment info:
 ----------------
 This version of DomotiYii is build with:
 Yii-1.1.14 - Framework
@@ -49,7 +49,7 @@ Change it's password here, also change ipFilter so it contains your local subnet
                         'password'=>'Giiha',
                         'ipFilters' => array('127.0.0.1', '192.168.*.*'),
 
-Login interface is using DomotiGa's user table so use admin/admin to login.
+Interface login is hardcoded to admin/admin right now.
 
 Check DomotiGa database name, location and user/password.
 
@@ -60,11 +60,11 @@ Check DomotiGa database name, location and user/password.
                         'password' => 'kung-fu',
                         'charset' => 'utf8',
 
-Check XMLRPC host url
+Check JSON-RPC host url
         // application-level parameters that can be accessed
         // using Yii::app()->params['paramName']
         'params'=>array(
-                'xmlrpcHost'=>'http://localhost:9009',
+                'jsonrpcHost'=>'http://localhost:9009',
 
 This code is tested with the folowing webserver configurations.
 Choose lighttpd if you want to use a small embedded system.
@@ -90,10 +90,12 @@ $ sudo service apache2 restart
 lighttpd config:
 ---------------
 
-# apt-get install lighttpd php5-xmlrpc php5-cgi php5-json
+# apt-get install lighttpd
+# apt-get install php5-common php5-cgi php5 php5-xmlrpc php5-mysql php5-gd php5-json
 
 # vi /etc/php5/cgi/php.ini
 then uncomment line with cgi.fix_pathinfo = 1
+# lighty-enable-mod fastcgi-php
 
 # cp config/99-domotiyii.conf /etc/lighttpd/conf-available/
 

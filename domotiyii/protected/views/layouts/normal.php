@@ -97,7 +97,7 @@
                     array('label'=>'Energy Measurement', 'url'=>'#', 'items'=>array(
                        array('label'=>'Current Cost', 'url'=> array('settings/currentcost')),
                        array('label'=>'Plugwise', 'url'=> array('settings/plugwise')),
-                       array('label'=>'SmartMeter', 'url'=> array('settings/nta8130')),
+                       array('label'=>'SmartMeter', 'url'=> array('settings/smartmeter')),
                     )),
                     array('label'=>'HDDTemp', 'url'=> array('settings/hddtemp')),
                     array('label'=>'HomeMatic', 'url'=> array('settings/homematic')),

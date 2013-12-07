@@ -40,7 +40,7 @@ return array(
 				'mobile/<id:\d+>'=>'mobile/site/view',
 				'mobile/<action:\w+>/<id:\d+>'=>'mobile/site/<action>',
 				'mobile/<action:\w+>'=>'mobile/site/<action>',
-                '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
@@ -96,7 +96,6 @@ return array(
 		// default timezone
 		'timeZone'=>'Europe/Amsterdam',
 		// server settings
-		'xmlrpcHost'=>'http://localhost:9009',
 		'jsonrpcHost'=>'http://localhost:9090',
 		// refresh time for specific gridviews
 		'refreshDevices'=>'5000', // 5 second refresh
@@ -113,7 +112,7 @@ return array(
 		'refreshFloors'=>'5000', // 5 second refresh
 		'refreshUsers'=>'5000', // 5 second refresh
 		'refreshCameras'=>'5000', // 5 second refresh
-        'refreshMobile'=>'5000', // 5 second refresh
+		'refreshMobile'=>'5000', // 5 second refresh
 		
 		// page size for specific gridviews
 		'pagesizeDevices'=>'20', // entries per page

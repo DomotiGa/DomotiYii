@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This is the model class for table "settings_nta8130".
+ * This is the model class for table "settings_smartmeter".
  *
  * The followings are the available columns in table 'settings_nta8130':
  * @property integer $id
@@ -17,7 +17,7 @@
  * @property string $requestline
  * @property boolean $debug
  */
-class SettingsNta8130 extends CActiveRecord
+class SettingsSmartmeter extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -34,7 +34,7 @@ class SettingsNta8130 extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'settings_nta8130';
+		return 'settings_smartmeter';
 	}
 
 	/**

@@ -19,6 +19,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 $this->widget('bootstrap.widgets.TbNav', array(
         'type'=>TbHtml::NAV_TYPE_PILLS,
         'items'=>array(
+                array('label'=>Yii::t('app','Send test tweet'), 'icon'=>'icon-envelope', 'url'=>Yii::app()->controller->createUrl('sendtesttweet'),'active'=>true, 'linkOptions'=>array()),
                 array('label'=>Yii::t('app','Your Tweets'), 'icon'=>'icon-globe', 'url'=>'https://twitter.com/'.$model->username , 'linkOptions'=>array('target'=>'_blank')),
         ),
 ));
