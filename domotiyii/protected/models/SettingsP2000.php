@@ -18,30 +18,21 @@
  */
 class SettingsP2000 extends CActiveRecord
 {
-	/**
-	 * @return array with selected dropdown options
-	 */
-	public function getRegios()
-	{
-		$reg = explode(',',$this->regios);
-		$options = array();
-		foreach ($reg as $value) {
-        		$options[$value] = array('selected' => 'selected');
-		}
-		return $options;
+	// special vars to convert to from multiple list items
+	public $regioarray;
+	public $disciplinearray;
+
+	public function afterFind() {
+		$this->regioarray=explode(',',$this->regios);
+		$this->disciplinearray=explode(',',$this->discipline);
+		return true;
 	}
 
-	/**
-	 * @return array with selected dropdown options
-	 */
-	public function getDisciplines()
-	{
-		$discip = explode(',',$this->discipline);
-		$options = array();
-		foreach ($discip as &$value) {
-			$options[$value] = array('selected' => 'selected');
-		}
-		return $options;
+	public function beforeSave() {
+		$this->regios=implode(',',$this->regioarray);
+		$this->discipline=implode(',',$this->disciplinearray);
+        echo $this->discipline;
+		return true;
 	}
 
 	/**
@@ -63,10 +54,10 @@ class SettingsP2000 extends CActiveRecord
 			array('id', 'required'),
 			array('id, messages, georange, polltime', 'numerical', 'integerOnly'=>true),
 			array('regios, discipline, filter', 'length', 'max'=>64),
-			array('enabled, fetchimage, maplink, debug', 'safe'),
+			array('enabled, fetchimage, maplink, debug, regioarray, disciplinearray', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, enabled, regios, messages, discipline, filter, georange, fetchimage, maplink, polltime, debug', 'safe', 'on'=>'search'),
+			array('id, enabled, messages, filter, georange, fetchimage, maplink, polltime, debug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -89,9 +80,9 @@ class SettingsP2000 extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'regios' => 'Regios',
+			'regioarray' => 'Regios',
 			'messages' => 'Messages',
-			'discipline' => 'Discipline',
+			'disciplinearray' => 'Disciplines',
 			'filter' => 'Filter',
 			'georange' => 'Georange',
 			'fetchimage' => 'Fetchimage',
