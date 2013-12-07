@@ -1377,15 +1377,47 @@ public function actionPioneer()
     $this->render('pioneer',array('model'=>$model));
 }
 
-	protected function do_save($model)
-	{
-		if ($model->save() === false)
-		{
-			Yii::app()->user->setFlash('error', Yii::t('app','Saving settings failed!'));
-		} else {
-			Yii::app()->user->setFlash('success', Yii::t('app','Settings saved.'));
-		}
-	}
+public function actionSendTestEmail()
+{
+    $model=SettingsEmail::model()->findByPk(1);
+    $this->do_jsonrpc(array('jsonrpc'=>'2.0', 'method'=>'email.send', 'params' => array('msg'=>'If you read this, e-mail support is working!',
+        'subject'=>'Test e-mail'),'id'=>1));
+    $this->render('email',array('model'=>$model));
+}
+
+protected function do_save($model)
+{
+    if ($model->save() === false)
+    {
+        Yii::app()->user->setFlash('error', Yii::t('app','Saving settings failed!'));
+    } else {
+        Yii::app()->user->setFlash('success', Yii::t('app','Settings saved.'));
+    }
+}
+
+protected function do_jsonrpc($data = array())
+{
+    $request = json_encode($data);
+    $context = stream_context_create(
+        array('http' =>
+            array('method' => "POST",
+                  'header' =>"Content-Type: application/json\r\n" .
+                  "Accept: application/json\r\n",
+                  'content' => $request)));
+
+    $file = @file_get_contents(Yii::app()->params['jsonrpcHost'], false, $context);
+    if ( $file === FALSE ) {
+        // could not connect
+        Yii::app()->user->setFlash('error', "Couldn't connect to JSON-RPC service on '" . Yii::app()->params['jsonrpcHost'] . "'");
+    } else {
+        $res = json_decode($file);
+        if ( $res->result == "1" ) {
+           Yii::app()->user->setFlash('success', Yii::t('app','Sent test e-mail.'));
+        } else {
+           Yii::app()->user->setFlash('error', Yii::t('app','Sending test e-mail failed!'));
+        }
+    }
+}
 
 protected function do_xmlrpc($procedure, $data = array()) {
 
@@ -1401,6 +1433,6 @@ protected function do_xmlrpc($procedure, $data = array()) {
           Yii::app()->user->setFlash('error', Yii::t('app','Saving settings & restarting module failed!'));
        }
     }
-  }
+}
 
 }

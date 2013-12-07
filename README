@@ -49,7 +49,7 @@ Change it's password here, also change ipFilter so it contains your local subnet
                         'password'=>'Giiha',
                         'ipFilters' => array('127.0.0.1', '192.168.*.*'),
 
-Interface login is hardcoded to admin/admin right now.
+Login interface is using DomotiGa's user table so use admin/admin to login.
 
 Check DomotiGa database name, location and user/password.
 

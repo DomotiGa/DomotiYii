@@ -8,14 +8,27 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         Yii::t('app','Modules') => '../index',
         Yii::t('app','E-mail'),
     ),
+)); ?>
+
+<legend>E-mails</legend>
+<?php $this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
 ));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('app','Send test mail'), 'icon'=>'icon-envelope', 'url'=>Yii::app()->controller->createUrl('sendtestemail'),'active'=>true, 'linkOptions'=>array()),
+        ),
+));
+$this->endWidget();
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id'=>'login-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
-<legend>E-mail</legend>
 <fieldset>
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'smtpserver'); ?>
@@ -23,8 +36,8 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->emailFieldControlGroup($model,'fromaddress'); ?>
 		<?php echo $form->emailFieldControlGroup($model,'toaddress'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'sslenabled', array('value'=>-1)); ?>
-		<?php echo $form->emailFieldControlGroup($model,'username'); ?>
-		<?php echo $form->passwordFieldControlGroup($model,'password'); ?>
+		<?php echo $form->textFieldControlGroup($model,'username'); ?>
+		<?php echo $form->passwordFieldControlGroup($model,'password', array('help'=>Yii::t('app','Leave both fields blank for no authentication.'))); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 </fieldset>
 
