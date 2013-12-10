@@ -91,10 +91,8 @@ lighttpd config:
 ---------------
 
 # apt-get install lighttpd
-# apt-get install php5-common php5-cgi php5 php5-mysql php5-gd php5-json
+# apt-get install php5-common php5-cgi php5 php5-mysql php5-gd
 
-# vi /etc/php5/cgi/php.ini
-then uncomment line with cgi.fix_pathinfo = 1
 # lighty-enable-mod fastcgi-php
 
 # cp config/99-domotiyii.conf /etc/lighttpd/conf-available/
