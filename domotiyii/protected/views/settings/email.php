@@ -19,7 +19,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 $this->widget('bootstrap.widgets.TbNav', array(
         'type'=>TbHtml::NAV_TYPE_PILLS,
         'items'=>array(
-                array('label'=>Yii::t('app','Send test mail'), 'icon'=>'icon-envelope', 'url'=>Yii::app()->controller->createUrl('sendtestemail'),'active'=>true, 'linkOptions'=>array()),
+                array('label'=>Yii::t('app','Send test e-mail'), 'icon'=>'icon-envelope', 'url'=>Yii::app()->controller->createUrl('sendtestemail'),'active'=>false, 'linkOptions'=>array()),
         ),
 ));
 $this->endWidget();

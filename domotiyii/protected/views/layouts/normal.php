@@ -142,7 +142,7 @@
                    array('label'=>Yii::t('app','Groups'), 'url'=> array('groups/index')),
                    array('label'=>Yii::t('app','Locations'), 'url'=> array('locations/index')),
                    array('label'=>Yii::t('app','Floors'), 'url'=> array('floors/index')),
-                   array('label'=>Yii::t('app','Blacklists'), 'url'=> array('blacklist/index')),
+                   array('label'=>Yii::t('app','Blacklists'), 'url'=> array('deviceblacklist/index')),
                 )),
                 array('label'=>'Edit', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                    array('label'=>'Users', 'url'=> array('users/index')),

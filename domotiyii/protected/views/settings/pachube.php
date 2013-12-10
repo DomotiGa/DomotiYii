@@ -35,7 +35,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->numberFieldControlGroup($model,'feed'); ?>
 		<?php echo $form->textFieldControlGroup($model,'apikey', array('class'=>'span7')); ?>
-		<?php echo $form->numberFieldControlGroup($model,'pushtime', array('append' => 'Seconds')); ?>
+		<?php echo $form->numberFieldControlGroup($model,'pushtime', array('append' => 'Minutes', 'help'=>Yii::t('app','Set to 0 to enable automatic feeds.'))); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 </fieldset>
 

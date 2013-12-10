@@ -40,7 +40,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
                 <?php echo $form->dropDownListControlGroup($model,'usagedevicevalue', array('0' => '', '1' => 'Value1', '2' => 'Value2', '3' => 'Value3', '4' => 'Value4')); ?>
 		<?php echo $form->dropDownListControlGroup($model,'tempdeviceid',Devices::getDevices(), array('prompt'=>'', 'id'=>'tempdeviceid')); ?>
                 <?php echo $form->dropDownListControlGroup($model,'tempdevicevalue', array('0' => '', '1' => 'Value1', '2' => 'Value2', '3' => 'Value3', '4' => 'Value4')); ?>
-		<?php echo $form->numberFieldControlGroup($model,'pushtime', array('append' => 'Seconds')); ?>
+		<?php echo $form->numberFieldControlGroup($model,'pushtime', array('append' => 'Minutes')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 </fieldset>
 

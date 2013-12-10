@@ -35,7 +35,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->textFieldControlGroup($model,'apikey'); ?>
 		<?php echo $form->textFieldControlGroup($model,'city'); ?>
 		<?php echo $form->numberFieldControlGroup($model,'polltime', array('append' => 'Seconds')); ?>
-		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1, 'help'=>Yii::t('app','To get a free account/API key click \'Register for API\''))); ?>
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

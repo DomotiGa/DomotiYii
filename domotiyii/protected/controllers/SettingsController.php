@@ -2,7 +2,6 @@
 
 class SettingsController extends Controller
 {
-
     public function actionJsonrpc()
     {
         $model = SettingsJsonrpc::model()->findByPk(1);
@@ -1393,14 +1392,58 @@ class SettingsController extends Controller
         $this->render('pioneer',array('model'=>$model));
     }
 
+    public function actionSendTestNMA()
+    {
+        $model=SettingsNMA::model()->findByPk(1);
+        $res = $this->do_jsonrpc(array('jsonrpc'=>'2.0', 'method'=>'nma.send', 'params' => array('msg'=>'This is a test Msg!'),'id'=>1));
+        if ( $res ) {
+            if ( $res->result == "1" ) {
+                Yii::app()->user->setFlash('success', Yii::t('app','Sent test pushmsg.'));
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('app','Sending a test pushmsg failed!'));
+            }
+        }
+        $this->render('NMA',array('model'=>$model));
+    }
+
+    public function actionSendTestProwl()
+    {
+        $model=SettingsProwl::model()->findByPk(1);
+        $res = $this->do_jsonrpc(array('jsonrpc'=>'2.0', 'method'=>'prowl.send', 'params' => array('msg'=>'This is a test Msg!'),'id'=>1));
+        if ( $res ) {
+            if ( $res->result == "1" ) {
+                Yii::app()->user->setFlash('success', Yii::t('app','Sent test pushmsg.'));
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('app','Sending a test pushmsg failed!'));
+            }
+        }
+        $this->render('prowl',array('model'=>$model));
+    }
+
+    public function actionSendTestPushover()
+    {
+        $model=SettingsPushover::model()->findByPk(1);
+        $res = $this->do_jsonrpc(array('jsonrpc'=>'2.0', 'method'=>'pushover.send', 'params' => array('msg'=>'This is a test Msg!'),'id'=>1));
+        if ( $res ) {
+            if ( $res->result == "1" ) {
+                Yii::app()->user->setFlash('success', Yii::t('app','Sent test pushmsg.'));
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('app','Sending a test pushmsg failed!'));
+            }
+        }
+        $this->render('pushover',array('model'=>$model));
+    }
+
     public function actionSendTestTweet()
     {
         $model=SettingsTwitter::model()->findByPk(1);
         $res = $this->do_jsonrpc(array('jsonrpc'=>'2.0', 'method'=>'twitter.send', 'params' => array('msg'=>'This is a test Tweet!'),'id'=>1));
-        if ( $res->result == "1" ) {
-            Yii::app()->user->setFlash('success', Yii::t('app','Sent test tweet.'));
-        } else {
-            Yii::app()->user->setFlash('error', Yii::t('app','Sending a test tweet failed!'));
+        if ( $res ) {
+            if ( $res->result == "1" ) {
+                Yii::app()->user->setFlash('success', Yii::t('app','Sent test tweet.'));
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('app','Sending a test tweet failed!'));
+            }
         }
         $this->render('twitter',array('model'=>$model));
     }
@@ -1410,10 +1453,12 @@ class SettingsController extends Controller
         $model=SettingsEmail::model()->findByPk(1);
         $res = $this->do_jsonrpc(array('jsonrpc'=>'2.0', 'method'=>'email.send', 'params' => array('msg'=>'If you read this, e-mail support is working!',
             'subject'=>'Test e-mail'),'id'=>1));
-        if ( $res->result == "1" ) {
-            Yii::app()->user->setFlash('success', Yii::t('app','Sent test e-mail.'));
-        } else {
-            Yii::app()->user->setFlash('error', Yii::t('app','Sending a test e-mail failed!'));
+        if ( $res ) {
+            if ( $res->result == "1" ) {
+                Yii::app()->user->setFlash('success', Yii::t('app','Sent test e-mail.'));
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('app','Sending a test e-mail failed!'));
+            }
         }
         $this->render('email',array('model'=>$model));
     }
@@ -1431,10 +1476,12 @@ class SettingsController extends Controller
     protected function do_restart($plugin)
     {
         $res = $this->do_jsonrpc(array('jsonrpc'=>'2.0', 'method'=>'plugin.restart', 'params' => array('name'=>$plugin),'id'=>1));
-        if ( $res->result == "1" ) {
-            Yii::app()->user->setFlash('success', Yii::t('app','Saved settings & restarted module.'));
-        } else {
-            Yii::app()->user->setFlash('error', Yii::t('app','Saving settings & restarting module failed!'));
+        if ( $res ) {
+            if ( $res->result == "1" ) {
+                Yii::app()->user->setFlash('success', Yii::t('app','Saved settings & restarted module.'));
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('app','Saving settings & restarting module failed!'));
+            }
         }
     }
 

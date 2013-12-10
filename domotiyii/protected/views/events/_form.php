@@ -7,29 +7,21 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'events-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
-)); ?>
+));
 
-<fieldset>
-<p class="note"><?php echo Yii::t('app','Fields with <span class="required">*</span> are required.') ?></p>
+$this->widget('bootstrap.widgets.TbTabs', array(
+    'id' => 'mytabs',
+    'type' => 'tabs',
+    'tabs' => array(
+            array('id' => 'main', 'label' => Yii::t('app','Main'), 'content' => $this->renderPartial('edit/_main', array('form' => $form, 'model' => $model), true), 'active' => true),
+            array('id' => 'trigger', 'label' => Yii::t('app','Trigger'), 'content' => $this->renderPartial('edit/_trigger', array('form' => $form, 'model' => $model) , true)),
+	    array('id' => 'conditions', 'label' => Yii::t('app','Conditions'), 'content' => $this->renderPartial('edit/_conditions', array('form' => $form, 'model' => $model) , true)),
+            array('id' => 'actions', 'label' => Yii::t('app','Actions'), 'content' => $this->renderPartial('edit/_actions', array('form' => $form, 'model' => $model) , true)),
+            array('id' => 'options', 'label' => Yii::t('app','Options'), 'content' => $this->renderPartial('edit/_options', array('form' => $form, 'model' => $model) , true)),
+    ),
+));
 
-		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
-		<?php echo $form->textFieldControlGroup($model,'name'); ?>
-		<?php echo $form->dropDownListControlGroup($model,'trigger1', $model->getAllTriggers(), array('prompt'=>'', 'id'=>'trigger1')); ?>
-		<?php echo $form->dropDownListControlGroup($model,'condition1', $model->getAllConditions(), array('prompt'=>'', 'id'=>'condition1')); ?>
-		<?php echo $form->textFieldControlGroup($model,'operand'); ?>
-		<?php echo $form->dropDownListControlGroup($model,'condition2', $model->getAllConditions(), array('prompt'=>'', 'id'=>'condition2')); ?>
-        <!-- TODO link to actions -->
-		<?php echo $form->dropDownListControlGroup($model,'category', $model->getAllCategories(), array('prompt'=>'', 'id'=>'category')); ?>
-		<?php echo $form->checkBoxControlGroup($model,'rerunenabled', array('value'=>-1)); ?>
-		<?php echo $form->textFieldControlGroup($model,'reruntype'); ?>
-		<?php echo $form->textFieldControlGroup($model,'rerunvalue'); ?>
-		<?php echo $form->textFieldControlGroup($model,'firstrun'); ?>
-		<?php echo $form->textFieldControlGroup($model,'lastrun'); ?>
-		<?php echo $form->checkBoxControlGroup($model,'log', array('value'=>-1)); ?>
-		<?php echo $form->textFieldControlGroup($model,'comments'); ?>
-</fieldset>
-
-<?php echo TbHtml::formActions(array(
+echo TbHtml::formActions(array(
     TbHtml::submitButton($model->isNewRecord ? Yii::t('app','Create') : Yii::t('app','Save'), array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
     TbHtml::resetButton('Reset'),
 )); ?>
