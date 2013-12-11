@@ -1394,7 +1394,6 @@ class SettingsController extends Controller
 
     public function actionSendTestNMA()
     {
-        $model=SettingsNMA::model()->findByPk(1);
         $res = $this->do_jsonrpc(array('jsonrpc'=>'2.0', 'method'=>'nma.send', 'params' => array('msg'=>'This is a test Msg!'),'id'=>1));
         if ( $res ) {
             if ( $res->result == "1" ) {
@@ -1403,12 +1402,11 @@ class SettingsController extends Controller
                 Yii::app()->user->setFlash('error', Yii::t('app','Sending a test pushmsg failed!'));
             }
         }
-        $this->render('NMA',array('model'=>$model));
+	$this->redirect('NMA',true);
     }
 
     public function actionSendTestProwl()
     {
-        $model=SettingsProwl::model()->findByPk(1);
         $res = $this->do_jsonrpc(array('jsonrpc'=>'2.0', 'method'=>'prowl.send', 'params' => array('msg'=>'This is a test Msg!'),'id'=>1));
         if ( $res ) {
             if ( $res->result == "1" ) {
@@ -1417,12 +1415,11 @@ class SettingsController extends Controller
                 Yii::app()->user->setFlash('error', Yii::t('app','Sending a test pushmsg failed!'));
             }
         }
-        $this->render('prowl',array('model'=>$model));
+	$this->redirect('prowl',true);
     }
 
     public function actionSendTestPushover()
     {
-        $model=SettingsPushover::model()->findByPk(1);
         $res = $this->do_jsonrpc(array('jsonrpc'=>'2.0', 'method'=>'pushover.send', 'params' => array('msg'=>'This is a test Msg!'),'id'=>1));
         if ( $res ) {
             if ( $res->result == "1" ) {
@@ -1431,12 +1428,11 @@ class SettingsController extends Controller
                 Yii::app()->user->setFlash('error', Yii::t('app','Sending a test pushmsg failed!'));
             }
         }
-        $this->render('pushover',array('model'=>$model));
+	$this->redirect('pushover',true);
     }
 
     public function actionSendTestTweet()
     {
-        $model=SettingsTwitter::model()->findByPk(1);
         $res = $this->do_jsonrpc(array('jsonrpc'=>'2.0', 'method'=>'twitter.send', 'params' => array('msg'=>'This is a test Tweet!'),'id'=>1));
         if ( $res ) {
             if ( $res->result == "1" ) {
@@ -1445,12 +1441,11 @@ class SettingsController extends Controller
                 Yii::app()->user->setFlash('error', Yii::t('app','Sending a test tweet failed!'));
             }
         }
-        $this->render('twitter',array('model'=>$model));
+	$this->redirect('twitter',true);
     }
 
     public function actionSendTestEmail()
     {
-        $model=SettingsEmail::model()->findByPk(1);
         $res = $this->do_jsonrpc(array('jsonrpc'=>'2.0', 'method'=>'email.send', 'params' => array('msg'=>'If you read this, e-mail support is working!',
             'subject'=>'Test e-mail'),'id'=>1));
         if ( $res ) {
@@ -1460,7 +1455,7 @@ class SettingsController extends Controller
                 Yii::app()->user->setFlash('error', Yii::t('app','Sending a test e-mail failed!'));
             }
         }
-        $this->render('email',array('model'=>$model));
+	$this->redirect('email',true);
     }
 
     protected function do_save($model)
