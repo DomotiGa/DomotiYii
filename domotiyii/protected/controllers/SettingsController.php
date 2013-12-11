@@ -282,8 +282,9 @@ class SettingsController extends Controller
             $model->attributes=$_POST['SettingsMain'];
             if($model->validate())
             {
-               // form inputs are valid, save and restart
-               $this->do_save($model);
+                // form inputs are valid, save and restart
+                $this->do_save($model);
+                $this->do_restart('main');
             }
         }
         $this->render('main',array('model'=>$model));
