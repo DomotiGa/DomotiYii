@@ -105,10 +105,10 @@ class SiteController extends Controller
 		{   
             echo $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all",
                 "locations"=>array(intval(strip_tags($_GET['location']))),
-                "fields"=>array("device_id","value1","label1","value2","label2","value3","label3","value4","label4","lastseen")),'id'=>1));
+                "fields"=>array("device_id","lastseen")),'id'=>1));
         }else{
             echo $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all",
-                "fields"=>array("device_id","value1","label1","value2","label2","value3","label3","value4","label4","lastseen")),'id'=>1));
+                "fields"=>array("device_id","lastseen")),'id'=>1));
         }	
 
     }

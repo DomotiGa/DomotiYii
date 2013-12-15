@@ -88,31 +88,20 @@
                 <i class="icon-chevron-down"></i>
             </h5>    
             <h6 class="device_status">
-            	<?php echo $device['valuelabel']; ?>
             </h6>
         </div>
         <div class="clear"></div>   
         <div class="device_info">
-            <?php if( !(trim($device['locationtext']) === "") ): ?>
-                <h6 class="device_location"><i class="icon-map-marker"></i><?php echo $device['locationtext']; ?></h6>
-            <?php endif; ?>
-            <?php if( !(trim($device['valuelabel2']) === "") ): ?>
-                <p class="device_value_2"><i class="icon-tag"></i><?php echo $device['valuelabel2']; ?></p>
-            <?php endif; ?>
-            <?php if( !(trim($device['valuelabel3']) === "") ): ?>
-                <p class="device_value_3"><i class="icon-tag"></i><?php echo $device['valuelabel3']; ?></p>
-            <?php endif; ?>
-            <?php if( !(trim($device['valuelabel4']) === "") ): ?>
-                <p class="device_value_4"><i class="icon-tag"></i><?php echo $device['valuelabel4']; ?></p>
-            <?php endif; ?>
-            <?php if( !(trim($device['lastseentext']) === "") ): ?>
-                <p class="device_lastseen"><i class="icon-time"></i><?php echo $device['lastseentext']; ?></p>
-            <?php endif; ?>
-
+            <div class="device_info_value">
+                <?php if( !(trim($device['locationtext']) === "") ): ?>
+                    <h6 class="device_location"><i class="icon-map-marker"></i><?php echo $device['locationtext']; ?></h6>
+                <?php endif; ?>
+            </div>
+            
             <?php if( $device['switchable'] || $device['dimable'] ): ?>
                 <div class="btn-group switch_device">
-                    <button class="btn <?php echo ( (strpos($device['valuelabel'],'Off') !== false) ?'btn-primary':''); ?>">Off</button>
-                    <button class="btn <?php echo ( (strpos($device['valuelabel'],'On') !== false) ?'btn-primary':''); ?>">On</button>
+                    <button class="btn">Off</button>
+                    <button class="btn">On</button>
                 </div>            
             <?php endif; ?>
             <?php if($device['dimable']): ?>  

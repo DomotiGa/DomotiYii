@@ -93,12 +93,18 @@ $(function() {
                     // parse data
                     $.each( json_data.result,function() {
                         device = $(".device[data-id=" + this.device_id+"]");
-                        device.find(".device_status").html(this.value1 + " " + this.label1);
-                        device.find(".device_lastseen").html('<i class="icon-time"></i>' + this.lastseen);                     
-                        device.find(".device_value_2").html('<i class="icon-tag"></i>' + this.value2 + " " + this.label2);             
-                        device.find(".device_value_3").html('<i class="icon-tag"></i>' + this.value3 + " " + this.label3);             
-                        device.find(".device_value_4").html('<i class="icon-tag"></i>' + this.value4 + " " + this.label4);             
-                        // add value 2,3,4 lastseen  
+                        device.find(".device_lastseen").html('<i class="icon-time"></i>' + this.lastseen);
+                        $.each( this.values,function() {
+                          var device_value = device.find(".device_value_"+this.valuenum);
+                          if (this.valuenum == 1){
+                            device.find(".device_status").html(this.value + " " + this.units);
+                          }
+                          
+                          if(device_value.length == 0){
+                            device.find(".device_info_value").append('<p class="device_value_'+this.valuenum+'">');
+                          }
+                          device.find(".device_value_"+this.valuenum).html('<i class="icon-tag"></i>' +this.value + " " + this.units);
+                         })
                     })
                 }
             }else{ error = true; }   
