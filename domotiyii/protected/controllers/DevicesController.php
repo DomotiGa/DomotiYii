@@ -3,23 +3,6 @@
 class DevicesController extends Controller
 {
 
-    // overwrite default rules
-    public function accessRules()
-    {
-        return array(
-            array('allow', // allow authenticated user 
-                'users'=>array('@'),
-            ),
-            array('allow', // allow everybody to see devices 
-                'actions'=>array('index','view'),
-                'users'=>array('*'),
-            ),
-            array('deny',  // deny all users
-                'users'=>array('*'),
-            ),
-        );
-    }
-
 	public function actionIndex()
 	{
 		$criteria = new CDbCriteria();

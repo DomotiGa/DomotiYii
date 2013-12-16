@@ -2,15 +2,28 @@
 
 class SiteController extends Controller
 {
-    // overwrite default rules
-    public function accessRules()
-    {
+  
+  // overwrite default rules
+  public function accessRules()
+  {
+    if (Yii::app()->params['allowMobileWithoutLogin']){      
         return array(
             array('allow',  // allow everybody
                 'users'=>array('*'),
             ),
         );
+    }else{
+        return array(
+          array('allow', // allow authenticated user 
+                'users'=>array('@'),
+            ),
+            array('deny',  // deny all users
+                'users'=>array('*'),
+            ),
+        );
     }
+  }
+    
 
 	public function actionIndex()
 	{

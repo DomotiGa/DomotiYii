@@ -97,6 +97,8 @@ return array(
 		'timeZone'=>'Europe/Amsterdam',
 		// server settings
 		'jsonrpcHost'=>'http://localhost:9090',
+		// Security allow mobile control without login
+	  'allowMobileWithoutLogin'=>False, // Dont allow, you can do this if you have setup ssl client certificate
 		// refresh time for specific gridviews
 		'refreshDevices'=>'5000', // 5 second refresh
 		'refreshPhonecalls'=>'5000', // 5 second refresh
