@@ -66,10 +66,6 @@ $this->widget('domotiyii.LiveGridView', array(
     'columns'=>array(
         array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
         array('name'=>'name', 'header'=>Yii::t('app','Name'), 'htmlOptions'=>array('width'=>'150')),
-        array('name'=>'valuelabel', 'header'=>Yii::t('app','Value'), 'htmlOptions'=>array('width'=>'40')),
-        array('name'=>'valuelabel2', 'header'=>Yii::t('app','Value2'), 'htmlOptions'=>array('width'=>'40')),
-        array('name'=>'valuelabel3', 'header'=>Yii::t('app','Value3'), 'htmlOptions'=>array('width'=>'40')),
-        array('name'=>'valuelabel4', 'header'=>Yii::t('app','Value4'), 'htmlOptions'=>array('width'=>'40')),
         array('name'=>'locationtext', 'header'=>Yii::t('app','Location'), 'htmlOptions'=>array('width'=>'120')),
         array('name'=>'lastseentext', 'header'=>Yii::t('app','Last Seen'), 'htmlOptions'=>array('width'=>'120')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',
