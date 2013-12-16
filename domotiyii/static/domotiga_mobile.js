@@ -90,20 +90,25 @@ $(function() {
                 if(json_data.result == undefined || json_data.result == false || json_data.error != undefined){
                     error = true;
                 }else{
-                    // parse data
+                    // parse data, loop trough each device
                     $.each( json_data.result,function() {
-                        device = $(".device[data-id=" + this.device_id+"]");
+                        var device = $(".device[data-id="+this.device_id+"]");
                         device.find(".device_lastseen").html('<i class="icon-time"></i>' + this.lastseen);
+                        // loop trough each device value
                         $.each( this.values,function() {
-                          var device_value = device.find(".device_value_"+this.valuenum);
-                          if (this.valuenum == 1){
-                            device.find(".device_status").html(this.value + " " + this.units);
-                          }
-                          
-                          if(device_value.length == 0){
-                            device.find(".device_info_value").append('<p class="device_value_'+this.valuenum+'">');
-                          }
-                          device.find(".device_value_"+this.valuenum).html('<i class="icon-tag"></i>' +this.value + " " + this.units);
+                            var device_value = device.find(".device_value_"+this.valuenum);
+                            if (this.valuenum == 1){
+                              device.find(".device_status").html(this.value + " " + this.units);
+                            }
+                            
+                            if ((this.value + this.units).length > 0){
+                              if(device_value.length == 0){
+                                device.find(".device_info_value").append('<p class="device_value_'+this.valuenum+'">');
+                              }
+                              device.find(".device_value_"+this.valuenum).html('<i class="icon-tag"></i>' +this.value + " " + this.units);
+                            }else{
+                              device.remove(".device_value_"+this.valuenum);
+                            }
                          })
                     })
                 }

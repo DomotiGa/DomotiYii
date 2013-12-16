@@ -97,6 +97,7 @@
                     <h6 class="device_location"><i class="icon-map-marker"></i><?php echo $device['locationtext']; ?></h6>
                 <?php endif; ?>
             </div>
+            <h6 class="device_lastseen"><i class="icon-time"></i><?php echo $device['lastseen']; ?></h6>
             
             <?php if( $device['switchable'] || $device['dimable'] ): ?>
                 <div class="btn-group switch_device">
