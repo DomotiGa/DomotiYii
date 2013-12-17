@@ -1,18 +1,16 @@
 <?php
 
 /**
- * This is the model class for table "devices_log".
+ * This is the model class for table "device_values_log".
  *
- * The followings are the available columns in table 'devices_log':
+ * The followings are the available columns in table 'device_values_log':
  * @property integer $id
- * @property string $deviceid
+ * @property string $device_id
+ * @property integer $valuenum
  * @property string $value
- * @property string $value2
- * @property string $value3
- * @property string $value4
  * @property string $lastchanged
  */
-class DevicesLog extends CActiveRecord
+class DeviceValuesLog extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -29,7 +27,7 @@ class DevicesLog extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'devices_log';
+		return 'device_values_log';
 	}
 
 	/**
@@ -40,13 +38,13 @@ class DevicesLog extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('deviceid, value', 'required'),
-			array('deviceid', 'length', 'max'=>11),
-			array('value, value2, value3, value4', 'length', 'max'=>32),
+			array('device_id, valuenum, value', 'required'),
+			array('device_id, valuenum', 'length', 'max'=>11),
+			array('value', 'length', 'max'=>32),
 			array('lastchanged', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, deviceid, value, value2, value3, value4, lastchanged', 'safe', 'on'=>'search'),
+			array('id, device_id, valuenum, value, lastchanged', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,11 +66,9 @@ class DevicesLog extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'deviceid' => 'Deviceid',
+			'device_id' => 'Device number',
+			'valuenum' => 'Value number',
 			'value' => 'Value',
-			'value2' => 'Value2',
-			'value3' => 'Value3',
-			'value4' => 'Value4',
 			'lastchanged' => 'Lastchanged',
 		);
 	}
@@ -89,11 +85,9 @@ class DevicesLog extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('deviceid',$this->deviceid,true);
+		$criteria->compare('device_id',$this->device_id,true);
+		$criteria->compare('valuenum',$this->valuenum,true);
 		$criteria->compare('value',$this->value,true);
-		$criteria->compare('value2',$this->value2,true);
-		$criteria->compare('value3',$this->value3,true);
-		$criteria->compare('value4',$this->value4,true);
 		$criteria->compare('lastchanged',$this->lastchanged,true);
 
 		return new CActiveDataProvider($this, array(

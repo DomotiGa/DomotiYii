@@ -84,7 +84,8 @@ class DevicesController extends Controller
 	public function actionDelete($id)
 	{
 		// delete the related entries from the "devices_log" table first
-		$model = DevicesLog::model()->deleteAll("deviceid ='" . $id . "'");
+		$model = DeviceValuesLog::model()->deleteAll("device_id ='" . $id . "'");
+		// TODO: Delete device_values, ...
 
 		// delete the entry from the "devices" table
 		$model = Devices::model()->findByPk($id);
