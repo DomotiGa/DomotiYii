@@ -100,7 +100,7 @@ class Scenes extends CActiveRecord
 			'comments' => Yii::t('app','Comments'),
 			'l_category.name' => Yii::t('app','Category'),
 			'location_id' => Yii::t('app','Location'),
-            'location.name' => Yii::t('app','Location'),
+            		'location.name' => Yii::t('app','Location'),
 			'event_id' => Yii::t('app','Event'),
 			'event.name' => Yii::t('app','Event'),		
         );
@@ -118,7 +118,7 @@ class Scenes extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
-	public function search()
+	public function search($enablepagination = true)
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
@@ -135,13 +135,28 @@ class Scenes extends CActiveRecord
 		$criteria->compare('location_id',$this->location_id);
 		$criteria->compare('event_id',$this->event_id);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			'pagination' => array(
-				'pageSize'=>Yii::app()->params['pagesizeScenes'],
-				'pageVar'=>'page'
-                        ),
-		));
+	
+		if ($enablepagination) {
+			return new CActiveDataProvider($this, array(
+				'pagination' => array(
+					'pageSize'=>Yii::app()->params['pagesizeScenes'],
+					'pageVar'=>'page'
+                        	),
+				'criteria'=>$criteria,
+				'sort'=>array(
+					'defaultOrder'=>'name ASC',
+				),
+			));
+		} else {
+			return new CActiveDataProvider($this, array(
+				'pagination' => false,
+				'criteria'=>$criteria,
+				'sort'=>array(
+					'defaultOrder'=>'name ASC',
+				),
+			));
+		}
+
 	}
 
 	/**
