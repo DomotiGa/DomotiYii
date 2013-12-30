@@ -114,7 +114,7 @@ class SiteController extends Controller
 
 	public function actionGetDeviceUpdate()
 	{
-        if(isset($_GET['location']) && is_numeric($_GET['location']) )
+        if(isset($_GET['location']) && is_numeric($_GET['location'])  && $_GET['location'] != 0 )
 		{   
             echo $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all",
                 "locations"=>array(intval(strip_tags($_GET['location']))),
