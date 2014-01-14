@@ -20,6 +20,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'tcphost'); ?>
 		<?php echo $form->numberFieldControlGroup($model,'tcpport'); ?>
+		<?php echo $form->textFieldControlGroup($model,'clientname'); ?>
 		<?php echo $form->textFieldControlGroup($model,'username'); ?>
 		<?php echo $form->passwordFieldControlGroup($model,'password'); ?>
 		<?php echo $form->textFieldControlGroup($model,'pubtopic'); ?>

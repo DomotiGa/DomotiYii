@@ -8,6 +8,7 @@
  * @property boolean $enabled
  * @property string $tcphost
  * @property integer $tcpport
+ * @property string $clientname
  * @property string $username
  * @property string $password
  * @property string $pubtopic
@@ -48,6 +49,7 @@ class SettingsMqtt extends CActiveRecord
 			array('id', 'required'),
 			array('id, tcpport, heartbeat, qos', 'numerical', 'integerOnly'=>true),
 			array('qos', 'numerical', 'integerOnly'=>true, 'min'=>0, 'max'=>2),
+			array('clientname', 'length', 'max'=>23),
 			array('tcphost', 'length', 'max'=>64),
 			array('username, password', 'length', 'max'=>32),
 			array('pubtopic, subtopic', 'length', 'max'=>256),
@@ -79,6 +81,7 @@ class SettingsMqtt extends CActiveRecord
 			'enabled' => 'Enabled',
 			'tcphost' => 'Tcphost',
 			'tcpport' => 'Tcpport',
+			'clientname' => 'Client name',
 			'username' => 'Username',
 			'password' => 'Password',
 			'pubtopic' => 'Publish topic',
@@ -105,6 +108,7 @@ class SettingsMqtt extends CActiveRecord
 		$criteria->compare('enabled',$this->enabled);
 		$criteria->compare('tcphost',$this->tcphost,true);
 		$criteria->compare('tcpport',$this->tcpport);
+		$criteria->compare('clientname',$this->clientname,true);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('pubtopic',$this->pubtopic,true);
