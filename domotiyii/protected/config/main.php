@@ -37,9 +37,9 @@ return array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
 			'rules'=>array(
-				'mobile/<id:\d+>'=>'mobile/site/view',
-				'mobile/<action:\w+>/<id:\d+>'=>'mobile/site/<action>',
-				'mobile/<action:\w+>'=>'mobile/site/<action>',
+				'mobile/<id:\d+>'=>'mobile/<controller>/view',
+				'mobile/<action:\w+>/<id:\d+>'=>'mobile/<controller>/<action>',
+				'mobile/<controller:\w+>/<action:\w+>'=>'mobile/<controller>/<action>',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

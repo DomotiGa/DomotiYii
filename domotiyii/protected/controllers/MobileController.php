@@ -1,6 +1,6 @@
 <?php
 
-class SiteController extends Controller
+class MobileController extends Controller
 {
   
   // overwrite default rules
