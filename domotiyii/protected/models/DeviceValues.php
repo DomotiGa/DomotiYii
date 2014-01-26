@@ -22,6 +22,15 @@
  */
 class DeviceValues extends CActiveRecord
 {
+
+    /**
+    * @return dropdownlist with the list of device
+    */
+    public function getDevices()
+    {
+    	return CHtml::listData(Devices::model()->findAll(), 'id', 'name');
+    }
+
     /**
      * @return string the associated database table name
      */
@@ -68,6 +77,7 @@ class DeviceValues extends CActiveRecord
         return array(
             'id' => 'ID',
             'deviceid' => 'Deviceid',
+            'device' => 'Device',
             'valuenum' => 'Valuenum',
             'value' => 'Value',
             'correction' => 'Correction',
