@@ -1,19 +1,41 @@
-evelopment info:
+DomotiYii - The Yii/Bootstrap based webgui for DomotiGa.
+-------------------------------------------------------
+
+Development info:
 ----------------
 This version of DomotiYii is build with:
 Yii-1.1.14 - Framework
-from https://github.com/yiisoft/yii/releases/download/1.1.14/yii-1.1.14.f0fee9.tar.gz
+Source: https://github.com/yiisoft/yii/releases/download/1.1.14/yii-1.1.14.f0fee9.tar.gz
 
 Yiistrap-1.2.0 - Twitter Bootstrap for Yii
-from https://github.com/Crisu83/yiistrap/archive/1.2.0.zip
+Source: https://github.com/Crisu83/yiistrap/archive/1.2.0.zip
 
-Install 'DomotiYii':
+
+License:
+-------
+Both DomotiGa and DomotiYii are released under the terms of GNU GPL v3 license.
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see http://www.gnu.org/licenses/.
+
+
+How to install 'DomotiYii':
 -------------------
 Unpack domotiyii directory to /var/www, or put it's contents in the webroot.
 This directory contains the Yii project and the Yii framework.
 
 
-Yii Framework:
+About the Yii Framework:
 -------------
 The framework directory contains the code from the Yii 1.1.14 file above.
 
@@ -36,6 +58,7 @@ Correct permissions:
 -------------------
 The assets folder must be writable by the Web server (usually www-data), same for protected/models and protected/runtime
 so Gii can generate files there.
+
 
 Configure DomotiYii:
 -------------------
@@ -66,11 +89,17 @@ Check JSON-RPC host url
         'params'=>array(
                 'jsonrpcHost'=>'http://localhost:9009',
 
+
+Webserver installation:
+----------------------
+
 This code is tested with the folowing webserver configurations.
 Choose lighttpd if you want to use a small embedded system.
 
-Apache config:
--------------
+
+Configure Apache:
+----------------
+
 This is to give .htaccess permission so index.php is removed from urls.
 There is a .htaccess file in domotiyii directory which does this.
 
@@ -87,8 +116,8 @@ restart
 $ sudo service apache2 restart
 
 
-lighttpd config:
----------------
+Configure lighttpd:
+------------------
 
 # apt-get install lighttpd
 # apt-get install php5-common php5-cgi php5 php5-mysql php5-gd
@@ -103,8 +132,10 @@ Enabling domotiyii: ok
 # /etc/init.d/lighttpd force-reload
 If you get errors about duplicate fastcgi entries, remove the lines from 99-domotiyii.conf and try again.
 
-Logging and debug:
------------------
+
+Logging and debugging:
+---------------------
+
 Optional Enable/disable logging on web pages:
                              // uncomment the following to show log messages on web pages
                                 array(
@@ -120,8 +151,9 @@ defined('YII_DEBUG') or define('YII_DEBUG',true);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 
-Coding notes:
-------------
+Notes about Coding:
+------------------
+
 To add a new 'static/no form' page like site/about:
 
 Edit protected/controllers/SiteController.php
@@ -136,8 +168,8 @@ add section like
 
 Create page under protected/views/site/about.php
 
+To add a new settings form follow these steps:
 
-To add a new settings form:
 Login
 Enter Gii
 
