@@ -86,7 +86,11 @@ class Interfaces extends CActiveRecord
 		$criteria->compare('mode',$this->mode,true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+                        'criteria'=>$criteria,
+                        'pagination' => array(
+                                'pageSize'=>Yii::app()->params['pagesizeInterfaces'],
+                                'pageVar'=>'page'
+                        ),
 		));
 	}
 }

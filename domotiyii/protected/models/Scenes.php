@@ -156,7 +156,6 @@ class Scenes extends CActiveRecord
 				),
 			));
 		}
-
 	}
 
 	/**
@@ -170,12 +169,11 @@ class Scenes extends CActiveRecord
 		return parent::model($className);
 	}
 
-         /**
+        /**
          * Replace date with 'Today'
          */
         public function getLastRunText()
         {
                 return str_replace(date("Y-m-d"), "", $this->lastrun);
-
         }
 }

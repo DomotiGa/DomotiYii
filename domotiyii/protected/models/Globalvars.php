@@ -1,22 +1,48 @@
 <?php
 
 /**
- * This is the model class for table "deviceblacklist".
+ * This is the model class for table "globalvars".
  *
- * The followings are the available columns in table 'deviceblacklist':
- * @property string $blid
- * @property string $address
- * @property string $comments
- * @property integer $id
+ * The followings are the available columns in table 'globalvars':
+ * @property string $id
+ * @property string $var
+ * @property string $value
+ * @property integer $datatype
  */
-class Deviceblacklist extends CActiveRecord
+class Globalvars extends CActiveRecord
 {
+        /**
+         * Define datatypes
+         */
+        private $datatypes = array(
+                '1' => 'Boolean',
+                '2' => 'Byte',
+                '3' => 'Integer',
+                '4' => 'Integer',
+                '5' => 'Long',
+                '6' => 'Single',
+                '7' => 'Float',
+                '8' => 'Date',
+                '9' => 'String',
+                '11' => 'Variant',
+                '15' => 'Null',
+                '16' => 'Object',
+        );
+
+        /**
+         * @return array with all datatypes
+         */
+        public function getAllDataTypes()
+        {
+                return $this->datatypes;
+        }
+
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'deviceblacklist';
+		return 'globalvars';
 	}
 
 	/**
@@ -27,12 +53,13 @@ class Deviceblacklist extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'numerical', 'integerOnly'=>true),
-			array('address', 'length', 'max'=>64),
-			array('comments', 'safe'),
+			array('datatype', 'numerical', 'integerOnly'=>true),
+			array('var', 'length', 'max'=>64),
+			array('value', 'safe'),
+			array('datatype', 'required'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('blid, address, comments, id', 'safe', 'on'=>'search'),
+			array('id, var, value, datatype', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -44,7 +71,6 @@ class Deviceblacklist extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'l_interface' => array(self::BELONGS_TO, 'Interfaces','id'),
 		);
 	}
 
@@ -54,10 +80,11 @@ class Deviceblacklist extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'blid' => 'ID',
-			'address' => 'Address',
-			'comments' => 'Comments',
-			'id' => 'Interface',
+			'id' => 'ID',
+			'var' => 'Variable',
+			'value' => 'Value',
+			'datatype' => 'Datatype',
+			'datatypename' => 'Datatype',
 		);
 	}
 
@@ -79,15 +106,15 @@ class Deviceblacklist extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('blid',$this->blid,true);
-		$criteria->compare('address',$this->address,true);
-		$criteria->compare('comments',$this->comments,true);
-		$criteria->compare('id',$this->id);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('var',$this->var,true);
+		$criteria->compare('value',$this->value,true);
+		$criteria->compare('datatype',$this->datatype);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
                         'pagination' => array(
-                                'pageSize'=>Yii::app()->params['pagesizeDeviceBlacklist'],
+                                'pageSize'=>Yii::app()->params['pagesizeGlobalvars'],
                                 'pageVar'=>'page'
                         ),
 		));
@@ -97,10 +124,19 @@ class Deviceblacklist extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Deviceblacklist the static model class
+	 * @return Globalvars the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
+
+
+        /**
+         * Return datatype name
+         */
+        public function getDataTypeName()
+        {
+                if (!empty($this->datatype)) { return $this->datatypes[$this->datatype]; }
+        }
 }

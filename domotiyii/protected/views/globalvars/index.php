@@ -1,10 +1,10 @@
 <?php
-/* @var $this FloorsController */
+/* @var $this GlobalvarsController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Floors'),
+        Yii::t('app','Globalvars'),
     ),
 ));
 
@@ -14,7 +14,7 @@ $('.search-button').click(function(){
     return false;
 });
 $('.search-form form').submit(function(){
-    $.fn.yiiGridView.update('all-floors-grid', {
+    $.fn.yiiGridView.update('all-globalvars-grid', {
         data: $(this).serialize()
     });
     return false;
@@ -44,16 +44,16 @@ $this->endWidget();
 </div><!-- search-form -->
 
 <?php $this->widget('domotiyii.LiveGridView', array(
-    'id'=>'all-floors-grid',
-    'refreshTime'=>Yii::app()->params['refreshFloors'], // x second refresh as defined in config
+    'id'=>'all-globalvars-grid',
+    'refreshTime'=>Yii::app()->params['refreshGlobalvars'], // x second refresh as defined in config
     'type'=>'striped condensed',
-    'dataProvider'=>$model->GetFloors(),
+    'dataProvider'=>$model->search(),
     'template'=>'{items}{pager}{summary}',
-    'selectableRows' => 1,
     'columns'=>array(
-        array('name'=>'floor', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
-        array('name'=>'name', 'header'=>Yii::t('app','Name'), 'htmlOptions'=>array('width'=>'150')),
-        array('name'=>'image', 'header'=>Yii::t('app','Image'), 'htmlOptions'=>array('width'=>'150')),
+        array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
+        array('name'=>'var', 'header'=>Yii::t('app','Variable'), 'htmlOptions'=>array('width'=>'100')),
+        array('name'=>'value', 'header'=>Yii::t('app','Value'), 'htmlOptions'=>array('width'=>'250')),
+        array('name'=>'datatypename', 'header'=>Yii::t('app','Datatype'), 'htmlOptions'=>array('width'=>'70')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',
            'template'=> Yii::app()->user->isGuest ? '{view}' : '{view} {update} {delete}',
            'header'=>Yii::t('app','Actions'),
@@ -61,15 +61,15 @@ $this->endWidget();
            'buttons'=>array(
               'view' => array(
                  'label'=>Yii::t('app','View'),
-                 'url'=>'Yii::app()->controller->createUrl("view", array("id"=>$data["floor"]))',
+                 'url'=>'Yii::app()->controller->createUrl("view", array("id"=>$data["id"]))',
               ),
               'update' => array(
                  'label'=>Yii::t('app','Edit'),
-                 'url'=>'Yii::app()->controller->createUrl("update", array("id"=>$data["floor"]))',
+                 'url'=>'Yii::app()->controller->createUrl("update", array("id"=>$data["id"]))',
               ),
               'delete' => array(
                  'label'=>Yii::t('app','Delete'),
-                 'url'=>'Yii::app()->controller->createUrl("delete", array("id"=>$data["floor"],"command"=>"delete"))',
+                 'url'=>'Yii::app()->controller->createUrl("delete", array("id"=>$data["id"],"command"=>"delete"))',
               ),
            ),
         ),

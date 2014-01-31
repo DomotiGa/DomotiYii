@@ -98,6 +98,7 @@ class Floors extends CActiveRecord
 		$criteria->compare('image',$this->image,true);
 
 		return new CActiveDataProvider($this, array(
+			'keyField'=>'floor',
 			'criteria'=>$criteria,
 			'pagination' => array(
 				'pageSize'=>Yii::app()->params['pagesizeFloors'],

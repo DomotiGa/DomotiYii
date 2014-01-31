@@ -1,42 +1,44 @@
 <?php
 
-class DeviceblacklistController extends Controller
+class GlobalvarsController extends Controller
 {
-        public function actionIndex()
-        {
+	public function actionIndex()
+	{
                 $criteria = new CDbCriteria();
-                $model=new Deviceblacklist('search', array('keyField' => 'blid'));
+                $model=new Globalvars('search');
                 $model->unsetAttributes(); // clear any default values
 
-                if(isset($_GET['Deviceblacklist']))
+                if(isset($_GET['Globalvars']))
                 {
-                        $model->attributes=$_GET['Deviceblacklist'];
+                        $model->attributes=$_GET['Globalvars'];
 
-                        if (!empty($model->address)) $criteria->addCondition('address = "'.$model->address.'"');
-                        if (!empty($model->comments)) $criteria->addCondition('comments = "'.$model->comments.'"');
+                        if (!empty($model->var)) $criteria->addCondition('var = "'.$model->var.'"');
+                        if (!empty($model->value)) $criteria->addCondition('value = "'.$model->value.'"');
+                        if (!empty($model->datatype)) $criteria->addCondition('datatype = "'.$model->datatype.'"');
                 }
-                $this->render('index', array('model'=>$model));
-        }
+		$this->render('index', array('model'=>$model));
+	}
 
-        public function actionView($id)
-        {
-                $model = Deviceblacklist::model()->findByPk($id);
-                $this->render('view', array('model'=>$model));
-        }
+	public function actionView($id)
+	{
+		$model = Globalvars::model()->findByPk($id);
+		$this->render('view', array('model'=>$model));
+	}
 
         public function actionDelete($id)
         {
-                // delete the entry from the "blacklist" table
-                $model = Deviceblacklist::model()->findByPk($id);
+                // delete the entry from the "globalvars" table
+                $model = Globalvars::model()->findByPk($id);
                 $this->do_delete($model);
+
         }
 
         public function actionUpdate($id)
         {
-                $model = Deviceblacklist::model()->findByPk($id);
-                if(isset($_POST['Deviceblacklist']))
+                $model = Globalvars::model()->findByPk($id);
+                if(isset($_POST['Globalvars']))
                 {
-                        $model->attributes=$_POST['Deviceblacklist'];
+                        $model->attributes=$_POST['Globalvars'];
                         if($model->validate())
                         {
                                 // form inputs are valid, do something here
@@ -50,14 +52,14 @@ class DeviceblacklistController extends Controller
 
         public function actionCreate()
         {
-                $model=new Deviceblacklist;
+                $model=new Globalvars;
 
                 // Uncomment the following line if AJAX validation is needed
                 // $this->performAjaxValidation($model);
 
-                if(isset($_POST['Deviceblacklist']))
+                if(isset($_POST['Globalvars']))
                 {
-                        $model->attributes=$_POST['Deviceblacklist'];
+                        $model->attributes=$_POST['Globalvars'];
                         if($model->validate())
                         {
                                 $this->do_save($model);
@@ -99,9 +101,9 @@ class DeviceblacklistController extends Controller
         {
                 if ($model->save() === false)
                 {
-                        Yii::app()->user->setFlash('error', Yii::t('app','Device Blacklist save failed!'));
+                        Yii::app()->user->setFlash('error', Yii::t('app','Variable save failed!'));
                 } else {
-                        Yii::app()->user->setFlash('success', Yii::t('app','Device Blacklist saved.'));
+                        Yii::app()->user->setFlash('success', Yii::t('app','Variable saved.'));
                 }
         }
 
@@ -110,9 +112,9 @@ class DeviceblacklistController extends Controller
 
                 if ($model->delete() === false)
                 {
-                        Yii::app()->user->setFlash('error', Yii::t('app','Device Blacklist delete failed!'));
+                        Yii::app()->user->setFlash('error', Yii::t('app','Variable delete failed!'));
                 } else {
-                        Yii::app()->user->setFlash('success', Yii::t('app','Device Blacklist deleted.'));
+                        Yii::app()->user->setFlash('success', Yii::t('app','Variable deleted.'));
                         $this->redirect(array('index'));
                 }
         }

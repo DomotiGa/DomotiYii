@@ -143,10 +143,12 @@
                    array('label'=>Yii::t('app','Locations'), 'url'=> array('locations/index')),
                    array('label'=>Yii::t('app','Floors'), 'url'=> array('floors/index')),
                    array('label'=>Yii::t('app','Blacklists'), 'url'=> array('deviceblacklist/index')),
+                   array('label'=>Yii::t('app','Interfaces'), 'url'=> array('interfaces/index')),
                 )),
                 array('label'=>'Edit', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
-                   array('label'=>'Users', 'url'=> array('users/index')),
                    array('label'=>'Contacts', 'url'=> array('contacts/index')),
+                   array('label'=>'GlobalVars', 'url'=> array('globalvars/index')),
+                   array('label'=>'Users', 'url'=> array('users/index')),
 		)),
                 array('label'=>'Events', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                    array('label'=>'Events', 'url'=> array('events/index')),

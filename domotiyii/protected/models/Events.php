@@ -201,7 +201,6 @@ class Events extends CActiveRecord
                 if (!empty($this->category->name)) { return $this->category->name; }
 	}
 
-
         /**
          * Return condition1 name
          */
@@ -234,6 +233,5 @@ class Events extends CActiveRecord
         public function getLastRunText()
         {
                 return str_replace(date("Y-m-d"), "", $this->lastrun);
-
         }
 }

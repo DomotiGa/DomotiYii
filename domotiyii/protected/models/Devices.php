@@ -336,6 +336,5 @@ class Devices extends CActiveRecord
 	public function getLastSeenText()
 	{
 		return str_replace(date("Y-m-d"), "", $this->lastseen);
-
 	}
 }
