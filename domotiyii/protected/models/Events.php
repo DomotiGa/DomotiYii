@@ -100,6 +100,8 @@ class Events extends CActiveRecord
 			'l_condition1' => array(self::BELONGS_TO, 'Conditions', 'condition1'),
 			'l_condition2' => array(self::BELONGS_TO, 'Conditions', 'condition2'),
 			'l_category' => array(self::BELONGS_TO, 'Category', 'category'),
+			'events_actions' => array(self::HAS_MANY, 'EventsActions', 'event'), 
+			'actions' => array(self::HAS_MANY, 'Actions', 'action', 'through' => 'events_actions', 'order' => 'events_actions.order'),
 		);
 	}
 
