@@ -95,7 +95,7 @@ Check JSON-RPC host url
         // application-level parameters that can be accessed
         // using Yii::app()->params['paramName']
         'params'=>array(
-                'jsonrpcHost'=>'http://localhost:9009',
+                'jsonrpcHost'=>'http://localhost:9090',
 
 
 Webserver installation:
