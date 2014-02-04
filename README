@@ -1,5 +1,13 @@
-DomotiYii - The Yii/Bootstrap based webgui for DomotiGa.
--------------------------------------------------------
+DomotiYii - Pre alpha release!!!!
+---------------------------------
+
+
+**Please be aware before using this that is a pre alpha release and that it can harm your server.**
+
+
+DomotiYii is a new web client build from scratch using the Yii framework together with the Yiistrap extension to add the bootstrap look and feel.
+
+
 
 Development info:
 ----------------
