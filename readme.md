@@ -127,17 +127,18 @@ $ sudo service apache2 restart
 Configure lighttpd:
 ------------------
 
-# apt-get install lighttpd
-# apt-get install php5-common php5-cgi php5 php5-mysql php5-gd
+	$ apt-get install lighttpd
+	$ apt-get install php5-common php5-cgi php5 php5-mysql php5-gd
 
-# lighty-enable-mod fastcgi-php
+	$ lighty-enable-mod fastcgi-php
 
-# cp config/99-domotiyii.conf /etc/lighttpd/conf-available/
+	$ cp config/99-domotiyii.conf /etc/lighttpd/conf-available/
 
-# lighty-enable-mod domotiyii
-Enabling domotiyii: ok
+	$ lighty-enable-mod domotiyii
+	Enabling domotiyii: ok
 
-# /etc/init.d/lighttpd force-reload
+	$ /etc/init.d/lighttpd force-reload
+
 If you get errors about duplicate fastcgi entries, remove the lines from 99-domotiyii.conf and try again.
 
 
