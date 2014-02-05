@@ -40,7 +40,7 @@ along with this program. If not, see http://www.gnu.org/licenses/.
 How to install 'DomotiYii':
 -------------------
 Unpack domotiyii directory to /var/www, or put it's contents in the webroot.
-This directory contains the Yii project and the Yii framework.
+This directory contains the Yii project and the Yii framework. For more information see http://domotiga.nl/projects/domotiyii/wiki/Installation
 
 
 About the Yii Framework:
