@@ -1,8 +1,8 @@
-DomotiYii - Pre alpha release!!!!
+DomotiYii - Alpha release!!!!
 ---------------------------------
 
 
-**Please be aware before using this that is a pre alpha release and that it can harm your server.**
+**Please be aware before using this that is a alpha release and that it can harm your server.**
 
 
 DomotiYii is a new web client build from scratch using the Yii framework together with the Yiistrap extension to add the bootstrap look and feel.
@@ -40,7 +40,7 @@ along with this program. If not, see http://www.gnu.org/licenses/.
 How to install 'DomotiYii':
 -------------------
 Unpack domotiyii directory to /var/www, or put it's contents in the webroot.
-This directory contains the Yii project and the Yii framework.
+This directory contains the Yii project and the Yii framework. For more information see http://domotiga.nl/projects/domotiyii/wiki/Installation
 
 
 About the Yii Framework:
@@ -95,7 +95,7 @@ Check JSON-RPC host url
         // application-level parameters that can be accessed
         // using Yii::app()->params['paramName']
         'params'=>array(
-                'jsonrpcHost'=>'http://localhost:9009',
+                'jsonrpcHost'=>'http://localhost:9090',
 
 
 Webserver installation:
@@ -127,17 +127,18 @@ $ sudo service apache2 restart
 Configure lighttpd:
 ------------------
 
-# apt-get install lighttpd
-# apt-get install php5-common php5-cgi php5 php5-mysql php5-gd
+	$ apt-get install lighttpd
+	$ apt-get install php5-common php5-cgi php5 php5-mysql php5-gd
 
-# lighty-enable-mod fastcgi-php
+	$ lighty-enable-mod fastcgi-php
 
-# cp config/99-domotiyii.conf /etc/lighttpd/conf-available/
+	$ cp config/99-domotiyii.conf /etc/lighttpd/conf-available/
 
-# lighty-enable-mod domotiyii
-Enabling domotiyii: ok
+	$ lighty-enable-mod domotiyii
+	Enabling domotiyii: ok
 
-# /etc/init.d/lighttpd force-reload
+	$ /etc/init.d/lighttpd force-reload
+
 If you get errors about duplicate fastcgi entries, remove the lines from 99-domotiyii.conf and try again.
 
 
