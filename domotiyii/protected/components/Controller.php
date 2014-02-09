@@ -10,6 +10,10 @@ class Controller extends CController
      * @var object for browser detect
     */
 	public $browserdetect=null;
+    /**
+     * @var object for mobile page
+    */
+	public $mobile_page=null;
 	/**
 	 * @var string the default layout for the controller view. Defaults to '//layouts/column1',
 	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
@@ -57,10 +61,24 @@ class Controller extends CController
 	public function init()
 	{
         $this->browserdetect = Yii::app()->mobileDetect;
-        $mobile_page = strpos(Yii::app()->request->url,'mobile/') !== False;
+        $mobile_detected = $this->browserdetect->isMobile();
+        $this->mobile_page = strpos(Yii::app()->request->url,'mobile/') !== False;
+        $inversemobiledetect = Yii::app()->request->getQuery('inversemobiledetect');        
     
-        if ( $this->browserdetect->isMobile() !== $mobile_page ) {
-            if ($this->browserdetect->isMobile()){
+        if($inversemobiledetect){
+            if($inversemobiledetect == "True"){
+                Yii::app()->session['inversemobiledetect'] = True;
+            }else{
+                unset(Yii::app()->session['inversemobiledetect']);
+            }
+        }
+
+        if(isset(Yii::app()->session['inversemobiledetect'])){
+            $mobile_detected = !$mobile_detected;  
+        }
+
+        if ( $mobile_detected !== $this->mobile_page && strpos(Yii::app()->request->url,'site/') == False) {
+            if ($mobile_detected){
                 $this->redirect(array('mobile/index'));        
             }else{
                 $this->redirect(Yii::app()->homeUrl);
@@ -68,7 +86,7 @@ class Controller extends CController
         }
     
 
-        if (  $mobile_page ) {
+        if (  $this->mobile_page ) {
 		    Yii::app()->layout='//layouts/mobile';
 	    }
 		else

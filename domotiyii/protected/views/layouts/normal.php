@@ -211,7 +211,15 @@
 
 	        <div id="footer">
             Credits and Copyright © <?php echo date("Y"); ?> <a href="http://www.domotiga.nl/" >DomotiGa</a> <a href="mailto:support@domotiga.nl"></a> by Ron Klinkien
-	        </div><!-- footer -->
+	        
+		<?php
+        if( isset(Yii::app()->session['inversemobiledetect']) ){
+		    echo "| <a href='?inversemobiledetect=False'>Undo normal layout</a>";
+	    }else{
+			echo "| <a href='?inversemobiledetect=True'>View mobile layout</a> ";
+		}
+        ?>
+		</div><!-- footer -->
 
 		</div><!-- span10 -->
 	</div><!-- row-fluid -->

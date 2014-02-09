@@ -18,7 +18,7 @@
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 	
-    <?php if ($this->browserdetect->isMobile()): ?>
+    <?php if ($this->mobile_page): ?>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/slider.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/mobile.css" />
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/static/modernizr.custom.js"></script>

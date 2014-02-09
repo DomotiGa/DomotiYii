@@ -44,6 +44,14 @@
 		    echo "| mobile <i class='icon-signal'></i>";
 	    }
         ?>
+
+		<?php
+        if( isset(Yii::app()->session['inversemobiledetect']) ){
+		    echo "| <a href='?inversemobiledetect=False'>Undo mobile layout</a>";
+	    }else{
+			echo "| <a href='?inversemobiledetect=True'>View normal layout</a> ";
+		}
+        ?>
 	</div><!-- footer -->
 
 </div><!-- container-fluid -->
