@@ -178,5 +178,9 @@ return array (
 'Camera save failed!' => 'Erreur d\'enregistrement de cette caméra !',
 'Camera deleted.' => 'Caméra supprimée.',
 'Camera delete failed!' => 'Erreur de suppression de cette caméra !',
+ //menu
+'About DomotiGa' => 'A propos de Domotiga',
+
+'This is a new web client build from scratch using the Yii framework together with the Yiistrap extension to add the bootstrap look and feel.' => 'Nouvelle interface d\'administration de Domotiga utilisant l\'extension Yiistrap pour un meilleur look.'
 );
 ?>
