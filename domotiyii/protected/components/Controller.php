@@ -56,10 +56,19 @@ class Controller extends CController
 	**/
 	public function init()
 	{
-        
         $this->browserdetect = Yii::app()->mobileDetect;
-      
-        if (  $this->browserdetect->isMobile() ) {
+        $mobile_page = strpos(Yii::app()->request->url,'mobile/') !== False;
+    
+        if ( $this->browserdetect->isMobile() !== $mobile_page ) {
+            if ($this->browserdetect->isMobile()){
+                $this->redirect(array('mobile/index'));        
+            }else{
+                $this->redirect(Yii::app()->homeUrl);
+            }
+        }
+    
+
+        if (  $mobile_page ) {
 		    Yii::app()->layout='//layouts/mobile';
 	    }
 		else
