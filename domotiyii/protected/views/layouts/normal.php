@@ -87,6 +87,7 @@
                        array('label'=>'KNX/EIB', 'url'=> array('settings/eib')),
                        array('label'=>'PLCBUS', 'url'=> array('settings/plcbus')),
                        array('label'=>'X10', 'url'=>'#', 'items'=>array(
+			  array('label'=>'Mochad', 'url'=> array('settings/mochad')),
                           array('label'=>'X10Cmd', 'url'=> array('settings/x10cmd')),
                           array('label'=>'Xanura CTX35', 'url'=> array('settings/ctx35')),
                        )),

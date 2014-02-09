@@ -204,6 +204,23 @@ class SettingsController extends Controller
         }
         $this->render('mqtt',array('model'=>$model));
     }
+    
+    public function actionMochad()
+    {
+        $model = SettingsMochad::model()->findByPk(1);
+
+        if(isset($_POST['SettingsMochad']))
+        {
+            $model->attributes=$_POST['SettingsMochad'];
+            if($model->validate())
+            {
+                // form inputs are valid, save and restart
+                $model->save();
+                $this->do_restart('mochad');
+            }
+        }
+        $this->render('mochad',array('model'=>$model));
+    }
 
     public function actionSmartvisuserver()
     {
