@@ -53,6 +53,48 @@ class SettingsController extends Controller {
         $this->render('index',array('data'=>$arrayDataProvider));
     }
 
+    public function actionVelbus() {
+        $model = SettingsVelbus::model()->findByPk(1);
+
+        if (isset($_POST['SettingsVelbus'])) {
+            $model->attributes = $_POST['SettingsVelbus'];
+            if ($model->validate()) {
+                // form inputs are valid, save and restart
+                $this->do_save($model);
+                $this->do_restart('velbus');
+            }
+        }
+        $this->render('velbus', array('model' => $model));
+    }
+
+    public function actionViera() {
+        $model = SettingsViera::model()->findByPk(1);
+
+        if (isset($_POST['SettingsViera'])) {
+            $model->attributes = $_POST['SettingsViera'];
+            if ($model->validate()) {
+                // form inputs are valid, save and restart
+                $this->do_save($model);
+                $this->do_restart('viera');
+            }
+        }
+        $this->render('viera', array('model' => $model));
+    }
+
+    public function actionToon() {
+        $model = SettingsToon::model()->findByPk(1);
+
+        if (isset($_POST['SettingsToon'])) {
+            $model->attributes = $_POST['SettingsToon'];
+            if ($model->validate()) {
+                // form inputs are valid, save and restart
+                $this->do_save($model);
+                $this->do_restart('toon');
+            }
+        }
+        $this->render('toon', array('model' => $model));
+    }
+
     public function actionJsonrpc() {
         $model = SettingsJsonrpc::model()->findByPk(1);
 

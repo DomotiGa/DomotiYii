@@ -47,7 +47,10 @@
                        array('label'=>'PVoutput', 'url'=> array('settings/pvoutput')),
                        array('label'=>'TemperaturNu', 'url'=> array('settings/temperaturnu')),
                     )),
-                    array('label'=>'Thermostat', 'url'=> array('settings/thermostat')),
+                    array('label'=>'Thermostats', 'url'=>'#', 'items'=>array(
+                       array('label'=>'Built-in Thermostat', 'url'=> array('settings/thermostat')),
+                       array('label'=>'Toon Thermostat', 'url'=> array('settings/toon')),
+                    )),
                  )),
                  array('label'=>Yii::t('app','Interfaces'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                     array('label'=>'1-Wire', 'url'=>'#', 'items'=>array(
@@ -65,6 +68,7 @@
                        array('label'=>'iPort Dock', 'url'=> array('settings/iport')),
                        array('label'=>'LG TV', 'url'=> array('settings/lgtv')),
                        array('label'=>'Onkyo/Integra AV', 'url'=> array('settings/onkyo')),
+                       array('label'=>'Panasonic Viera', 'url'=> array('settings/viera')),
                        array('label'=>'Pioneer AV', 'url'=> array('settings/pioneer')),
                        array('label'=>'Sharp TV', 'url'=> array('settings/sharptv')),
                        array('label'=>'Squeeze Server', 'url'=> array('settings/squeezeserver')),
@@ -86,6 +90,7 @@
                        array('label'=>'EZcontrol', 'url'=> array('settings/ezcontrol')),
                        array('label'=>'KNX/EIB', 'url'=> array('settings/eib')),
                        array('label'=>'PLCBUS', 'url'=> array('settings/plcbus')),
+                       array('label'=>'Velbus', 'url'=> array('settings/velbus')),
                        array('label'=>'X10', 'url'=>'#', 'items'=>array(
 			  array('label'=>'Mochad', 'url'=> array('settings/mochad')),
                           array('label'=>'X10Cmd', 'url'=> array('settings/x10cmd')),
