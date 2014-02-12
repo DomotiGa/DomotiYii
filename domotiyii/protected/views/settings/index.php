@@ -27,12 +27,13 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'dataProvider' => $data,
     'template' => '{items}{pager}{summary}',
     'columns' => array(
-        array('name' => 'id', 'header' => Yii::t('app', 'Name'), 'htmlOptions' => array('width' => '20')),
-        array('name' => 'status', 'header' => Yii::t('app', 'Status'), 'htmlOptions' => array('width' => '150')),
+        array('name' => 'id', 'header' => Yii::t('app', 'Name'), 'htmlOptions' => array('width' => '15px')),
+        array('name' => 'status', 'header' => Yii::t('app', 'Status'), 'htmlOptions' => array('width' => '15px')),
+        array('name' => 'information', 'header' => Yii::t('app', 'Information'), 'type'=>'raw','htmlOptions' => array('width' => '200px')),
         array('class' => 'bootstrap.widgets.TbButtonColumn',
             'template' => '{view}',
             'header' => Yii::t('app', 'Action'),
-            'htmlOptions' => array('style' => 'width: 40px'),
+            'htmlOptions' => array('style' => 'width: 10px'),
             'buttons' => array(
                 'view' => array(
                     'label' => Yii::t('app', 'View'),
@@ -44,9 +45,9 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 ));
 
 ?>
-//FIXME: [PATOCHE] why Actions title is at right, i think should be changed in css....
+<!-- FIXME: [PATOCHE] why Actions title is at right, i think should be changed in css.... -->
 <script>
 $(document).ready(function(){
-    $('#all-devices-grid_c2').css('text-align','left');
+    $('#all-devices-grid_c3').css('text-align','left');
 });
 </script>

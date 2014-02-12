@@ -30,11 +30,20 @@ class SettingsController extends Controller {
                 $d2 = "Error : Table not found ($modelAlias)";
                 continue; //ignore when not finding table
             }
+            $d3=array();
+            $values=$modelRecord->getAttributes();
+            foreach(array_keys($values) as $l) {
+                if($l!=='enabled' && $l!=='id')
+                    $d3[]="<b>$l</b>=".$values[$l];
+            }
+            
+            $d3=implode(', ',$d3);
             if($filter!='all' && $filter!=$d2) continue;
             $d2=yii::t('app',$d2);
             $line = array(
                 "id" => $d1,
-                "status" => $d2
+                "status" => $d2,
+                "information" => $d3
             );
 
             $rawData[] = $line;
