@@ -3,9 +3,11 @@
 class SettingsController extends Controller {
 
     public function actionIndex() {
+        //FIXME: [PATOCHE] perhaps use static arrays if dynamic listing of model *.php is a trouble 
         $pref = './protected/models/Settings';
         $rawData = array();
         $listTables = yii::app()->db->getSchema()->getTableNames();
+        $filter=(isset($_GET['filter'])?$_GET['filter']:'Enabled');
         foreach (glob($pref . '*.php') as $filename) {
             $filename = str_replace($pref, "", $filename);
             $filename = str_replace(".php", "", $filename);
@@ -15,6 +17,7 @@ class SettingsController extends Controller {
             $modelAlias = $model->tableName();
             if (isset($model) && !empty($model) && in_array($modelAlias, $listTables)) {
                 $modelRecord = $model->findByPk(1);
+                //FIXME: [PATOCHE] add more attributes ?? should choose a list of attributes to check
                 if ($model->hasAttribute('enabled')) {
                     if ($modelRecord->enabled !== "0")
                         $d2 = "Enabled";
@@ -25,10 +28,13 @@ class SettingsController extends Controller {
                     $d2 = "-";
             } else {
                 $d2 = "Error : Table not found ($modelAlias)";
+                continue; //ignore when not finding table
             }
+            if($filter!='all' && $filter!=$d2) continue;
+            $d2=yii::t('app',$d2);
             $line = array(
                 "id" => $d1,
-                "comment" => $d2
+                "status" => $d2
             );
 
             $rawData[] = $line;
@@ -45,10 +51,6 @@ class SettingsController extends Controller {
                 'pageSize' => 30,
             ),
         ));
-
-        $params = array(
-            'arrayDataProvider' => $arrayDataProvider,
-        );
 
         $this->render('index',array('data'=>$arrayDataProvider));
     }
