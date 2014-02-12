@@ -67,6 +67,8 @@ $this->widget('domotiyii.LiveGridView', array(
         array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
         array('name'=>'name', 'header'=>Yii::t('app','Name'), 'htmlOptions'=>array('width'=>'150')),
         array('name'=>'locationtext', 'header'=>Yii::t('app','Location'), 'htmlOptions'=>array('width'=>'120')),
+        array('name'=>'devicetype', 'header'=>Yii::t('app','Devicetypes'),'value'=>'$data->devicetype->name', 'htmlOptions'=>array('width'=>'120')),
+        array('name'=>'interface', 'header'=>Yii::t('app','Interfaces'),'value'=>'$data->l_interface->name', 'htmlOptions'=>array('width'=>'120')),
         array('name'=>'lastseentext', 'header'=>Yii::t('app','Last Seen'), 'htmlOptions'=>array('width'=>'120')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',
            'template'=> Yii::app()->user->isGuest ? '{view}' : '{view} {update} {delete}',
