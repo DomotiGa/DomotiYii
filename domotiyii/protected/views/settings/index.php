@@ -45,9 +45,9 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 ));
 
 ?>
-<!-- FIXME: [PATOCHE] why Actions title is at right, i think should be changed in css.... -->
+<!-- FIXME: why Actions title is at right, i think should be changed in css.... -->
 <script>
 $(document).ready(function(){
-    $('#all-devices-grid_c3').css('text-align','left');
+    $('th:last').css('text-align','left');
 });
 </script>

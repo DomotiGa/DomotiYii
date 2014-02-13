@@ -3,7 +3,7 @@
 class SettingsController extends Controller {
 
     public function actionIndex() {
-        //FIXME: [PATOCHE] perhaps use static arrays if dynamic listing of model *.php is a trouble 
+        //FIXME: perhaps use static arrays if dynamic listing of model *.php is a trouble 
         $pref = './protected/models/Settings';
         $rawData = array();
         $listTables = yii::app()->db->getSchema()->getTableNames();
@@ -30,7 +30,7 @@ class SettingsController extends Controller {
                 continue; //ignore when not finding table
             }
             $d3 = array();
-            //FIXME: [PATOCHE] add too much attributes ?? should choose a list of attributes to check
+            //FIXME:  add too much attributes ?? should choose a list of attributes to check
             $values = $modelRecord->getAttributes();
             foreach (array_keys($values) as $l) {
                 if ($l !== 'enabled' && $l !== 'id')
