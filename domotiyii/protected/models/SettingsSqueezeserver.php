@@ -59,9 +59,9 @@ class SettingsSqueezeserver extends CActiveRecord
 
         //and now the ip address
         $tmp=explode('.',$this->tcphost);
-        if(!is_numeric($tmp[0]))
+        if(!is_numeric($tmp[0])) // it is a name should we try to ping it ?
             return;
-        if(count($tmp)!==4) // it is a name should we try to ping it ?
+        if(count($tmp)!==4)
             $this->addError ('tcphost','Ip address invalid');
         if($tmp[0]<1 || $tmp[0]>255 ||$tmp[1]<1 || $tmp[1]>255 ||$tmp[2]<1 || $tmp[2]>255 ||$tmp[3]<1 || $tmp[3]>255)
             $this->addError ('tcphost','Ip address invalid');
