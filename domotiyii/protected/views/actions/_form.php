@@ -42,12 +42,23 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
 ", CClientScript::POS_READY);
 ?>
 <script>
-    function fieldSet(id, name, visible) {
+    function fieldSet(id, name, visible, type) {
         var sel = 'Actions_param' + id;
-        if (typeof visible === undefined || visible === "SHOW") {
+        if (visible === "SHOW") {
             $('#' + sel).show();
             $('[for=' + sel + ']').show();
             $('[for=' + sel + ']').text(name);
+            if (type === 'textarea' && $('textarea #' + sel).length === 0) {
+                var old = $('#' + sel);
+                var textarea = $('<textarea  rows=4 cols=60 name="Actions[param' + id + ']" id="Actions_param' + id + '" type="text" style="display: inline-block;">' + old.val() + '</textarea>');
+                old.replaceWith(textarea);
+            } else if (type === 'input' && $('input #' + sel).length === 0) {
+                var old = $('#' + sel);
+                var oldText=old.val();
+                var textinput = $('<input  name="Actions[param' + id + ']" id="Actions_param' + id + '" type="text"  style="display: inline-block;">');
+                old.replaceWith(textinput);
+                $('#' + sel).val(oldText);
+            }
         } else {
             $('#' + sel).hide();
             $('[for=' + sel + ']').hide();
@@ -59,21 +70,66 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
     }
     function showAll() {
         for (var x = 1; x < 6; x++)
-            fieldSet(x, 'Param'+x, 'SHOW');
+            fieldSet(x, 'Param' + x, 'SHOW', 'input');
     }
     function adaptForm(id) {
         hideAll();
         if (id == 1) {
-            fieldSet(1, 'Device id', 'SHOW');
-            fieldSet(2, 'Field name', 'SHOW');
-            fieldSet(3, 'Value', 'SHOW');
+            fieldSet(1, 'Device id', 'SHOW', 'input');
+            fieldSet(2, 'Field name', 'SHOW', 'input');
+            fieldSet(3, 'Value', 'SHOW', 'input');
         } else if (id == 2) {
-            fieldSet(1, 'Globalvar name', 'SHOW');
-            fieldSet(2, 'Value', 'SHOW');
+            fieldSet(1, 'Globalvar name', 'SHOW', 'input');
+            fieldSet(2, 'Value', 'SHOW', 'input');
         } else if (id == 3) {
-            fieldSet(1, 'To address', 'SHOW');
-            fieldSet(2, 'Subject', 'SHOW');
-            fieldSet(3, 'Body', 'SHOW');
+            fieldSet(1, 'To address', 'SHOW', 'input');
+            fieldSet(2, 'Subject', 'SHOW', 'input');
+            fieldSet(3, 'Body', 'SHOW', 'textarea');
+        } else if (id == 4) {
+            fieldSet(1, 'Speak text', 'SHOW', 'textarea');
+        } else if (id == 5) {
+            fieldSet(1, 'Execute CMD', 'SHOW', 'textarea');
+        } else if (id == 6) {
+            fieldSet(1, 'Tweet message', 'SHOW', 'textarea');
+        } else if (id == 7) {
+            fieldSet(1, 'SMS Number', 'SHOW', 'input');
+            fieldSet(2, 'Message', 'SHOW', 'textarea');
+        } else if (id == 8) {
+            fieldSet(1, 'Command string', 'SHOW', 'input');
+        } else if (id == 9) {
+            fieldSet(1, 'Sound file', 'SHOW', 'input');
+            fieldSet(2, 'Volume', 'SHOW', 'input');
+        } else if (id == 10) {
+            fieldSet(1, 'Log text', 'SHOW', 'textarea');
+        } else if (id == 11) {
+            fieldSet(1, 'Message to display', 'SHOW', 'textarea');
+            fieldSet(2, 'Display id', 'SHOW', 'input');
+            fieldSet(3, 'Color', 'SHOW', 'input');
+            fieldSet(4, 'Speed', 'SHOW', 'input');
+        } else if (id == 12) {
+            fieldSet(1, 'Model', 'SHOW', 'input');
+            fieldSet(2, 'Command id', 'SHOW', 'input');
+            fieldSet(3, 'Value', 'SHOW', 'input');
+            fieldSet(4, 'Address', 'SHOW', 'input');
+        } else if (id == 13) {
+            fieldSet(1, 'Delay', 'SHOW', 'input');
+            fieldSet(2, 'Random max seconds', 'SHOW', 'input');
+            fieldSet(3, 'Mode (fixe or random)', 'SHOW', 'input');
+        } else if (id == 14) {
+            fieldSet(1, 'Title', 'SHOW', 'input');
+            fieldSet(2, 'Text', 'SHOW', 'textarea');
+        } else if (id == 15) {
+            fieldSet(1, 'Script', 'SHOW', 'textarea');
+        } else if (id == 16) {
+            fieldSet(1, 'Device id', 'SHOW', 'input');
+            fieldSet(2, 'Post/Get', 'SHOW', 'input');
+            fieldSet(3, 'Url', 'SHOW', 'textarea');
+        } else if (id == 17) {
+            fieldSet(1, 'Prowl message to send', 'SHOW', 'textarea');
+        } else if (id == 18) {
+            fieldSet(1, 'Notify My Android message to send', 'SHOW', 'textarea');
+        } else if (id == 19) {
+            fieldSet(1, 'Pushover message to send', 'SHOW', 'textarea');
         } else {
             showAll();
         }
