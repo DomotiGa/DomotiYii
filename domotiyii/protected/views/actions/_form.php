@@ -59,7 +59,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
     }
     function showAll() {
         for (var x = 1; x < 6; x++)
-            fieldSet(x, null, 'SHOW');
+            fieldSet(x, 'Param'+x, 'SHOW');
     }
     function adaptForm(id) {
         hideAll();
