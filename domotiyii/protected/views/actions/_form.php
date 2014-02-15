@@ -11,7 +11,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     ));
 ?>
 
-<fieldset>
+<fieldset <?php if (isset($readonly)) echo "disabled"; ?>>
     <p class="note"><?php echo Yii::t('app', 'Fields with <span class="required">*</span> are required.') ?></p>
 
     <?php echo $form->textFieldControlGroup($model, 'name'); ?>
@@ -54,7 +54,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                 old.replaceWith(textarea);
             } else if (type === 'input' && $('input #' + sel).length === 0) {
                 var old = $('#' + sel);
-                var oldText=old.val();
+                var oldText = old.val();
                 var textinput = $('<input  name="Actions[param' + id + ']" id="Actions_param' + id + '" type="text"  style="display: inline-block;">');
                 old.replaceWith(textinput);
                 $('#' + sel).val(oldText);
@@ -133,6 +133,12 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
         } else {
             showAll();
         }
+<?php if (isset($readonly)): ?>
+$('textarea, input, select').css('background-color','#f9f9f9').css('border','1px solid lightgrey').addClass('span5');
+$('.control-group').css('background-color','#f9f9f9').css('margin','5px');
+$('label').removeClass('required').css('font-weight','bold').css('border','none');
+$('.required,.note,.form-actions').remove();
+<?php endif ?>
     }
 
 </script>
