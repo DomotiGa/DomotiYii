@@ -34,6 +34,7 @@ echo TbHtml::formActions(array(
 <?php
 Yii::app()->clientScript->registerScript('dynamicForm', "
 //Some try to do dynamic form [PATOCHE]
+        $('#type').addClass('span3');
         $('#type').on('change', function(e) {
             var v = $('#type').val();
             adaptForm(v);
@@ -48,16 +49,13 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
         //helper for Device ID
         //helper for Field name
         //helper for Global var
-        //helper for Device ID
-        //helper for Device ID
         if (visible === "SHOW") {
             $('#' + sel).show();
             $('[for=' + sel + ']').show();
             $('[for=' + sel + ']').text(name); //if ajax translation failed we have a text instead of empty field name
-            $.get('../AjaxTranslate/T',{name:name},function(data) {
+            $.get('<?php echo Yii::app()->homeUrl ?>/AjaxTranslate/T', {name: name}, function(data) {
                 $('[for=' + sel + ']').text(data.text);
-            },'json');
-            //$('[for=' + sel + ']').load('../AjaxTranslate/T',{name:name});
+            }, 'json');
             if (type === 'textarea' && $('textarea #' + sel).length === 0) {
                 var old = $('#' + sel);
                 var textarea = $('<textarea  rows=4 cols=60 name="Actions[param' + id + ']" id="Actions_param' + id + '" type="text" style="display: inline-block;">' + old.val() + '</textarea>');
@@ -144,10 +142,10 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
             showAll();
         }
 <?php if (isset($readonly)): ?>
-$('textarea, input, select').css('background-color','#f9f9f9').css('border','1px solid lightgrey').addClass('span5');
-$('.control-group').css('background-color','#f9f9f9').css('margin','5px');
-$('label').removeClass('required').css('font-weight','bold').css('border','none');
-$('.required,.note,.form-actions').remove();
+            $('textarea, input, select').css('background-color', '#f9f9f9').css('border', '1px solid lightgrey').removeClass('span3').addClass('span5');
+            $('.control-group').css('background-color', '#f9f9f9').css('margin', '5px');
+            $('label').removeClass('required').css('font-weight', 'bold').css('border', 'none');
+            $('.required,.note,.form-actions').remove();
 <?php endif ?>
     }
 
