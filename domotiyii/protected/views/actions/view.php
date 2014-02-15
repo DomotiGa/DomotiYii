@@ -44,5 +44,6 @@ $this->endWidget();
 		array('name' => 'param5'),
 	),
 )); */?>
+<?php 
 //we use same form as for update/create to have same dynamic fields
-<?php echo $this->renderPartial('_form', array('model'=>$model,'readonly'=>1)); ?>
+echo $this->renderPartial('_form', array('model'=>$model,'readonly'=>1)); ?>
