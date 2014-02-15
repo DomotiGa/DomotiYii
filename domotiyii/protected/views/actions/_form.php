@@ -44,10 +44,20 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
 <script>
     function fieldSet(id, name, visible, type) {
         var sel = 'Actions_param' + id;
+        //TODO
+        //helper for Device ID
+        //helper for Field name
+        //helper for Global var
+        //helper for Device ID
+        //helper for Device ID
         if (visible === "SHOW") {
             $('#' + sel).show();
             $('[for=' + sel + ']').show();
-            $('[for=' + sel + ']').text(name);
+            $('[for=' + sel + ']').text(name); //if ajax translation failed we have a text instead of empty field name
+            $.get('../AjaxTranslate/T',{name:name},function(data) {
+                $('[for=' + sel + ']').text(data.text);
+            },'json');
+            //$('[for=' + sel + ']').load('../AjaxTranslate/T',{name:name});
             if (type === 'textarea' && $('textarea #' + sel).length === 0) {
                 var old = $('#' + sel);
                 var textarea = $('<textarea  rows=4 cols=60 name="Actions[param' + id + ']" id="Actions_param' + id + '" type="text" style="display: inline-block;">' + old.val() + '</textarea>');
