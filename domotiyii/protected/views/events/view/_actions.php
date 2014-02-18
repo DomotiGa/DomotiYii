@@ -9,6 +9,7 @@ $this->widget('domotiyii.LiveGridView', array(
     'id' => 'all-devices-grid',
     'type' => 'striped condensed',
     'dataProvider' => $dataProvider,
+    'afterAjaxUpdate' => 'go(id,options)',
     'template' => '{items}{pager}{summary}',
     'columns' => array(
         array('name' => 'id', 'header' => '#', 'htmlOptions' => array('width' => '20')),
@@ -21,11 +22,11 @@ $this->widget('domotiyii.LiveGridView', array(
             'buttons' => array(
                 'view' => array(
                     'label' => Yii::t('app', 'View'),
-                    'url' => '',
+                    'url' => '$data["id"]',
                 ),
                 'update' => array(
                     'label' => Yii::t('app', 'Edit'),
-                    'url' => 'Yii::app()->controller->createUrl("actions/update", array("id"=>$data["id"]))',
+                    'url' => '$data["id"]',
                 ),
                 'delete' => array(
                     'label' => Yii::t('app', 'Delete'),
@@ -36,30 +37,46 @@ $this->widget('domotiyii.LiveGridView', array(
     ),
 ));
 ?>
-<?php $this->widget('bootstrap.widgets.TbModal', array(
+<?php
+$this->widget('bootstrap.widgets.TbModal', array(
     'id' => 'action',
-    'header' => 'Actions Form',
+    'header' => 'Action',
     'content' => '',
-    'footer' => array(
-        TbHtml::button('Save Changes', array('data-dismiss' => 'modal', 'color' => TbHtml::BUTTON_COLOR_PRIMARY)),
-        TbHtml::button('Close', array('data-dismiss' => 'modal')),
-     ),
-)); ?>
- 
-<?php echo TbHtml::button('Click me to open modal', array(
-    'style' => TbHtml::BUTTON_COLOR_PRIMARY,
-    'size' => TbHtml::BUTTON_SIZE_LARGE,
-    'data-toggle' => 'modal',
-    'data-target' => '#action',
-)); ?>
-<button type="button" id="updateAction" data-target="#action" data-toggle="modal">Action</button>
+    'footer' => '' //array(
+        //TbHtml::button('Save Changes', array('data-dismiss' => 'modal', 'color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+        //TbHtml::button('Close', array('data-dismiss' => 'modal')),
+    //),
+));
+?>
+
 <script>
-    $('.view').on('click',function(){
-        $('#updateAction').click();
-        $('#action').find('.modal-body').text('coucou');
-    });
-    
-    function view(id) {
-        $('#action').find('.modal-body').text('coucou');
+    var butClose='<button data-dismiss="modal" class="btn" name="yt1" type="button">Close</button>';
+    function go() {
+        $('.view').attr('data-target', '#action').attr('data-toggle', 'modal').on('click', function(e) {
+            e.preventDefault();
+            var id = $(this).attr('href');
+            $.get('../actions/view?id=' + id + '&AJAXMODAL=1', function(data) {
+                $('#action').find('.modal-body').html(data);
+                $('#action').find('.modal-footer').html(butClose);
+                $('#action').find('input,select').css('width', '100%');
+            });
+        });
+        $('.update').attr('data-target', '#action').attr('data-toggle', 'modal').on('click', function(e) {
+            e.preventDefault();
+            var id = $(this).attr('href');
+            $.get('../actions/update?id=' + id + '&AJAXMODAL=1', function(data) {
+                $('#action').find('.modal-body').html(data);
+                $('#action').find('input,select,textarea').css('width', '100%');
+                $('#action').find('.modal-footer').html(butClose);
+                    $('#action').find('.modal-footer').prepend($('.form-actions').html());
+                $('.form-actions').remove();
+                $('.modal-body').css('max-height', '500px');
+                $('.btUpdate').on('click', function(e) {
+                    e.preventDefault();
+                    alert('For now doing nothing...');
+                });
+            });
+        });
     }
-    </script>
+    go();
+</script>
