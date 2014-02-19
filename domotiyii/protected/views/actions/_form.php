@@ -137,7 +137,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
         } else if (id == 15) {
             fieldSet(1, 'Script', 'SHOW', 'textarea');
         } else if (id == 16) {
-            fieldSet(1, 'Device id', 'SHOW', 'input');
+            fieldSet(1, 'Device id', 'SHOW', 'select');
             fieldSet(2, 'Post/Get', 'SHOW', 'input');
             fieldSet(3, 'Url', 'SHOW', 'textarea');
         } else if (id == 17) {
