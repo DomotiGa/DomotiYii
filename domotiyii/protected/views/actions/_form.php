@@ -40,6 +40,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
             adaptForm(v);
         });
         adaptForm($('#type').val());
+        viewOnly();
 ", CClientScript::POS_READY);
 ?>
 <script>
