@@ -230,6 +230,8 @@ return array(
     'Notify Send' => 'Envoyer notification',
     'Send Prowl PushMsg' => 'Envoyer message Prowl',
     'Send NMA PushMsg' => 'Envoyer notification (NMA Android)',
-    'Send Pushover PushMsg' => 'Envoyer notification (Pushover)'
+    'Send Pushover PushMsg' => 'Envoyer notification (Pushover)',
+    //conditions model
+    'Formula'=>'Formule'
 );
 ?>

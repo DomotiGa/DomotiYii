@@ -54,10 +54,10 @@ class Conditions extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
-			'description' => 'Description',
-			'formula' => 'Formula',
+			'id' => Yii::t('app','ID'),
+			'name' => Yii::t('app','Name'),
+			'description' => Yii::t('app','Description'),
+			'formula' => Yii::t('app','Formula'),
 		);
 	}
 

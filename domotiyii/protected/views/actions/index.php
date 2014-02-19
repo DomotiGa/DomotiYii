@@ -60,7 +60,7 @@ $this->endWidget();
 		'value' => '$data->getActionText($data->type)',
 		'htmlOptions'=>array('width'=>'100'),
 	),
-        array('name'=>'param1', 'header'=>Yii::t('app','Param'), 'htmlOptions'=>array('width'=>'50')),
+        array('name'=>'param1', 'header'=>Yii::t('app','Param1'), 'htmlOptions'=>array('width'=>'50')),
         array('name'=>'param2', 'header'=>Yii::t('app','Param2'), 'htmlOptions'=>array('width'=>'50')),
         array('name'=>'param3', 'header'=>Yii::t('app','Param3'), 'htmlOptions'=>array('width'=>'50')),
         array('name'=>'param4', 'header'=>Yii::t('app','Param4'), 'htmlOptions'=>array('width'=>'50')),
