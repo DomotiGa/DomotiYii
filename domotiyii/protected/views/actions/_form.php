@@ -46,7 +46,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
     function fieldSet(id, name, visible, type) {
         var sel = 'Actions_param' + id;
         //TODO
-        //helper for Device ID
+        //helper for Device ID done with a select
         //helper for Field name
         //helper for Global var
         if (visible === "SHOW") {
@@ -69,10 +69,11 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
             } else if (type === 'select' && name === 'Device id') {
                 var old = $('#' + sel);
                 var oldText = old.val();
-                var textinput = $('<span id="sel'+id+'"></span>');
+                var textinput = $('<span id="sel' + id + '"></span>');
                 old.replaceWith(textinput);
-                $.get('<?php echo Yii::app()->homeUrl ?>/AjaxUtil/getDeviceListSelect',{id:oldText}, function(data) {
-                    $('#sel' + id).html('<select  name="Actions[param' + id + ']" id="Actions_param' + id + '" style="display: inline-block;">'+data);
+                $.get('<?php echo Yii::app()->homeUrl ?>/AjaxUtil/getDeviceListSelect', {id: oldText}, function(data) {
+                    $('#sel' + id).html('<select  name="Actions[param' + id + ']" id="Actions_param' + id + '" style="display: inline-block;">' + data);
+                    viewOnly();
                 });
             }
         } else {
@@ -149,7 +150,23 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
         } else {
             showAll();
         }
+    }
+    function viewOnly() {
 <?php if (isset($readonly)): ?>
+            $('select').each(function() {
+                var id = $(this).attr('id');
+                var text = $(this).find(':selected').text();
+                var newfield = '<input class="span5" style="width:100%" type="text" name="' + id + '" value="' + text + '">';
+                newfield = '<span class="readOnlyValue">'+text+'</span>';
+                $(this).replaceWith(newfield);
+            });
+            $('input').each(function() {
+                var id = $(this).attr('id');
+                var text = $(this).val();
+                var newfield = '<input class="span5" style="width:100%" type="text" name="' + id + '" value="' + text + '">';
+                newfield = '<span class="readOnlyValue">'+text+'</span>';
+                $(this).replaceWith(newfield);
+            });
             $('textarea, input, select').css('background-color', '#f9f9f9').css('border', '1px solid lightgrey').removeClass('span3').addClass('span5');
             $('.control-group').css('background-color', '#f9f9f9').css('margin', '5px');
             $('label').removeClass('required').css('font-weight', 'bold').css('border', 'none');

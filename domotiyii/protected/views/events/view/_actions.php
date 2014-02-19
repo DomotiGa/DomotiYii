@@ -16,7 +16,7 @@ $this->widget('domotiyii.LiveGridView', array(
         array('name' => 'name', 'header' => Yii::t('app', 'Name'), 'htmlOptions' => array('width' => '120')),
         array('name' => 'description', 'header' => Yii::t('app', 'Description'), 'htmlOptions' => array('width' => '120')),
         array('class' => 'bootstrap.widgets.TbButtonColumn',
-            'template' => Yii::app()->user->isGuest ? '{view}' : '{view} {update}',
+            'template' => Yii::app()->user->isGuest ? '{view}' : '{view}',
             'header' => Yii::t('app', 'Actions'),
             'htmlOptions' => array('style' => 'width: 40px'),
             'buttons' => array(
