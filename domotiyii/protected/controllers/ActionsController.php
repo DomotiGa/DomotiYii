@@ -49,7 +49,8 @@ class ActionsController extends Controller {
             if ($model->validate()) {
                 // form inputs are valid, do something here
                 echo $this->do_save_fromajax($model);
-            } else echo Yii::t('app', 'Action save failed!');
+            } else if(count($model->getErrors ())!=0) 
+                echo '<div class="flash-error">'.Yii::t('app', 'Action save failed!')."</div>";
             return;
         }
         if (isset($_GET['AJAXMODAL'])) {
@@ -120,9 +121,9 @@ class ActionsController extends Controller {
     }
     protected function do_save_fromajax($model) {
         if ($model->save() === false) {
-            return Yii::t('app', 'Action save failed!');
+            return '<div class="flash-error">'.Yii::t('app', 'Action save failed!')."</div>";
         } else {
-            return Yii::t('app', 'Action saved.');
+            return '<div class="flash-success">'.Yii::t('app', 'Action saved.')."</div>";
         }
     }
 
