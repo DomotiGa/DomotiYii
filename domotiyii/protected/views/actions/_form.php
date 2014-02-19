@@ -161,7 +161,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                 newfield = '<span class="readOnlyValue">'+text+'</span>';
                 $(this).replaceWith(newfield);
             });
-            $('input').each(function() {
+            $('input, textarea').each(function() {
                 var id = $(this).attr('id');
                 var text = $(this).val();
                 var newfield = '<input class="span5" style="width:100%" type="text" name="' + id + '" value="' + text + '">';

@@ -63,7 +63,7 @@ $this->widget('bootstrap.widgets.TbModal', array(
             var id = $(this).attr('href');
             $.get('../actions/update?id=' + id + '&AJAXMODAL=1', function(data) {
                 $('#action').find('.modal-body').html(data).append('<div id="message"></div>');
-                $('#action').find('input,select,textarea').css('width', '100%');
+                $('#action').find('input ,select, textarea').css('width', '100%');
                 $('#action').find('.modal-footer').html(butClose);
                 $('#action').find('.modal-footer').prepend($('.form-actions').html());
                 $('.form-actions').hide();
