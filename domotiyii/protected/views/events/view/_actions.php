@@ -43,14 +43,14 @@ $this->widget('bootstrap.widgets.TbModal', array(
     'header' => 'Action',
     'content' => '',
     'footer' => '' //array(
-        //TbHtml::button('Save Changes', array('data-dismiss' => 'modal', 'color' => TbHtml::BUTTON_COLOR_PRIMARY)),
-        //TbHtml::button('Close', array('data-dismiss' => 'modal')),
+    //TbHtml::button('Save Changes', array('data-dismiss' => 'modal', 'color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    //TbHtml::button('Close', array('data-dismiss' => 'modal')),
     //),
 ));
 ?>
 
 <script>
-    var butClose='<button data-dismiss="modal" class="btn" name="yt1" type="button">Close</button>';
+    var butClose = '<button data-dismiss="modal" class="btn" name="yt1" type="button">Close</button>';
     function go() {
         $('.view').attr('data-target', '#action').attr('data-toggle', 'modal').on('click', function(e) {
             e.preventDefault();
@@ -65,15 +65,24 @@ $this->widget('bootstrap.widgets.TbModal', array(
             e.preventDefault();
             var id = $(this).attr('href');
             $.get('../actions/update?id=' + id + '&AJAXMODAL=1', function(data) {
-                $('#action').find('.modal-body').html(data);
+                $('#action').find('.modal-body').html(data).append('<div id="message"></div>');
                 $('#action').find('input,select,textarea').css('width', '100%');
                 $('#action').find('.modal-footer').html(butClose);
-                    $('#action').find('.modal-footer').prepend($('.form-actions').html());
-                $('.form-actions').remove();
+                $('#action').find('.modal-footer').prepend($('.form-actions').html());
+                $('.form-actions').hide();
                 $('.modal-body').css('max-height', '500px');
-                $('.btUpdate').on('click', function(e) {
+                $('#action').find('.modal-footer').find('.btUpdate').on('click', function(e) {
                     e.preventDefault();
-                    alert('For now doing nothing...');
+                    var dataToSend = $('#actions-form').serialize();
+                    dataToSend+='&id='+id;
+                    $.get('../actions/update', dataToSend, function(result) {
+                        $('#message').html(result);
+                    });
+                });
+                $('#action').find('.modal-footer').find('.btReset').on('click', function(e) {
+                    e.preventDefault();
+                    $('.form-actions').find('.btReset').click();
+
                 });
             });
         });

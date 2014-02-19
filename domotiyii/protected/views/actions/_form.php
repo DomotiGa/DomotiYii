@@ -27,7 +27,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <?php
 echo TbHtml::formActions(array(
     TbHtml::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'), array('class'=>'btUpdate','color' => TbHtml::BUTTON_COLOR_PRIMARY)),
-    TbHtml::resetButton('Reset'),
+    TbHtml::resetButton('Reset',array('class'=>'btReset')),
 ));
 ?>
 <?php $this->endWidget(); ?>

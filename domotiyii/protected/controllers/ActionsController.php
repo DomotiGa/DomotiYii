@@ -44,6 +44,14 @@ class ActionsController extends Controller {
                 $this->do_save($model);
             }
         }
+        if (isset($_GET['Actions'])) { //if GET used its from ajax
+            $model->attributes = $_GET['Actions'];
+            if ($model->validate()) {
+                // form inputs are valid, do something here
+                echo $this->do_save_fromajax($model);
+            } else echo Yii::t('app', 'Action save failed!');
+            return;
+        }
         if (isset($_GET['AJAXMODAL'])) {
             echo $this->renderPartial('_form', array('model' => $model), TRUE, true);
         } else {
@@ -108,6 +116,13 @@ class ActionsController extends Controller {
             Yii::app()->user->setFlash('error', Yii::t('app', 'Action save failed!'));
         } else {
             Yii::app()->user->setFlash('success', Yii::t('app', 'Action saved.'));
+        }
+    }
+    protected function do_save_fromajax($model) {
+        if ($model->save() === false) {
+            return Yii::t('app', 'Action save failed!');
+        } else {
+            return Yii::t('app', 'Action saved.');
         }
     }
 
