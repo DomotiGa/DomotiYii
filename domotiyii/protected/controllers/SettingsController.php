@@ -2,7 +2,35 @@
 
 class SettingsController extends Controller {
 
-    public function actionIndex() {
+    public function actionIndexModules() {
+        //FIXME : weird code but it works
+        $listModules = array();
+        $listModules[] = 'astro';
+        $listModules[] = 'bwiredmap';
+        $listModules[] = 'callerid';
+        $listModules[] = 'email';
+        $listModules[] = 'gmail';
+        $listModules[] = 'jsonrpc';
+        $listModules[] = 'main';
+        $listModules[] = 'mqtt';
+        $listModules[] = 'NMA';
+        $listModules[] = 'p2000';
+        $listModules[] = 'pachube';
+        $listModules[] = 'prowl';
+        $listModules[] = 'pushover';
+        $listModules[] = 'pvoutput';
+        $listModules[] = 'serverstats';
+        $listModules[] = 'smartvisuserver';
+        $listModules[] = 'sound';
+        $listModules[] = 'telnetserver';
+        $listModules[] = 'temperaturnu';
+        $listModules[] = 'thermostat';
+        $listModules[] = 'tvguide';
+        $listModules[] = 'twitter';
+        $listModules[] = 'voicetext';
+        $listModules[] = 'weatherbug';
+        $listModules[] = 'weatherug';
+        $listModules[] = 'xmlrpc';
         //FIXME: perhaps use static arrays if dynamic listing of model *.php is a trouble 
         $pref = './protected/models/Settings';
         $rawData = array();
@@ -15,6 +43,8 @@ class SettingsController extends Controller {
             $modelName = 'Settings' . $filename;
             $model = $modelName::model();
             $modelAlias = $model->tableName();
+            if (!in_array(strtolower($d1), $listModules))
+                continue;
             if (isset($model) && !empty($model) && in_array($modelAlias, $listTables)) {
                 $modelRecord = $model->findByPk(1);
                 if ($model->hasAttribute('enabled')) {
@@ -61,7 +91,136 @@ class SettingsController extends Controller {
                 'pageSize' => 30,
             ),
         ));
-        $this->render('index', array('data' => $arrayDataProvider));
+        $this->render('indexModules', array('data' => $arrayDataProvider));
+    }
+
+    public function actionIndexInterfaces() {
+        //FIXME : weird code but it works
+        $listInterfaces = array();
+
+        $listInterfaces[] = 'asterisk';
+        $listInterfaces[] = 'bluetooth';
+        $listInterfaces[] = 'ctx35';
+        $listInterfaces[] = 'cul';
+        $listInterfaces[] = 'currentcost';
+        $listInterfaces[] = 'denon';
+        $listInterfaces[] = 'digitemp';
+        $listInterfaces[] = 'dmxplayer';
+        $listInterfaces[] = 'dsc';
+        $listInterfaces[] = 'eib';
+        $listInterfaces[] = 'ezcontrol';
+        $listInterfaces[] = 'fritzbox';
+        $listInterfaces[] = 'genericio';
+        $listInterfaces[] = 'gps';
+        $listInterfaces[] = 'hddtemp';
+        $listInterfaces[] = 'homematic';
+        $listInterfaces[] = 'iport';
+        $listInterfaces[] = 'irman';
+        $listInterfaces[] = 'irtrans';
+        $listInterfaces[] = 'iviewer';
+        $listInterfaces[] = 'jeelabs';
+        $listInterfaces[] = 'k8055';
+        $listInterfaces[] = 'kmtronicudp';
+        $listInterfaces[] = 'ledmatrix';
+        $listInterfaces[] = 'lgtv';
+        $listInterfaces[] = 'lirc';
+        $listInterfaces[] = 'mochad';
+        $listInterfaces[] = 'ncid';
+        $listInterfaces[] = 'onkyo';
+        $listInterfaces[] = 'opentherm';
+        $listInterfaces[] = 'openzwave';
+        $listInterfaces[] = 'owfs';
+        $listInterfaces[] = 'oww';
+        $listInterfaces[] = 'ping';
+        $listInterfaces[] = 'pioneer';
+        $listInterfaces[] = 'plcbus';
+        $listInterfaces[] = 'plugwise';
+        $listInterfaces[] = 'pwrctrl';
+        $listInterfaces[] = 'razberry';
+        $listInterfaces[] = 'rfxcomrx';
+        $listInterfaces[] = 'rfxcomtrx';
+        $listInterfaces[] = 'rfxcomtx';
+        $listInterfaces[] = 'rfxcomxpl';
+        $listInterfaces[] = 'rrdtool';
+        $listInterfaces[] = 'sharptv';
+        $listInterfaces[] = 'shell';
+        $listInterfaces[] = 'smartmeter';
+        $listInterfaces[] = 'sms';
+        $listInterfaces[] = 'squeezeserver';
+        $listInterfaces[] = 'temp08';
+        $listInterfaces[] = 'toon';
+        $listInterfaces[] = 'ups';
+        $listInterfaces[] = 'velbus';
+        $listInterfaces[] = 'videoserver';
+        $listInterfaces[] = 'viera';
+        $listInterfaces[] = 'visca';
+        $listInterfaces[] = 'visonic';
+        $listInterfaces[] = 'weeder';
+        $listInterfaces[] = 'x10cmd';
+        $listInterfaces[] = 'xpl';
+
+        //FIXME: perhaps use static arrays if dynamic listing of model *.php is a trouble 
+        $pref = './protected/models/Settings';
+        $rawData = array();
+        $listTables = yii::app()->db->getSchema()->getTableNames();
+        $filter = yii::app()->request->getParam('filter', 'Enabled');
+        foreach (glob($pref . '*.php') as $filename) {
+            $filename = str_replace($pref, "", $filename);
+            $filename = str_replace(".php", "", $filename);
+            $d1 = $filename;
+            $modelName = 'Settings' . $filename;
+            $model = $modelName::model();
+            $modelAlias = $model->tableName();
+            if (!in_array(strtolower($d1), $listInterfaces))
+                continue;
+
+            if (isset($model) && !empty($model) && in_array($modelAlias, $listTables)) {
+                $modelRecord = $model->findByPk(1);
+                if ($model->hasAttribute('enabled')) {
+                    if ($modelRecord->enabled !== "0")
+                        $d2 = "Enabled";
+                    else
+                        $d2 = "Disabled";
+                }
+                else
+                    $d2 = "-";
+            } else {
+                $d2 = "Error : Table not found ($modelAlias)";
+                continue; //ignore when not finding table
+            }
+            $d3 = array();
+            //FIXME:  add too much attributes ?? should choose a list of attributes to check
+            $values = $modelRecord->getAttributes();
+            foreach (array_keys($values) as $l) {
+                if ($l !== 'enabled' && $l !== 'id')
+                    $d3[] = "<b>$l</b>=" . $values[$l];
+            }
+
+            $d3 = implode(', ', $d3);
+            if ($filter != 'all' && $filter != $d2)
+                continue;
+            $d2 = yii::t('app', $d2);
+            $line = array(
+                "id" => $d1,
+                "status" => $d2,
+                "information" => $d3
+            );
+
+            $rawData[] = $line;
+        }
+
+        $arrayDataProvider = new CArrayDataProvider($rawData, array(
+            'id' => 'id',
+            'sort' => array(
+                'attributes' => array(
+                    'id'
+                ),
+            ),
+            'pagination' => array(
+                'pageSize' => 30,
+            ),
+        ));
+        $this->render('indexInterfaces', array('data' => $arrayDataProvider));
     }
 
     public function actionVelbus() {

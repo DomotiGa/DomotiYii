@@ -5,7 +5,7 @@
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Modules') => '../index',
+        Yii::t('app','Modules') => 'indexModules',
         Yii::t('app','Thermostat'),
     ),
 ));

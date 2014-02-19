@@ -6,7 +6,7 @@
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app', 'Settings') => 'index',
+        Yii::t('app', 'Interfaces') => 'indexInterfaces',
         Yii::t('app', 'All'),
     ),
 ));
@@ -15,9 +15,9 @@ $this->widget('bootstrap.widgets.TbNav', array(
     'type'=>'tabs',
     'stacked'=>false,
     'items'=>array(
-        array('label'=>Yii::t('app','All'), 'url'=>'index?filter=all', 'active'=>Yii::app()->request->getParam('filter','Enabled') == 'all'),
-        array('label'=>Yii::t('app','Enabled'), 'url'=>'index?filter=Enabled', 'active'=>Yii::app()->request->getParam('filter','Enabled') == 'Enabled'),
-        array('label'=>Yii::t('app','Disabled'), 'url'=>'index?filter=Disabled', 'active'=>Yii::app()->request->getParam('filter','Enabled') == 'Disabled'),
+        array('label'=>Yii::t('app','All'), 'url'=>'indexInterfaces?filter=all', 'active'=>Yii::app()->request->getParam('filter','Enabled') == 'all'),
+        array('label'=>Yii::t('app','Enabled'), 'url'=>'indexInterfaces?filter=Enabled', 'active'=>Yii::app()->request->getParam('filter','Enabled') == 'Enabled'),
+        array('label'=>Yii::t('app','Disabled'), 'url'=>'indexInterfaces?filter=Disabled', 'active'=>Yii::app()->request->getParam('filter','Enabled') == 'Disabled'),
     ),
 ));
 
