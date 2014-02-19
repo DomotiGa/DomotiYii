@@ -49,8 +49,13 @@ class ActionsController extends Controller {
             if ($model->validate()) {
                 // form inputs are valid, do something here
                 echo $this->do_save_fromajax($model);
-            } else if(count($model->getErrors ())!=0) 
-                echo '<div class="flash-error">'.Yii::t('app', 'Action save failed!')."</div>";
+            } else if(count($model->getErrors ())!=0) {//dont remember how to retreive
+                echo '<div class="flash-error">'.Yii::t('app', 'Action save failed!')."<br>";
+                foreach($model->getErrors() as $err) {
+                    echo implode(' ',$err);
+                }
+                echo "</div>";
+            }
             return;
         }
         if (isset($_GET['AJAXMODAL'])) {
