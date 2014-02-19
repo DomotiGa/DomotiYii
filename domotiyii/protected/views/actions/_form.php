@@ -26,8 +26,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 <?php
 echo TbHtml::formActions(array(
-    TbHtml::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'), array('class'=>'btUpdate','color' => TbHtml::BUTTON_COLOR_PRIMARY)),
-    TbHtml::resetButton('Reset',array('class'=>'btReset')),
+    TbHtml::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Save'), array('class' => 'btUpdate', 'color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::resetButton('Reset', array('class' => 'btReset')),
 ));
 ?>
 <?php $this->endWidget(); ?>
@@ -53,7 +53,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
             $('#' + sel).show();
             $('[for=' + sel + ']').show();
             $('[for=' + sel + ']').text(name); //if ajax translation failed we have a text instead of empty field name
-            $.get('<?php echo Yii::app()->homeUrl ?>/AjaxTranslate/T', {name: name}, function(data) {
+            $.get('<?php echo Yii::app()->homeUrl ?>/AjaxUtil/Translate', {name: name}, function(data) {
                 $('[for=' + sel + ']').text(data.text);
             }, 'json');
             if (type === 'textarea' && $('textarea #' + sel).length === 0) {
@@ -66,6 +66,14 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                 var textinput = $('<input  name="Actions[param' + id + ']" id="Actions_param' + id + '" type="text"  style="display: inline-block;">');
                 old.replaceWith(textinput);
                 $('#' + sel).val(oldText);
+            } else if (type === 'select' && name === 'Device id') {
+                var old = $('#' + sel);
+                var oldText = old.val();
+                var textinput = $('<span id="sel'+id+'"></span>');
+                old.replaceWith(textinput);
+                $.get('<?php echo Yii::app()->homeUrl ?>/AjaxUtil/getDeviceListSelect',{id:oldText}, function(data) {
+                    $('#sel' + id).html('<select  name="Actions[param' + id + ']" id="Actions_param' + id + '" style="display: inline-block;">'+data);
+                });
             }
         } else {
             $('#' + sel).hide();
@@ -83,7 +91,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
     function adaptForm(id) {
         hideAll();
         if (id == 1) {
-            fieldSet(1, 'Device id', 'SHOW', 'input');
+            fieldSet(1, 'Device id', 'SHOW', 'select');
             fieldSet(2, 'Field name', 'SHOW', 'input');
             fieldSet(3, 'Value', 'SHOW', 'input');
         } else if (id == 2) {

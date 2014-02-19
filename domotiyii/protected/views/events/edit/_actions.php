@@ -28,10 +28,7 @@ $this->widget('domotiyii.LiveGridView', array(
                     'label' => Yii::t('app', 'Edit'),
                     'url' => '$data["id"]',
                 ),
-                'delete' => array(
-                    'label' => Yii::t('app', 'Delete'),
-                    'url' => 'Yii::app()->controller->createUrl("actions/delete", array("id"=>$data["id"],"command"=>"delete"))',
-                ),
+               
             ),
         ),
     ),
