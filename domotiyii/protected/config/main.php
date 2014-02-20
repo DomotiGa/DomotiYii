@@ -88,7 +88,7 @@ return array(
 
 	// language settings
 	'sourceLanguage' => 'en',
-	'language' => 'nl', // add new translations under protected/messages/ 
+	'language' => 'en', // add new translations under protected/messages/ 
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
