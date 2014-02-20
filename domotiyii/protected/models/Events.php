@@ -132,7 +132,14 @@ class Events extends CActiveRecord
 			'categoryname' => Yii::t('app','Category'),
 		);
 	}
-
+    public function beforeSave() {
+        if (parent::beforeSave()) {
+            if ($this->condition2 == NULL)
+                $this->condition2 = 0;
+            return TRUE;
+        }
+        return FALSE;
+    }
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
