@@ -134,6 +134,8 @@ class Events extends CActiveRecord
 	}
     public function beforeSave() {
         if (parent::beforeSave()) {
+            if ($this->condition1 == NULL)
+                $this->condition1 = 0;
             if ($this->condition2 == NULL)
                 $this->condition2 = 0;
             return TRUE;
