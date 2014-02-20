@@ -100,4 +100,11 @@ class SiteController extends Controller
 		// using the default layout 'protected/views/layouts/main.php'
 		$this->render('about');
 	}
+
+	public function actionHelp()
+	{
+		// renders the view file 'protected/views/site/about.php'
+		// using the default layout 'protected/views/layouts/main.php'
+		$this->render('help');
+	}
 }

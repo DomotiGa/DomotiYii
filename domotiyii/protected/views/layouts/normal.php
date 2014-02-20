@@ -196,7 +196,7 @@
   					array('label' => Yii::t('app','Devices'), 'url' => array('/devices/index')),
    					array('label' => Yii::t('app','Phone'), 'url' => array('cdr/index')),
 					TbHtml::menuDivider(),
-					array('label' => 'Help', 'icon'=>'flag', 'url' => '#'),
+					array('label' => 'Help', 'icon'=>'flag', 'url' => array('/site/help')),
 				)
 			));
 			?>
