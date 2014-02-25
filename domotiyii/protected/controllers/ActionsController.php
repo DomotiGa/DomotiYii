@@ -44,27 +44,10 @@ class ActionsController extends Controller {
                 $this->do_save($model);
             }
         }
-        if (isset($_GET['Actions'])) { //if GET used its from ajax
-            $model->attributes = $_GET['Actions'];
-            if ($model->validate()) {
-                // form inputs are valid, do something here
-                echo $this->do_save_fromajax($model);
-            } else if(count($model->getErrors ())!=0) {//dont remember how to retreive
-                echo '<div class="flash-error">'.Yii::t('app', 'Action save failed!')."<br>";
-                foreach($model->getErrors() as $err) {
-                    echo implode(' ',$err);
-                }
-                echo "</div>";
-            }
-            return;
-        }
-        if (isset($_GET['AJAXMODAL'])) {
-            echo $this->renderPartial('_form', array('model' => $model), TRUE, true);
-        } else {
-            $this->render('update', array(
-                'model' => $model,
-            ));
-        }
+
+        $this->render('update', array(
+            'model' => $model,
+        ));
     }
 
     public function actionDelete($id) {
@@ -122,13 +105,6 @@ class ActionsController extends Controller {
             Yii::app()->user->setFlash('error', Yii::t('app', 'Action save failed!'));
         } else {
             Yii::app()->user->setFlash('success', Yii::t('app', 'Action saved.'));
-        }
-    }
-    protected function do_save_fromajax($model) {
-        if ($model->save() === false) {
-            return '<div class="flash-error">'.Yii::t('app', 'Action save failed!')."</div>";
-        } else {
-            return '<div class="flash-success">'.Yii::t('app', 'Action saved.')."</div>";
         }
     }
 
