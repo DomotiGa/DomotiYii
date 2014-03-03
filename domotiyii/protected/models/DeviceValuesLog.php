@@ -12,6 +12,15 @@
  */
 class DeviceValuesLog extends CActiveRecord
 {
+
+    /**
+    * @return dropdownlist with the list of device
+    */
+    public function getDevices()
+    {
+        return CHtml::listData(Devices::model()->findAll(), 'id', 'name');
+    }
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.

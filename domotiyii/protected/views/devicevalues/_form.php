@@ -19,11 +19,11 @@
         <?php echo $form->textFieldControlGroup($model,'valuerrdtype'); ?>
         <?php echo $form->textFieldControlGroup($model,'value'); ?>
         <?php echo $form->textFieldControlGroup($model,'correction'); ?>
-        <?php echo $form->textFieldControlGroup($model,'log'); ?>
-        <?php echo $form->textFieldControlGroup($model,'logdisplay'); ?>
-        <?php echo $form->textFieldControlGroup($model,'logspeak'); ?>
-        <?php echo $form->textFieldControlGroup($model,'rrd'); ?>
-        <?php echo $form->textFieldControlGroup($model,'graph'); ?>
+	<?php echo $form->checkBoxControlGroup($model,'log', array('value'=>-1)); ?>
+	<?php echo $form->checkBoxControlGroup($model,'logdisplay', array('value'=>-1)); ?>
+	<?php echo $form->checkBoxControlGroup($model,'logspeak', array('value'=>-1)); ?>
+	<?php echo $form->checkBoxControlGroup($model,'rrd', array('value'=>-1)); ?>
+	<?php echo $form->checkBoxControlGroup($model,'graph', array('value'=>-1)); ?>
         <?php echo $form->textFieldControlGroup($model,'lastchanged'); ?>
         <?php echo $form->textFieldControlGroup($model,'lastseen'); ?>
         <?php echo $form->textFieldControlGroup($model,'type'); ?>
