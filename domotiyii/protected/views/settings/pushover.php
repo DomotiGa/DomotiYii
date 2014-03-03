@@ -37,7 +37,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->textFieldControlGroup($model,'token', array('class'=>'span4')); ?>
 		<?php echo $form->textFieldControlGroup($model,'user', array('class'=>'span4')); ?>
 		<?php echo $form->textFieldControlGroup($model,'device'); ?>
-		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1, 'help'=>Yii::t('app','To get a free account/API key click \'Register for API\''))); ?>
+		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1, 'help'=>Yii::t('app','Note: To get a free account/API key click \'Register for API\''))); ?>
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

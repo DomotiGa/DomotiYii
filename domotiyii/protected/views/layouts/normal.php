@@ -11,9 +11,9 @@
                     array('label'=>'Main', 'url'=> array('settings/main')),
                     array('label'=>'Astro and Location', 'url'=> array('settings/astro')),
                     array('label'=>'CallerID', 'url'=> array('settings/callerid')),
-                    array('label'=>'E-mail', 'url'=> array('settings/email')),
-                    array('label'=>'Google', 'url'=>'#', 'items'=>array(
-                       array('label'=>'GMail', 'url'=> array('settings/gmail')),
+                    array('label'=>'E-mail', 'url'=>'#', 'items'=>array(
+                       array('label'=>'E-mail SMTP', 'url'=> array('settings/email')),
+                       array('label'=>'GMail Notifier', 'url'=> array('settings/gmail')),
 		    )),
                     array('label'=>'Twitter', 'url'=> array('settings/twitter')),
                     array('label'=>'P2000 Scanner', 'url'=> array('settings/p2000')),
@@ -88,6 +88,7 @@
                        array('label'=>'Anel PwrCtrl', 'url'=> array('settings/pwrctrl')),
                        array('label'=>'DMX Player', 'url'=> array('settings/dmxplayer')),
                        array('label'=>'EZcontrol', 'url'=> array('settings/ezcontrol')),
+                       array('label'=>'Jerome I/O', 'url'=> array('settings/jerome')),
                        array('label'=>'KNX/EIB', 'url'=> array('settings/eib')),
                        array('label'=>'PLCBUS', 'url'=> array('settings/plcbus')),
                        array('label'=>'Velbus', 'url'=> array('settings/velbus')),

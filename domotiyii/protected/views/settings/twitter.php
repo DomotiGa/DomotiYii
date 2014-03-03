@@ -35,7 +35,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->textFieldControlGroup($model,'username'); ?>
 		<?php echo $form->passwordFieldControlGroup($model,'password'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'sendtimestamp'); ?>
-		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1, 'help'=>Yii::t('app','Note: Twitter module uses the bti cmmand line tool.'))); ?>
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

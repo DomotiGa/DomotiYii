@@ -13,7 +13,7 @@ class SettingsController extends Controller {
         $listModules[] = 'jsonrpc';
         $listModules[] = 'main';
         $listModules[] = 'mqtt';
-        $listModules[] = 'NMA';
+        $listModules[] = 'nma';
         $listModules[] = 'p2000';
         $listModules[] = 'pachube';
         $listModules[] = 'prowl';
@@ -119,6 +119,7 @@ class SettingsController extends Controller {
         $listInterfaces[] = 'irtrans';
         $listInterfaces[] = 'iviewer';
         $listInterfaces[] = 'jeelabs';
+        $listInterfaces[] = 'jerome';
         $listInterfaces[] = 'k8055';
         $listInterfaces[] = 'kmtronicudp';
         $listInterfaces[] = 'ledmatrix';
@@ -221,6 +222,23 @@ class SettingsController extends Controller {
             ),
         ));
         $this->render('indexInterfaces', array('data' => $arrayDataProvider));
+    }
+
+    public function actionJerome()
+    {
+        $model = SettingsJerome::model()->findByPk(1);
+
+        if(isset($_POST['SettingsJerome']))
+        {
+            $model->attributes=$_POST['SettingsJerome'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save($model);
+                $this->do_restart('jerome');
+            }
+        }
+        $this->render('jerome',array('model'=>$model));
     }
 
     public function actionVelbus() {
@@ -342,10 +360,10 @@ class SettingsController extends Controller {
             if ($model->validate()) {
                 // form inputs are valid, save and restart
                 $model->save();
-                $this->do_restart('NMA');
+                $this->do_restart('nma');
             }
         }
-        $this->render('NMA', array('model' => $model));
+        $this->render('nma', array('model' => $model));
     }
 
     public function actionPushover() {
@@ -1433,7 +1451,7 @@ class SettingsController extends Controller {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test pushmsg failed!'));
             }
         }
-        $this->redirect('NMA', true);
+        $this->redirect('nma', true);
     }
 
     public function actionSendTestProwl() {
