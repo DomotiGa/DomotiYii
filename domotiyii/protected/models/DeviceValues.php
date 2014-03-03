@@ -19,6 +19,8 @@
  * @property string $valuerrdtype
  * @property string $lastchanged
  * @property string $lastseen
+ * @property string $type
+ * @property string $description
  */
 class DeviceValues extends CActiveRecord
 {
@@ -48,8 +50,9 @@ class DeviceValues extends CActiveRecord
         // will receive user inputs.
         return array(
             array('device_id, valuenum', 'required'),
-            array('device_id, valuenum', 'length', 'max'=>11),
-            array('units, valuerrddsname, valuerrdtype', 'length', 'max'=>32),
+            array('device_id, valuenum, type', 'length', 'max'=>11),
+            array('units, valuerrddsname, valuerrdtype, description', 'length', 'max'=>32),
+            array('log, logdisplay, logspeak, rrd, graph', 'boolean', 'trueValue'=> -1),
             array('value, correction, log, logdisplay, logspeak, rrd, graph, lastchanged, lastseen', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.

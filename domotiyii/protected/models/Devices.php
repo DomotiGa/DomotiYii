@@ -160,8 +160,8 @@ class Devices extends CActiveRecord
 		return array(
 			array('module, location, interface, tampered, extcode, x, y, floorplan, repeatperiod, resetperiod, poll', 'numerical', 'integerOnly'=>true),
 			array('name, onicon, officon, dimicon, batterystatus', 'length', 'max'=>32),
-            array('enabled, hide, switchable, dimable, extcode, repeatstate, reset', 'boolean', 'trueValue'=> -1),	        
-            array('name', 'notOnlyNumbers'),
+			array('enabled, hide, switchable, dimable, extcode, repeatstate, reset', 'boolean', 'trueValue'=> -1),
+			array('name', 'notOnlyNumbers'),
 			array('address', 'length', 'max'=>64),
 			array('groups', 'length', 'max'=>128),
 			array('firstseen, lastseen, comments, lastchanged, resetvalue', 'safe'),
