@@ -36,7 +36,7 @@ $this->widget('bootstrap.widgets.TbTabs', array(
     'type' => 'tabs',
     'tabs' => array(
             array('id' => 'general', 'label' => Yii::t('app','Main'), 'content' => $this->renderPartial('view/_general', array('model' => $model), true), 'active' => true),
-            array('id' => 'icons', 'label' => Yii::t('app','Values'), 'content' => $this->renderPartial('view/_values', array('model' => $model) , true)),
+            array('id' => 'icons', 'label' => Yii::t('app','Values'), 'content' => $this->renderPartial('edit/_values', array('model' => $model) , true)),
 
     ),
 )); ?>
