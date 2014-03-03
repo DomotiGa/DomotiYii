@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'device_values':
  * @property string $id
- * @property string $deviceid
+ * @property string $device_id
  * @property string $valuenum
  * @property string $value
  * @property string $correction
@@ -47,13 +47,13 @@ class DeviceValues extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('deviceid, valuenum', 'required'),
-            array('deviceid, valuenum', 'length', 'max'=>11),
+            array('device_id, valuenum', 'required'),
+            array('device_id, valuenum', 'length', 'max'=>11),
             array('units, valuerrddsname, valuerrdtype', 'length', 'max'=>32),
             array('value, correction, log, logdisplay, logspeak, rrd, graph, lastchanged, lastseen', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, deviceid, valuenum, value, correction, units, log, logdisplay, logspeak, rrd, graph, valuerrddsname, valuerrdtype, lastchanged, lastseen', 'safe', 'on'=>'search'),
+            array('id, device_id, valuenum, value, correction, units, log, logdisplay, logspeak, rrd, graph, valuerrddsname, valuerrdtype, lastchanged, lastseen', 'safe', 'on'=>'search'),
         );
     }
 
@@ -65,7 +65,7 @@ class DeviceValues extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-		'device' => array(self::BELONGS_TO, 'Devices', 'deviceid'),
+		'device' => array(self::BELONGS_TO, 'Devices', 'device_id'),
         );
     }
 
@@ -76,7 +76,7 @@ class DeviceValues extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'deviceid' => 'Deviceid',
+            'device_id' => 'Deviceid',
             'device' => 'Device',
             'valuenum' => 'Valuenum',
             'value' => 'Value',
@@ -113,7 +113,7 @@ class DeviceValues extends CActiveRecord
         $criteria=new CDbCriteria;
 
         $criteria->compare('id',$this->id,true);
-        $criteria->compare('deviceid',$this->deviceid,true);
+        $criteria->compare('device_id',$this->device_id,true);
         $criteria->compare('valuenum',$this->valuenum,true);
         $criteria->compare('value',$this->value,true);
         $criteria->compare('correction',$this->correction,true);

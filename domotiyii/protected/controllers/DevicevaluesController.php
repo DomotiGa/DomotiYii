@@ -13,7 +13,7 @@ class DevicevaluesController extends Controller
 		{
 			$model->attributes=$_GET['DeviceValues'];
 
-			if (!empty($model->deviceid)) $criteria->addCondition('deviceid = "'.$model->deviceid.'"');
+			if (!empty($model->device_id)) $criteria->addCondition('device_id = "'.$model->device_id.'"');
 
 		}
 
@@ -25,6 +25,16 @@ class DevicevaluesController extends Controller
 		$model = DeviceValues::model()->findByPk($id);
 		$this->render('view', array('model'=>$model));
 	}
+
+        public function actionDelete($id)
+        {
+                //$model = DeviceValues::model()->deleteAll("device_id ='" . $id . "'");
+
+                // delete the entry from the "devices" table
+                $model = Devices::model()->findByPk($id);
+                $this->do_delete($model);
+
+        }
 
 	public function actionUpdate($id)
 	{
@@ -41,14 +51,6 @@ class DevicevaluesController extends Controller
                 $this->render('update',array(
                         'model'=>$model,
                 ));
-	}
-
-	public function actionDelete($id)
-	{
-		// delete the entry from the "DeviceValues" table
-		$model = DeviceValues::model()->findByPk($id);
-		$this->do_delete($model);
-		
 	}
 
         public function actionCreate()

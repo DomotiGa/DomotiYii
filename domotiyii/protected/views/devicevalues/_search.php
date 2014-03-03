@@ -1,5 +1,5 @@
 <?php
-/* @var $this DevicevaluesController */
+/* @var $this DeviceValuesController */
 /* @var $model DeviceValues */
 /* @var $form CActiveForm */
 ?>
@@ -12,7 +12,7 @@
 ));  ?>
 
 <fieldset>
-		<?php echo $form->dropDownListControlGroup($model,'deviceid', $model->getDevices(), array('prompt'=>'', 'id'=>'deviceid')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'device_id', $model->getDevices(), array('prompt'=>'', 'id'=>'device_id')); ?>
 
 </fieldset>
 

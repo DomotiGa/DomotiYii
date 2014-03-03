@@ -14,7 +14,7 @@ echo TbHtml::linkButton('Create', array(
 ));
 
 $this->widget('domotiyii.LiveGridView', array(
-    'id'=>'all-envetsactions-grid',
+    'id'=>'all-eventsactions-grid',
     'refreshTime'=>Yii::app()->params['refreshActions'], // x second refresh as defined in config
     'type'=>'striped condensed',
     'dataProvider'=>$model->getEventsActions(true),

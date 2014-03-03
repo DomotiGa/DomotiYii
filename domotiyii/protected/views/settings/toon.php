@@ -8,14 +8,26 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         Yii::t('app','Interfaces') => 'indexInterfaces',
         Yii::t('app','Toon'),
     ),
+)); ?>
+
+<legend>Toon Thermostat</legend>
+<?php $this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions'=>array(
+                'class'=>''
+        )
 ));
+$this->widget('bootstrap.widgets.TbNav', array(
+        'type'=>TbHtml::NAV_TYPE_PILLS,
+        'items'=>array(
+                array('label'=>Yii::t('app','Toon op Afstand'), 'icon'=>'icon-globe', 'url'=>'https://toonopafstand.eneco.nl/', 'linkOptions'=>array('target'=>'_blank')),
+        ),
+));
+$this->endWidget();
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
         'id'=>'settings-toon-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
-
-<legend>Toon Thermostat</legend>
 <fieldset>
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'user'); ?>

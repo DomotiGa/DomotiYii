@@ -151,6 +151,7 @@
                    array('label'=>Yii::t('app','Floors'), 'url'=> array('floors/index')),
                    array('label'=>Yii::t('app','Blacklists'), 'url'=> array('deviceblacklist/index')),
                    array('label'=>Yii::t('app','Interfaces'), 'url'=> array('interfaces/index')),
+                   array('label'=>Yii::t('app','Values'), 'url'=> array('devicevalues/index')),
                 )),
                 array('label'=>'Edit', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                    array('label'=>'Contacts', 'url'=> array('contacts/index')),
