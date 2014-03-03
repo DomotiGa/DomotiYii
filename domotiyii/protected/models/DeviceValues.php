@@ -30,7 +30,7 @@ class DeviceValues extends CActiveRecord
     */
     public function getDevices()
     {
-    	return CHtml::listData(Devices::model()->findAll(), 'id', 'name');
+    	return CHtml::listData(Devices::model()->findAll(array('order'=>'name')), 'id', 'name');
     }
 
     /**
@@ -116,7 +116,7 @@ class DeviceValues extends CActiveRecord
         $criteria=new CDbCriteria;
 
         $criteria->compare('id',$this->id,true);
-        $criteria->compare('device_id',$this->device_id,true);
+        $criteria->compare('device_id',$this->device_id,false);
         $criteria->compare('valuenum',$this->valuenum,true);
         $criteria->compare('value',$this->value,true);
         $criteria->compare('correction',$this->correction,true);
