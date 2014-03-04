@@ -132,7 +132,11 @@ class DeviceValues extends CActiveRecord
         $criteria->compare('lastseen',$this->lastseen,true);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+           'criteria'=>$criteria,
+                'pagination' => array(
+                'pageSize'=>Yii::app()->params['pagesizeDevices'],
+                'pageVar'=>'page',
+           ),
         ));
     }
 

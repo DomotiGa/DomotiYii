@@ -13,13 +13,13 @@
 class DeviceValuesLog extends CActiveRecord
 {
 
-    /**
-    * @return dropdownlist with the list of device
-    */
-    public function getDevices()
-    {
-        return CHtml::listData(Devices::model()->findAll(), 'id', 'name');
-    }
+	/**
+	 * @return dropdownlist with the list of device
+	 */
+	public function getDevices()
+	{
+	    return CHtml::listData(Devices::model()->findAll(), 'id', 'name');
+	}
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -65,6 +65,7 @@ class DeviceValuesLog extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+                	'device' => array(self::BELONGS_TO, 'Devices', 'device_id'),
 		);
 	}
 
@@ -101,6 +102,11 @@ class DeviceValuesLog extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+                  'pagination' => array(
+                  'pageSize'=>Yii::app()->params['pagesizeDevices'],
+                  'pageVar'=>'page'
+             ),
+
 		));
 	}
 }

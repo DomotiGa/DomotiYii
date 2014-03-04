@@ -101,7 +101,6 @@ return array(
 	  	'allowMobileWithoutLogin'=>False, // Dont allow, you can do this if you have setup ssl client certificate
 		// refresh time for specific gridviews
 		'refreshDevices'=>'5000', // 5 second refresh
-		'refreshDeviceValues'=>'5000',
 		'refreshPhonecalls'=>'5000',
 		'refreshContacts'=>'5000',
 		'refreshEvents'=>'5000',

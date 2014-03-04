@@ -46,13 +46,14 @@ $this->endWidget();
 
 <?php $this->widget('domotiyii.LiveGridView', array(
     'id'=>'all-DeviceValuesLog-grid',
-    'refreshTime'=>Yii::app()->params['refreshDeviceValuesLog'], // x second refresh as defined in config
+    'refreshTime'=>Yii::app()->params['refreshDeviceValues'], // x second refresh as defined in config
     'type'=>'striped condensed',
     'dataProvider'=>$model->search(),
     'template'=>'{items}{pager}{summary}',
     'columns'=>array(
         array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
-        array('name'=>'valuenum', 'header'=>Yii::t('app','Valuenum'), 'htmlOptions'=>array('width'=>'150')),
+        array('name'=>'device.name', 'header'=>Yii::t('app', 'Device'), 'htmlOptions'=>array('width'=>'150')),
+        array('name'=>'valuenum', 'header'=>Yii::t('app','Valuenum'), 'htmlOptions'=>array('width'=>'10')),
         array('name'=>'value', 'header'=>Yii::t('app','Rawvalue'), 'htmlOptions'=>array('width'=>'120')),
         array('name'=>'lastchanged', 'header'=>Yii::t('app','Last Changed'), 'htmlOptions'=>array('width'=>'120')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',

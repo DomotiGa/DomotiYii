@@ -46,14 +46,16 @@ $this->endWidget();
 
 <?php $this->widget('domotiyii.LiveGridView', array(
     'id'=>'all-DeviceValues-grid',
-    'refreshTime'=>Yii::app()->params['refreshDeviceValues'], // x second refresh as defined in config
+    'refreshTime'=>Yii::app()->params['refreshDevice'], // x second refresh as defined in config
     'type'=>'striped condensed',
     'dataProvider'=>$model->search(),
     'template'=>'{items}{pager}{summary}',
     'columns'=>array(
         array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
-        array('name'=>'valuenum', 'header'=>Yii::t('app','Valuenum'), 'htmlOptions'=>array('width'=>'150')),
+        array('name'=>'device.name', 'header'=>Yii::t('app', 'Device'), 'htmlOptions'=>array('width'=>'150')),
+        array('name'=>'valuenum', 'header'=>Yii::t('app','Valuenum'), 'htmlOptions'=>array('width'=>'10')),
         array('name'=>'value', 'header'=>Yii::t('app','Rawvalue'), 'htmlOptions'=>array('width'=>'120')),
+        array('name'=>'units', 'header'=>Yii::t('app','Units'), 'htmlOptions'=>array('width'=>'20')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',
            'template'=> Yii::app()->user->isGuest ? '{view}' : '{view} {update} {delete}',
            'header'=>Yii::t('app','Actions'),
