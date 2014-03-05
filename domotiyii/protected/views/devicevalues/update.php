@@ -2,20 +2,33 @@
 /* @var $this DeviceValuesController */
 /* @var $model DeviceValues */
 
+if (!is_null(Yii::app()->request->getParam('device_id'))) 
+    $device_id=Yii::app()->request->getParam('device_id');
+if(isset($device_id)) {
+    $homeURL=Yii::app()->homeUrl;
+    $this->widget('bootstrap.widgets.TbBreadcrumb', array(
+        'links' => array(
+            Yii::t('app', 'Devices') => $homeURL.'devices/index',
+            $model->device->name=> $homeURL.'devices/update/'.$device_id,
+            Yii::t('app', 'DeviceValues') =>  $homeURL.'devices/update/'.$device_id.'?activeTab=values',
+            Yii::t('app', 'Update'),
+        ),
+    ));
+} else {
     $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         'links' => array(
             Yii::t('app', 'DeviceValues') => '../index',
             Yii::t('app', 'Update'),
         ),
     ));
+}
 
 $this->beginWidget('zii.widgets.CPortlet', array(
     'htmlOptions' => array(
         'class' => ''
     )
 ));
-if (!is_null(Yii::app()->request->getParam('device_id'))) {
-    $device_id=Yii::app()->request->getParam('device_id');
+if (isset($device_id)) {
     $this->widget('bootstrap.widgets.TbNav', array(
         'type' => TbHtml::NAV_TYPE_PILLS,
         'items' => array(

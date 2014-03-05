@@ -2,25 +2,37 @@
 /* @var $this DeviceValuesController */
 /* @var $model DeviceValues */
 
-$this->widget('bootstrap.widgets.TbBreadcrumb', array(
-    'links' => array(
-        Yii::t('app', 'DeviceValues') => 'index',
-        Yii::t('app', 'View'),
-    ),
-));
-
+if (!is_null(Yii::app()->request->getParam('device_id')))
+    $device_id = Yii::app()->request->getParam('device_id');
+if (isset($device_id)) {
+    $homeURL = Yii::app()->homeUrl;
+    $this->widget('bootstrap.widgets.TbBreadcrumb', array(
+        'links' => array(
+            Yii::t('app', 'Devices') => $homeURL . 'devices/index',
+            $model->device->name => $homeURL . 'devices/update/' . $device_id,
+            Yii::t('app', 'DeviceValues') => $homeURL . 'devices/update/' . $device_id . '?activeTab=values',
+            Yii::t('app', 'View'),
+        ),
+    ));
+} else {
+    $this->widget('bootstrap.widgets.TbBreadcrumb', array(
+        'links' => array(
+            Yii::t('app', 'DeviceValues') => 'index',
+            Yii::t('app', 'View'),
+        ),
+    ));
+}
 $this->beginWidget('zii.widgets.CPortlet', array(
     'htmlOptions' => array(
         'class' => ''
     )
 ));
-if (!is_null(Yii::app()->request->getParam('device_id'))) {
-    $device_id = Yii::app()->request->getParam('device_id');
+if (isset($device_id)) {
     $this->widget('bootstrap.widgets.TbNav', array(
         'type' => TbHtml::NAV_TYPE_PILLS,
         'items' => array(
             array('label' => Yii::t('app', 'View'), 'icon' => 'icon-eye-open', 'url' => array('view', 'id' => $model->id), 'active' => true, 'linkOptions' => array()),
-            array('label' => Yii::t('app', 'Return to Device').' '.$model->device->name, 'icon' => 'icon-eye-open', 'url' => array('/devices/update', 'id' => $device_id,'activeTab'=>'values'), 'linkOptions' => array('style'=>'padding:6px;border:2px solid red;')),
+            array('label' => Yii::t('app', 'Return to Device') . ' ' . $model->device->name, 'icon' => 'icon-eye-open', 'url' => array('/devices/update', 'id' => $device_id, 'activeTab' => 'values'), 'linkOptions' => array('style' => 'padding:6px;border:2px solid red;')),
         ),
     ));
     $this->endWidget();
