@@ -23,7 +23,7 @@ $this->widget('domotiyii.LiveGridView', array(
            'buttons'=>array(
               'view' => array(
                  'label'=>Yii::t('app','View'),
-                 'url'=>'Yii::app()->controller->createUrl("devicevalues/view", array("id"=>$data["id"]))',
+                 'url'=>'Yii::app()->controller->createUrl("devicevalues/view", array("id"=>$data["id"],"device_id"=>'.$model->id.'))',
               ),
               'update' => array(
                  'label'=>Yii::t('app','Edit'),
