@@ -46,7 +46,7 @@ $this->endWidget();
 
 <?php $this->widget('domotiyii.LiveGridView', array(
     'id'=>'all-DeviceValuesLog-grid',
-    'refreshTime'=>Yii::app()->params['refreshDeviceValues'], // x second refresh as defined in config
+    'refreshTime'=>Yii::app()->params['refreshDeviceValuesLog'], // x second refresh as defined in config
     'type'=>'striped condensed',
     'dataProvider'=>$model->search(),
     'template'=>'{items}{pager}{summary}',
