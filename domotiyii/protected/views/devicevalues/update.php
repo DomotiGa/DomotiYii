@@ -2,12 +2,12 @@
 /* @var $this DeviceValuesController */
 /* @var $model DeviceValues */
 
-$this->widget('bootstrap.widgets.TbBreadcrumb', array(
-    'links' => array(
-        Yii::t('app', 'DeviceValues') => '../index',
-        Yii::t('app', 'Update'),
-    ),
-));
+    $this->widget('bootstrap.widgets.TbBreadcrumb', array(
+        'links' => array(
+            Yii::t('app', 'DeviceValues') => '../index',
+            Yii::t('app', 'Update'),
+        ),
+    ));
 
 $this->beginWidget('zii.widgets.CPortlet', array(
     'htmlOptions' => array(
@@ -20,7 +20,7 @@ if (!is_null(Yii::app()->request->getParam('device_id'))) {
         'type' => TbHtml::NAV_TYPE_PILLS,
         'items' => array(
             array('label' => Yii::t('app', 'Edit'), 'icon' => 'icon-edit', 'url' => array('update', 'id' => $model->id), 'active' => true),
-            array('label' => Yii::t('app', 'Return to Device '.$model->device->name), 'icon' => 'icon-eye-open', 'url' => array('/devices/update', 'id' => $device_id), 'linkOptions' => array('style'=>'padding:6px;border:2px solid red;')),
+            array('label' => Yii::t('app', 'Return to Device '.$model->device->name), 'icon' => 'icon-eye-open', 'url' => array('/devices/update', 'id' => $device_id,'activeTab'=>'values'), 'linkOptions' => array('style'=>'padding:6px;border:2px solid red;')),
         ),
     ));
     $this->endWidget();
@@ -41,11 +41,11 @@ if (!is_null(Yii::app()->request->getParam('device_id'))) {
 
 <legend>
     <?php echo $model->device->name; ?>
-<?php
-if(isset($device_id)) {
-    echo ' - Editing Value number ',$model->valuenum;
-}
-?>
+    <?php
+    if (isset($device_id)) {
+        echo ' - Editing Value number ', $model->valuenum;
+    }
+    ?>
 </legend>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>
