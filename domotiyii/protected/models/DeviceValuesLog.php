@@ -18,7 +18,7 @@ class DeviceValuesLog extends CActiveRecord
 	 */
 	public function getDevices()
 	{
-	    return CHtml::listData(Devices::model()->findAll(), 'id', 'name');
+	    return CHtml::listData(Devices::model()->findAll(array('order'=>'name')), 'id', 'name');
 	}
 
 	/**
