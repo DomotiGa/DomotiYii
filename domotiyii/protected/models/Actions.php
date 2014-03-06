@@ -78,7 +78,7 @@ class Actions extends CActiveRecord {
      * @return actionname for $action
      */
     public function getActionText($action) {
-        return isset($this->actionnames[$action]) ? $this->actionnames[$action] : null;
+        return isset($this->actionnames[$action]) ? Yii::t('app',$this->actionnames[$action]) : null;
     }
 
     /**
