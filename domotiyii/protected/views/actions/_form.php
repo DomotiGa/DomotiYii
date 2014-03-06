@@ -76,6 +76,15 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                     $('#sel' + id).html('<select  name="Actions[param' + id + ']" id="Actions_param' + id + '" style="display: inline-block;">' + data);
                     viewOnly();
                 });
+            } else if (type === 'select' && name === 'Globalvar name') {
+                var old = $('#' + sel);
+                var oldText = old.val();
+                var textinput = $('<span id="sel' + id + '"></span>');
+                old.replaceWith(textinput);
+                $.get('<?php echo Yii::app()->homeUrl ?>/AjaxUtil/getGlobalVarListSelect', {id: oldText}, function(data) {
+                    $('#sel' + id).html('<select  name="Actions[param' + id + ']" id="Actions_param' + id + '" style="display: inline-block;">' + data);
+                    viewOnly();
+                });
             } else if (type === 'select' && name === 'Value number') {
                 var old = $('#' + sel);
                 var oldText = old.val();
@@ -109,7 +118,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
             fieldSet(2, 'Value number', 'SHOW', 'select');
             fieldSet(3, 'Value', 'SHOW', 'input');
         } else if (id == 2) {
-            fieldSet(1, 'Globalvar name', 'SHOW', 'input');
+            fieldSet(1, 'Globalvar name', 'SHOW', 'select');
             fieldSet(2, 'Value', 'SHOW', 'input');
         } else if (id == 3) {
             fieldSet(1, 'To address', 'SHOW', 'input');
