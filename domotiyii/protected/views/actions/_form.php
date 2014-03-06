@@ -33,7 +33,7 @@ echo TbHtml::formActions(array(
 <?php $this->endWidget(); ?>
 <?php
 Yii::app()->clientScript->registerScript('dynamicForm', "
-//Some try to do dynamic form [PATOCHE]
+//dynamic form with jquery
         $('#type').addClass('span3');
         $('#type').on('change', function(e) {
             var v = $('#type').val();
@@ -48,7 +48,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
         var sel = 'Actions_param' + id;
         //TODO
         //helper for Device ID done with a select
-        //helper for Field name
+        //helper for Field name done with a select
         //helper for Global var
         if (visible === "SHOW") {
             $('#' + sel).show();
@@ -76,6 +76,18 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                     $('#sel' + id).html('<select  name="Actions[param' + id + ']" id="Actions_param' + id + '" style="display: inline-block;">' + data);
                     viewOnly();
                 });
+            } else if (type === 'select' && name === 'Value number') {
+                var old = $('#' + sel);
+                var oldText = old.val();
+                var textinput = $('<span id="sel' + id + '"></span>');
+                var buff='';
+                old.replaceWith(textinput);
+                buff='<select  name="Actions[param' + id + ']" id="Actions_param' + id + '" style="display: inline-block;">';
+                for (var x = 1; x < 5; x++)
+                    buff+='<option>' + x;
+                buff+='</select>';
+                $('#sel' + id).html(buff);
+                viewOnly();
             }
         } else {
             $('#' + sel).hide();
@@ -94,7 +106,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
         hideAll();
         if (id == 1) {
             fieldSet(1, 'Device id', 'SHOW', 'select');
-            fieldSet(2, 'Field name', 'SHOW', 'input');
+            fieldSet(2, 'Value number', 'SHOW', 'select');
             fieldSet(3, 'Value', 'SHOW', 'input');
         } else if (id == 2) {
             fieldSet(1, 'Globalvar name', 'SHOW', 'input');
@@ -158,14 +170,14 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                 var id = $(this).attr('id');
                 var text = $(this).find(':selected').text();
                 var newfield = '<input class="span5" style="width:100%" type="text" name="' + id + '" value="' + text + '">';
-                newfield = '<span class="readOnlyValue">'+text+'</span>';
+                newfield = '<span class="readOnlyValue">' + text + '</span>';
                 $(this).replaceWith(newfield);
             });
             $('input, textarea').each(function() {
                 var id = $(this).attr('id');
                 var text = $(this).val();
                 var newfield = '<input class="span5" style="width:100%" type="text" name="' + id + '" value="' + text + '">';
-                newfield = '<span class="readOnlyValue">'+text+'</span>';
+                newfield = '<span class="readOnlyValue">' + text + '</span>';
                 $(this).replaceWith(newfield);
             });
             $('textarea, input, select').css('background-color', '#f9f9f9').css('border', '1px solid lightgrey').removeClass('span3').addClass('span5');

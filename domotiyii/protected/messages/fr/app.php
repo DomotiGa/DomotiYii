@@ -185,7 +185,7 @@ return array(
     'Delay' => 'Délai',
     'Display id' => 'Identifiant afficheur',
     'Execute CMD' => 'Commande',
-    'Field name' => 'Nom du champ',
+    'Value number' => 'Valeur numéro',
     'Globalvar name' => 'Nom variable globale',
     'Log text' => 'Texte',
     'Message' => 'Message',
