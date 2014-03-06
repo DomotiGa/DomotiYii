@@ -46,10 +46,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
 <script>
     function fieldSet(id, name, visible, type) {
         var sel = 'Actions_param' + id;
-        //TODO
-        //helper for Device ID done with a select
-        //helper for Field name done with a select
-        //helper for Global var
+
         if (visible === "SHOW") {
             $('#' + sel).show();
             $('[for=' + sel + ']').show();
