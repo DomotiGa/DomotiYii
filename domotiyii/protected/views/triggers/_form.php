@@ -20,8 +20,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     <?php echo $form->textFieldControlGroup($model, 'param1'); ?>
     <?php echo $form->textFieldControlGroup($model, 'param2'); ?>
     <?php echo $form->textFieldControlGroup($model, 'param3'); ?>
-<?php echo $form->textFieldControlGroup($model, 'param4'); ?>
-<?php echo $form->textFieldControlGroup($model, 'param5'); ?>
+    <?php echo $form->textFieldControlGroup($model, 'param4'); ?>
+    <?php echo $form->textFieldControlGroup($model, 'param5'); ?>
 </fieldset>
 
 <?php
@@ -64,12 +64,14 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                 var textinput = $('<input  name="Triggers[param' + id + ']" id="Triggers_param' + id + '" type="text"  style="display: inline-block;">');
                 old.replaceWith(textinput);
                 $('#' + sel).val(oldText);
+                if (name == 'Last Seen')
+                    $('#' + sel).attr('DISABLED', 'DISABLED');
             } else if (type === 'select' && name === 'Globalvar name') {
                 var old = $('#' + sel);
                 var oldText = old.val();
                 var textinput = $('<span id="sel' + id + '"></span>');
                 old.replaceWith(textinput);
-                $.get('<?php echo Yii::app()->homeUrl ?>/AjaxUtil/getGlobalVarListSelect', {id: oldText}, function(data) {
+                $.get('<?php echo Yii::app()->homeUrl ?>AjaxUtil/getGlobalVarListSelect', {id: oldText}, function(data) {
                     $('#sel' + id).html('<select  name="Triggers[param' + id + ']" id="Triggers_param' + id + '" style="display: inline-block;">' + data);
                     viewOnly();
                 });
@@ -77,12 +79,12 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                 var old = $('#' + sel);
                 var oldText = old.val();
                 var textinput = $('<span id="sel' + id + '"></span>');
-                var buff='';
+                var buff = '';
                 old.replaceWith(textinput);
-                buff='<select  name="Triggers[param' + id + ']" id="Triggers_param' + id + '" style="display: inline-block;">';
+                buff = '<select  name="Triggers[param' + id + ']" id="Triggers_param' + id + '" style="display: inline-block;">';
                 for (var x = 1; x < 5; x++)
-                    buff+='<option>' + x;
-                buff+='</select>';
+                    buff += '<option>' + x;
+                buff += '</select>';
                 $('#sel' + id).html(buff);
                 viewOnly();
             } else if (type === 'select' && name === 'Device') {
@@ -90,8 +92,26 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                 var oldText = old.val();
                 var textinput = $('<span id="sel' + id + '"></span>');
                 old.replaceWith(textinput);
-                $.get('<?php echo Yii::app()->homeUrl ?>/AjaxUtil/getDeviceListSelect', {id: oldText}, function(data) {
+                $.get('<?php echo Yii::app()->homeUrl ?>AjaxUtil/getDeviceListSelect', {id: oldText}, function(data) {
                     $('#sel' + id).html('<select  name="Triggers[param' + id + ']" id="Triggers_param' + id + '" style="display: inline-block;">' + data);
+                    viewOnly();
+                });
+            } else if (type === 'lastseen' && name === 'Device') {
+                var old = $('#' + sel);
+                var oldText = old.val();
+                var textinput = $('<span id="sel' + id + '"></span>');
+                old.replaceWith(textinput);
+                $.get('<?php echo Yii::app()->homeUrl ?>AjaxUtil/getDeviceListSelect', {id: oldText}, function(data) {
+                    $('#sel' + id).html('<select  name="Triggers[param' + id + ']" id="Triggers_param' + id + '" style="display: inline-block;">' + data);
+                    var idLastSeen = id + 1;
+                    $('#Triggers_param' + id).on('change', function() {
+                        $.get('<?php echo Yii::app()->homeUrl ?>AjaxUtil/getDeviceLastSeen', {id: $(this).val()}, function(lastseen) {
+                            $('#Triggers_param2').val(lastseen);
+                        });
+                    });
+                    $.get('<?php echo Yii::app()->homeUrl ?>AjaxUtil/getDeviceLastSeen', {id: $('#Triggers_param' + id).val()}, function(lastseen) {
+                        $('#Triggers_param2').val(lastseen);
+                    });
                     viewOnly();
                 });
             }
@@ -134,7 +154,8 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
         } else if (id == 7) {
             fieldSet(1, 'Value', 'SHOW', 'input');
         } else if (id == 8) {
-            fieldSet(1, 'Device', 'SHOW', 'select');
+            fieldSet(1, 'Device', 'SHOW', 'lastseen');
+            fieldSet(2, 'Last Seen', 'SHOW', 'input');
         } else {
             showAll();
         }

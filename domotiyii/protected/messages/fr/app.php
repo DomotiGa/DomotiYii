@@ -246,5 +246,6 @@ return array(
     'Repeat'=>'Répeter',
     'Join'=>'Join',// Dont understand what that mean in this screen
     'Device'=>'Appareil',
+    'Triggers'=>'Déclencheurs',
 );
 ?>

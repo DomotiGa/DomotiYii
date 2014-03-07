@@ -12,6 +12,11 @@ class AjaxUtilController extends Controller
             echo "<option value=$i ".($id==$i?"SELECTED":"").">$v";
         }
     }
+    public function actionGetDeviceLastSeen() {
+        $id=$_GET['id'];
+        $dev=  Devices::model()->findByPk($id);
+        echo $dev->lastseen;
+    }
     public function actionGetGlobalVarListSelect() {
         $id=$_GET['id'];
         foreach(Globalvars::model()->findAll(array('order'=>'var')) as $m) {
