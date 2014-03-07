@@ -64,7 +64,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                 var textinput = $('<input  name="Actions[param' + id + ']" id="Actions_param' + id + '" type="text"  style="display: inline-block;">');
                 old.replaceWith(textinput);
                 $('#' + sel).val(oldText);
-            } else if (type === 'select' && name === 'Device id') {
+            } else if (type === 'select' && name === 'Device') {
                 var old = $('#' + sel);
                 var oldText = old.val();
                 var textinput = $('<span id="sel' + id + '"></span>');
@@ -111,7 +111,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
     function adaptForm(id) {
         hideAll();
         if (id == 1) {
-            fieldSet(1, 'Device id', 'SHOW', 'select');
+            fieldSet(1, 'Device', 'SHOW', 'select');
             fieldSet(2, 'Value number', 'SHOW', 'select');
             fieldSet(3, 'Value', 'SHOW', 'input');
         } else if (id == 2) {
@@ -157,7 +157,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
         } else if (id == 15) {
             fieldSet(1, 'Script', 'SHOW', 'textarea');
         } else if (id == 16) {
-            fieldSet(1, 'Device id', 'SHOW', 'select');
+            fieldSet(1, 'Device', 'SHOW', 'select');
             fieldSet(2, 'Post/Get', 'SHOW', 'input');
             fieldSet(3, 'Url', 'SHOW', 'textarea');
         } else if (id == 17) {

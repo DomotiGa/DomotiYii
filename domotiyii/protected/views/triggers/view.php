@@ -29,7 +29,7 @@ $this->endWidget();
 
 <legend><?php echo $model->name;?></legend>
 
-<?php $this->widget('domotiyii.DetailView', array(
+<?php /*$this->widget('domotiyii.DetailView', array(
 	'type' => 'striped condensed',
 	'data'=>$model,
         'attributes'=>array(
@@ -43,4 +43,6 @@ $this->endWidget();
 		array('name' => 'param4'),
 		array('name' => 'param5'),
 	),
-)); ?>
+));*/ 
+//we use same form as for update/create to have same dynamic fields
+echo $this->renderPartial('_form', array('model'=>$model,'readonly'=>1)); ?>

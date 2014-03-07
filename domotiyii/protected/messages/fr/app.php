@@ -232,6 +232,19 @@ return array(
     'Send NMA PushMsg' => 'Envoyer notification (NMA Android)',
     'Send Pushover PushMsg' => 'Envoyer notification (Pushover)',
     //conditions model
-    'Formula'=>'Formule'
+    'Formula' => 'Formule',
+    //trigger form
+    'Param 1' => 'Paramètre 1',
+    'Param 2' => 'Paramètre 2',
+    'Param 3' => 'Paramètre 3',
+    'Param 4' => 'Paramètre 4',
+    'Param 5' => 'Paramètre 5',
+    'Time (crontab format)'=>'Période (format crontab)',
+    'Operator'=>'Opérateur',
+    'Remote'=>'Code IR',
+    'Button'=>'Bouton',
+    'Repeat'=>'Répeter',
+    'Join'=>'Join',// Dont understand what that mean in this screen
+    'Device'=>'Appareil',
 );
 ?>
