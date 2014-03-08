@@ -28,11 +28,7 @@ class ActionsController extends Controller {
 
     public function actionView($id) {
         $model = Actions::model()->findByPk($id);
-        if (isset($_GET['AJAXMODAL'])) {
-            echo $this->renderPartial('_form', array('model' => $model, 'readonly' => 1), TRUE, true);
-        } else {
-            $this->render('view', array('model' => $model));
-        }
+        $this->render('view', array('model' => $model));
     }
 
     public function actionUpdate($id) {
