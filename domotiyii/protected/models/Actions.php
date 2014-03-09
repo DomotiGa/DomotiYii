@@ -82,6 +82,14 @@ class Actions extends CActiveRecord {
     }
 
     /**
+     * @return device name from his id
+     */
+    public function getDeviceName($id) {
+        $dev = Devices::model()->findByPk($id);
+        return ($dev===NULL?"":$dev->name);
+    }
+
+    /**
      * @return string the associated database table name
      */
     public function tableName() {

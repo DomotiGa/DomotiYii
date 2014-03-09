@@ -52,15 +52,6 @@ class Devices extends CActiveRecord
                 return CHtml::listData(Devices::model()->findAll(array('order'=>'name ASC')), 'id', 'name');
         }
 
-        /**
-         * @return device name from his id
-         */
-        public function getDeviceName($id)
-        {
-            $dev=Devices::model()->findByPk($id);
-            return $dev->name;
-        }
-
 	/**
          * @return dropdownlist with the list of modules/devicetypes
 	 */
