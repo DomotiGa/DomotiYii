@@ -34,7 +34,7 @@ if (isset($device_id)) {
     $this->widget('bootstrap.widgets.TbNav', array(
         'type' => TbHtml::NAV_TYPE_PILLS,
         'items' => array(
-            array('label' => Yii::t('app', 'Edit'), 'icon' => 'icon-edit', 'url' => array('update', 'id' => $model->id), 'active' => true),
+            //array('label' => Yii::t('app', 'Edit'), 'icon' => 'icon-edit', 'url' => array('update', 'id' => $model->id), 'active' => true),
             array('label' => Yii::t('app', 'Return to Device').' '.$model->device->name, 'icon' => 'icon-eye-open', 'url' => array('/devices/'.$device_action, 'id' => $device_id,'activeTab'=>'values'), 'linkOptions' => array('style'=>'padding:6px;border:2px solid red;')),
         ),
     ));
