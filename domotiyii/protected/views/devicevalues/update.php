@@ -2,15 +2,17 @@
 /* @var $this DeviceValuesController */
 /* @var $model DeviceValues */
 
-if (!is_null(Yii::app()->request->getParam('device_id'))) 
+if (!is_null(Yii::app()->request->getParam('device_id'))) {
     $device_id=Yii::app()->request->getParam('device_id');
+    $device_action=Yii::app()->request->getParam('device_action','view');
+}
 if(isset($device_id)) {
     $homeURL=Yii::app()->homeUrl;
     $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         'links' => array(
             Yii::t('app', 'Devices') => $homeURL.'devices/index',
-            $model->device->name=> $homeURL.'devices/update/'.$device_id,
-            Yii::t('app', 'DeviceValues') =>  $homeURL.'devices/update/'.$device_id.'?activeTab=values',
+            $model->device->name=> $homeURL.'devices/'.$device_action.'/'.$device_id,
+            Yii::t('app', 'DeviceValues') =>  $homeURL.'devices/'.$device_action.'/'.$device_id.'?activeTab=values',
             Yii::t('app', 'Update'),
         ),
     ));
@@ -33,7 +35,7 @@ if (isset($device_id)) {
         'type' => TbHtml::NAV_TYPE_PILLS,
         'items' => array(
             array('label' => Yii::t('app', 'Edit'), 'icon' => 'icon-edit', 'url' => array('update', 'id' => $model->id), 'active' => true),
-            array('label' => Yii::t('app', 'Return to Device').' '.$model->device->name, 'icon' => 'icon-eye-open', 'url' => array('/devices/update', 'id' => $device_id,'activeTab'=>'values'), 'linkOptions' => array('style'=>'padding:6px;border:2px solid red;')),
+            array('label' => Yii::t('app', 'Return to Device').' '.$model->device->name, 'icon' => 'icon-eye-open', 'url' => array('/devices/'.$device_action, 'id' => $device_id,'activeTab'=>'values'), 'linkOptions' => array('style'=>'padding:6px;border:2px solid red;')),
         ),
     ));
     $this->endWidget();

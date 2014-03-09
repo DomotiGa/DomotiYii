@@ -2,6 +2,9 @@
 /* @var $this DevicesController */
 /* @var $model Devices */
 
+//to switch directly to the right tab
+$activeTab=Yii::app()->request->getParam('activeTab');
+
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
         Yii::t('app','Devices') => 'index',  
@@ -35,8 +38,8 @@ $this->widget('bootstrap.widgets.TbTabs', array(
     'id' => 'mytabs',
     'type' => 'tabs',
     'tabs' => array(
-            array('id' => 'general', 'label' => Yii::t('app','Main'), 'content' => $this->renderPartial('view/_general', array('model' => $model), true), 'active' => true),
-            array('id' => 'icons', 'label' => Yii::t('app','Values'), 'content' => $this->renderPartial('edit/_values', array('model' => $model) , true)),
+            array('id' => 'general', 'label' => Yii::t('app','Main'), 'content' => $this->renderPartial('view/_general', array('model' => $model), true), 'active' => ($activeTab==NULL?true:false)),
+            array('id' => 'icons', 'label' => Yii::t('app','Values'), 'content' => $this->renderPartial('view/_values', array('model' => $model) , true), 'active' => ($activeTab=='values'?true:false)),
 
     ),
 )); ?>
