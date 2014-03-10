@@ -2,6 +2,10 @@
 /* @var $this EventsController */
 /* @var $model Events */
 
+//to switch directly to the right tab
+$activeTab=Yii::app()->request->getParam('activeTab');
+
+
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
         Yii::t('app','Events') => 'index',  
@@ -35,8 +39,8 @@ $this->widget('bootstrap.widgets.TbTabs', array(
     'id' => 'mytabs',
     'type' => 'tabs',
     'tabs' => array(
-            array('id' => 'general', 'label' => Yii::t('app','Main'), 'content' => $this->renderPartial('view/_general', array('model' => $model), true), 'active' => true),
-            array('id' => 'icons', 'label' => Yii::t('app','Actions'), 'content' => $this->renderPartial('view/_actions', array('model' => $model) , true)),
+            array('id' => 'general', 'label' => Yii::t('app','Main'), 'content' => $this->renderPartial('view/_general', array('model' => $model), true), 'active' => ($activeTab==NULL?true:false)),
+            array('id' => 'icons', 'label' => Yii::t('app','Actions'), 'content' => $this->renderPartial('view/_actions', array('model' => $model) , true), 'active' => ($activeTab=='actions'?true:false)),
 
     ),
 )); ?>

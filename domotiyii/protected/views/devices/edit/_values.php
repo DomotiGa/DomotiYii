@@ -17,7 +17,7 @@ $this->widget('domotiyii.LiveGridView', array(
         array('name'=>'units', 'header'=>Yii::t('app','Units'), 'htmlOptions'=>array('width'=>'120')),
         array('name'=>'correction', 'header'=>Yii::t('app','Correction'), 'htmlOptions'=>array('width'=>'120')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',
-           'template'=> Yii::app()->user->isGuest ? '{view}' : '{view} {update} {delete}',
+           'template'=> Yii::app()->user->isGuest ? '{view}' : '{view} {update}',
            'header'=>Yii::t('app','Actions'),
            'htmlOptions'=>array('style'=>'width: 40px'),
            'buttons'=>array(
@@ -29,10 +29,10 @@ $this->widget('domotiyii.LiveGridView', array(
                  'label'=>Yii::t('app','Edit'),
                  'url'=>'Yii::app()->controller->createUrl("devicevalues/update", array("id"=>$data["id"],"device_id"=>'.$model->id.',"device_action"=>"update"))',
               ),
-              'delete' => array(
-                 'label'=>Yii::t('app','Delete'),
-                 'url'=>'Yii::app()->controller->createUrl("devicevalues/delete", array("id"=>$data["id"],"command"=>"delete"))',
-              ),
+//              'delete' => array(
+//                 'label'=>Yii::t('app','Delete'),
+//                 'url'=>'Yii::app()->controller->createUrl("devicevalues/delete", array("id"=>$data["id"],"command"=>"delete"))',
+//              ),
            ),
         ),
     ),
