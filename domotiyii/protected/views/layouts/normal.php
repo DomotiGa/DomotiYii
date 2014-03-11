@@ -8,6 +8,7 @@
             'class'=>'bootstrap.widgets.TbNav',
             'items'=>array(
                 array('label'=>Yii::t('app','Modules'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
+                    array('label'=>'Modules list', 'url'=> array('settings/indexModules')),
                     array('label'=>'Main', 'url'=> array('settings/main')),
                     array('label'=>'Astro and Location', 'url'=> array('settings/astro')),
                     array('label'=>'CallerID', 'url'=> array('settings/callerid')),
@@ -53,6 +54,7 @@
                     )),
                  )),
                  array('label'=>Yii::t('app','Interfaces'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
+                    array('label'=>'Interfaces list', 'url'=> array('settings/indexInterfaces')),
                     array('label'=>'1-Wire', 'url'=>'#', 'items'=>array(
                        array('label'=>'Digitemp', 'url'=> array('settings/digitemp')),
                        array('label'=>'Midon TEMP08', 'url'=> array('settings/temp08')),
