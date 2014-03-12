@@ -4,6 +4,7 @@
                 <?php echo $form->checkBoxControlGroup($model,'extcode', array('value'=>-1)); ?>
                 <?php echo $form->checkBoxControlGroup($model,'hide', array('value'=>-1)); ?>
                 <?php echo $form->textFieldControlGroup($model,'resetvalue'); ?>
+                <?php echo $form->numberFieldControlGroup($model,'tampered', array('value' => 0)); ?>
                 <?php echo $form->numberFieldControlGroup($model,'resetperiod', array('append' => Yii::t('app','Minutes'))); ?>
                 <?php echo $form->checkBoxControlGroup($model,'repeatstate', array('value'=>-1)); ?>
                 <?php echo $form->numberFieldControlGroup($model,'repeatperiod', array('append' => Yii::t('app','Minutes'))); ?>

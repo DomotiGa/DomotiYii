@@ -72,7 +72,8 @@ class DevicesController extends Controller {
             if ($model->validate()) {
                 // form inputs are valid, do something here
                 $this->do_save($model);
-            } else
+            }
+            else
                 Yii::app()->user->setFlash('error', "Invalid Data.");
         }
         $this->render('update', array(
@@ -142,6 +143,9 @@ class DevicesController extends Controller {
             if ($model->validate()) {
                 $this->do_save($model);
                 $this->redirect(array('update', 'id' => $model->id));
+            } else  {
+                //FIXME: to be done better but good now for debugging
+                Yii::app()->user->setFlash('error',  print_r($model->getErrors(),true));
             }
         }
         $this->render('create', array(
