@@ -31,12 +31,12 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         array('name' => 'status', 'header' => Yii::t('app', 'Status'), 'htmlOptions' => array('width' => '15px')),
         array('name' => 'information', 'header' => Yii::t('app', 'Information'), 'type'=>'raw','htmlOptions' => array('width' => '200px')),
         array('class' => 'bootstrap.widgets.TbButtonColumn',
-            'template' => '{view}',
+            'template' => '{update}',
             'header' => Yii::t('app', 'Action'),
             'htmlOptions' => array('style' => 'width: 10px'),
             'buttons' => array(
-                'view' => array(
-                    'label' => Yii::t('app', 'View'),
+                'update' => array(
+                    'label' => Yii::t('app', 'Update'),
                     'url' => 'Yii::app()->controller->createUrl("view", array("id"=>$data["id"]))',
                 ),
             ),
