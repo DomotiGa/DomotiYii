@@ -117,7 +117,7 @@ class DevicesController extends Controller {
         $model = Devices::model()->findByPk($id);
         if (isset($_POST['Devices'])) {
             $model->attributes = $_POST['Devices'];
-            if (isset($_POST['Devices']['groupsarray']) && count($_POST['Devices']['groupsarray']) !== 0)
+            if (isset($_POST['Devices']['groupsarray']) && is_array($_POST['Devices']['groupsarray']) && count($_POST['Devices']['groupsarray']) !== 0)
                 $model->groups = '|' . implode('|', $_POST['Devices']['groupsarray']) . '|';
             else
                 $model->groups = '|';
@@ -193,7 +193,7 @@ class DevicesController extends Controller {
 
         if (isset($_POST['Devices'])) {
             $model->attributes = $_POST['Devices'];
-            if (isset($_POST['Devices']['groupsarray']) && count($_POST['Devices']['groupsarray']) !== 0)
+            if (isset($_POST['Devices']['groupsarray']) && is_array($_POST['Devices']['groupsarray']) && count($_POST['Devices']['groupsarray']) !== 0)
                 $model->groups = '|' . implode('|', $_POST['Devices']['groupsarray']) . '|';
             else
                 $model->groups = '|';

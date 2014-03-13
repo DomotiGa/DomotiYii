@@ -134,6 +134,20 @@ class Devices extends CActiveRecord {
     }
 
     /**
+     * @return dropdownlist with the list of locations
+     */
+    public function getIcons() {
+        $lst=glob('static/icons/*.*');
+        $listSelect=array();
+        $listSelect[""]="";
+        foreach($lst as $l) {
+            $l=str_replace('static/icons/','',$l);
+            $listSelect[$l]=$l;
+        }
+        return $listSelect;
+    }
+
+    /**
      * @return dropdownlist with the list of types/protocols
      */
     public function getTypes() {
