@@ -55,6 +55,59 @@ class DevicesController extends Controller {
         $this->render('index', array('model' => $model, 'locations' => $locations));
     }
 
+    public function actionIndexValues() {
+        $criteria = new CDbCriteria();
+        $model = new Devices('search');
+        $model->unsetAttributes(); // clear any default values
+
+        if (isset($_GET['Devices'])) {
+            $model->attributes = $_GET['Devices'];
+
+            if (!empty($model->name))
+                $criteria->addCondition('name = "' . $model->name . '"');
+            if (!empty($model->address))
+                $criteria->addCondition('address = "' . $model->address . '"');
+            if (!empty($model->module))
+                $criteria->addCondition('module = "' . $model->module . '"');
+            if (!empty($model->interface))
+                $criteria->addCondition('interface = "' . $model->interface . '"');
+        }
+
+        $type = Yii::app()->getRequest()->getParam('type');
+        if (isset($type) && !empty($type)) {
+            if ($type == "sensors") {
+                $model->switchable = 0;
+                $model->dimable = 0;
+                $criteria->addCondition('switchable IS FALSE');
+                $criteria->addCondition('dimable IS FALSE');
+            } elseif ($type == "dimmers") {
+                $model->dimable = -1;
+                $criteria->addCondition('dimable IS TRUE');
+            } elseif ($type == "switches") {
+                $model->switchable = -1;
+                $criteria->addCondition('switchable IS TRUE');
+            } elseif ($type == "hidden") {
+                $model->hide = -1;
+                $criteria->addCondition('hide IS TRUE');
+            } elseif ($type == "disabled") {
+                $model->enabled = 0;
+                $criteria->addCondition('enabled IS FALSE');
+            }
+        }
+
+        $location = Yii::app()->getRequest()->getParam('location');
+        if (isset($location) && !empty($location)) {
+            if ($type != "0") {
+                $model->location = $location;
+                $criteria->addCondition('location = "' . $location . '"');
+                $criteria->addCondition('dimable IS FALSE');
+            }
+        }
+
+        $locations = Locations::model();
+        $this->render('indexValues', array('model' => $model, 'locations' => $locations));
+    }
+
     public function actionView($id) {
         $model = Devices::model()->findByPk($id);
         $this->render('view', array('model' => $model));

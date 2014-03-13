@@ -255,6 +255,11 @@ return array (
 //    'Join'=>'Join',// Dont understand what that mean in this screen
 //    'Device'=>'Appareil',
 //    'Triggers'=>'Déclencheurs',
-);
+//    'Value 1'=>'Valeur 1',
+//    'Value 2'=>'Valeur 2',
+//    'Value 3'=>'Valeur 3',
+//    'Value 4'=>'Valeur 4',
+//    'Devices with values'=>'Liste Appareils et valeurs',
+    );
 ?>
 

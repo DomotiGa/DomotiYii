@@ -146,7 +146,8 @@
                     array('label'=>'xPL', 'url'=> array('settings/xpl')),
 	         )),
                 array('label'=>Yii::t('app','Devices'), 'visible'=>!Yii::app()->user->isGuest, 'url'=> '#', 'items'=>array(
-		array('label' => Yii::t('app','Devices'), 'url' => array('devices/index')),
+                   array('label' => Yii::t('app','Devices'), 'url' => array('devices/index')),
+                   array('label' => Yii::t('app','Devices with values'), 'url' => array('devices/indexValues')),
                    array('label'=>Yii::t('app','Types'), 'url'=> array('devicetypes/index')),
                    array('label'=>Yii::t('app','Groups'), 'url'=> array('groups/index')),
                    array('label'=>Yii::t('app','Locations'), 'url'=> array('locations/index')),
@@ -199,6 +200,7 @@
 				'items' => array(
  					array('label' => 'MENU'),
   					array('label' => Yii::t('app','Devices'), 'url' => array('/devices/index')),
+  					array('label' => Yii::t('app','Devices with values'), 'url' => array('/devices/indexValues')),
    					array('label' => Yii::t('app','Phone'), 'url' => array('cdr/index')),
 					TbHtml::menuDivider(),
 					array('label' => 'Help', 'icon'=>'flag', 'url' => array('/site/help')),
