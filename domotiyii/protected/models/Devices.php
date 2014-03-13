@@ -74,7 +74,7 @@ class Devices extends CActiveRecord {
             $icon=$this->onicon;
         else 
             $icon=$this->officon;
-        if($icon===NULL) return "";
+        if($icon===NULL || empty($icon)) return "";
         $imageSrc=Yii::app()->homeUrl.'static/icons/'.$icon;
         return '<img src="'.$imageSrc.'">';
     }

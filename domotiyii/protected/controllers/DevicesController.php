@@ -117,7 +117,7 @@ class DevicesController extends Controller {
         $model = Devices::model()->findByPk($id);
         if (isset($_POST['Devices'])) {
             $model->attributes = $_POST['Devices'];
-            if (is_array($_POST['Devices']['groupsarray']) && count($_POST['Devices']['groupsarray']) !== 0)
+            if (isset($_POST['Devices']['groupsarray']) && count($_POST['Devices']['groupsarray']) !== 0)
                 $model->groups = '|' . implode('|', $_POST['Devices']['groupsarray']) . '|';
             else
                 $model->groups = '|';
@@ -193,12 +193,17 @@ class DevicesController extends Controller {
 
         if (isset($_POST['Devices'])) {
             $model->attributes = $_POST['Devices'];
+            if (isset($_POST['Devices']['groupsarray']) && count($_POST['Devices']['groupsarray']) !== 0)
+                $model->groups = '|' . implode('|', $_POST['Devices']['groupsarray']) . '|';
+            else
+                $model->groups = '|';
+
             if ($model->validate()) {
                 $this->do_save($model);
                 $this->redirect(array('update', 'id' => $model->id));
-            } else  {
+            } else {
                 //FIXME: to be done better but good now for debugging
-                Yii::app()->user->setFlash('error',  print_r($model->getErrors(),true));
+                Yii::app()->user->setFlash('error', print_r($model->getErrors(), true));
             }
         }
         $this->render('create', array(
