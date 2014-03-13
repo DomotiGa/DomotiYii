@@ -69,7 +69,7 @@ $this->widget('domotiyii.LiveGridView', array(
         array('name'=>'locationtext', 'header'=>Yii::t('app','Location'), 'htmlOptions'=>array('width'=>'120')),
         array('name'=>'Value 1', 
             'header'=>Yii::t('app','Value 1'), 
-            'value'=>'$data->lastValue1->value',
+            'value'=>'(!is_null($data->lastValue1)?$data->lastValue1->value:"")',
             'htmlOptions'=>array('width'=>'80')),
         array('name'=>'Value 2', 
             'header'=>Yii::t('app','Value 2'), 
