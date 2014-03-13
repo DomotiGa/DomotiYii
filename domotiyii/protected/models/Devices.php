@@ -59,6 +59,27 @@ class Devices extends CActiveRecord {
     }
 
     /**
+     * @return get last value
+     */
+    public function getValue($n) {
+        $val=  DeviceValues::model()->find("device_id='{$this->id}' and valuenum=$n");
+        if($val!==NULL) return $val->value; else return "";
+    }
+
+    /**
+     * @return icon path for a device
+     */
+    public function getIcon() {
+        if($this->getValue(1)==='On')
+            $icon=$this->onicon;
+        else 
+            $icon=$this->officon;
+        if($icon===NULL) return "";
+        $imageSrc=Yii::app()->homeUrl.'static/icons/'.$icon;
+        return '<img src="'.$imageSrc.'">';
+    }
+
+    /**
      * @return dropdownlist with the list of modules/devicetypes
      */
     public function getDeviceTypes() {
@@ -176,10 +197,6 @@ class Devices extends CActiveRecord {
             'l_location' => array(self::BELONGS_TO, 'Locations', 'location'),
             'l_interface' => array(self::BELONGS_TO, 'Interfaces', 'interface'),
             'devicevalues' => array(self::HAS_MANY, 'DeviceValues', 'device_id'),
-            'lastValue1' => array(self::HAS_ONE, 'DeviceValues','device_id','on'=>'lastValue1.valuenum=1'),
-            'lastValue2' => array(self::HAS_ONE, 'DeviceValues','device_id','on'=>'lastValue2.valuenum=2'),
-            'lastValue3' => array(self::HAS_ONE, 'DeviceValues','device_id','on'=>'lastValue3.valuenum=3'),
-            'lastValue4' => array(self::HAS_ONE, 'DeviceValues','device_id','on'=>'lastValue4.valuenum=4'),
         );
     }
 
