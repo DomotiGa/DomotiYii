@@ -26,7 +26,7 @@ return array(
     'Today' => 'Aujourd\'hui',
     'Save' => 'Enregistrer',
 // Devices
-    'Sensors' => 'Appareils',
+    'Sensors' => 'Sondes',
     'Switches' => 'Interrupteur(s)',
     'Dimmers' => 'Variateur(s)',
     'Value' => 'Valeur',
