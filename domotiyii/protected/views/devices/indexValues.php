@@ -110,9 +110,14 @@ $this->widget('domotiyii.LiveGridView', array(
         //$val = $(but).parent().parent().find(".value1").text();
         $.get('<?php echo Yii::app()->homeUrl; ?>AjaxUtil/setDevice', {device: device, action: action},
         function(data) {
-            if (data.result)
+            if (data.result) {
                 $(but).parent().parent().find("td.value1").html(action);
-            else
+                var tr = $(but).parent().parent();
+                tr.fadeOut(0, function() {
+                    tr.fadeIn(800);
+                });
+
+            } else
                 alert('Error');
             //$.fn.yiiGridView.update("all-devices-grid");
         }, 'json').fail(function() {
