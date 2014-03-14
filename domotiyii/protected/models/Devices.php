@@ -62,21 +62,37 @@ class Devices extends CActiveRecord {
      * @return get last value
      */
     public function getValue($n) {
-        $val=  DeviceValues::model()->find("device_id='{$this->id}' and valuenum=$n");
-        if($val!==NULL) return $val->value; else return "";
+        $val = DeviceValues::model()->find("device_id='{$this->id}' and valuenum=$n");
+        if ($val !== NULL)
+            return $val->value;
+        else
+            return "";
+    }
+
+    /**
+     * @return button OnOff
+     */
+    public function getButtons() {
+        $buttons = '<button type="button" name="but" onClick="btAction(event,this)" data-action="Off" data-device="'.$this->id.'" class="btn btn-primary btn-mini">Off</button>&nbsp;<button type="button" onClick="btAction(event,this)" data-action="On" data-device="'.$this->id.'" class="btn btn-primary btn-mini">On</button>';
+        if ($this->switchable == -1)
+            return $buttons;
+        else {
+            return "";
+        }
     }
 
     /**
      * @return icon path for a device
      */
     public function getIcon() {
-        if($this->getValue(1)==='On')
-            $icon=$this->onicon;
-        else 
-            $icon=$this->officon;
-        if($icon===NULL || empty($icon)) return "";
-        $imageSrc=Yii::app()->homeUrl.'static/icons/'.$icon;
-        return '<img src="'.$imageSrc.'">';
+        if ($this->getValue(1) === 'On')
+            $icon = $this->onicon;
+        else
+            $icon = $this->officon;
+        if ($icon === NULL || empty($icon))
+            return "";
+        $imageSrc = Yii::app()->homeUrl . 'static/icons/' . $icon;
+        return '<img src="' . $imageSrc . '">';
     }
 
     /**
@@ -137,12 +153,12 @@ class Devices extends CActiveRecord {
      * @return dropdownlist with the list of locations
      */
     public function getIcons() {
-        $lst=glob('static/icons/*.*');
-        $listSelect=array();
-        $listSelect[""]="";
-        foreach($lst as $l) {
-            $l=str_replace('static/icons/','',$l);
-            $listSelect[$l]=$l;
+        $lst = glob('static/icons/*.*');
+        $listSelect = array();
+        $listSelect[""] = "";
+        foreach ($lst as $l) {
+            $l = str_replace('static/icons/', '', $l);
+            $listSelect[$l] = $l;
         }
         return $listSelect;
     }
