@@ -162,6 +162,21 @@ class Devices extends CActiveRecord {
         }
         return $listSelect;
     }
+    
+    /**
+     * @return dropdownlist options with the list of locations for the images
+     */
+    public function getIconsOptions() {
+    	$lst = glob('static/icons/*.*');
+    	$listSelect = array();
+    	$listSelect[""] = "";
+    	foreach ($lst as $l) {
+    		$l = str_replace('static/icons/', '', $l);
+    		$option[$l] = array("data-image" => '/domotiyii/static/icons/'. $l);
+    	}
+    	$options["options"] = $option;
+    	return $options;
+    }
 
     /**
      * @return dropdownlist with the list of types/protocols
