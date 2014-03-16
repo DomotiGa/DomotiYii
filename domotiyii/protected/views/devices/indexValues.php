@@ -63,7 +63,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
 
 $this->widget('domotiyii.LiveGridView', array(
     'id' => 'all-devices-grid',
-    'refreshTime' => Yii::app()->params['refreshDevices'], // x second refresh as defined in config
+    'refreshTime' => '60000', // x second refresh as defined in config
     'type' => 'striped condensed',
     'dataProvider' => $model->search(),
     'template' => '{items}{pager}{summary}',
@@ -116,10 +116,10 @@ $this->widget('domotiyii.LiveGridView', array(
                 tr.fadeOut(0, function() {
                     tr.fadeIn(800);
                 });
+                $.fn.yiiGridView.update("all-devices-grid");
 
             } else
                 alert('Error');
-            //$.fn.yiiGridView.update("all-devices-grid");
         }, 'json').fail(function() {
             alert('Error setting device!!');
         });
