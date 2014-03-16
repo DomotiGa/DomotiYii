@@ -29,3 +29,9 @@ echo TbHtml::formActions(array(
 )); ?>
 <?php $this->endWidget(); ?>
 
+<?php
+Yii::app()->clientScript->registerScript('bettertobedone', "
+//i dont know how to change the css for 
+        $('.tab-content').css('overflow','visible');
+", CClientScript::POS_READY);
+?>
