@@ -1,7 +1,7 @@
 <?php
 /* @var $this DevicesController */
 /* @var $dataProvider CActiveDataProvider */
-
+if (is_null(yii::app()->request->getParam('ajax'))) {
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -60,7 +60,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
         array('label' => Yii::t('app', 'Disabled'), 'url' => 'indexValues?type=disabled', 'active' => Yii::app()->request->getParam('type', 'all') == 'disabled'),
     ),
 ));
-
+}
 $this->widget('domotiyii.LiveGridView', array(
     'id' => 'all-devices-grid',
     'refreshTime' => '60000', // x second refresh as defined in config

@@ -105,7 +105,10 @@ class DevicesController extends Controller {
         }
 
         $locations = Locations::model();
-        $this->render('indexValues', array('model' => $model, 'locations' => $locations));
+        if (!is_null(yii::app()->request->getParam('ajax')))
+            $this->renderPartial('indexValues', array('model' => $model, 'locations' => $locations));
+        else
+            $this->render('indexValues', array('model' => $model, 'locations' => $locations));
     }
 
     public function actionView($id) {
