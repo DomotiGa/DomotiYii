@@ -3,7 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 if (is_null(yii::app()->request->getParam('ajax'))) {
 
-Yii::app()->clientScript->registerScript('search', "
+    Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
     $('.search-form').slideToggle('fast');
     return false;
@@ -16,50 +16,50 @@ $('.search-form form').submit(function(){
 });
 ");
 
-$this->widget('bootstrap.widgets.TbBreadcrumb', array(
-    'links' => array(
-        Yii::t('app', 'Devices'),
-    ),
-));
-
-$this->beginWidget('zii.widgets.CPortlet', array(
-    'htmlOptions' => array(
-        'class' => ''
-    )
-));
-$this->widget('bootstrap.widgets.TbNav', array(
-    'type' => TbHtml::NAV_TYPE_PILLS,
-    'items' => array(
-        array('label' => Yii::t('app', 'List'), 'icon' => 'icon-th-list', 'url' => Yii::app()->controller->createUrl('indexValues'), 'active' => true, 'linkOptions' => array()),
-        array('label' => Yii::t('app', 'Search'), 'icon' => 'icon-search', 'url' => '#', 'linkOptions' => array('class' => 'search-button')),
-        array('label' => Yii::t('app', 'Create'), 'icon' => 'icon-plus', 'url' => Yii::app()->controller->createUrl('create'), 'linkOptions' => array()),
-    ),
-));
-$this->endWidget();
-?>
-
-<div class="search-form" style="display:none">
-    <?php
-    $this->renderPartial('_search', array(
-        'model' => $model,
+    $this->widget('bootstrap.widgets.TbBreadcrumb', array(
+        'links' => array(
+            Yii::t('app', 'Devices'),
+        ),
     ));
+
+    $this->beginWidget('zii.widgets.CPortlet', array(
+        'htmlOptions' => array(
+            'class' => ''
+        )
+    ));
+    $this->widget('bootstrap.widgets.TbNav', array(
+        'type' => TbHtml::NAV_TYPE_PILLS,
+        'items' => array(
+            array('label' => Yii::t('app', 'List'), 'icon' => 'icon-th-list', 'url' => Yii::app()->controller->createUrl('indexValues'), 'active' => true, 'linkOptions' => array()),
+            array('label' => Yii::t('app', 'Search'), 'icon' => 'icon-search', 'url' => '#', 'linkOptions' => array('class' => 'search-button')),
+            array('label' => Yii::t('app', 'Create'), 'icon' => 'icon-plus', 'url' => Yii::app()->controller->createUrl('create'), 'linkOptions' => array()),
+        ),
+    ));
+    $this->endWidget();
     ?>
 
-</div><!-- search-form -->
+    <div class="search-form" style="display:none">
+        <?php
+        $this->renderPartial('_search', array(
+            'model' => $model,
+        ));
+        ?>
 
-<?php
-$this->widget('bootstrap.widgets.TbNav', array(
-    'type' => 'tabs',
-    'stacked' => false,
-    'items' => array(
-        array('label' => Yii::t('app', 'All'), 'url' => 'indexValues', 'active' => Yii::app()->request->getParam('type', 'all') == 'all'),
-        array('label' => Yii::t('app', 'Sensors'), 'url' => 'indexValues?type=sensors', 'active' => Yii::app()->request->getParam('type', 'all') == 'sensors'),
-        array('label' => Yii::t('app', 'Dimmers'), 'url' => 'indexValues?type=dimmers', 'active' => Yii::app()->request->getParam('type', 'all') == 'dimmers'),
-        array('label' => Yii::t('app', 'Switches'), 'url' => 'indexValues?type=switches', 'active' => Yii::app()->request->getParam('type', 'all') == 'switches'),
-        array('label' => Yii::t('app', 'Hidden'), 'url' => 'indexValues?type=hidden', 'active' => Yii::app()->request->getParam('type', 'all') == 'hidden'),
-        array('label' => Yii::t('app', 'Disabled'), 'url' => 'indexValues?type=disabled', 'active' => Yii::app()->request->getParam('type', 'all') == 'disabled'),
-    ),
-));
+    </div><!-- search-form -->
+
+    <?php
+    $this->widget('bootstrap.widgets.TbNav', array(
+        'type' => 'tabs',
+        'stacked' => false,
+        'items' => array(
+            array('label' => Yii::t('app', 'All'), 'url' => 'indexValues', 'active' => Yii::app()->request->getParam('type', 'all') == 'all'),
+            array('label' => Yii::t('app', 'Sensors'), 'url' => 'indexValues?type=sensors', 'active' => Yii::app()->request->getParam('type', 'all') == 'sensors'),
+            array('label' => Yii::t('app', 'Dimmers'), 'url' => 'indexValues?type=dimmers', 'active' => Yii::app()->request->getParam('type', 'all') == 'dimmers'),
+            array('label' => Yii::t('app', 'Switches'), 'url' => 'indexValues?type=switches', 'active' => Yii::app()->request->getParam('type', 'all') == 'switches'),
+            array('label' => Yii::t('app', 'Hidden'), 'url' => 'indexValues?type=hidden', 'active' => Yii::app()->request->getParam('type', 'all') == 'hidden'),
+            array('label' => Yii::t('app', 'Disabled'), 'url' => 'indexValues?type=disabled', 'active' => Yii::app()->request->getParam('type', 'all') == 'disabled'),
+        ),
+    ));
 }
 $this->widget('domotiyii.LiveGridView', array(
     'id' => 'all-devices-grid',
@@ -97,6 +97,25 @@ $this->widget('domotiyii.LiveGridView', array(
             'value' => '$data->getValue(4)',
             'htmlOptions' => array('width' => '80')),
         array('name' => 'lastseentext', 'header' => Yii::t('app', 'Last Seen'), 'htmlOptions' => array('width' => '120')),
+        array('class' => 'bootstrap.widgets.TbButtonColumn',
+            'template' => Yii::app()->user->isGuest ? '{view}' : '{view} {update} {delete}',
+            'header' => Yii::t('app', 'Actions'),
+            'htmlOptions' => array('style' => 'width: 40px'),
+            'buttons' => array(
+                'view' => array(
+                    'label' => Yii::t('app', 'View'),
+                    'url' => 'Yii::app()->controller->createUrl("view", array("id"=>$data["id"]))',
+                ),
+                'update' => array(
+                    'label' => Yii::t('app', 'Edit'),
+                    'url' => 'Yii::app()->controller->createUrl("update", array("id"=>$data["id"]))',
+                ),
+                'delete' => array(
+                    'label' => Yii::t('app', 'Delete'),
+                    'url' => 'Yii::app()->controller->createUrl("delete", array("id"=>$data["id"],"command"=>"delete"))',
+                ),
+            ),
+        ),
     ),
 ));
 ?>
@@ -116,7 +135,7 @@ $this->widget('domotiyii.LiveGridView', array(
                 tr.fadeOut(0, function() {
                     tr.fadeIn(800);
                 });
-                $.fn.yiiGridView.update("all-devices-grid");
+                $.fn.yiiLiveGridView.update("all-devices-grid");
 
             } else
                 alert('Error');

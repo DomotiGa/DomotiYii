@@ -94,5 +94,11 @@ class Controller extends CController
 			Yii::app()->layout='//layouts/normal';
 		}
 	}
+//    public function render($view, $data = null, $return = false) {
+//        if(yii::app()->request->getParam('ajax')===NULL)
+//            parent::render($view, $data, $return);
+//        else
+//            parent::renderPartial($view, $data, $return);
+//    }
 
 }
