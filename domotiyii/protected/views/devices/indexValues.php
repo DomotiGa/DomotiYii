@@ -52,18 +52,19 @@ $('.search-form form').submit(function(){
         'type' => 'tabs',
         'stacked' => false,
         'items' => array(
-            array('label' => Yii::t('app', 'All'), 'url' => 'indexValues', 'active' => Yii::app()->request->getParam('type', 'all') == 'all'),
-            array('label' => Yii::t('app', 'Sensors'), 'url' => 'indexValues?type=sensors', 'active' => Yii::app()->request->getParam('type', 'all') == 'sensors'),
-            array('label' => Yii::t('app', 'Dimmers'), 'url' => 'indexValues?type=dimmers', 'active' => Yii::app()->request->getParam('type', 'all') == 'dimmers'),
-            array('label' => Yii::t('app', 'Switches'), 'url' => 'indexValues?type=switches', 'active' => Yii::app()->request->getParam('type', 'all') == 'switches'),
-            array('label' => Yii::t('app', 'Hidden'), 'url' => 'indexValues?type=hidden', 'active' => Yii::app()->request->getParam('type', 'all') == 'hidden'),
-            array('label' => Yii::t('app', 'Disabled'), 'url' => 'indexValues?type=disabled', 'active' => Yii::app()->request->getParam('type', 'all') == 'disabled'),
+            array('label' => Yii::t('app', 'All'), 'url' => 'indexValues?type=all', 'active' => Yii::app()->request->getParam('type', 'enabled') == 'all'),
+            array('label' => Yii::t('app', 'Enabled'), 'url' => 'indexValues?type=enabled', 'active' => Yii::app()->request->getParam('type', 'enabled') == 'enabled'),
+            array('label' => Yii::t('app', 'Sensors'), 'url' => 'indexValues?type=sensors', 'active' => Yii::app()->request->getParam('type', 'enabled') == 'sensors'),
+            array('label' => Yii::t('app', 'Dimmers'), 'url' => 'indexValues?type=dimmers', 'active' => Yii::app()->request->getParam('type', 'enabled') == 'dimmers'),
+            array('label' => Yii::t('app', 'Switches'), 'url' => 'indexValues?type=switches', 'active' => Yii::app()->request->getParam('type', 'enabled') == 'switches'),
+            array('label' => Yii::t('app', 'Hidden'), 'url' => 'indexValues?type=hidden', 'active' => Yii::app()->request->getParam('type', 'enabled') == 'hidden'),
+            array('label' => Yii::t('app', 'Disabled'), 'url' => 'indexValues?type=disabled', 'active' => Yii::app()->request->getParam('type', 'enabled') == 'disabled'),
         ),
     ));
 }
 $this->widget('domotiyii.LiveGridView', array(
     'id' => 'all-devices-grid',
-    'refreshTime' => '60000', // x second refresh as defined in config
+    'refreshTime' => '60000',
     'type' => 'striped condensed',
     'dataProvider' => $model->search(),
     'template' => '{items}{pager}{summary}',
@@ -118,30 +119,32 @@ $this->widget('domotiyii.LiveGridView', array(
         ),
     ),
 ));
-?>
-<script>
-    function btAction(event, but) {
-        event.stopPropagation();
-        var device = $(but).data('device');
-        var action = $(but).data('action');
-        //not used for now
-        //FIXME: TBD better !!!!
-        //$val = $(but).parent().parent().find(".value1").text();
-        $.get('<?php echo Yii::app()->homeUrl; ?>AjaxUtil/setDevice', {device: device, action: action},
-        function(data) {
-            if (data.result) {
-                $(but).parent().parent().find("td.value1").html(action);
-                var tr = $(but).parent().parent();
-                tr.fadeOut(0, function() {
-                    tr.fadeIn(800);
-                });
-                $.fn.yiiLiveGridView.update("all-devices-grid");
+if (is_null(yii::app()->request->getParam('ajax'))):
+    ?>
+    <script>
+        function btAction(event, but) {
+            event.stopPropagation();
+            $(but).removeClass('btn-primary');
+            var device = $(but).data('device');
+            var action = $(but).data('action');
+            //not used for now
+            //FIXME: TBD better !!!!
+            //$val = $(but).parent().parent().find(".value1").text();
+            $.get('<?php echo Yii::app()->homeUrl; ?>AjaxUtil/setDevice', {device: device, action: action},
+            function(data) {
+                if (data.result) {
+                    $(but).parent().parent().find("td.value1").html(action);
+                    var tr = $(but).parent().parent();
+                    tr.fadeOut(0, function() {
+                        tr.fadeIn(800);
+                    });
+                    $.fn.yiiLiveGridView.update("all-devices-grid");
+                } else
+                    alert('Error');
+            }, 'json').fail(function() {
+                alert('Error setting device!!');
+            });
+        }
 
-            } else
-                alert('Error');
-        }, 'json').fail(function() {
-            alert('Error setting device!!');
-        });
-    }
-
-</script>
+    </script>
+<?php endif; ?>

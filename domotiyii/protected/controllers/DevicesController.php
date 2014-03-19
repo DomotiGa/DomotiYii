@@ -73,7 +73,7 @@ class DevicesController extends Controller {
                 $criteria->addCondition('interface = "' . $model->interface . '"');
         }
 
-        $type = Yii::app()->getRequest()->getParam('type');
+        $type = Yii::app()->getRequest()->getParam('type','enabled');
         if (isset($type) && !empty($type)) {
             if ($type == "sensors") {
                 $model->switchable = 0;
@@ -89,6 +89,11 @@ class DevicesController extends Controller {
             } elseif ($type == "hidden") {
                 $model->hide = -1;
                 $criteria->addCondition('hide IS TRUE');
+            } elseif ($type == "enabled") {
+                $model->enabled = -1;
+                $model->hide = 0;
+                $criteria->addCondition('hide IS FALSE');
+                $criteria->addCondition('enabled IS TRUE');
             } elseif ($type == "disabled") {
                 $model->enabled = 0;
                 $criteria->addCondition('enabled IS FALSE');
