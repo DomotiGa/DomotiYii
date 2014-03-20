@@ -3,40 +3,70 @@
 class CmdController extends Controller {
 
     public function actionIndex() {
-        $criteria = new CDbCriteria();
+        $date = yii::app()->request->getParam('date');
         $model = new Devices('search');
         $model->unsetAttributes(); // clear any default values
 
-        $type = Yii::app()->getRequest()->getParam('type','enabled');
-        if (isset($type) && !empty($type)) {
-            if ($type == "sensors") {
-                $model->switchable = 0;
-                $model->dimable = 0;
-                $criteria->addCondition('switchable IS FALSE');
-                $criteria->addCondition('dimable IS FALSE');
-            } elseif ($type == "dimmers") {
-                $model->dimable = -1;
-                $criteria->addCondition('dimable IS TRUE');
-            } elseif ($type == "switches") {
-                $model->switchable = -1;
-                $criteria->addCondition('switchable IS TRUE');
-            } elseif ($type == "hidden") {
-                $model->hide = -1;
-                $criteria->addCondition('hide IS TRUE');
-            } elseif ($type == "enabled") {
-                $model->enabled = -1;
-                $model->hide = 0;
-                $criteria->addCondition('hide IS FALSE');
-                $criteria->addCondition('enabled IS TRUE');
-            } elseif ($type == "disabled") {
-                $model->enabled = 0;
-                $criteria->addCondition('enabled IS FALSE');
-            }
+        $model->enabled = -1;
+        $model->hide = 0;
+        if ($date != NULL) {
+            if (strlen($date) < 11)
+                $date = date("Y-m-d") . " $date";
+            $crit = $model->dbCriteria;
+            $crit->addCondition("lastchanged > '{$date}'");
         }
-
-        if (!is_null(yii::app()->request->getParam('ajax')))
-            $this->renderPartial('indexValues', array('model' => $model));
+        $dp = $model->search();
+        $tab = array();
+        foreach ($dp->getData() as $obj) {
+            $row = array(
+                $obj->id,
+                $obj->icon,
+                $obj->name,
+                $obj->locationtext,
+                "<button type='button' class='butOn btn btn-primary btn-mini'>On</button>&nbsp;<button type='button' class='butOff btn btn-primary btn-mini'>Off</button>",
+                $obj->getValue(1),
+                $obj->getValue(2),
+                $obj->getValue(3),
+                $obj->getValue(4),
+                $obj->lastchanged,
+            );
+            //$tab[]=array_map('htmlspecialchars',$row);
+            $tab[]=$row;
+        }
+        
+        
+        if (!is_null(yii::app()->request->getParam('ajax'))) {
+            die($this->renderPartial('jsonData', array('data' => $tab),TRUE));
+        }
         else
-            $this->render('indexValues', array('model' => $model));
+            $this->render('indexValues', array('data' => $tab));
     }
+
+    public function actionSetDevice() {
+        $device = Yii::app()->request->getParam('device');
+        $action = strip_tags(Yii::app()->request->getParam('action'));
+        if (is_null($device) || is_null($action))
+            return json_encode(array("jsonrpc" => "2.0", "result" => false, "id" => 1));;
+        $result = $this->do_jsonrpc('{"jsonrpc": "2.0", "method": "device.set", "params": {"device_id": ' . $device . ', "value": "' . $action . '"}, "id": 1}');
+        echo $result;
+    }
+
+    protected function do_jsonrpc($data = array()) {
+        $request = $data;
+        $context = stream_context_create(
+            array('http' =>
+                array('method' => "POST",
+                    'header' => "Content-Type: application/json\r\n" .
+                    "Accept: application/json\r\n",
+                    'content' => $request)));
+        $file = @file_get_contents(Yii::app()->params['jsonrpcHost'], false, $context);
+
+        if ($file === FALSE) {
+            // could not connect
+            return json_encode(array("jsonrpc" => "2.0", "result" => false, "id" => 1));
+        } else {
+            return $file;
+        }
+    }
+
 }

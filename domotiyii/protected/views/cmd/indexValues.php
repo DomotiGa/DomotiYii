@@ -1,17 +1,17 @@
 <?php
 /* @var $this DevicesController */
 /* @var $dataProvider CActiveDataProvider */
-if (is_null(yii::app()->request->getParam('ajax'))) {
 
-    $this->widget('bootstrap.widgets.TbBreadcrumb', array(
-        'links' => array(
-            Yii::t('app', 'Devices').' Experimental page',
-        ),
-    ));
 
-    ?>
+$this->widget('bootstrap.widgets.TbBreadcrumb', array(
+    'links' => array(
+        Yii::t('app', 'Devices') . ' Experimental page',
+    ),
+));
+?>
 
-    <?php
+<?php
+if (0):
     $this->widget('bootstrap.widgets.TbNav', array(
         'type' => 'tabs',
         'stacked' => false,
@@ -25,90 +25,70 @@ if (is_null(yii::app()->request->getParam('ajax'))) {
             array('label' => Yii::t('app', 'Disabled'), 'url' => 'indexValues?type=disabled', 'active' => Yii::app()->request->getParam('type', 'enabled') == 'disabled'),
         ),
     ));
-}
-$this->widget('domotiyii.LiveGridView', array(
-    'id' => 'all-devices-grid',
-    'refreshTime' => '60000',
-    'type' => 'striped condensed',
-    'dataProvider' => $model->search(),
-    'template' => '{items}{pager}{summary}',
-    'columns' => array(
-        array('name' => 'icon',
-            'header' => '',
-            'type' => 'html',
-            'value' => '$data->icon',
-            'htmlOptions' => array('width' => '10')),
-        array('name' => 'name', 'header' => Yii::t('app', 'Name'), 'htmlOptions' => array('width' => '150')),
-        array('name' => 'locationtext', 'header' => Yii::t('app', 'Location'), 'htmlOptions' => array('width' => '120')),
-        array('name' => 'Value 1',
-            'header' => Yii::t('app', 'Value 1'),
-            'value' => '$data->getValue(1)',
-            'htmlOptions' => array('class' => 'value1', 'width' => '80')),
-        array('name' => 'Let\'s play',
-            'header' => 'Let\'s play',
-            'type' => 'raw',
-            'value' => '$data->getButtons()',
-            'htmlOptions' => array('width' => '80')),
-        array('name' => 'Value 2',
-            'header' => Yii::t('app', 'Value 2'),
-            'value' => '$data->getValue(2)',
-            'htmlOptions' => array('width' => '80')),
-        array('name' => 'Value 3',
-            'header' => Yii::t('app', 'Value 3'),
-            'value' => '$data->getValue(3)',
-            'htmlOptions' => array('width' => '80')),
-        array('name' => 'Value 4',
-            'header' => Yii::t('app', 'Value 4'),
-            'value' => '$data->getValue(4)',
-            'htmlOptions' => array('width' => '80')),
-        array('name' => 'lastseentext', 'header' => Yii::t('app', 'Last Seen'), 'htmlOptions' => array('width' => '120')),
-        array('class' => 'bootstrap.widgets.TbButtonColumn',
-            'template' => Yii::app()->user->isGuest ? '{view}' : '{view} {update} {delete}',
-            'header' => Yii::t('app', 'Actions'),
-            'htmlOptions' => array('style' => 'width: 40px'),
-            'buttons' => array(
-                'view' => array(
-                    'label' => Yii::t('app', 'View'),
-                    'url' => 'Yii::app()->controller->createUrl("view", array("id"=>$data["id"]))',
-                ),
-                'update' => array(
-                    'label' => Yii::t('app', 'Edit'),
-                    'url' => 'Yii::app()->controller->createUrl("update", array("id"=>$data["id"]))',
-                ),
-                'delete' => array(
-                    'label' => Yii::t('app', 'Delete'),
-                    'url' => 'Yii::app()->controller->createUrl("delete", array("id"=>$data["id"],"command"=>"delete"))',
-                ),
-            ),
-        ),
-    ),
-));
-if (is_null(yii::app()->request->getParam('ajax'))):
-    ?>
-    <script>
-        function btAction(event, but) {
-            event.stopPropagation();
-            $(but).removeClass('btn-primary');
-            var device = $(but).data('device');
-            var action = $(but).data('action');
-            //not used for now
-            //FIXME: TBD better !!!!
-            //$val = $(but).parent().parent().find(".value1").text();
-            $.get('<?php echo Yii::app()->homeUrl; ?>AjaxUtil/setDevice', {device: device, action: action},
-            function(data) {
-                if (data.result) {
-                    $(but).parent().parent().find("td.value1").html(action);
-                    var tr = $(but).parent().parent();
-                    tr.fadeOut(0, function() {
-                        tr.fadeIn(800);
-                    });
-                    $.fn.yiiLiveGridView.update("all-devices-grid");
-                } else
-                    alert('Error');
-            }, 'json').fail(function() {
-                alert('Error setting device!!');
-            });
-        }
+endif;
+?>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.dataTables.min.js"></script>
+<div class="row ">
+    <table class="table devicesList">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>icon</th>
+                <th>name</th>
+                <th>locationtext</th>
+                <th>Button</th>
+                <th>Value1</th>
+                <th>Value2</th>
+                <th>Value3</th>
+                <th>Value4</th>
+                <th>lastseen</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+            foreach ($data as $d)
+                echo '<tr><td>' . implode('</td><td>', $d) . '</td></tr>';
+        ?>
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(go());
+    function go() {
+        $('.devicesList').dataTable({
+            "bPaginate": false,
+            "bLengthChange": false,
+            "bFilter": false,
+            "bSort": false,
+            "bInfo": false,
+            "bAutoWidth": false,
+            "aaSorting": [[1, "asc"]],
+//            "bProcessing": true,
+//            "bServerSide": false,
+//            "sAjaxSource": '<?php echo Yii::app()->homeUrl; ?>cmd/?ajax',
+            "aoColumnDefs": [
+                {"bVisible": false, "aTargets": [0]}
+            ]
+        });
+    }
+    function btAction(event, but) {
+        event.stopPropagation();
+        $(but).removeClass('btn-primary');
+        var device = $(but).data('device');
+        var action = $(but).data('action');
+        $.get('<?php echo Yii::app()->homeUrl; ?>cmd/setDevice', {device: device, action: action},
+        function(data) {
+            if (data.result) {
+                $(but).parent().parent().find("td.value1").html(action);
+                var tr = $(but).parent().parent();
+                tr.fadeOut(0, function() {
+                    tr.fadeIn(800);
+                });
+            } else
+                alert('Error');
+        }, 'json').fail(function() {
+            alert('Error setting device!!');
+        });
+    }
 
-    </script>
-<?php endif; ?>
+</script>
