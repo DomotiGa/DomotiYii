@@ -68,7 +68,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         if (maxdate !== '')
             $.get('<?php echo Yii::app()->homeUrl; ?>cmd/lastChanged', function(data) {
                 if (data != null) {
-                    $('.lastChanged').html('<b>Last change on server</b> : '+data + ' - <b>Last change here</b> :' + maxdate);
+                    $('.lastChanged').html('<b>Last change on server</b> : '+data + ' - <b>Last change here</b> : ' + maxdate);
                     if(maxdate!=data)
                         devTable.fnDraw();
                 }
