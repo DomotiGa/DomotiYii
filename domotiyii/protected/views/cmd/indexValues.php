@@ -11,8 +11,8 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 ?>
 <style>
     .devicesList td {
-        padding:5px;
-        line-height: 15px;
+        padding:4px;
+        line-height: 14px;
         vertical-align: middle;
     }
 </style>
@@ -29,16 +29,27 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
             <th>Value2</th>
             <th>Value3</th>
             <th>Value4</th>
-            <th>lastseen</th>
+            <th>LastChanged</th>
         </tr>
     </thead>
-</table>
-
+</table>   
+<div style="text-align:center;margin:0px;" class="lastChanged"></div>
 <script>
+    var maxdate = '0';
+    function getLastDate() {
+        maxdate = ' ';
+        $('.devicesList').find('tr').each(function(i, v) {
+            var tmp = $(v).find('td:last').text();
+            console.log(tmp);
+            if (tmp > maxdate)
+                maxdate = tmp;
+        });
+    }
     $(document).ready(go());
-
     function go() {
         devTable = $('.devicesList').dataTable({
+            "fnDrawCallback":
+                    getLastDate,
             "bPaginate": false,
             "bLengthChange": false,
             "bFilter": false,
@@ -48,10 +59,21 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
             "aaSorting": [[1, "asc"]],
             "bServerSide": true,
             "sAjaxSource": '<?php echo Yii::app()->homeUrl; ?>cmd/?ajax',
-            "aoColumnDefs": [
-                {"bVisible": false, "aTargets": [0]}
-            ]
+            "aoColumnDefs": [{"bVisible": false, "aTargets": [0]}]
         });
+        needRefresh();
+    }
+
+    function needRefresh() {
+        if (maxdate !== '')
+            $.get('<?php echo Yii::app()->homeUrl; ?>cmd/lastChanged', function(data) {
+                if (data != null) {
+                    $('.lastChanged').html('<b>Last change on server</b> : '+data + ' - <b>Last change here</b> :' + maxdate);
+                    if(maxdate!=data)
+                        devTable.fnDraw();
+                }
+            });
+        setTimeout('needRefresh()', 2000);
     }
 
     function btAction(event, but) {
