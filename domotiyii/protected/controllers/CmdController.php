@@ -20,23 +20,22 @@ class CmdController extends Controller {
         foreach ($dp->getData() as $obj) {
             $row = array(
                 $obj->id,
-                $obj->icon,
+                str_replace('"',"'",$obj->icon),
                 $obj->name,
                 $obj->locationtext,
-                "<button type='button' class='butOn btn btn-primary btn-mini'>On</button>&nbsp;<button type='button' class='butOff btn btn-primary btn-mini'>Off</button>",
+                $obj->getButtons(),//"<button type='button' class='butOn btn btn-primary btn-mini'>On</button>&nbsp;<button type='button' class='butOff btn btn-primary btn-mini'>Off</button>",
                 $obj->getValue(1),
                 $obj->getValue(2),
                 $obj->getValue(3),
                 $obj->getValue(4),
                 $obj->lastchanged,
             );
-            //$tab[]=array_map('htmlspecialchars',$row);
-            $tab[]=$row;
+            
+            $tab[] = $row;
         }
-        
-        
         if (!is_null(yii::app()->request->getParam('ajax'))) {
-            die($this->renderPartial('jsonData', array('data' => $tab),TRUE));
+            $data=array('aaData'=>$tab);
+            die($this->renderPartial('jsonData', array('data' => $data), TRUE));
         }
         else
             $this->render('indexValues', array('data' => $tab));
