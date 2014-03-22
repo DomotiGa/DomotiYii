@@ -10,8 +10,16 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 ));
 ?>
 <style>
+    td.colDate,th:last-child {
+        text-align:right;
+    }
+    .newdata {
+        color:black;
+        background-color:yellow;
+        border:2px solid green;
+    }
     .devicesList td {
-        padding:4px;
+        padding:3px;
         line-height: 14px;
         vertical-align: middle;
     }
@@ -37,12 +45,23 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 <script>
     var maxdate = '0';
     function getLastDate() {
-        maxdate = ' ';
+        maxdate = '';
         $('.devicesList').find('tr').each(function(i, v) {
-            var tmp = $(v).find('td:last').text();
-            console.log(tmp);
+            var tmp = $(v).find('td:last').addClass('colDate').text();
             if (tmp > maxdate)
                 maxdate = tmp;
+        });
+        var datestr = maxdate.split(' ')[0];
+        $('.devicesList').find('td:contains(' + maxdate + ')').each(function(i, v) {
+            $(v).html('<span class="newdata">' + $(v).html() + '</span>');
+            var tmp=$(v).parent('tr');
+            tmp.fadeOut(0, function() {
+                tmp.fadeIn(800);
+            });
+        });
+        $('.devicesList').find('td:contains(' + datestr + ')').each(function(i, v) {
+            var tmp = $(v).html();
+            $(v).html(tmp.replace(datestr, ''));
         });
     }
     $(document).ready(go());
@@ -68,8 +87,8 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         if (maxdate !== '')
             $.get('<?php echo Yii::app()->homeUrl; ?>cmd/lastChanged', function(data) {
                 if (data != null) {
-                    $('.lastChanged').html('<b>Last change on server</b> : '+data + ' - <b>Last change here</b> : ' + maxdate);
-                    if(maxdate!=data)
+                    $('.lastChanged').html('<b>Last change on server</b> : ' + data + ' - <b>Last change here</b> : ' + maxdate);
+                    if (maxdate != data)
                         devTable.fnDraw();
                 }
             });
