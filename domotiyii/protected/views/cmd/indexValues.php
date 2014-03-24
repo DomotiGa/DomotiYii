@@ -9,6 +9,10 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     ),
 ));
 ?>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/static/bootstrap-slider.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/slider.css" />
+
 <style>
     td.colDate,th:last-child {
         text-align:right;
@@ -24,7 +28,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         vertical-align: middle;
     }
 </style>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.dataTables.min.js"></script>
+
 <table class="table devicesList">
     <thead>
         <tr>
@@ -44,6 +48,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 <div style="text-align:center;margin:0px;" class="lastChanged"></div>
 <script>
     var maxdate = '0';
+    var updateOK=true;
     function getLastDate() {
         maxdate = '';
         $('.devicesList').find('tr').each(function(i, v) {
@@ -54,7 +59,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         var datestr = maxdate.split(' ')[0];
         $('.devicesList').find('td:contains(' + maxdate + ')').each(function(i, v) {
             $(v).html('<span class="newdata">' + $(v).html() + '</span>');
-            var tmp=$(v).parent('tr');
+            var tmp = $(v).parent('tr');
             tmp.fadeOut(0, function() {
                 tmp.fadeIn(800);
             });
@@ -63,6 +68,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
             var tmp = $(v).html();
             $(v).html(tmp.replace(datestr, ''));
         });
+        initSliders();
     }
     $(document).ready(go());
     function go() {
@@ -80,11 +86,12 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
             "sAjaxSource": '<?php echo Yii::app()->homeUrl; ?>cmd/?ajax',
             "aoColumnDefs": [{"bVisible": false, "aTargets": [0]}]
         });
+
         needRefresh();
     }
 
     function needRefresh() {
-        if (maxdate !== '')
+        if (maxdate !== '' && updateOK)
             $.get('<?php echo Yii::app()->homeUrl; ?>cmd/lastChanged', function(data) {
                 if (data != null) {
                     $('.lastChanged').html('<b>Last change on server</b> : ' + data + ' - <b>Last change here</b> : ' + maxdate);
@@ -110,5 +117,37 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
             alert('Error setting device!!');
         });
     }
+    function initSliders() {
+        $('.slider').slider()
+                .on('slideStop', function(ev) {
+            var action = ev.value;
+            var device = $(this).data('device');
 
+            if (action == 0) {
+                action = "Off";
+            } else if (action == 100) {
+                action = "On";
+            } else {
+                action = "Dim " + action;
+            }
+            $.get('<?php echo Yii::app()->homeUrl; ?>cmd/setDevice', {device: device, action: action},
+            function(data) {
+                if (data.result) {
+                    devTable.fnDraw();
+                } else
+                    alert('Error');
+            }, 'json').fail(function() {
+                alert('Error setting device!!');
+            });
+        }).on('slide', function(ev) {
+            $(this).parents('td').next('td').text(ev.value);
+        });
+        $('.slider-container').on('mouseover',function(){
+            $(this).css('background-color','lightblue');
+            updateOK=false;
+        }).on('mouseout',function(){
+            $(this).css('background-color','');
+            updateOK=true;
+        })
+    }
 </script>
