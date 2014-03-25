@@ -202,6 +202,7 @@
   					array('label' => Yii::t('app','Devices'), 'url' => array('/devices/index')),
   					array('label' => Yii::t('app','Devices with values'), 'url' => array('/devices/indexValues')),
   					array('label' => Yii::t('app','Devices CMD'), 'url' => array('/cmd')),
+  					array('label' => Yii::t('app','Devices CMD (box)'), 'url' => array('/cmd/list')),
    					array('label' => Yii::t('app','Phone'), 'url' => array('cdr/index')),
 					TbHtml::menuDivider(),
 					array('label' => 'Help', 'icon'=>'flag', 'url' => array('/site/help')),

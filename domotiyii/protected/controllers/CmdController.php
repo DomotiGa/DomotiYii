@@ -37,6 +37,41 @@ class CmdController extends Controller {
             $this->render('indexValues', array('data' => $tab));
     }
 
+    public function actionList() {
+        $date = yii::app()->request->getParam('date');
+        $model = new Devices('search');
+        $model->unsetAttributes(); // clear any default values
+
+        $model->enabled = -1;
+        $model->hide = 0;
+
+        $dp = $model->search();
+        $dp->setPagination(FALSE);
+        $tab = array();
+        foreach ($dp->getData() as $obj) {
+            $row = array(
+                'id'=>$obj->id,
+                'icon'=>str_replace('"', "'", $obj->icon),
+                'name'=>$obj->name,
+                'location'=>$obj->locationtext,
+                'commands'=>$this->getActions($obj),
+                'val1'=>$obj->getValue(1),
+                'val2'=>$obj->getValue(2),
+                'val3'=>$obj->getValue(3),
+                'val4'=>$obj->getValue(4),
+                'lastchanged'=>$obj->lastchanged,
+            );
+
+            $tab[] = $row;
+        }
+        if (!is_null(yii::app()->request->getParam('ajax'))) {
+            $data = array('aaData' => $tab);
+            die($this->renderPartial('jsonData', array('data' => $data), TRUE));
+        }
+        else
+            $this->render('list', array('data' => $tab));
+    }
+
     public function actionLastChanged() {
         $lastChanged = Yii::app()->db
             ->createCommand("SELECT lastchanged FROM devices ORDER BY lastchanged DESC LIMIT 1")
