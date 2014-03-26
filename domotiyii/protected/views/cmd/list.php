@@ -146,7 +146,7 @@ $maxdate = '';
             updateOK = true;
         })
         $('.slider-horizontal').css('width', '180px');
-        $('.slider-container').parents('span.commands').css('display', 'inline-flex').css('margin-bottom', '1px').css('margin-top', '-2px');
+        $('.slider-container').css('margin-right', '10px').parents('span.commands').css('display', 'inline-flex').css('margin-bottom', '1px').css('margin-top', '-2px').css('margin-left', '10px');
         //$('.slider-container').parents('spaan.commands').next('br').remove();
     }
 </script>
