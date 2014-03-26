@@ -14,17 +14,12 @@ $maxdate = '';
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/slider_list.css" />
 
 <style>
-    .newdata {
-        color:black;
-        background-color:yellow;
-        border:2px solid green;
-    }
     .device {
         border: 2px solid black;
         padding: 3px;
         margin: 2px;
         float: left;
-        width: 200px;
+        min-width: 200px;
         height: 210px;  
         background-color:#C9E0ED;
     }
@@ -37,9 +32,6 @@ $maxdate = '';
     }
     .device .name {
         margin-left:10px;
-    }
-    .dive .slider {
-        width:180px !important;
     }
 </style>
 <div class="row-fluid">
@@ -65,12 +57,12 @@ $maxdate = '';
     var maxdate = '<?php echo $maxdate; ?>';
     var updateOK = true;
     var reloading = false;
-    function getLastDate() {
+    function formatDate() {
         var datestr = maxdate.split(' ')[0];
-        $('.devicesList').find('span.lastchanged:contains(' + maxdate + ')').each(function(i, v) {
-            $(v).html('<span class="newdata">' + $(v).html() + '</span>');
+        $('span.lastchanged:contains(' + maxdate + ')').each(function(i, v) {
+            $(v).addClass('newdata');
         });
-        $('.devicesList').find('span.lastchanged:contains(' + datestr + ')').each(function(i, v) {
+        $('span.lastchanged:contains(' + datestr + ')').each(function(i, v) {
             var tmp = $(v).html();
             $(v).html(tmp.replace(datestr, ''));
         });
@@ -78,10 +70,12 @@ $maxdate = '';
     $(document).ready(go());
     function go() {
         $('.name').addClass('label label-info');
-        $('.lastchanged').addClass('label .label-important');
-        $('.location').addClass('label .label-success');
-        $('.val1, .val2, .val3, .val4').addClass('label .label-important');
-        getLastDate();
+
+        $('.location').addClass('label label-success');
+        $('.val1, .val2, .val3, .val4').addClass('label label-important');
+        formatDate();
+        $('.lastchanged').addClass('label label-info');
+        $('.newdata').removeClass('label-info').addClass('label-warning');
         initSliders();
         needRefresh();
     }
@@ -152,6 +146,7 @@ $maxdate = '';
             updateOK = true;
         })
         $('.slider-horizontal').css('width', '180px');
-        $('.slider-container').parents('span.commands').next('br').remove();
+        $('.slider-container').parents('span.commands').css('display', 'inline-flex').css('margin-bottom', '1px').css('margin-top', '-2px');
+        //$('.slider-container').parents('spaan.commands').next('br').remove();
     }
 </script>

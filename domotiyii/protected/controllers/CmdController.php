@@ -96,7 +96,7 @@ class CmdController extends Controller {
         if ($obj->switchable == -1)
             return $buttons;
         else if ($obj->dimable == -1)
-            return $dimmer;
+            return $dimmer.$buttons;
         else {
             return "";
         }
