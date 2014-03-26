@@ -28,10 +28,14 @@ $maxdate = '';
 
     }
     .device span {
-        margin: 5px 0px 5px 0px;
+        margin: 3px 0px 3px 0px;
     }
     .device .name {
         margin-left:10px;
+    }
+    .btn-mini {
+        height: 20px;
+        width:50px;
     }
 </style>
 <div class="row-fluid">
@@ -92,8 +96,10 @@ $maxdate = '';
                     }
                 }
             });
-        if (!reloading)
-            setTimeout('needRefresh()', 2000);
+<?php if (is_null(yii::app()->request->getParam('debug'))): ?>
+            if (!reloading)
+                setTimeout('needRefresh()', 2000);
+<?php endif; ?>
     }
 
     function btAction(event, but) {
@@ -145,8 +151,8 @@ $maxdate = '';
             $(this).css('background-color', '');
             updateOK = true;
         })
-        $('.slider-horizontal').css('width', '180px');
-        $('.slider-container').css('margin-right', '10px').parents('span.commands').css('display', 'inline-flex').css('margin-bottom', '1px').css('margin-top', '-2px').css('margin-left', '10px');
+        $('.slider-horizontal').css('width', '180px').css('margin-top','-5px');
+        $('.slider-container').css('margin-right', '10px').parents('span.commands')/*.css('display', 'inline-flex')*/.css('margin-bottom', '1px').css('margin-top', '-2px').css('margin-left', '10px');
         //$('.slider-container').parents('spaan.commands').next('br').remove();
     }
 </script>
