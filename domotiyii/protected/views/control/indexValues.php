@@ -83,7 +83,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
             "bAutoWidth": false,
             "aaSorting": [[1, "asc"]],
             "bServerSide": true,
-            "sAjaxSource": '<?php echo Yii::app()->homeUrl; ?>cmd/?ajax',
+            "sAjaxSource": '<?php echo Yii::app()->homeUrl; ?>control/?ajax',
             "aoColumnDefs": [{"bVisible": false, "aTargets": [0]}]
         });
 
@@ -92,7 +92,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 
     function needRefresh() {
         if (maxdate !== '' && updateOK)
-            $.get('<?php echo Yii::app()->homeUrl; ?>cmd/lastChanged', function(data) {
+            $.get('<?php echo Yii::app()->homeUrl; ?>control/lastChanged', function(data) {
                 if (data != null) {
                     $('.lastChanged').html('<b>Last change on server</b> : ' + data + ' - <b>Last change here</b> : ' + maxdate);
                     if (maxdate != data)
@@ -107,7 +107,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         $(but).removeClass('btn-primary');
         var device = $(but).data('device');
         var action = $(but).data('action');
-        $.get('<?php echo Yii::app()->homeUrl; ?>cmd/setDevice', {device: device, action: action},
+        $.get('<?php echo Yii::app()->homeUrl; ?>control/setDevice', {device: device, action: action},
         function(data) {
             if (data.result) {
                 devTable.fnDraw();
@@ -130,7 +130,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
             } else {
                 action = "Dim " + action;
             }
-            $.get('<?php echo Yii::app()->homeUrl; ?>cmd/setDevice', {device: device, action: action},
+            $.get('<?php echo Yii::app()->homeUrl; ?>control/setDevice', {device: device, action: action},
             function(data) {
                 if (data.result) {
                     devTable.fnDraw();

@@ -1,6 +1,6 @@
 <?php
 
-class CmdController extends Controller {
+class ControlController extends Controller {
 
     public function actionIndex() {
         $date = yii::app()->request->getParam('date');
@@ -44,7 +44,6 @@ class CmdController extends Controller {
 
         $model->enabled = -1;
         $model->hide = 0;
-
         $dp = $model->search();
         $dp->setPagination(FALSE);
         $tab = array();
@@ -80,6 +79,15 @@ class CmdController extends Controller {
         die($lastChanged);
     }
 
+    public function actionUpdateSession($allValues) {
+        if($allValues==0) {
+            unset(Yii::app()->session['allValues']);
+        } else {
+        Yii::app()->session['allValues']=$allValues;
+        }
+        die('OK');
+    }
+
     public function actionSetDevice() {
         $device = Yii::app()->request->getParam('device');
         $action = strip_tags(Yii::app()->request->getParam('action'));
@@ -91,10 +99,10 @@ class CmdController extends Controller {
 
     protected function getActions($obj) {
         $dimmer = '<div class="slider-container" style="text-align:center;margin:0px;"><input type="text" class="slider" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="'.(!is_numeric($obj->getValue(1))?0:$obj->getValue(1)).'" data-slider-orientation="horizontal" data-device="' . $obj->id . '" data-slider-selection="after" data-slider-tooltip="hide">&nbsp;<span style="font-weigth:bold;"></span></div>';
-
+        $space='<div class="fixSpace"></div>';
         $buttons = '<button type="button" name="but" onClick="btAction(event,this)" data-action="Off" data-device="' . $obj->id . '" class="btn btn-primary btn-mini">Off</button>&nbsp;<button type="button" onClick="btAction(event,this)" data-action="On" data-device="' . $obj->id . '" class="btn btn-primary btn-mini">On</button>';
         if ($obj->switchable == -1)
-            return $buttons;
+            return $space.$buttons;
         else if ($obj->dimable == -1)
             return $dimmer.$buttons;
         else {
