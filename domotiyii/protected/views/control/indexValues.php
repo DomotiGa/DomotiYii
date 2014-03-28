@@ -12,7 +12,6 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/static/bootstrap-slider.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/slider.css" />
-
 <style>
     td.colDate,th:last-child {
         text-align:right;
@@ -21,6 +20,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         color:black;
         background-color:yellow;
         border:2px solid green;
+        padding:0px;
     }
     .devicesList td {
         padding:3px;
@@ -29,6 +29,17 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     }
 </style>
 
+<?php
+$this->widget('bootstrap.widgets.TbNav', array(
+    'type' => 'tabs',
+    'stacked' => false,
+    'items' => array(
+        array('label' => Yii::t('app', 'Control'), 'url' => '?type=control', 'active' => Yii::app()->request->getParam('type', 'control') == 'control'),
+        array('label' => Yii::t('app', 'All'), 'url' => '?type=all', 'active' => Yii::app()->request->getParam('type', 'control') == 'all'),
+        array('label' => Yii::t('app', 'Sensors'), 'url' => '?type=sensors', 'active' => Yii::app()->request->getParam('type', 'control') == 'sensors'),
+    ),
+));
+?>
 <table class="table devicesList">
     <thead>
         <tr>
@@ -48,7 +59,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 <div style="text-align:center;margin:0px;" class="lastChanged"></div>
 <script>
     var maxdate = '0';
-    var updateOK=true;
+    var updateOK = true;
     function getLastDate() {
         maxdate = '';
         $('.devicesList').find('tr').each(function(i, v) {
@@ -58,7 +69,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         });
         var datestr = maxdate.split(' ')[0];
         $('.devicesList').find('td:contains(' + maxdate + ')').each(function(i, v) {
-            $(v).html('<span class="newdata">' + $(v).html() + '</span>');
+            $(v).html('<span class="newdata">'+$(v).html()+'</span>');
             var tmp = $(v).parent('tr');
             tmp.fadeOut(0, function() {
                 tmp.fadeIn(800);
@@ -83,7 +94,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
             "bAutoWidth": false,
             "aaSorting": [[1, "asc"]],
             "bServerSide": true,
-            "sAjaxSource": '<?php echo Yii::app()->homeUrl; ?>control/?ajax',
+            "sAjaxSource": '<?php echo Yii::app()->homeUrl; ?>control/'+ $('ul.nav-tabs li.active a').attr('href')+'&ajax',
             "aoColumnDefs": [{"bVisible": false, "aTargets": [0]}]
         });
 
@@ -92,7 +103,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 
     function needRefresh() {
         if (maxdate !== '' && updateOK)
-            $.get('<?php echo Yii::app()->homeUrl; ?>control/lastChanged', function(data) {
+            $.get('<?php echo Yii::app()->homeUrl; ?>control/lastChanged'+ $('ul.nav-tabs li.active a').attr('href'), function(data) {
                 if (data != null) {
                     $('.lastChanged').html('<b>Last change on server</b> : ' + data + ' - <b>Last change here</b> : ' + maxdate);
                     if (maxdate != data)
@@ -142,12 +153,12 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         }).on('slide', function(ev) {
             $(this).parents('td').next('td').text(ev.value);
         });
-        $('.slider-container').on('mouseover',function(){
-            $(this).css('background-color','lightblue');
-            updateOK=false;
-        }).on('mouseout',function(){
-            $(this).css('background-color','');
-            updateOK=true;
+        $('.slider-container').on('mouseover', function() {
+            $(this).css('background-color', 'lightblue');
+            updateOK = false;
+        }).on('mouseout', function() {
+            $(this).css('background-color', '');
+            updateOK = true;
         })
     }
 </script>
