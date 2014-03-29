@@ -5,7 +5,7 @@
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app', 'Control'),
+        Yii::t('app', 'Control Box'),
     ),
 ));
 $maxdate = '';

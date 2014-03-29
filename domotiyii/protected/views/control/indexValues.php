@@ -5,7 +5,7 @@
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app', 'Devices CMD') . ' Experimental page - trying to do a fast refreshable page with buttons to command devices',
+        Yii::t('app', 'Control Table'),
     ),
 ));
 ?>
@@ -16,16 +16,28 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     td.colDate,th:last-child {
         text-align:right;
     }
-    .newdata {
-        color:black;
-        background-color:yellow;
-        border:2px solid green;
-        padding:0px;
-    }
     .devicesList td {
         padding:3px;
         line-height: 14px;
         vertical-align: middle;
+        border-bottom: 1px solid black;
+        border-right: 1px solid grey;
+    }
+    tr.odd {
+        background-color: azure;
+    }
+    tr.even {
+        background-color: ghostwhite;
+    }
+    td.commands,th.commands {
+        text-align: center;
+        width:280px;
+    }
+    td.values,th.values {
+        text-align:center;
+    }
+    .slider-container {
+        background-color: lightblue;
     }
 </style>
 
@@ -44,15 +56,15 @@ $this->widget('bootstrap.widgets.TbNav', array(
     <thead>
         <tr>
             <th>id</th>
-            <th>icon</th>
-            <th>name</th>
-            <th>locationtext</th>
-            <th>Button</th>
-            <th>Value1</th>
-            <th>Value2</th>
-            <th>Value3</th>
-            <th>Value4</th>
-            <th>LastChanged</th>
+            <th></th>
+            <th><?php echo Yii::t('app','Name'); ?></th>
+            <th><?php echo Yii::t('app', 'Location'); ?></th>
+            <th class="commands"><?php echo Yii::t('app', 'Actions'); ?></th>
+            <th><?php echo Yii::t('app', 'Value 1'); ?></th>
+            <th><?php echo Yii::t('app', 'Value 2'); ?></th>
+            <th><?php echo Yii::t('app', 'Value 3'); ?></th>
+            <th><?php echo Yii::t('app', 'Value 4'); ?></th>
+            <th><?php echo Yii::t('app', 'Last Seen'); ?></th>
         </tr>
     </thead>
 </table>   
@@ -60,24 +72,39 @@ $this->widget('bootstrap.widgets.TbNav', array(
 <script>
     var maxdate = '0';
     var updateOK = true;
-    function getLastDate() {
+    function formatTable() {
         maxdate = '';
         $('.devicesList').find('tr').each(function(i, v) {
             var tmp = $(v).find('td:last').addClass('colDate').text();
+            $(v).find('td:last').html('<span class="label label-info">' + $(v).find('td:last').html() + '</span>');
             if (tmp > maxdate)
                 maxdate = tmp;
         });
         var datestr = maxdate.split(' ')[0];
         $('.devicesList').find('td:contains(' + maxdate + ')').each(function(i, v) {
-            $(v).html('<span class="newdata">'+$(v).html()+'</span>');
+            $(v).find('span.label').removeClass('label-info').addClass('label-success');
             var tmp = $(v).parent('tr');
             tmp.fadeOut(0, function() {
                 tmp.fadeIn(800);
             });
+            tmp.css('background-color','palegreen');
         });
         $('.devicesList').find('td:contains(' + datestr + ')').each(function(i, v) {
             var tmp = $(v).html();
             $(v).html(tmp.replace(datestr, ''));
+        });
+        $('td.names').each(function(i, v) {
+            $(v).html('<span class="label label-info">' + $(v).html() + '</span>');
+        });
+        $('td.locations').each(function(i, v) {
+            $(v).html('<span class="badge badge-info">' + $(v).html() + '</span>');
+        });
+        $('td.values').each(function(i, v) {
+            if($(v).text()=='On') {
+            $(v).html('<span class="badge badge-success">' + $(v).html() + '</span>');
+            } else {
+            $(v).html('<span class="badge badge-info">' + $(v).html() + '</span>');
+            }
         });
         initSliders();
     }
@@ -85,7 +112,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
     function go() {
         devTable = $('.devicesList').dataTable({
             "fnDrawCallback":
-                    getLastDate,
+                    formatTable,
             "bPaginate": false,
             "bLengthChange": false,
             "bFilter": false,
@@ -94,8 +121,16 @@ $this->widget('bootstrap.widgets.TbNav', array(
             "bAutoWidth": false,
             "aaSorting": [[1, "asc"]],
             "bServerSide": true,
-            "sAjaxSource": '<?php echo Yii::app()->homeUrl; ?>control/'+ $('ul.nav-tabs li.active a').attr('href')+'&ajax',
-            "aoColumnDefs": [{"bVisible": false, "aTargets": [0]}]
+            "sAjaxSource": '<?php echo Yii::app()->homeUrl; ?>control/' + $('ul.nav-tabs li.active a').attr('href') + '&ajax',
+            "aoColumnDefs": [{"bVisible": false, "aTargets": [0]},
+                {"sClass": 'names', "aTargets": [2]},
+                {"sClass": 'locations', "aTargets": [3]},
+                {"sClass": 'commands', "aTargets": [4]},
+                {"sClass": 'values', "aTargets": [5]},
+                {"sClass": 'values', "aTargets": [6]},
+                {"sClass": 'values', "aTargets": [7]},
+                {"sClass": 'values', "aTargets": [8]}
+            ]
         });
 
         needRefresh();
@@ -103,7 +138,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
 
     function needRefresh() {
         if (maxdate !== '' && updateOK)
-            $.get('<?php echo Yii::app()->homeUrl; ?>control/lastChanged'+ $('ul.nav-tabs li.active a').attr('href'), function(data) {
+            $.get('<?php echo Yii::app()->homeUrl; ?>control/lastChanged' + $('ul.nav-tabs li.active a').attr('href'), function(data) {
                 if (data != null) {
                     $('.lastChanged').html('<b>Last change on server</b> : ' + data + ' - <b>Last change here</b> : ' + maxdate);
                     if (maxdate != data)
