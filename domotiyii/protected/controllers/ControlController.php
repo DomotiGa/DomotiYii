@@ -64,19 +64,24 @@ class ControlController extends Controller {
 
     private function getFilter() {
         $crit = new CDbCriteria();
-        $type = yii::app()->request->getParam('type', 'control');
-        $crit->order = 'name ASC';
-        if ($type == 'control') {
+        $type = yii::app()->request->getParam('type', 'Control');
+        $location = yii::app()->request->getParam('location','All');
+        $crit->order = 't.name ASC';
+        if ($type == 'Control') {
             $crit->addCondition('enabled is TRUE');
             $crit->addCondition('hide is FALSE');
             $crit->addColumnCondition(array('switchable' => -1, 'dimable' => -1), 'OR');
-        } else if ($type=='all') {
+        } else if ($type=='All') {
             $crit->addCondition('enabled is TRUE');
             $crit->addCondition('hide is FALSE');
-        } else if ($type=='sensors') {
+        } else if ($type=='Sensors') {
             $crit->addCondition('enabled is TRUE');
             $crit->addCondition('hide is FALSE');
             $crit->addColumnCondition(array('switchable' => 0, 'dimable' => 0));
+        }
+        if($location!=='All'){
+            $crit->with='l_location';
+            $crit->addCondition("l_location.name='$location'");
         }
         return $crit;
     }

@@ -73,7 +73,7 @@ class Devices extends CActiveRecord {
      * @return button OnOff
      */
     public function getButtons() {
-        $buttons = '<button type="button" name="but" onClick="btAction(event,this)" data-action="Off" data-device="'.$this->id.'" class="btn btn-primary btn-mini">Off</button>&nbsp;<button type="button" onClick="btAction(event,this)" data-action="On" data-device="'.$this->id.'" class="btn btn-primary btn-mini">On</button>';
+        $buttons = '<button type="button" name="but" onClick="btAction(event,this)" data-action="Off" data-device="' . $this->id . '" class="btn btn-primary btn-mini">Off</button>&nbsp;<button type="button" onClick="btAction(event,this)" data-action="On" data-device="' . $this->id . '" class="btn btn-primary btn-mini">On</button>';
         if ($this->switchable == -1)
             return $buttons;
         else {
@@ -85,8 +85,12 @@ class Devices extends CActiveRecord {
      * @return icon path for a device
      */
     public function getIcon() {
-        if ($this->getValue(1) === 'On')
-            $icon = $this->onicon;
+        if ($this->getValue(1) !== 'Off') {
+            if ($this->dimable == -1)
+                $icon = $this->dimicon;
+            else
+                $icon = $this->onicon;
+        }
         else
             $icon = $this->officon;
         if ($icon === NULL || empty($icon))
@@ -162,20 +166,20 @@ class Devices extends CActiveRecord {
         }
         return $listSelect;
     }
-    
+
     /**
      * @return dropdownlist options with the list of locations for the images
      */
     public function getIconsOptions() {
-    	$lst = glob('static/icons/*.*');
-    	$listSelect = array();
-    	$listSelect[""] = "";
-    	foreach ($lst as $l) {
-    		$l = str_replace('static/icons/', '', $l);
-    		$option[$l] = array("data-image" => '/domotiyii/static/icons/'. $l);
-    	}
-    	$options["options"] = $option;
-    	return $options;
+        $lst = glob('static/icons/*.*');
+        $listSelect = array();
+        $listSelect[""] = "";
+        foreach ($lst as $l) {
+            $l = str_replace('static/icons/', '', $l);
+            $option[$l] = array("data-image" => '/domotiyii/static/icons/' . $l);
+        }
+        $options["options"] = $option;
+        return $options;
     }
 
     /**

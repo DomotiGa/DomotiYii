@@ -2,6 +2,9 @@
 /* @var $this DevicesController */
 /* @var $dataProvider CActiveDataProvider */
 
+$type = Yii::app()->request->getParam('type', 'Control');
+$location = Yii::app()->request->getParam('location', 'All');
+
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
@@ -63,14 +66,21 @@ $maxdate = '';
         background-color:darkseagreen;
     }
 </style>
+
 <?php
+$lstLocation = array(array('label' => Yii::t('app', 'All'), 'url' => '?type='.$type.'&location=All'));
+foreach (Locations::model()->findAll(array('order' => 'name')) as $l) {
+    array_push($lstLocation, array('label' => $l->name, 'url' => '?type='.$type.'&location=' . $l->name));
+}
 $this->widget('bootstrap.widgets.TbNav', array(
     'type' => 'tabs',
     'stacked' => false,
     'items' => array(
-        array('label' => Yii::t('app', 'Control'), 'url' => '?type=control', 'active' => Yii::app()->request->getParam('type', 'control') == 'control'),
-        array('label' => Yii::t('app', 'All'), 'url' => '?type=all', 'active' => Yii::app()->request->getParam('type', 'control') == 'all'),
-        array('label' => Yii::t('app', 'Sensors'), 'url' => '?type=sensors', 'active' => Yii::app()->request->getParam('type', 'control') == 'sensors'),
+        array('label' => Yii::t('app','Type').' : '.Yii::t('app',$type),'items'=>array(
+        array('label' => Yii::t('app', 'Control'), 'url' => '?type=Control&location='.$location, 'active' => $type == 'Control'),
+        array('label' => Yii::t('app', 'All'), 'url' => '?type=All&location='.$location, 'active' => $type == 'All'),
+        array('label' => Yii::t('app', 'Sensors'), 'url' => '?type=Sensors&location='.$location, 'active' => $type == 'Sensors'))),
+        array('label' => Yii::t('app','Location').' : '.Yii::t('app',$location), 'items' => $lstLocation)
     ),
 ));
 ?>
