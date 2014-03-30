@@ -90,6 +90,7 @@ class ControlController extends Controller {
         $crit=$this->getFilter();
         $crit->select='max(lastchanged) AS lastchanged';
         $req=Devices::model()->find($crit);
+        if($req===NULL) die('?');
         $lastChanged = $req->lastchanged;
         die($lastChanged);
     }

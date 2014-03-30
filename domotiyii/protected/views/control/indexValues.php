@@ -44,19 +44,19 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 </style>
 
 <?php
-$lstLocation = array(array('label' => Yii::t('app', 'All'), 'url' => '?type='.$type.'&location=All'));
+$lstLocation = array(array('label' => Yii::t('app', 'All'), 'url' => '?type=' . $type . '&location=All'));
 foreach (Locations::model()->findAll(array('order' => 'name')) as $l) {
-    array_push($lstLocation, array('label' => $l->name, 'url' => '?type='.$type.'&location=' . $l->name));
+    array_push($lstLocation, array('label' => $l->name, 'url' => '?type=' . $type . '&location=' . $l->name));
 }
 $this->widget('bootstrap.widgets.TbNav', array(
     'type' => 'tabs',
     'stacked' => false,
     'items' => array(
-        array('label' => Yii::t('app','Type').' : '.Yii::t('app',$type),'items'=>array(
-        array('label' => Yii::t('app', 'Control'), 'url' => '?type=Control&location='.$location, 'active' => $type == 'Control'),
-        array('label' => Yii::t('app', 'All'), 'url' => '?type=All&location='.$location, 'active' => $type == 'All'),
-        array('label' => Yii::t('app', 'Sensors'), 'url' => '?type=Sensors&location='.$location, 'active' => $type == 'Sensors'))),
-        array('label' => Yii::t('app','Location').' : '.Yii::t('app',$location), 'items' => $lstLocation)
+        array('label' => Yii::t('app', 'Type') . ' : ' . Yii::t('app', $type), 'items' => array(
+                array('label' => Yii::t('app', 'Control'), 'url' => '?type=Control&location=' . $location, 'active' => $type == 'Control'),
+                array('label' => Yii::t('app', 'All'), 'url' => '?type=All&location=' . $location, 'active' => $type == 'All'),
+                array('label' => Yii::t('app', 'Sensors'), 'url' => '?type=Sensors&location=' . $location, 'active' => $type == 'Sensors'))),
+        array('label' => Yii::t('app', 'Location') . ' : ' . Yii::t('app', $location), 'items' => $lstLocation)
     ),
 ));
 ?>
@@ -147,10 +147,14 @@ $this->widget('bootstrap.widgets.TbNav', array(
     function needRefresh() {
         if (maxdate !== '' && updateOK)
             $.get('<?php echo Yii::app()->homeUrl; ?>control/lastChanged' + $('ul.nav-tabs li.active a').attr('href'), function(data) {
-                if (data != null) {
+                if (data != null && data != '?') {
                     $('.lastChanged').html('<b>Last change on server</b> : ' + data + ' - <b>Last change here</b> : ' + maxdate);
                     if (maxdate != data)
                         devTable.fnDraw();
+                }
+                if (data != null && data === '?') {
+                    updateOK = false;
+                    $('.lastChanged').html('<b>Nothing to be refreshed :(</b>');
                 }
             });
         setTimeout('needRefresh()', 2000);
