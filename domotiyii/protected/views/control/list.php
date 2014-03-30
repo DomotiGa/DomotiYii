@@ -69,8 +69,8 @@ $maxdate = '';
 
 <?php
 $lstLocation = array(array('label' => Yii::t('app', 'All'), 'url' => '?type='.$type.'&location=All'));
-foreach (Locations::model()->findAll(array('order' => 'name')) as $l) {
-    array_push($lstLocation, array('label' => $l->name, 'url' => '?type='.$type.'&location=' . $l->name));
+foreach (Locations::model()->used()->findAll(array('order' => 't.name')) as $l) {
+    array_push($lstLocation, array('label' => $l->name, 'url' => '?type=' . $type . '&location=' . $l->name));
 }
 $this->widget('bootstrap.widgets.TbNav', array(
     'type' => 'tabs',
