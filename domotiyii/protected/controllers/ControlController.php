@@ -65,32 +65,33 @@ class ControlController extends Controller {
     private function getFilter() {
         $crit = new CDbCriteria();
         $type = yii::app()->request->getParam('type', 'Control');
-        $location = yii::app()->request->getParam('location','All');
+        $location = yii::app()->request->getParam('location', 'All');
         $crit->order = 't.name ASC';
         if ($type == 'Control') {
             $crit->addCondition('enabled is TRUE');
             $crit->addCondition('hide is FALSE');
             $crit->addColumnCondition(array('switchable' => -1, 'dimable' => -1), 'OR');
-        } else if ($type=='All') {
+        } else if ($type == 'All') {
             $crit->addCondition('enabled is TRUE');
             $crit->addCondition('hide is FALSE');
-        } else if ($type=='Sensors') {
+        } else if ($type == 'Sensors') {
             $crit->addCondition('enabled is TRUE');
             $crit->addCondition('hide is FALSE');
             $crit->addColumnCondition(array('switchable' => 0, 'dimable' => 0));
         }
-        if($location!=='All'){
-            $crit->with='l_location';
+        if ($location !== 'All') {
+            $crit->with = 'l_location';
             $crit->addCondition("l_location.name='$location'");
         }
         return $crit;
     }
 
     public function actionLastChanged() {
-        $crit=$this->getFilter();
-        $crit->select='max(lastchanged) AS lastchanged';
-        $req=Devices::model()->find($crit);
-        if($req===NULL) die('?');
+        $crit = $this->getFilter();
+        $crit->select = 'max(lastchanged) AS lastchanged';
+        $req = Devices::model()->find($crit);
+        if ($req === NULL)
+            die('?');
         $lastChanged = $req->lastchanged;
         die($lastChanged);
     }
@@ -115,6 +116,10 @@ class ControlController extends Controller {
 
     protected function getActions($obj) {
         $tmp = str_replace('Dim ', '', $obj->getValue(1));
+        if ($tmp == 'Off')
+            $tmp = 0; else
+        if ($tmp == 'On')
+            $tmp = 100;
         $valueOne = (!is_numeric($tmp) ? 0 : $tmp);
         $dimmer = '<div class="slider-container" style="text-align:center;margin:0px;"><input type="text" class="slider" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="' . $valueOne . '" data-slider-orientation="horizontal" data-device="' . $obj->id . '" data-slider-selection="after" data-slider-tooltip="hide">&nbsp;<span style="font-weigth:bold;"></span></div>';
         $space = '<div class="fixSpace"></div>';
