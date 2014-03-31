@@ -31,7 +31,7 @@ class SettingsJsonrpc extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, maxconn', 'numerical', 'integerOnly'=>true),
+			array('id, httpport, maxconn', 'numerical', 'integerOnly'=>true),
 			array('enabled, debug, auth', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
