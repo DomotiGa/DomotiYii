@@ -41,22 +41,26 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     .slider-container {
         background-color: lightblue;
     }
+    td.valueOn {
+        background-color:#DEFFAC;
+    }
 </style>
 
 <?php
-$lstLocation = array(array('label' => Yii::t('app', 'All'), 'url' => '?type=' . $type . '&location=All'));
+$lstLocation = array(array('label' => Yii::t('app', 'All'), 'url' => 'table?type=' . $type . '&location=All'));
 foreach (Locations::model()->used()->findAll(array('order' => 't.name')) as $l) {
-    array_push($lstLocation, array('label' => $l->name, 'url' => '?type=' . $type . '&location=' . $l->name));
+    array_push($lstLocation, array('label' => $l->name, 'url' => 'table?type=' . $type . '&location=' . $l->name));
 }
 $this->widget('bootstrap.widgets.TbNav', array(
     'type' => 'tabs',
     'stacked' => false,
     'items' => array(
         array('label' => Yii::t('app', 'Type') . ' : ' . Yii::t('app', $type), 'items' => array(
-                array('label' => Yii::t('app', 'Control'), 'url' => '?type=Control&location=' . $location, 'active' => $type == 'Control'),
-                array('label' => Yii::t('app', 'All'), 'url' => '?type=All&location=' . $location, 'active' => $type == 'All'),
-                array('label' => Yii::t('app', 'Sensors'), 'url' => '?type=Sensors&location=' . $location, 'active' => $type == 'Sensors'))),
-        array('label' => Yii::t('app', 'Location') . ' : ' . Yii::t('app', $location), 'items' => $lstLocation)
+                array('label' => Yii::t('app', 'Control'), 'url' => 'table?type=Control&location=' . $location, 'active' => $type == 'Control'),
+                array('label' => Yii::t('app', 'All'), 'url' => 'table?type=All&location=' . $location, 'active' => $type == 'All'),
+                array('label' => Yii::t('app', 'Sensors'), 'url' => 'table?type=Sensors&location=' . $location, 'active' => $type == 'Sensors'))),
+        array('label' => Yii::t('app', 'Location') . ' : ' . Yii::t('app', $location), 'items' => $lstLocation),
+        array('label' => Yii::t('app', 'FullScreen') , 'url' => 'javascript:fullScreen();')
     ),
 ));
 ?>
@@ -109,12 +113,30 @@ $this->widget('bootstrap.widgets.TbNav', array(
         });
         $('td.values').each(function(i, v) {
             if ($(v).text() == 'On') {
+                $(v).addClass('valueOn');
                 $(v).html('<span class="badge badge-success">' + $(v).html() + '</span>');
             } else {
                 $(v).html('<span class="badge badge-info">' + $(v).html() + '</span>');
             }
         });
         initSliders();
+        updateOK = true;
+    }
+    function fullScreen(tmp) {
+        var delay=(typeof tmp=='undefined')?1000:tmp;
+        if ($('div.row-fluid > div.span12').length===0) {
+            $.get('<?php echo Yii::app()->request->baseUrl; ?>/control/updateSession', {fullScreen: 1});
+            $('div.row-fluid > div.span10').removeClass('span10').addClass('span12');
+            $('div.navbar').hide(delay);
+            $('ul.breadcrumb').hide(delay);
+            $('div#sidebar').hide(delay);
+        } else {
+            $.get('<?php echo Yii::app()->request->baseUrl; ?>/control/updateSession', {fullScreen: 0});
+            $('div.row-fluid > div.span12').addClass('span10').removeClass('span12');
+            $('div.navbar').show(delay);
+            $('ul.breadcrumb').show(delay);
+            $('div#sidebar').show(delay);
+        }
     }
     $(document).ready(go());
     function go() {
@@ -129,7 +151,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
             "bAutoWidth": false,
             "aaSorting": [[1, "asc"]],
             "bServerSide": true,
-            "sAjaxSource": '<?php echo Yii::app()->homeUrl; ?>control/' + $('ul.nav-tabs li.active a').attr('href') + '&ajax',
+            "sAjaxSource": '<?php echo Yii::app()->request->baseUrl; ?>/control/table' + $('ul.nav-tabs li.active a').attr('href').replace('table','') + '&ajax',
             "aoColumnDefs": [{"bVisible": false, "aTargets": [0]},
                 {"sClass": 'names', "aTargets": [2]},
                 {"sClass": 'locations', "aTargets": [3]},
@@ -140,24 +162,31 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 {"sClass": 'values', "aTargets": [8]}
             ]
         });
-
+<?php if (isset(yii::app()->session['fullScreen'])): ?>
+            fullScreen(0);
+<?php endif; ?>
         needRefresh();
+
     }
 
     function needRefresh() {
         if (maxdate !== '' && updateOK)
-            $.get('<?php echo Yii::app()->homeUrl; ?>control/lastChanged' + $('ul.nav-tabs li.active a').attr('href'), function(data) {
+            $.get('<?php echo Yii::app()->request->baseUrl; ?>/control/lastChanged' + $('ul.nav-tabs li.active a').attr('href').replace('table',''), function(data) {
                 if (data != null && data != '?') {
                     $('.lastChanged').html('<b>Last change on server</b> : ' + data + ' - <b>Last change here</b> : ' + maxdate);
-                    if (maxdate != data)
-                        devTable.fnDraw();
+                    if (maxdate != data) {
+                        updateOK = false;
+                        devTable.fnDraw(false);
+                    }
                 }
                 if (data != null && data === '?') {
                     updateOK = false;
                     $('.lastChanged').html('<b>Nothing to be refreshed :(</b>');
                 }
             });
-        setTimeout('needRefresh()', 2000);
+<?php if (is_null(yii::app()->request->getParam('debug'))): ?>
+            setTimeout('needRefresh()', 2000);
+<?php endif; ?>
     }
 
     function btAction(event, but) {
@@ -165,10 +194,11 @@ $this->widget('bootstrap.widgets.TbNav', array(
         $(but).removeClass('btn-primary');
         var device = $(but).data('device');
         var action = $(but).data('action');
-        $.get('<?php echo Yii::app()->homeUrl; ?>control/setDevice', {device: device, action: action},
+        $.get('<?php echo Yii::app()->request->baseUrl; ?>/control/setDevice', {device: device, action: action},
         function(data) {
             if (data.result) {
-                devTable.fnDraw();
+                updateOK = false;
+                devTable.fnDraw(false);
             } else
                 alert('Error');
         }, 'json').fail(function() {
@@ -188,9 +218,10 @@ $this->widget('bootstrap.widgets.TbNav', array(
             } else {
                 action = "Dim " + action;
             }
-            $.get('<?php echo Yii::app()->homeUrl; ?>control/setDevice', {device: device, action: action},
+            $.get('<?php echo Yii::app()->request->baseUrl; ?>/control/setDevice', {device: device, action: action},
             function(data) {
                 if (data.result) {
+                    updateOK = false;
                     devTable.fnDraw();
                 } else
                     alert('Error');

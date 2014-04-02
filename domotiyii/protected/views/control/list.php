@@ -68,7 +68,7 @@ $maxdate = '';
 </style>
 
 <?php
-$lstLocation = array(array('label' => Yii::t('app', 'All'), 'url' => '?type='.$type.'&location=All'));
+$lstLocation = array(array('label' => Yii::t('app', 'All'), 'url' => '?type=' . $type . '&location=All'));
 foreach (Locations::model()->used()->findAll(array('order' => 't.name')) as $l) {
     array_push($lstLocation, array('label' => $l->name, 'url' => '?type=' . $type . '&location=' . $l->name));
 }
@@ -76,11 +76,12 @@ $this->widget('bootstrap.widgets.TbNav', array(
     'type' => 'tabs',
     'stacked' => false,
     'items' => array(
-        array('label' => Yii::t('app','Type').' : '.Yii::t('app',$type),'items'=>array(
-        array('label' => Yii::t('app', 'Control'), 'url' => '?type=Control&location='.$location, 'active' => $type == 'Control'),
-        array('label' => Yii::t('app', 'All'), 'url' => '?type=All&location='.$location, 'active' => $type == 'All'),
-        array('label' => Yii::t('app', 'Sensors'), 'url' => '?type=Sensors&location='.$location, 'active' => $type == 'Sensors'))),
-        array('label' => Yii::t('app','Location').' : '.Yii::t('app',$location), 'items' => $lstLocation)
+        array('label' => Yii::t('app', 'Type') . ' : ' . Yii::t('app', $type), 'items' => array(
+                array('label' => Yii::t('app', 'Control'), 'url' => '?type=Control&location=' . $location, 'active' => $type == 'Control'),
+                array('label' => Yii::t('app', 'All'), 'url' => '?type=All&location=' . $location, 'active' => $type == 'All'),
+                array('label' => Yii::t('app', 'Sensors'), 'url' => '?type=Sensors&location=' . $location, 'active' => $type == 'Sensors'))),
+        array('label' => Yii::t('app', 'Location') . ' : ' . Yii::t('app', $location), 'items' => $lstLocation),
+        array('label' => Yii::t('app', 'FullScreen'), 'url' => 'javascript:fullScreen();')
     ),
 ));
 ?>
@@ -120,11 +121,29 @@ $this->widget('bootstrap.widgets.TbNav', array(
             $(v).html(tmp.replace(datestr, ''));
         });
     }
+
+    function fullScreen(tmp) {
+        var delay = (typeof tmp == 'undefined') ? 1000 : tmp;
+        if ($('div.row-fluid > div.span12').length === 0) {
+            $.get('<?php echo Yii::app()->request->baseUrl; ?>/control/updateSession', {fullScreen: 1});
+            $('div.row-fluid > div.span10').removeClass('span10').addClass('span12');
+            $('div.navbar').hide(delay);
+            $('ul.breadcrumb').hide(delay);
+            $('div#sidebar').hide(delay);
+        } else {
+            $.get('<?php echo Yii::app()->request->baseUrl; ?>/control/updateSession', {fullScreen: 0});
+            $('div.row-fluid > div.span12').addClass('span10').removeClass('span12');
+            $('div.navbar').show(delay);
+            $('ul.breadcrumb').show(delay);
+            $('div#sidebar').show(delay);
+        }
+    }
+
     $(document).ready(go());
     function go() {
         formatDate();
         initSliders();
-            needRefresh();
+        needRefresh();
         $('.showValues').on('click', function() {
             if ($(this).hasClass('icon-chevron-down')) {
                 $.get('updateSession', {allValues: 1});
@@ -137,7 +156,12 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 $('.device').animate({height: '125px'}, 1000);
                 $('.showValues').removeClass('icon-chevron-up').addClass('icon-chevron-down');
             }
+
         });
+<?php if (isset(yii::app()->session['fullScreen'])): ?>
+            fullScreen(0);
+<?php endif; ?>
+
 <?php if (isset(yii::app()->session['allValues'])): ?>
             $('.showValues').first().trigger('click');
 <?php endif; ?>
@@ -145,7 +169,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
 
     function needRefresh() {
         if (maxdate !== '' && updateOK)
-            $.get('<?php echo Yii::app()->homeUrl; ?>control/lastChanged'+ $('ul.nav-tabs li.active a').attr('href'), function(data) {
+            $.get('<?php echo Yii::app()->homeUrl; ?>control/lastChanged' + $('ul.nav-tabs li.active a').attr('href'), function(data) {
                 if (data != null) {
                     $('.lastChanged').html('<b>Last change on server</b> : ' + data + ' - <b>Last change here</b> : ' + maxdate);
                     if (maxdate != data) {
@@ -156,8 +180,8 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 }
             });
 <?php if (is_null(yii::app()->request->getParam('debug'))): ?>
-        if (!reloading)
-            setTimeout('needRefresh()', 2000);
+            if (!reloading)
+                setTimeout('needRefresh()', 2000);
 <?php endif; ?>
     }
 

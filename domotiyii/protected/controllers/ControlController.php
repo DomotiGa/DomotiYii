@@ -2,7 +2,7 @@
 
 class ControlController extends Controller {
 
-    public function actionIndex() {
+    public function actionTable() {
         $crit = $this->getFilter();
 
         $res = Devices::model()->findAll($crit);
@@ -28,14 +28,17 @@ class ControlController extends Controller {
             die($this->renderPartial('jsonData', array('data' => $data), TRUE));
         }
         else
-            $this->render('indexValues', array('data' => $tab));
+            $this->render('table', array('data' => $tab));
     }
 
     public function actionList() {
         $date = yii::app()->request->getParam('date');
 
         $crit = $this->getFilter();
-
+        if ($date !== NULL) {
+            $crit->addCondition("t.lastchanged >= :date");
+            $crit->params[':date'] = $date;
+        }
         $res = Devices::model()->findAll($crit);
         $tab = array();
         foreach ($res as $obj) {
@@ -93,14 +96,22 @@ class ControlController extends Controller {
         if ($req === NULL)
             die('?');
         $lastChanged = $req->lastchanged;
-        die($lastChanged);
+        echo $lastChanged;
+        yii::app()->end();
     }
 
-    public function actionUpdateSession($allValues) {
-        if ($allValues == 0) {
-            unset(Yii::app()->session['allValues']);
+    public function actionUpdateSession() {
+        //TODO: dynamic will be better !!
+        $name = 'allValues';
+        $value = yii::app()->request->getParam('allValues');
+        if ($value === NULL) {
+            $name = 'fullScreen';
+            $value = yii::app()->request->getParam('fullScreen');
+        }
+        if ($value == 0) {
+            unset(Yii::app()->session[$name]);
         } else {
-            Yii::app()->session['allValues'] = $allValues;
+            Yii::app()->session[$name] = $value;
         }
         die('OK');
     }
