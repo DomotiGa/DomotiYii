@@ -124,15 +124,15 @@ $this->widget('bootstrap.widgets.TbNav', array(
 
     function fullScreen(tmp) {
         var delay = (typeof tmp == 'undefined') ? 1000 : tmp;
-        if ($('div.row-fluid > div.span12').length === 0) {
+        if ($('div.row-fluid > div.spaanold10').length === 0) {
             $.get('<?php echo Yii::app()->request->baseUrl; ?>/control/updateSession', {fullScreen: 1});
-            $('div.row-fluid > div.span10').removeClass('span10').addClass('span12');
+            $('div.row-fluid > div.span10').removeClass('span10').addClass('spaanold10');
             $('div.navbar').hide(delay);
             $('ul.breadcrumb').hide(delay);
             $('div#sidebar').hide(delay);
         } else {
             $.get('<?php echo Yii::app()->request->baseUrl; ?>/control/updateSession', {fullScreen: 0});
-            $('div.row-fluid > div.span12').addClass('span10').removeClass('span12');
+            $('div.row-fluid > div.spaanold10').addClass('span10').removeClass('spaanold10');
             $('div.navbar').show(delay);
             $('ul.breadcrumb').show(delay);
             $('div#sidebar').show(delay);
