@@ -89,42 +89,6 @@ class ControlController extends Controller {
         return $crit;
     }
 
-    public function actionLastChanged() {
-        $crit = $this->getFilter();
-        $crit->select = 'max(lastchanged) AS lastchanged';
-        $req = Devices::model()->find($crit);
-        if ($req === NULL)
-            die('?');
-        $lastChanged = $req->lastchanged;
-        echo $lastChanged;
-        yii::app()->end();
-    }
-
-    public function actionUpdateSession() {
-        //TODO: dynamic will be better !!
-        $name = 'allValues';
-        $value = yii::app()->request->getParam('allValues');
-        if ($value === NULL) {
-            $name = 'fullScreen';
-            $value = yii::app()->request->getParam('fullScreen');
-        }
-        if ($value == 0) {
-            unset(Yii::app()->session[$name]);
-        } else {
-            Yii::app()->session[$name] = $value;
-        }
-        die('OK');
-    }
-
-    public function actionSetDevice() {
-        $device = Yii::app()->request->getParam('device');
-        $action = strip_tags(Yii::app()->request->getParam('action'));
-        if (is_null($device) || is_null($action))
-            return json_encode(array("jsonrpc" => "2.0", "result" => false, "id" => 1));;
-        $result = $this->do_jsonrpc('{"jsonrpc": "2.0", "method": "device.set", "params": {"device_id": ' . $device . ', "value": "' . $action . '"}, "id": 1}');
-        echo $result;
-    }
-
     protected function getActions($obj) {
         $tmp = str_replace('Dim ', '', $obj->getValue(1));
         if ($tmp == 'Off')
@@ -143,23 +107,4 @@ class ControlController extends Controller {
             return "";
         }
     }
-
-    protected function do_jsonrpc($data = array()) {
-        $request = $data;
-        $context = stream_context_create(
-            array('http' =>
-                array('method' => "POST",
-                    'header' => "Content-Type: application/json\r\n" .
-                    "Accept: application/json\r\n",
-                    'content' => $request)));
-        $file = @file_get_contents(Yii::app()->params['jsonrpcHost'], false, $context);
-
-        if ($file === FALSE) {
-            // could not connect
-            return json_encode(array("jsonrpc" => "2.0", "result" => false, "id" => 1));
-        } else {
-            return $file;
-        }
-    }
-
 }

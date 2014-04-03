@@ -1,6 +1,6 @@
 <?php
 
-class AjaxUtilController extends Controller {
+class AjaxUtilController extends CController {
 
     public function actionTranslate($name) {
         echo json_encode(array('text' => Yii::t('app', $name)));
@@ -25,5 +25,85 @@ class AjaxUtilController extends Controller {
             echo "<option value={$m->var} " . ($m->var == $id ? "SELECTED" : "") . ">{$m->var}";
         }
     }
+    
+
+    private function getFilter() {
+        $crit = new CDbCriteria();
+        $type = yii::app()->request->getParam('type', 'Control');
+        $location = yii::app()->request->getParam('location', 'All');
+        $crit->order = 't.name ASC';
+        if ($type == 'Control') {
+            $crit->addCondition('enabled is TRUE');
+            $crit->addCondition('hide is FALSE');
+            $crit->addColumnCondition(array('switchable' => -1, 'dimable' => -1), 'OR');
+        } else if ($type == 'All') {
+            $crit->addCondition('enabled is TRUE');
+            $crit->addCondition('hide is FALSE');
+        } else if ($type == 'Sensors') {
+            $crit->addCondition('enabled is TRUE');
+            $crit->addCondition('hide is FALSE');
+            $crit->addColumnCondition(array('switchable' => 0, 'dimable' => 0));
+        }
+        if ($location !== 'All') {
+            $crit->with = 'l_location';
+            $crit->addCondition("l_location.name='$location'");
+        }
+        return $crit;
+    }
+
+    public function actionLastChanged() {
+        $crit = $this->getFilter();
+        $crit->select = 'max(lastchanged) AS lastchanged';
+        $req = Devices::model()->find($crit);
+        if ($req === NULL)
+            die('?');
+        $lastChanged = $req->lastchanged;
+        echo $lastChanged;
+        yii::app()->end();
+    }
+
+    public function actionUpdateSession() {
+        //TODO: dynamic will be better !!
+        $name = 'allValues';
+        $value = yii::app()->request->getParam('allValues');
+        if ($value === NULL) {
+            $name = 'fullScreen';
+            $value = yii::app()->request->getParam('fullScreen');
+        }
+        if ($value == 0) {
+            unset(Yii::app()->session[$name]);
+        } else {
+            Yii::app()->session[$name] = $value;
+        }
+        die('OK');
+    }
+
+
+    public function actionSetDevice() {
+        $device = Yii::app()->request->getParam('device');
+        $action = strip_tags(Yii::app()->request->getParam('action'));
+        if (is_null($device) || is_null($action))
+            return json_encode(array("jsonrpc" => "2.0", "result" => false, "id" => 1));;
+        $result = $this->do_jsonrpc('{"jsonrpc": "2.0", "method": "device.set", "params": {"device_id": ' . $device . ', "value": "' . $action . '"}, "id": 1}');
+        echo $result;
+    }
+
+    protected function do_jsonrpc($data = array()) {
+        $request = $data;
+        $context = stream_context_create(
+            array('http' =>
+                array('method' => "POST",
+                    'header' => "Content-Type: application/json\r\n" .
+                    "Accept: application/json\r\n",
+                    'content' => $request)));
+        $file = @file_get_contents(Yii::app()->params['jsonrpcHost'], false, $context);
+
+        if ($file === FALSE) {
+            // could not connect
+            return json_encode(array("jsonrpc" => "2.0", "result" => false, "id" => 1));
+        } else {
+            return $file;
+        }
+    }    
 }
 
