@@ -47,8 +47,9 @@ $this->endWidget();
     'type'=>'tabs',
     'stacked'=>false,
     'items'=>array(
-        array('label'=>Yii::t('app','All'), 'url'=>'index', 'active'=>Yii::app()->request->getParam('type','all') == 'all'),
-        array('label'=>Yii::t('app','Disabled'), 'url'=>'index?type=disabled', 'active'=>Yii::app()->request->getParam('type','all') == 'disabled'),
+        array('label'=>Yii::t('app','Enabled'), 'url'=>'index?type=enabled', 'active'=>Yii::app()->request->getParam('type','enabled') == 'enabled'),
+        array('label'=>Yii::t('app','Disabled'), 'url'=>'index?type=disabled', 'active'=>Yii::app()->request->getParam('type','enabled') == 'disabled'),
+		array('label'=>Yii::t('app','All'), 'url'=>'index?type=all', 'active'=>Yii::app()->request->getParam('type','enabled') == 'all'),
     ),
 ));
 

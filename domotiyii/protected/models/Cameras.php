@@ -60,8 +60,21 @@ class Cameras extends CActiveRecord
         public function getAllCameraPTZTypes()
         {
                 return $this->cameraptztypes;
-	}
+		}
 
+        /**
+         * @return array with cameras to be used in a thumbnail image view.
+		 * This function only returns ENABLED cameras with the type Stream MJPEG!!!
+         */
+		public function getCameraViewers() {
+			//$images = array( array('image' => 'holder.js/300x200', 'label' => 'Thumbnail label', 'caption' => '...', 'span' => 3) );
+			$images = array();
+			foreach (Cameras::model()->findAll("enabled = -1 AND type = 'Stream MJPEG'",array('order' => 'name ASC')) as $l) {
+				array_push($images, array('image' => $l->viewstring, 'label' => $l->name, 'caption' => $l->description, 'span' => 4));
+			}
+			return $images;
+		}
+	
 	/**
 	 * @return array validation rules for model attributes.
 	 */

@@ -18,9 +18,21 @@ class CamerasController extends Controller
                 }
 
                 $type = Yii::app()->getRequest()->getParam('type');
-
+				
+				// It is beter to see all enabled cameras first.
+				if (!isset($type))
+				{
+					$model->enabled=-1;
+					$criteria->addCondition('enabled IS TRUE');				
+				}
+				
                 if (isset($type) && !empty($type))
                 {
+                        if ($type == "enabled")
+                        {
+                                $model->enabled=-1;
+                                $criteria->addCondition('enabled IS TRUE');
+                        }
                         if ($type == "disabled")
                         {
                                 $model->enabled=0;
