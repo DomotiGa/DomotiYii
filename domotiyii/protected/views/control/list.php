@@ -197,9 +197,9 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 updateOK = false;
                 location.reload();
             } else
-                alert('Error');
+                $('.lastChanged').html('DO');
         }, 'json').fail(function() {
-            alert('Error setting device!!');
+            $('.lastChanged').html('DF');
         });
     }
     function initSliders() {
@@ -222,9 +222,9 @@ $this->widget('bootstrap.widgets.TbNav', array(
                     updateOK = false;
                     location.reload();
                 } else
-                    alert('Error');
+                    $('.lastChanged').html('DO');
             }, 'json').fail(function() {
-                alert('Error setting device!!');
+                $('.lastChanged').html('DF');
             });
         }).on('slide', function(ev) {
             $(this).parents('div.device').find('div.val1').text(ev.value);
