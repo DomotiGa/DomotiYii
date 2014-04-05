@@ -85,12 +85,11 @@ class Devices extends CActiveRecord {
      * @return icon path for a device
      */
     public function getIcon() {
-        if ($this->getValue(1) === 'On' || strpos($this->getValue(1),'Dim')!==FALSE) {
-            if ($this->dimable == -1)
-                $icon = $this->dimicon;
-            else
-                $icon = $this->onicon;
-        }
+        if ($this->getValue(1) === 'On')
+            $icon = $this->onicon;
+        else
+        if (strpos($this->getValue(1), 'Dim') !== FALSE)
+            $icon = $this->dimicon;
         else
             $icon = $this->officon;
         if ($icon === NULL || empty($icon))
