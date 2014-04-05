@@ -81,7 +81,9 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 array('label' => Yii::t('app', 'All'), 'url' => '?type=All&location=' . $location, 'active' => $type == 'All'),
                 array('label' => Yii::t('app', 'Sensors'), 'url' => '?type=Sensors&location=' . $location, 'active' => $type == 'Sensors'))),
         array('label' => Yii::t('app', 'Location') . ' : ' . Yii::t('app', $location), 'items' => $lstLocation),
-        array('label' => Yii::t('app', 'FullScreen'), 'url' => 'javascript:fullScreen();')
+        array('label' => Yii::t('app', 'FullScreen'), 'url' => 'javascript:fullScreen();'),
+        array('label' => Yii::t('app', 'Devices On'), 'url' => 'javascript:void(0);', 'htmlOptions' => array('class' => 'showDeviceOn')),
+        array('label' => Yii::t('app', 'Devices Off'), 'url' => 'javascript:void(0);', 'htmlOptions' => array('class' => 'showDeviceOff'))
     ),
 ));
 ?>
@@ -110,7 +112,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
     var maxdate = '<?php echo $maxdate; ?>';
     var updateOK = true;
     var reloading = false;
-    function formatDate() {
+    function formatPage() {
         var datestr = maxdate.split(' ')[0];
         $('div.lastchanged:contains(' + maxdate + ')').each(function(i, v) {
             $(v).parents('div.device').addClass('newdata');
@@ -120,13 +122,25 @@ $this->widget('bootstrap.widgets.TbNav', array(
             var tmp = $(v).html();
             $(v).html(tmp.replace(datestr, ''));
         });
-        $('.device .val1').each(function(i,v){
+        $('.device .val1').each(function(i, v) {
 //            console.log($(v).text());
-            if($(v).text()==='On') {
+            if ($(v).text() === 'On' || $(v).text().substring(0, 3) === 'Dim') {
                 $(v).addClass('label-success').removeClass('label-important');
                 $(v).parents('.device').find('.deviceName').addClass('label-success').removeClass('label-info');
                 $(v).parents('.device').find('.location').addClass('badge-success').removeClass('badge-info');
-            }
+                $(v).parents('.device').addClass('deviceOn');
+            } else
+                $(v).parents('.device').addClass('deviceOff');
+        });
+        $('.showDeviceOn').hover(function() {
+            $('.deviceOff').animate({opacity: 0.25}, 1000)
+        }, function() {
+            $('.deviceOff').animate({opacity: 1}, 1000)
+        });
+        $('.showDeviceOff').hover(function() {
+            $('.deviceOn').animate({opacity: 0.25}, 1000)
+        }, function() {
+            $('.deviceOn').animate({opacity: 1}, 1000)
         });
     }
 
@@ -149,7 +163,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
 
     $(document).ready(go());
     function go() {
-        formatDate();
+        formatPage();
         initSliders();
         needRefresh();
         $('.showValues').on('click', function() {
