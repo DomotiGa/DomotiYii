@@ -121,7 +121,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
             $(v).html(tmp.replace(datestr, ''));
         });
         $('.device .val1').each(function(i,v){
-            console.log($(v).text());
+//            console.log($(v).text());
             if($(v).text()==='On') {
                 $(v).addClass('label-success').removeClass('label-important');
                 $(v).parents('.device').find('.deviceName').addClass('label-success').removeClass('label-info');
