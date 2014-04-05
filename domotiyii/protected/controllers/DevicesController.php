@@ -63,10 +63,7 @@ class DevicesController extends Controller {
     public function actionUpdate($id) {
         $model = Devices::model()->findByPk($id);
         if (isset($_POST['Devices'])) {
-            //to avoid warnings and errors about form field not existing in device model
-            foreach (array_keys($model->attributes) as $i)
-                if (isset($_POST['Devices'][$i]) && $i !== 'ID')
-                    $model->attributes[$i] = $_POST['Devices'][$i];
+            $model->attributes = $_POST['Devices'];
             if (isset($_POST['Devices']['groupsarray']) && is_array($_POST['Devices']['groupsarray']) && count($_POST['Devices']['groupsarray']) !== 0)
                 $model->groups = '|' . implode('|', $_POST['Devices']['groupsarray']) . '|';
             else
