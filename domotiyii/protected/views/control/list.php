@@ -91,7 +91,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
         <div class="device text-left">
             <div class="id"><?php echo $dev['id']; ?></div>
             <div class="icon">
-                <?php echo $dev['icon']; ?>&nbsp;<span class="label label-info"><?php echo $dev['name']; ?></span>
+                <?php echo $dev['icon']; ?>&nbsp;<span class="deviceName label label-info"><?php echo $dev['name']; ?></span>
                 <i class="showValues icon-chevron-down"></i>
                 <span class="badge badge-info location"><?php echo $dev['location']; ?></span>
             </div>
@@ -119,6 +119,14 @@ $this->widget('bootstrap.widgets.TbNav', array(
         $('div.lastchanged:contains(' + datestr + ')').each(function(i, v) {
             var tmp = $(v).html();
             $(v).html(tmp.replace(datestr, ''));
+        });
+        $('.device .val1').each(function(i,v){
+            console.log($(v).text());
+            if($(v).text()==='On') {
+                $(v).addClass('label-success').removeClass('label-important');
+                $(v).parents('.device').find('.deviceName').addClass('label-success').removeClass('label-info');
+                $(v).parents('.device').find('.location').addClass('badge-success').removeClass('badge-info');
+            }
         });
     }
 
