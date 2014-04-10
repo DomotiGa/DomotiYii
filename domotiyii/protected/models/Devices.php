@@ -248,6 +248,23 @@ class Devices extends CActiveRecord {
         );
     }
 
+    public function getSPdevice() {
+        if ($this->module == 243)
+            return TRUE;
+        else if (strpos($this->getValue(1), 'SP ') === 0)
+            return TRUE;
+        else
+            return FALSE;
+    }
+
+    public function scopes() {
+        return array(
+            'SPdevice' => array(
+                'condition' => "module=243",
+            ),
+        );
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */

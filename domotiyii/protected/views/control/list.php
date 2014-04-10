@@ -65,6 +65,13 @@ $maxdate = '';
     .newdata {
         background-color:darkseagreen;
     }
+    .spDevice {
+        background-color: #006dcc;
+        color: white;
+        width: 90px;
+        height: 30px;
+        margin-top:5px;
+    }
 </style>
 
 <?php
@@ -206,7 +213,19 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 setTimeout('needRefresh()', 2000);
 <?php endif; ?>
     }
-
+    function SPAction(value, device) {
+        $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/setDevice', {device: device, action: 'SP '+value},
+        function(data) {
+            if (data.result) {
+                $('button').attr('disabled', 'disabled');
+                updateOK = false;
+                location.reload();
+            } else
+                $('.lastChanged').html('DO');
+        }, 'json').fail(function() {
+            $('.lastChanged').html('DF');
+        });
+    }
     function btAction(event, but) {
         event.stopPropagation();
         $(but).removeClass('btn-primary').addClass('btn-default');
