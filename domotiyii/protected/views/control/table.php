@@ -11,6 +11,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     ),
 ));
 ?>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.mousewheel.min.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/static/bootstrap-slider.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/slider.css" />
@@ -51,6 +52,21 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         height: 30px;
         margin-top:5px;
     }    
+    .inputSetPoint {
+        width: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .btMoins,.btPlus {
+        background-color: #006dcc;
+        border:1px solid #006dcc;
+        color: white;
+        width:15px;
+        text-align:center;
+        padding:0px;
+        font-weight: bold;
+    }
+
 </style>
 
 <?php
@@ -67,7 +83,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 array('label' => Yii::t('app', 'All'), 'url' => 'table?type=All&location=' . $location, 'active' => $type == 'All'),
                 array('label' => Yii::t('app', 'Sensors'), 'url' => 'table?type=Sensors&location=' . $location, 'active' => $type == 'Sensors'))),
         array('label' => Yii::t('app', 'Location') . ' : ' . Yii::t('app', $location), 'items' => $lstLocation),
-        array('label' => Yii::t('app', 'FullScreen') , 'url' => 'javascript:fullScreen();')
+        array('label' => Yii::t('app', 'FullScreen'), 'url' => 'javascript:fullScreen();')
     ),
 ));
 ?>
@@ -127,19 +143,32 @@ $this->widget('bootstrap.widgets.TbNav', array(
             }
         });
         initSliders();
+        $('.btSetPoint').on('click', function(event) {
+            btSetPoint(event, this);
+        });
+        $('input.inputSetPoint').mousewheel(function(event, delta) {
+            event.preventDefault();
+            if (delta > 0)
+                $(this).parents('td').find('button.btPlus').trigger('click');
+            if (delta < 0)
+                $(this).parents('td').find('button.btMoins').trigger('click');
+        });
+
         updateOK = true;
     }
     function fullScreen(tmp) {
-        var delay=(typeof tmp=='undefined')?1000:tmp;
-        if ($('div.row-fluid > div.spaanold10').length===0) {
+        var delay = (typeof tmp == 'undefined') ? 1000 : tmp;
+        if ($('div.row-fluid > div.spaanold10').length === 0) {
             $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/updateSession', {fullScreen: 1});
             $('div.row-fluid > div.span10').removeClass('span10').addClass('spaanold10');
+            $('div.flash-success').hide(delay);
             $('div.navbar').hide(delay);
             $('ul.breadcrumb').hide(delay);
             $('div#sidebar').hide(delay);
         } else {
             $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/updateSession', {fullScreen: 0});
             $('div.row-fluid > div.spaanold10').addClass('span10').removeClass('spaanold10');
+            $('div.flash-success').show(delay);
             $('div.navbar').show(delay);
             $('ul.breadcrumb').show(delay);
             $('div#sidebar').show(delay);
@@ -158,7 +187,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
             "bAutoWidth": false,
             "aaSorting": [[1, "asc"]],
             "bServerSide": true,
-            "sAjaxSource": '<?php echo Yii::app()->request->baseUrl; ?>/control/table' + $('ul.nav-tabs li.active a').attr('href').replace('table','') + '&ajax',
+            "sAjaxSource": '<?php echo Yii::app()->request->baseUrl; ?>/control/table' + $('ul.nav-tabs li.active a').attr('href').replace('table', '') + '&ajax',
             "aoColumnDefs": [{"bVisible": false, "aTargets": [0]},
                 {"sClass": 'names', "aTargets": [2]},
                 {"sClass": 'locations', "aTargets": [3]},
@@ -169,6 +198,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 {"sClass": 'values', "aTargets": [8]}
             ]
         });
+
 <?php if (isset(yii::app()->session['fullScreen'])): ?>
             fullScreen(0);
 <?php endif; ?>
@@ -178,7 +208,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
 
     function needRefresh() {
         if (maxdate !== '' && updateOK)
-            $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/lastChanged' + $('ul.nav-tabs li.active a').attr('href').replace('table',''), function(data) {
+            $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/lastChanged' + $('ul.nav-tabs li.active a').attr('href').replace('table', ''), function(data) {
                 if (data != null && data != '?') {
                     $('.lastChanged').html('<b>Last change on server</b> : ' + data + ' - <b>Last change here</b> : ' + maxdate);
                     if (maxdate != data) {
@@ -197,7 +227,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
     }
 
     function SPAction(value, device) {
-        $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/setDevice', {device: device, action: 'SP '+value},
+        $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/setDevice', {device: device, action: 'SP ' + value},
         function(data) {
             if (data.result) {
                 $('button').attr('disabled', 'disabled');
@@ -224,6 +254,38 @@ $this->widget('bootstrap.widgets.TbNav', array(
         }, 'json').fail(function() {
             $('.lastChanged').html('DF');
         });
+    }
+    function btSetPoint(event, but) {
+        event.stopPropagation();
+        var comma = false;
+        var inputField = $(but).parents('td.commands').find('input.inputSetPoint');
+        var value = inputField.val();
+        if (value.indexOf(',') !== -1) {
+            comma = true;
+            value = value.replace(',', '.');
+        }
+        value *= 10;
+        if ($(but).hasClass('btMoins')) {
+            value = value - 1;
+            value /= 10;
+            value = new String(value);
+            if (comma)
+                value = value.replace('.', ',');
+            inputField.val(value);
+        } else if ($(but).hasClass('btPlus')) {
+            value = value + 1;
+            value /= 10;
+            value = new String(value);
+            if (comma)
+                value = value.replace('.', ',');
+            inputField.val(value);
+        } else if ($(but).hasClass('btSetPoint')) {
+            value /= 10;
+            value = new String(value);
+            if (comma)
+                value = value.replace('.', ',');
+            SPAction(value, $(but).data('device'));
+        }
     }
     function initSliders() {
         $('.slider').slider()

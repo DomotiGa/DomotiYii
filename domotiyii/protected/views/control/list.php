@@ -13,6 +13,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 ));
 $maxdate = '';
 ?>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.mousewheel.min.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/static/bootstrap-slider.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/slider_list.css" />
 
@@ -71,6 +72,20 @@ $maxdate = '';
         width: 90px;
         height: 30px;
         margin-top:5px;
+    }
+    .inputSetPoint {
+        width: 30px;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .btMoins,.btPlus {
+        background-color: #006dcc;
+        border:1px solid #006dcc;
+        color: white;
+        width:15px;
+        text-align:center;
+        padding:0px;
+        font-weight: bold;
     }
 </style>
 
@@ -156,12 +171,14 @@ $this->widget('bootstrap.widgets.TbNav', array(
         if ($('div.row-fluid > div.spaanold10').length === 0) {
             $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/updateSession', {fullScreen: 1});
             $('div.row-fluid > div.span10').removeClass('span10').addClass('spaanold10');
+            $('div.flash-success').hide(delay);
             $('div.navbar').hide(delay);
             $('ul.breadcrumb').hide(delay);
             $('div#sidebar').hide(delay);
         } else {
             $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/updateSession', {fullScreen: 0});
             $('div.row-fluid > div.spaanold10').addClass('span10').removeClass('spaanold10');
+            $('div.flash-success').show(delay);
             $('div.navbar').show(delay);
             $('ul.breadcrumb').show(delay);
             $('div#sidebar').show(delay);
@@ -185,7 +202,14 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 $('.device').animate({height: '125px'}, 1000);
                 $('.showValues').removeClass('icon-chevron-up').addClass('icon-chevron-down');
             }
-
+        });
+        $('.btSetPoint').on('click', function(event) {
+            btSetPoint(event, this);
+        });
+        $('input.inputSetPoint').mousewheel(function(event, delta) {
+            event.preventDefault();
+            if(delta>0) $(this).parents('div.device').find('button.btPlus').trigger('click');
+            if(delta<0) $(this).parents('div.device').find('button.btMoins').trigger('click');
         });
 <?php if (isset(yii::app()->session['fullScreen'])): ?>
             fullScreen(0);
@@ -214,7 +238,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
 <?php endif; ?>
     }
     function SPAction(value, device) {
-        $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/setDevice', {device: device, action: 'SP '+value},
+        $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/setDevice', {device: device, action: 'SP ' + value},
         function(data) {
             if (data.result) {
                 $('button').attr('disabled', 'disabled');
@@ -243,12 +267,44 @@ $this->widget('bootstrap.widgets.TbNav', array(
             $('.lastChanged').html('DF');
         });
     }
+    function btSetPoint(event, but) {
+        event.stopPropagation();
+        var comma = 0;
+        var inputField = $(but).closest('.device').find('.inputSetPoint');
+        var value = inputField.val();
+        if (value.indexOf(',') !== -1) {
+            comma = 1;
+            value = value.replace(',', '.');
+        } else
+            comma = 0;
+        value *= 10;
+        if ($(but).hasClass('btMoins')) {
+            value = value - 1;
+            value /= 10;
+            value = new String(value);
+            if (comma)
+                value = value.replace('.', ',');
+            inputField.val(value);
+        } else if ($(but).hasClass('btPlus')) {
+            value = value + 1;
+            value /= 10;
+            value = new String(value);
+            if (comma)
+                value = value.replace('.', ',');
+            inputField.val(value);
+        } else if ($(but).hasClass('btSetPoint')) {
+            value /= 10;
+            value = new String(value);
+            if (comma)
+                value = value.replace('.', ',');
+            SPAction(value, $(but).closest('.device').find('.id').text());
+        }
+    }
     function initSliders() {
         $('.slider').slider()
                 .on('slideStop', function(ev) {
             var action = ev.value;
             var device = $(this).data('device');
-
             if (action == 0) {
                 action = "Off";
             } else if (action == 100) {

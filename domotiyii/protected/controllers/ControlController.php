@@ -99,34 +99,40 @@ class ControlController extends Controller {
         $dimmer = '<div class="slider-container" style="text-align:center;margin:0px;"><input type="text" class="slider" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="' . $valueOne . '" data-slider-orientation="horizontal" data-device="' . $obj->id . '" data-slider-selection="after" data-slider-tooltip="hide">&nbsp;<span style="font-weigth:bold;"></span></div>';
         $space = '<div class="fixSpace"></div>';
         $buttons = '<button type="button" name="but" onClick="btAction(event,this)" data-action="Off" data-device="' . $obj->id . '" class="btn btn-primary btn-mini">Off</button>&nbsp;<button type="button" onClick="btAction(event,this)" data-action="On" data-device="' . $obj->id . '" class="btn btn-primary btn-mini">On</button>';
+        if ($obj->SPdevice) {
+            $comma = FALSE;
+            $tmp = $obj->getValue(1);
+            if (strpos($tmp, 'SP') !== FALSE)
+                $tmp = str_replace('SP ', '', $tmp);
+
+            $buff = '<button type="button" name="but" class="btSetPoint btMoins">-</button>'
+                .'<input type="text" class="inputSetPoint" value="'.$tmp.'">'
+                . '<button type="button" class="btSetPoint btPlus">+</button>'
+                . '&nbsp;&nbsp;<button type="button" data-device="'.$obj->id.'" class="btn btn-primary btn-mini btSetPoint">Set</button>';
+            
+//            if (strpos($tmp, ',') !== FALSE) {
+//                $tmp = str_replace(',', '.', $tmp); //in french number have comma instead of point @TODO TBD
+//                $comma = TRUE;
+//            }
+//            $buff = '<select class="spDevice" name="spdevice" onChange="SPAction($(this).val(),' . $obj->id . ');">';
+//            for ($x = ($tmp - 1); $x < ($tmp + 1); $x = $x + 0.1) {
+//                if ($comma)
+//                    $value = str_replace('.', ',', $x);
+//                else
+//                    $value = $x;
+//                $buff.="<option " . (abs($x - $tmp) < 0.05 ? 'SELECTED' : '') . ">$value</option>"; //grrrr always problem to compare 2 float numbers
+//            }
+//            $buff.='</select>';
+
+            return $buff;
+        }
         if ($obj->switchable == -1) {
-            if ($obj->SPdevice) {
-                $comma = FALSE;
-                $tmp = $obj->getValue(1);
-                if (strpos($tmp, 'SP') !== FALSE)
-                    $tmp = str_replace('SP ', '', $tmp);
-                if (strpos($tmp, ',') !== FALSE) {
-                    $tmp = str_replace(',', '.', $tmp); //in french number have comma instead of point @TODO TBD
-                    $comma = TRUE;
-                }
-                $buff = '<select class="spDevice" name="spdevice" onChange="SPAction($(this).val(),' . $obj->id . ');">';
-                for ($x = ($tmp - 1); $x < ($tmp + 1); $x = $x + 0.1) {
-                    if ($comma)
-                        $value = str_replace('.', ',', $x);
-                    else
-                        $value = $x;
-                    $buff.="<option " . (abs($x - $tmp) < 0.05 ? 'SELECTED' : '') . ">$value</option>"; //grrrr always problem to compare 2 float numbers
-                }
-                $buff.='</select>';
-                return $buff;
-            }
-            else
-                return $space . $buttons;
+            return $space . $buttons;
         } else if ($obj->dimable == -1)
             return $dimmer . $buttons;
-        else {
+        else
             return "";
-        }
     }
 
 }
+
