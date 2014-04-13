@@ -82,7 +82,7 @@ $maxdate = '';
         background-color: #006dcc;
         border:1px solid #006dcc;
         color: white;
-        width:15px;
+        width:30px;
         text-align:center;
         padding:0px;
         font-weight: bold;

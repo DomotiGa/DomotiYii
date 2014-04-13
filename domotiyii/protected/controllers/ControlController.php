@@ -106,10 +106,10 @@ class ControlController extends Controller {
                 $tmp = str_replace('SP ', '', $tmp);
 
             $buff = '<button type="button" name="but" class="btSetPoint btMoins">-</button>'
-                .'<input type="text" class="inputSetPoint" value="'.$tmp.'">'
+                . '<input type="text" class="inputSetPoint" value="' . $tmp . '">'
                 . '<button type="button" class="btSetPoint btPlus">+</button>'
-                . '&nbsp;&nbsp;<button type="button" data-device="'.$obj->id.'" class="btn btn-primary btn-mini btSetPoint">Set</button>';
-            
+                . '&nbsp;&nbsp;<button type="button" data-device="' . $obj->id . '" class="btn btn-primary btn-mini btSetPoint">Set</button>';
+
 //            if (strpos($tmp, ',') !== FALSE) {
 //                $tmp = str_replace(',', '.', $tmp); //in french number have comma instead of point @TODO TBD
 //                $comma = TRUE;
