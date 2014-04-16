@@ -1,6 +1,13 @@
 <?php
 
-class ControlController extends Controller {
+class ControlController extends CController {
+
+    public $mobile_page = FALSE;
+
+    public function init() {
+        parent::init();
+        Yii::app()->layout = '//layouts/normal';
+    }
 
     public function actionTable() {
         $crit = $this->getFilter();
@@ -36,10 +43,11 @@ class ControlController extends Controller {
 
         $crit = $this->getFilter();
         if ($date !== NULL) {
-            $crit->addCondition("t.lastchanged >= :date");
+            $crit->addCondition("t.lastchanged > :date");
             $crit->params[':date'] = $date;
         }
         $res = Devices::model()->findAll($crit);
+        $maxdate = '';
         $tab = array();
         foreach ($res as $obj) {
             $row = array(
@@ -54,11 +62,14 @@ class ControlController extends Controller {
                 'val4' => $obj->getValue(4),
                 'lastchanged' => $obj->lastchanged,
             );
-
+            if ($maxdate < $obj->lastchanged)
+                $maxdate = $obj->lastchanged;
             $tab[] = $row;
         }
+        if ($maxdate == '')
+            $maxdate = $date;
         if (!is_null(yii::app()->request->getParam('ajax'))) {
-            $data = array('aaData' => $tab);
+            $data = array('tab' => $tab, 'maxdate' => $maxdate);
             die($this->renderPartial('jsonData', array('data' => $data), TRUE));
         }
         else
@@ -109,21 +120,6 @@ class ControlController extends Controller {
                 . '<input type="text" class="inputSetPoint" value="' . $tmp . '">'
                 . '<button type="button" class="btSetPoint btPlus">+</button>'
                 . '&nbsp;&nbsp;<button type="button" data-device="' . $obj->id . '" class="btn btn-primary btn-mini btSetPoint">Set</button>';
-
-//            if (strpos($tmp, ',') !== FALSE) {
-//                $tmp = str_replace(',', '.', $tmp); //in french number have comma instead of point @TODO TBD
-//                $comma = TRUE;
-//            }
-//            $buff = '<select class="spDevice" name="spdevice" onChange="SPAction($(this).val(),' . $obj->id . ');">';
-//            for ($x = ($tmp - 1); $x < ($tmp + 1); $x = $x + 0.1) {
-//                if ($comma)
-//                    $value = str_replace('.', ',', $x);
-//                else
-//                    $value = $x;
-//                $buff.="<option " . (abs($x - $tmp) < 0.05 ? 'SELECTED' : '') . ">$value</option>"; //grrrr always problem to compare 2 float numbers
-//            }
-//            $buff.='</select>';
-
             return $buff;
         }
         if ($obj->switchable == -1) {

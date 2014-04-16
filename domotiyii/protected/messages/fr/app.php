@@ -253,5 +253,7 @@ return array(
     'Value 3'=>'Valeur 3',
     'Value 4'=>'Valeur 4',
     'Devices with values'=>'Liste Appareils et valeurs',
+    //Control view
+    'Last Update'=>'Dernière MAJ',
 );
 ?>

@@ -1,7 +1,4 @@
 <?php
-/* @var $this DevicesController */
-/* @var $dataProvider CActiveDataProvider */
-
 $type = Yii::app()->request->getParam('type', 'Control');
 $location = Yii::app()->request->getParam('location', 'All');
 
@@ -14,8 +11,10 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 $maxdate = '';
 ?>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/static/modernizr.custom.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/static/bootstrap-slider.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/slider_list.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/control_slider.css" />
 
 <style>
     .device {
@@ -87,6 +86,15 @@ $maxdate = '';
         padding:0px;
         font-weight: bold;
     }
+    .newdataAfter,.newdataBefore {
+        background-color: yellow;
+    }
+    .device.deviceOn {
+        background-color: lightgreen;
+    }
+    .badge {
+        margin-top:2px;
+    }
 </style>
 
 <?php
@@ -103,19 +111,17 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 array('label' => Yii::t('app', 'All'), 'url' => '?type=All&location=' . $location, 'active' => $type == 'All'),
                 array('label' => Yii::t('app', 'Sensors'), 'url' => '?type=Sensors&location=' . $location, 'active' => $type == 'Sensors'))),
         array('label' => Yii::t('app', 'Location') . ' : ' . Yii::t('app', $location), 'items' => $lstLocation),
-        array('label' => Yii::t('app', 'FullScreen'), 'url' => 'javascript:fullScreen();'),
-        array('label' => Yii::t('app', 'Devices On'), 'url' => 'javascript:void(0);', 'htmlOptions' => array('class' => 'showDeviceOn')),
-        array('label' => Yii::t('app', 'Devices Off'), 'url' => 'javascript:void(0);', 'htmlOptions' => array('class' => 'showDeviceOff'))
+        array('label' => Yii::t('app', 'FullScreen'), 'url' => 'javascript:fullScreen();')
     ),
 ));
 ?>
 <div class="row-fluid">
     <?php foreach ($data as $dev): ?>
         <?php if ($maxdate < $dev['lastchanged']) $maxdate = $dev['lastchanged']; ?>
-        <div class="device text-left">
+        <div class="device text-left" id="<?php echo $dev['id']; ?>">
             <div class="id"><?php echo $dev['id']; ?></div>
-            <div class="icon">
-                <?php echo $dev['icon']; ?>&nbsp;<span class="deviceName label label-info"><?php echo $dev['name']; ?></span>
+            <div class="title">
+                <span class="icon"><?php echo $dev['icon']; ?>&nbsp;</span><span class="deviceName label label-info"><?php echo $dev['name']; ?></span>
                 <i class="showValues icon-chevron-down"></i>
                 <span class="badge badge-info location"><?php echo $dev['location']; ?></span>
             </div>
@@ -124,80 +130,26 @@ $this->widget('bootstrap.widgets.TbNav', array(
             <div class="value showAllVal"><span class="slabel"><?php echo Yii::t('app', 'Value 2'); ?> : </span><div class="val2 label label-important"><?php echo $dev['val2']; ?></div></div>
             <div class="value showAllVal"><span class="slabel"><?php echo Yii::t('app', 'Value 3'); ?> : </span><div class="val3 label label-important"><?php echo $dev['val3']; ?></div></div>
             <div class="value showAllVal"><span class="slabel"><?php echo Yii::t('app', 'Value 4'); ?> : </span><div class="val4 label label-important"><?php echo $dev['val4']; ?></div></div>
-            <div class="value"><span class="slabel"><?php echo Yii::t('app', 'Last Seen'); ?> : </span><div class="lastchanged label label-info"><?php echo $dev['lastchanged']; ?></div></div>
+            <div class="value"><span class="slabel"><?php echo Yii::t('app', 'Last Update'); ?> : </span><span class="newdataBefore"></span> <div class="lastchanged label label-info"><?php echo $dev['lastchanged']; ?></div> <span class="newdataAfter"></span></div>
             <div class="commands text-center"><?php echo $dev['commands']; ?></div>
         </div>
     <?php endforeach; ?>
 </div>
-<div style="text-align:center;margin:0px;" class="lastChanged"></div>
+<div style="text-align:center;margin:0px;" class="msgLastChanged"></div>
 <script>
     var maxdate = '<?php echo $maxdate; ?>';
     var updateOK = true;
     var reloading = false;
-    function formatPage() {
-        var datestr = maxdate.split(' ')[0];
-        $('div.lastchanged:contains(' + maxdate + ')').each(function(i, v) {
-            $(v).parents('div.device').addClass('newdata');
-            $(v).removeClass('label-info').addClass('label-inverse');
-        });
-        $('div.lastchanged:contains(' + datestr + ')').each(function(i, v) {
-            var tmp = $(v).html();
-            $(v).html(tmp.replace(datestr, ''));
-        });
-        $('.device .val1').each(function(i, v) {
-//            console.log($(v).text());
-            if ($(v).text() === 'On' || $(v).text().substring(0, 3) === 'Dim') {
-                $(v).addClass('label-success').removeClass('label-important');
-                $(v).parents('.device').find('.deviceName').addClass('label-success').removeClass('label-info');
-                $(v).parents('.device').find('.location').addClass('badge-success').removeClass('badge-info');
-                $(v).parents('.device').addClass('deviceOn');
-            } else
-                $(v).parents('.device').addClass('deviceOff');
-        });
-        $('.showDeviceOn').hover(function() {
-            $('.deviceOff').animate({opacity: 0.25}, 1000)
-        }, function() {
-            $('.deviceOff').animate({opacity: 1}, 1000)
-        });
-        $('.showDeviceOff').hover(function() {
-            $('.deviceOn').animate({opacity: 0.25}, 1000)
-        }, function() {
-            $('.deviceOn').animate({opacity: 1}, 1000)
-        });
-    }
-
-    function fullScreen(tmp) {
-        var delay = (typeof tmp == 'undefined') ? 1000 : tmp;
-        if ($('div.row-fluid > div.spaanold10').length === 0) {
-            $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/updateSession', {fullScreen: 1});
-            $('div.row-fluid > div.span10').removeClass('span10').addClass('spaanold10');
-            $('div.flash-success').hide(delay);
-            $('div.navbar').hide(delay);
-            $('ul.breadcrumb').hide(delay);
-            $('div#sidebar').hide(delay);
-        } else {
-            $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/updateSession', {fullScreen: 0});
-            $('div.row-fluid > div.spaanold10').addClass('span10').removeClass('spaanold10');
-            $('div.flash-success').show(delay);
-            $('div.navbar').show(delay);
-            $('ul.breadcrumb').show(delay);
-            $('div#sidebar').show(delay);
-        }
-    }
-
     $(document).ready(go());
     function go() {
-        formatPage();
-        initSliders();
-        needRefresh();
         $('.showValues').on('click', function() {
             if ($(this).hasClass('icon-chevron-down')) {
-                $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/updateSession', {allValues: 1});
+                $.cookie('allValues', '1', 15);
                 $('.showAllVal').show(1000);
                 $('.device').animate({height: '205px'}, 1000);
                 $('.showValues').removeClass('icon-chevron-down').addClass('icon-chevron-up');
             } else {
-                $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/updateSession', {allValues: 0});
+                $.removeCookie('allValues');
                 $('.showAllVal').hide(1000);
                 $('.device').animate({height: '125px'}, 1000);
                 $('.showValues').removeClass('icon-chevron-up').addClass('icon-chevron-down');
@@ -208,123 +160,183 @@ $this->widget('bootstrap.widgets.TbNav', array(
         });
         $('input.inputSetPoint').mousewheel(function(event, delta) {
             event.preventDefault();
-            if(delta>0) $(this).parents('div.device').find('button.btPlus').trigger('click');
-            if(delta<0) $(this).parents('div.device').find('button.btMoins').trigger('click');
+            if (delta > 0)
+                $(this).parents('div.device').find('button.btPlus').trigger('click');
+            if (delta < 0)
+                $(this).parents('div.device').find('button.btMoins').trigger('click');
         });
-<?php if (isset(yii::app()->session['fullScreen'])): ?>
+        $('div.lastchanged:contains(' + maxdate + ')').each(function(i, v) {
+            $(v).next('.newdataAfter').html('&lt;&lt;&lt;&lt;');
+            $(v).prev('.newdataBefore').html('&gt;&gt;&gt;&gt;');
+        });
+        formatPage();
+        initSliders();
+        needRefresh();
+        if ($.cookie('fullScreen') === '1')
             fullScreen(0);
-<?php endif; ?>
 
-<?php if (isset(yii::app()->session['allValues'])): ?>
+        if ($.cookie('allValues') === '1')
             $('.showValues').first().trigger('click');
-<?php endif; ?>
+    }
+
+    function formatPage() {
+        var datestr = maxdate.split(' ')[0];
+        $('.newdataAfter,.newdataBefore').each(function(i, v) {
+            if ($(v).text().length > 1)
+                $(v).text($(v).text().replace('<', '').replace('>', ''));
+            else if ($(v).text().length == 1)
+                $(v).text('');
+        });
+        $('div.lastchanged:contains(' + datestr + ')').each(function(i, v) {
+            var tmp = $(v).html();
+            $(v).html(tmp.replace(datestr, ''));
+        });
+
+        $('.device .val1').each(function(i, v) {
+            if ($(v).text() === 'On' || $(v).text().substring(0, 3) === 'Dim') {
+                $(v).addClass('label-success').removeClass('label-important');
+                $(v).parents('.device').find('.deviceName').addClass('label-success').removeClass('label-info');
+                $(v).parents('.device').find('.location').addClass('badge-success').removeClass('badge-info');
+                $(v).parents('.device').addClass('deviceOn');
+                $(v).parents('.device').removeClass('deviceOff');
+            } else {
+                $(v).removeClass('label-success').addClass('label-important');
+                $(v).parents('.device').find('.deviceName').removeClass('label-success').addClass('label-info');
+                $(v).parents('.device').find('.location').removeClass('badge-success').addClass('badge-info');
+                $(v).parents('.device').addClass('deviceOff');
+                $(v).parents('.device').removeClass('deviceOn');
+            }
+        });
+    }
+
+    function fullScreen(tmp) {
+        var delay = (typeof tmp == 'undefined') ? 1000 : tmp;
+        if ($('div.row-fluid > div.spaanold10').length === 0) {
+            $.cookie('fullScreen', '1', 15);
+            $('div.row-fluid > div.span10').removeClass('span10').addClass('spaanold10');
+            $('div.flash-success').hide(delay);
+            $('div.navbar').hide(delay);
+            $('ul.breadcrumb').hide(delay);
+            $('div#sidebar').hide(delay);
+        } else {
+            $.removeCookie('fullScreen');
+            $('div.row-fluid > div.spaanold10').addClass('span10').removeClass('spaanold10');
+            $('div.flash-success').show(delay);
+            $('div.navbar').show(delay);
+            $('ul.breadcrumb').show(delay);
+            $('div#sidebar').show(delay);
+        }
     }
 
     function needRefresh() {
-        if (maxdate !== '' && updateOK)
-            $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/lastChanged' + $('ul.nav-tabs li.active a').attr('href'), function(data) {
+        if (!updateOK) {
+            setTimeout('needRefresh()', 400);
+            return;
+        }
+        if (maxdate !== '')
+            $.get('<?php echo Yii::app()->request->baseUrl; ?>/Control/list2' + $('ul.nav-tabs li.active a').attr('href') + '&ajax=1&date=' + maxdate, function(data) {
                 if (data != null) {
-                    $('.lastChanged').html('<b>Last change on server</b> : ' + data + ' - <b>Last change here</b> : ' + maxdate);
-                    if (maxdate != data) {
-                        updateOK = false;
-                        location.reload();
-                        reloading = true;
+                    maxdate = data.maxdate;
+                    $('.msgLastChanged').html('<b>Last change on server</b> : ' + data.maxdate + ' - <b>Last change here</b> : ' + maxdate);
+                    if (data.tab != null && data.tab.length > 0) {
+                        for (var x = 0; x < data.tab.length; x = x + 1) {
+                            var row = data.tab[x];
+                            var id = row.id;
+                            var dev = $('#' + id);
+                            dev.animate({opacity: 0.15}, 100);
+                            dev.find('.icon').html(row.icon);
+                            dev.find('.location').html(row.location);
+                            dev.find('.val1').html(row.val1);
+                            dev.find('.val2').html(row.val2);
+                            dev.find('.val3').html(row.val3);
+                            dev.find('.val4').html(row.val4);
+                            dev.find('.lastchanged').html(row.lastchanged);
+                            dev.find('.newdataAfter').html('&lt;&lt;&lt;&lt;');
+                            dev.find('.newdataBefore').html('&gt;&gt;&gt;&gt;');
+                            if (dev.find('.slider').length > 0) {
+                                var val = row.val1.replace('Dim ', '');
+                                if (val === 'On')
+                                    val = '100';
+                                if (isNaN(val))
+                                    val = '0';
+                                dev.find('.commands').html(row.commands);
+                                dev.removeClass('setup');
+                            }
+                            dev.animate({opacity: 1}, 2000);
+                        }
+                        initSliders();
+                        formatPage();
                     }
                 }
+            }, 'json').always(function() {
+                $('button.btUsed').removeClass('btn-default').addClass('btn-primary');
             });
 <?php if (is_null(yii::app()->request->getParam('debug'))): ?>
             if (!reloading)
                 setTimeout('needRefresh()', 2000);
 <?php endif; ?>
     }
-    function SPAction(value, device) {
-        $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/setDevice', {device: device, action: 'SP ' + value},
+    function deviceAction(device, action) {
+        $('button').attr('disabled', 'disabled');
+        updateOK = false;
+        $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/setDevice', {device: device, action: action},
         function(data) {
             if (data.result) {
-                $('button').attr('disabled', 'disabled');
-                updateOK = false;
-                location.reload();
             } else
-                $('.lastChanged').html('DO');
+                $('.msgLastChanged').html('DO');
         }, 'json').fail(function() {
-            $('.lastChanged').html('DF');
+            $('.msgLastChanged').html('DF');
+        }).always(function() {
+            updateOK = true;
+            $('button').removeAttr('disabled');
         });
     }
     function btAction(event, but) {
         event.stopPropagation();
-        $(but).removeClass('btn-primary').addClass('btn-default');
-        var device = $(but).data('device');
-        var action = $(but).data('action');
-        $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/setDevice', {device: device, action: action},
-        function(data) {
-            if (data.result) {
-                $('button').attr('disabled', 'disabled');
-                updateOK = false;
-                location.reload();
-            } else
-                $('.lastChanged').html('DO');
-        }, 'json').fail(function() {
-            $('.lastChanged').html('DF');
-        });
+        $(but).removeClass('btn-primary').addClass('btn-default').addClass('btUsed');
+        deviceAction($(but).data('device'), $(but).data('action'));
     }
     function btSetPoint(event, but) {
         event.stopPropagation();
-        var comma = 0;
         var inputField = $(but).closest('.device').find('.inputSetPoint');
         var value = inputField.val();
-        if (value.indexOf(',') !== -1) {
-            comma = 1;
-            value = value.replace(',', '.');
-        } else
-            comma = 0;
         value *= 10;
         if ($(but).hasClass('btMoins')) {
             value = value - 1;
             value /= 10;
             value = new String(value);
-            if (comma)
-                value = value.replace('.', ',');
             inputField.val(value);
         } else if ($(but).hasClass('btPlus')) {
             value = value + 1;
             value /= 10;
             value = new String(value);
-            if (comma)
-                value = value.replace('.', ',');
             inputField.val(value);
         } else if ($(but).hasClass('btSetPoint')) {
             value /= 10;
             value = new String(value);
-            if (comma)
-                value = value.replace('.', ',');
-            SPAction(value, $(but).closest('.device').find('.id').text());
+            deviceAction($(but).closest('.device').find('.id').text(), 'SP ' + value);
         }
     }
     function initSliders() {
-        $('.slider').slider()
-                .on('slideStop', function(ev) {
-            var action = ev.value;
-            var device = $(this).data('device');
-            if (action == 0) {
-                action = "Off";
-            } else if (action == 100) {
-                action = "On";
-            } else {
-                action = "Dim " + action;
-            }
-            $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/setDevice', {device: device, action: action},
-            function(data) {
-                if (data.result) {
-                    $('button').attr('disabled', 'disabled');
-                    updateOK = false;
-                    location.reload();
-                } else
-                    $('.lastChanged').html('DO');
-            }, 'json').fail(function() {
-                $('.lastChanged').html('DF');
+        $('.slider').each(function(i, s) {
+            if ($(s).closest('.device').hasClass('setup'))
+                return;
+            $(s).closest('.device').addClass('setup');
+            $(s).slider()
+                    .on('slideStop', function(ev) {
+                var action = ev.value;
+                var device = $(this).data('device');
+                if (action == 0) {
+                    action = "Off";
+                } else if (action == 100) {
+                    action = "On";
+                } else {
+                    action = "Dim " + action;
+                }
+                deviceAction(device, action);
+            }).on('slide', function(ev) {
+                $(this).parents('div.device').find('div.val1').text(ev.value);
             });
-        }).on('slide', function(ev) {
-            $(this).parents('div.device').find('div.val1').text(ev.value);
         });
     }
 </script>
