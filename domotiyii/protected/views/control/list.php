@@ -234,7 +234,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
             return;
         }
         if (maxdate !== '')
-            $.get('<?php echo Yii::app()->request->baseUrl; ?>/Control/list2' + $('ul.nav-tabs li.active a').attr('href') + '&ajax=1&date=' + maxdate, function(data) {
+            $.get('<?php echo Yii::app()->request->baseUrl; ?>/Control/list' + $('ul.nav-tabs li.active a').attr('href') + '&ajax=1&date=' + maxdate, function(data) {
                 if (data != null) {
                     maxdate = data.maxdate;
                     $('.msgLastChanged').html('<b>Last change on server</b> : ' + data.maxdate + ' - <b>Last change here</b> : ' + maxdate);
