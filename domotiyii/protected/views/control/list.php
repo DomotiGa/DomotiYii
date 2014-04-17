@@ -292,12 +292,10 @@ $this->widget('bootstrap.widgets.TbNav', array(
         });
     }
     function btAction(event, but) {
-        event.stopPropagation();
         $(but).removeClass('btn-primary').addClass('btn-default').addClass('btUsed');
         deviceAction($(but).data('device'), $(but).data('action'));
     }
     function btSetPoint(event, but) {
-        event.stopPropagation();
         var inputField = $(but).closest('.device').find('.inputSetPoint');
         var value = inputField.val();
         value *= 10;
