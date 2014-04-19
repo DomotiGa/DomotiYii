@@ -60,14 +60,15 @@ class Devices extends CActiveRecord {
 
     /**
      * @return get last value
-     */
+     
     public function getValue($n) {
         $val = DeviceValues::model()->find("device_id='{$this->id}' and valuenum=$n");
         if ($val !== NULL)
             return $val->value;
         else
             return "";
-    }
+    }*/
+
 
     /**
      * @return button OnOff
@@ -85,10 +86,10 @@ class Devices extends CActiveRecord {
      * @return icon path for a device
      */
     public function getIcon() {
-        if ($this->getValue(1) === 'On')
+        if ($this->deviceValue1->value === 'On')
             $icon = $this->onicon;
         else
-        if (strpos($this->getValue(1), 'Dim') !== FALSE)
+        if (strpos($this->deviceValue1->value, 'Dim') !== FALSE)
             $icon = $this->dimicon;
         else
             $icon = $this->officon;
@@ -245,13 +246,17 @@ class Devices extends CActiveRecord {
             'l_location' => array(self::BELONGS_TO, 'Locations', 'location'),
             'l_interface' => array(self::BELONGS_TO, 'Interfaces', 'interface'),
             'devicevalues' => array(self::HAS_MANY, 'DeviceValues', 'device_id'),
+            'deviceValue1' => array(self::HAS_ONE, 'DeviceValues', 'device_id','on'=>'valuenum=1'),
+            'deviceValue2' => array(self::HAS_ONE, 'DeviceValues', 'device_id','on'=>'valuenum=2'),
+            'deviceValue3' => array(self::HAS_ONE, 'DeviceValues', 'device_id','on'=>'valuenum=3'),
+            'deviceValue4' => array(self::HAS_ONE, 'DeviceValues', 'device_id','on'=>'valuenum=4'),
         );
     }
 
     public function getSPdevice() {
         if ($this->module == 243)
             return TRUE;
-        else if (strpos($this->getValue(1), 'SP ') === 0)
+        else if (strpos($this->deviceValue1->value, 'SP ') === 0)
             return TRUE;
         else
             return FALSE;
