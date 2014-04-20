@@ -202,6 +202,7 @@
   					array('label' => Yii::t('app','Control Table'), 'url' => array('/control/table')),
   					array('label' => Yii::t('app','Control Box'), 'url' => array('/control/list')),
 					array('label' => Yii::t('app','Camera'), 'url' => array('/CameraViewer')),
+					array('label' => Yii::t('app','Graphs'), 'url' => array('/Graphs')),
    					array('label' => Yii::t('app','Phone'), 'url' => array('cdr/index')),
 					TbHtml::menuDivider(),
 					array('label' => 'Help', 'icon'=>'flag', 'url' => array('/site/help')),
