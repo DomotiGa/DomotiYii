@@ -81,9 +81,9 @@ $date_column = "unix_timestamp(CONCAT(date(dvl.lastchanged), ' ', maketime(HOUR(
 
 $sql = "select " . $date_column . " as datum, 
 SUM( IF( dvl.value='" . $chartval . "', 1, 0 ) ) as value1
-FROM domotiga.devices d
-inner join domotiga.device_values dv on d.id = dv.device_id 
-inner join domotiga.device_values_log dvl on d.id = dvl.device_id and dv.valuenum = dvl.valuenum
+FROM ". $database .".devices d
+inner join ". $database .".device_values dv on d.id = dv.device_id 
+inner join ". $database .".device_values_log dvl on d.id = dvl.device_id and dv.valuenum = dvl.valuenum
 where dv.valuerrddsname = '" . $chartname . "'
 and d.id = " . $device_id . "
 group by " . $date_column . "
