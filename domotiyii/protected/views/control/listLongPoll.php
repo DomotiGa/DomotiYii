@@ -175,7 +175,9 @@ $this->widget('bootstrap.widgets.TbNav', array(
         });
         formatPage();
         initSliders();
-        needRefresh();
+<?php if (is_null(yii::app()->request->getParam('debug'))): ?>
+            needRefresh();
+<?php endif; ?>
         if ($.cookie('fullScreen') === '1')
             fullScreen(0);
 
@@ -232,21 +234,13 @@ $this->widget('bootstrap.widgets.TbNav', array(
         }
     }
 
+//TRYING LONG POLLING
     function needRefresh() {
-        if (!updateOK) {
+        if (!updateOK || maxdate === '') {
             setTimeout('needRefresh()', 400);
             return;
         }
-// FOR TRYING LONG POLLING LATER
-//        (function poll() {
-//            $.ajax({url: "server", success: function(data) {
-//                    //Update your dashboard gauge
-//                    salesGauge.setValue(data.value);
-//
-//                }, dataType: "json", complete: poll, timeout: 30000});
-//        })();
-        if (maxdate !== '')
-            $.get('<?php echo Yii::app()->request->baseUrl; ?>/Control/list' + $('ul.nav-tabs li.active a').attr('href') + '&ajax=1&date=' + maxdate, function(data) {
+        $.ajax({url: '<?php echo Yii::app()->request->baseUrl; ?>/Control/listLongPoll' + $('ul.nav-tabs li.active a').attr('href') + '&ajax=1&date=' + maxdate, success: function(data) {
                 if (data != null) {
                     maxdate = data.maxdate;
                     $('.msgLastChanged').html('<b>Last change on server</b> : ' + data.maxdate + ' - <b>Last change here</b> : ' + maxdate);
@@ -280,13 +274,10 @@ $this->widget('bootstrap.widgets.TbNav', array(
                         formatPage();
                     }
                 }
-            }, 'json').always(function() {
+            }, complete: function() {
                 $('button.btUsed').removeClass('btn-default').addClass('btn-primary');
-            });
-<?php if (is_null(yii::app()->request->getParam('debug'))): ?>
-            if (!reloading)
-                setTimeout('needRefresh()', 2000);
-<?php endif; ?>
+                setTimeout('needRefresh()', 400);
+            }, dataType: "json", timeout: 30000});
     }
     function deviceAction(device, action) {
         $('button').attr('disabled', 'disabled');

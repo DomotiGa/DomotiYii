@@ -45,10 +45,10 @@ class ControlController extends CController {
                 $obj->name,
                 $obj->locationtext,
                 $this->getActions($obj),
-                $obj->deviceValue1['value'],
-                $obj->deviceValue2['value'],
-                $obj->deviceValue3['value'],
-                $obj->deviceValue4['value'],
+                CHtml::value($obj, 'deviceValue1.value'),
+                CHtml::value($obj, 'deviceValue2.value'),
+                CHtml::value($obj, 'deviceValue3.value'),
+                CHtml::value($obj, 'deviceValue4.value'),
                 $obj->lastchanged,
             );
 
@@ -80,10 +80,10 @@ class ControlController extends CController {
                 'name' => $obj->name,
                 'location' => $obj->locationtext,
                 'commands' => $this->getActions($obj),
-                'val1' => $obj->deviceValue1['value'],
-                'val2' => $obj->deviceValue2['value'],
-                'val3' => $obj->deviceValue3['value'],
-                'val4' => $obj->deviceValue4['value'],
+                'val1' => CHtml::value($obj, 'deviceValue1.value'),
+                'val2' => CHtml::value($obj, 'deviceValue2.value'),
+                'val3' => CHtml::value($obj, 'deviceValue3.value'),
+                'val4' => CHtml::value($obj, 'deviceValue4.value'),
                 'lastchanged' => $obj->lastchanged,
             );
             if ($maxdate < $obj->lastchanged)
@@ -121,10 +121,10 @@ class ControlController extends CController {
                     'name' => $obj->name,
                     'location' => $obj->locationtext,
                     'commands' => $this->getActions($obj),
-                    'val1' => $obj->deviceValue1['value'],
-                    'val2' => $obj->deviceValue2['value'],
-                    'val3' => $obj->deviceValue3['value'],
-                    'val4' => $obj->deviceValue4['value'],
+                    'val1' => CHtml::value($obj, 'deviceValue1.value'),
+                    'val2' => CHtml::value($obj, 'deviceValue2.value'),
+                    'val3' => CHtml::value($obj, 'deviceValue3.value'),
+                    'val4' => CHtml::value($obj, 'deviceValue4.value'),
                     'lastchanged' => $obj->lastchanged,
                 );
                 if ($maxdate < $obj->lastchanged)
