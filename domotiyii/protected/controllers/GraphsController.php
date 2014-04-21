@@ -90,11 +90,17 @@ class GraphsController extends Controller
 		This functions returns an array with the chart details set in the device value log.
 	*/
 	public function getChartDetails($deviceid) {
-	
+		
+		// Get database name
+		$config = Yii::app()->getComponents(false);
+		$dbname = explode(";", $config['db']->connectionString);
+		$database = substr($dbname[1], strpos($dbname[1], '=')+1 );
+		
+		// Create sql to get the chart details
 		$sql = "select dv.valuerrddsname as chartname,
 		dvl.value as chartvalue
-		from domotiga.device_values dv
-		inner join domotiga.device_values_log dvl 
+		from ".$database.".device_values dv
+		inner join ".$database.".device_values_log dvl 
 			on dv.device_id = dvl.device_id 
 			and dv.valuenum = dvl.valuenum
 		where valuerrdtype = 'COUNTER'
@@ -102,6 +108,7 @@ class GraphsController extends Controller
 		group by dv.valuerrddsname,
 		dvl.value";
 		
+		// execute query
 		$list= Yii::app()->db->createCommand($sql)->queryAll();
 
 		$rs=array();
