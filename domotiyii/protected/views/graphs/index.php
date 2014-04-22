@@ -75,7 +75,7 @@ $( function() {
 
 	$.each(<?php echo 'device_'.$dev['id'] ?>, function(<?php echo 'i_'.$dev['id'] ?>, <?php echo 'name_'.$dev['id'] ?>) {
 
-		$.getJSON('/domotiyii/static//getGraphData.php?data=<?php echo $encryptedMysqlConnection; ?>&device=<?php echo $dev['id']; ?>&chartname=<?php echo trim($chartname); ?>&chartval='+ <?php echo 'name_'.$dev['id'] ?> +'&callback=?',	function(data) {
+		$.getJSON('<?php echo Yii::app()->request->baseUrl; ?>/Graphs/getGraphData?device=<?php echo $dev['id']; ?>&chartname=<?php echo trim($chartname); ?>&chartval='+ <?php echo 'name_'.$dev['id'] ?> +'&callback=?',	function(data) {
 
 			<?php echo 'seriesOptions_'.$dev['id'] ?>[<?php echo 'i_'.$dev['id'] ?>] = {
 				type: 'column',

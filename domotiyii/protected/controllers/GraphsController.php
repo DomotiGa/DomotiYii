@@ -1,39 +1,8 @@
 <?php
 
-class GraphsController extends Controller
-{
-    /**
-     * Default filter for access rules
-    **/
-    public function filters()
-    {
-        return array(
-            'accessControl',
-        );
-    }
+class GraphsController extends Controller {
 
-    /**
-     * Default access rules
-    **/
-    public function accessRules()
-    {
-        return array(
-            array('allow', // allow authenticated user 
-                'users'=>array('@'),
-            ),
-            array('deny',  // deny all users
-                'users'=>array('*'),
-            ),
-        );
-     }
-
-    public function init() {
-        parent::init();
-        Yii::app()->layout = '//layouts/normal';
-    }
-	
-	public function actionIndex()
-	{
+    public function actionIndex() {
         $crit = $this->getFilter();
 
         $res = Devices::model()->findAll($crit);
@@ -60,9 +29,9 @@ class GraphsController extends Controller
         }
         else
             $this->render('index', array('data' => $tab));
-	}
-	
-	private function getFilter() {
+    }
+
+    private function getFilter() {
         $crit = new CDbCriteria();
         $type = yii::app()->request->getParam('type', 'Control');
         $location = yii::app()->request->getParam('location', 'All');
@@ -86,66 +55,114 @@ class GraphsController extends Controller
         return $crit;
     }
 
-	/*
-		This functions returns an array with the chart details set in the device value log.
-	*/
-	public function getChartDetails($deviceid) {
-		
-		// Get database name
-		$config = Yii::app()->getComponents(false);
-		$dbname = explode(";", $config['db']->connectionString);
-		$database = substr($dbname[1], strpos($dbname[1], '=')+1 );
-		
-		// Create sql to get the chart details
-		$sql = "select dv.valuerrddsname as chartname,
+    /*
+      This functions returns an array with the chart details set in the device value log.
+     */
+
+    public function getChartDetails($deviceid) {
+
+        // Get database name
+        //not needed
+        $config = Yii::app()->getComponents(false);
+        $dbname = explode(";", $config['db']->connectionString);
+        $database = substr($dbname[1], strpos($dbname[1], '=') + 1);
+
+        // Create sql to get the chart details
+        $sql = "select dv.valuerrddsname as chartname,
 		dvl.value as chartvalue
-		from ".$database.".device_values dv
-		inner join ".$database.".device_values_log dvl 
+		from " . $database . ".device_values dv
+		inner join " . $database . ".device_values_log dvl 
 			on dv.device_id = dvl.device_id 
 			and dv.valuenum = dvl.valuenum
 		where valuerrdtype = 'COUNTER'
-		and dv.device_id = " .	$deviceid . "
+		and dv.device_id = " . $deviceid . "
 		group by dv.valuerrddsname,
 		dvl.value";
-		
-		// execute query
-		$list= Yii::app()->db->createCommand($sql)->queryAll();
 
-		$rs=array();
-		foreach($list as $item){
+        // execute query
+        $list = Yii::app()->db->createCommand($sql)->queryAll();
+
+        $rs = array();
+        foreach ($list as $item) {
             $row = array(
                 'chartname' => $item['chartname'],
-				'chartvalue' => $item['chartvalue']
+                'chartvalue' => $item['chartvalue']
             );
-			$rs[] = $row;
-		}
-		return $rs;
-	}
+            $rs[] = $row;
+        }
+        return $rs;
+    }
 
-	// Uncomment the following methods and override them if needed
-	/*
-	public function filters()
-	{
-		// return the filter configuration for this controller, e.g.:
-		return array(
-			'inlineFilterName',
-			array(
-				'class'=>'path.to.FilterClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
+    public function actionGetGraphData() {
+        if (isset($_GET['data'])) {
+            $encryptedMysqlConnection = $_GET['data'];
+        }
 
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-			'action1'=>'path.to.ActionClass',
-			'action2'=>array(
-				'class'=>'path.to.AnotherActionClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-	*/
+        if (isset($_GET['device'])) {
+            $device_id = $_GET['device'];
+        }
+
+        if (isset($_GET['chartname'])) {
+            $chartname = $_GET['chartname'];
+        }
+
+        if (isset($_GET['chartval'])) {
+            $chartval = $_GET['chartval'];
+        }
+
+        if (isset($_GET['callback'])) {
+            $callback = $_GET['callback'];
+            if (!preg_match('/^[a-zA-Z0-9_]+$/', $callback)) {
+                die('Invalid callback name');
+            }
+        }
+
+        if (isset($_GET['start'])) {
+            $start = $_GET['start'];
+            if ($start && !preg_match('/^[0-9]+$/', $start)) {
+                die("Invalid start parameter: $start");
+            }
+        } else {
+            $start = 0;
+        }
+
+        if (isset($_GET['end'])) {
+            $end = $_GET['end'];
+            if ($end && !preg_match('/^[0-9]+$/', $end)) {
+                die("Invalid end parameter: $end");
+            }
+        } else {
+            $end = time() * 1000;
+        }
+
+        $range = $end - $start;
+        $startTime = gmstrftime('%Y-%m-%d %H:%M:%S', $start / 1000);
+        $endTime = gmstrftime('%Y-%m-%d %H:%M:%S', $end / 1000);
+
+        $date_column = "unix_timestamp(CONCAT(date(dvl.lastchanged), ' ', maketime(HOUR(dvl.lastchanged),MINUTE(dvl.lastchanged),0))) * 1000";
+
+        $sql = "select  $date_column  as datum, 
+SUM( IF( dvl.value='$chartval', 1, 0 ) ) as value1
+FROM devices d
+inner join device_values dv on d.id = dv.device_id 
+inner join device_values_log dvl on d.id = dvl.device_id and dv.valuenum = dvl.valuenum
+where dv.valuerrddsname = '$chartname'
+and d.id =$device_id
+group by  $date_column 
+order by dvl.lastchanged;";
+
+// set UTC time
+        Yii::app()->db->createCommand("SET time_zone = '+00:00'")->execute();
+
+        $result = Yii::app()->db->createCommand($sql)->queryAll();
+        $rows = array();
+        foreach($result as $r) {
+            $rows[] = "[{$r['datum']},{$r['value1']}]";
+        }
+
+        header('Content-Type: text/javascript');
+
+        echo $callback . "([\n" . join(",\n", $rows) . "\n]);";
+    }
+
 }
