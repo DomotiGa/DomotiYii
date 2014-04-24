@@ -13,11 +13,6 @@ class GraphsController extends Controller {
                 'icon' => str_replace('"', "'", $obj->icon),
                 'name' => $obj->name,
                 'location' => $obj->locationtext,
-                //'commands' => $this->getActions($obj),
-                //'val1' => $obj->getValue(1),
-                //'val2' => $obj->getValue(2),
-                //'val3' => $obj->getValue(3),
-                //'val4' => $obj->getValue(4),
                 'lastchanged' => $obj->lastchanged
             );
 
@@ -59,7 +54,7 @@ class GraphsController extends Controller {
       This functions returns an array with the chart details set in the device value log.
      */
 
-    public function getChartDetails($deviceid) {
+    public function getChartDetails($deviceid, $valuenum, $charttype) {
 
         // Get database name
         //not needed
@@ -70,12 +65,13 @@ class GraphsController extends Controller {
         // Create sql to get the chart details
         $sql = "select dv.valuerrddsname as chartname,
 		dvl.value as chartvalue
-		from " . $database . ".device_values dv
-		inner join " . $database . ".device_values_log dvl 
+		from device_values dv
+		inner join device_values_log dvl 
 			on dv.device_id = dvl.device_id 
 			and dv.valuenum = dvl.valuenum
-		where valuerrdtype = 'COUNTER'
+		where dv.valuerrdtype = '" . $charttype . "'
 		and dv.device_id = " . $deviceid . "
+		and dv.valuenum = " . $valuenum . "
 		group by dv.valuerrddsname,
 		dvl.value";
 
@@ -101,6 +97,10 @@ class GraphsController extends Controller {
         if (isset($_GET['device'])) {
             $device_id = $_GET['device'];
         }
+
+        if (isset($_GET['dev_valnum'])) {
+            $dev_valnum = $_GET['dev_valnum'];
+        }		
 
         if (isset($_GET['chartname'])) {
             $chartname = $_GET['chartname'];
@@ -142,14 +142,15 @@ class GraphsController extends Controller {
         $date_column = "unix_timestamp(CONCAT(date(dvl.lastchanged), ' ', maketime(HOUR(dvl.lastchanged),MINUTE(dvl.lastchanged),0))) * 1000";
 
         $sql = "select  $date_column  as datum, 
-SUM( IF( dvl.value='$chartval', 1, 0 ) ) as value1
-FROM devices d
-inner join device_values dv on d.id = dv.device_id 
-inner join device_values_log dvl on d.id = dvl.device_id and dv.valuenum = dvl.valuenum
-where dv.valuerrddsname = '$chartname'
-and d.id =$device_id
-group by  $date_column 
-order by dvl.lastchanged;";
+			SUM( IF( dvl.value='$chartval', 1, 0 ) ) as value1
+			FROM devices d
+			inner join device_values dv on d.id = dv.device_id 
+			inner join device_values_log dvl on d.id = dvl.device_id and dv.valuenum = dvl.valuenum
+			where dv.valuerrddsname = '$chartname'
+			and d.id =$device_id
+			and dvl.valuenum = $dev_valnum
+			group by  $date_column 
+			order by dvl.lastchanged;";
 
 // set UTC time
         Yii::app()->db->createCommand("SET time_zone = '+00:00'")->execute();
