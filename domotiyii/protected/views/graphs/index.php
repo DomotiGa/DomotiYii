@@ -1,7 +1,25 @@
 <?php
+// Highcharts js scripts
+$pathHighCharts = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.components.assets.highcharts'));
+// Gridster js scripts
+$pathGridster = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.components.assets.gridster'));
+
+// Get client script
+$cs=Yii::app()->clientScript;
+
+// Add CSS
+$cs->registerCSSFile($pathGridster .'/jquery.gridster.css');
+$cs->registerCSSFile($pathGridster .'/graphs_gridster.css');
+
+$cs->registerScriptFile($pathGridster .'/jquery.gridster.js', CClientScript::POS_BEGIN);
+		
+// Add HighCHarts JS
+$cs->registerScriptFile($pathHighCharts .'/highstock.js', CClientScript::POS_BEGIN);
+$cs->registerScriptFile($pathHighCharts .'/highcharts-more.js', CClientScript::POS_BEGIN);
+$cs->registerScriptFile($pathHighCharts .'/modules/exporting.js', CClientScript::POS_BEGIN);
+
 $type = Yii::app()->request->getParam('type', 'Control');
 $location = Yii::app()->request->getParam('location', 'All');
-
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
@@ -34,7 +52,6 @@ $this->widget('bootstrap.widgets.TbNav', array(
 ));
 // 
 
-
 /* 
 Below we first create a javascript block for all the highcharts. 
 Loop through all devices and create a seperate javascript function for it to display the graph.
@@ -52,10 +69,10 @@ $( function() {
 
 	// DeviceValues loop
 	foreach (DeviceValues::model()->findAll($criteria) as $l) {
-	 print '<!-- valuenum: '. $l->valuenum .'-->';
-	 print '<!-- units: '. $l->units .'-->';
-	 print '<!-- valuerrdtype: '. $l->valuerrdtype .'-->';
-	 print '<!-- valuerrddsname: '. $l->valuerrddsname .'-->';
+	 //print '<!-- valuenum: '. $l->valuenum .'-->';
+	 //print '<!-- units: '. $l->units .'-->';
+	 //print '<!-- valuerrdtype: '. $l->valuerrdtype .'-->';
+	 //print '<!-- valuerrddsname: '. $l->valuerrddsname .'-->';
 
 // The GAUGE is only tested with a temp sensor ... dont know if it will work for other kind of sensors too....??	 
 if ( $l->valuerrdtype == 'GAUGE' && $l->units != null && $l->valuerrddsname != null) {
@@ -319,9 +336,6 @@ $gauge_value = is_null($gauge_value) ? 0 : $gauge_value; // check is null!?
 });
 //]]>
 </script>
-<script src="http://code.highcharts.com/stock/highstock.js"></script>
-<script src="http://code.highcharts.com/highcharts-more.js"></script>
-<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
 
 <p>
 <b>Supported graph types:</b><br>
@@ -329,32 +343,71 @@ $gauge_value = is_null($gauge_value) ? 0 : $gauge_value; // check is null!?
 <b>* GAUGE :</b> it will display a GAUGE when values of the device are logged and the charts name is filled (Valuerrddsname) <br><br>
 More graph types will follow soon!<br><br>
 </p>
-    <?php 
-		foreach ($data as $dev): 
-			$criteria = new CDbCriteria();
-			$criteria->condition = 'device_id='.$dev['id'];
-			// DeviceValues loop
-			foreach (DeviceValues::model()->findAll($criteria) as $l) {
-			 print '<!-- valuenum: '. $l->valuenum .'-->';
-			 print '<!-- units: '. $l->units .'-->';
-			 print '<!-- valuerrdtype: '. $l->valuerrdtype .'-->';
-			 print '<!-- valuerrddsname: '. $l->valuerrddsname .'-->';
-			 
+
+<div class="gridster">
+    <ul>
+<?php 
+	$gaugeCounter = 1;
+	$gaugeRow = 1;
+	$gaugeColumn = 1;
+	foreach ($data as $dev): 
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'device_id='.$dev['id'];
+		// DeviceValues loop
+		foreach (DeviceValues::model()->findAll($criteria) as $l) {
+		 //print '<!-- valuenum: '. $l->valuenum .'-->';
+		 //print '<!-- units: '. $l->units .'-->';
+		 //print '<!-- valuerrdtype: '. $l->valuerrdtype .'-->';
+		 //print '<!-- valuerrddsname: '. $l->valuerrddsname .'-->';
+	
+	// start if GAUGE
+	if ( $l->valuerrdtype == 'GAUGE' && $l->units != null && $l->valuerrddsname != null) {
+	if ($gaugeCounter % 2 == 0) {
+		$gaugeRow++;
+		$gaugeColumn = 1;
+	} elseif ($gaugeCounter == 1) {
+		$gaugeColumn = 1;
+	} else {
+		$gaugeColumn = 2;
+	}
+?>
+	<li data-row="<?php echo $gaugeRow; ?>" data-col="<?php echo $gaugeColumn; ?>" data-sizex="2" data-sizey="2">
+		<div id="container_gauge_<?php echo $dev['id'] ."_". $l->valuenum; ?>" style="height: 300px; width: 250px;"></div>
+	</li>
+<?php
+	$gaugeCounter++;
+	} //end if gauge 
+	} // end DeviceValues loop
+	endforeach;
+?>
+    </ul>
+</div>
+<script type="text/javascript">
+	var gridster;
+
+	$(function() {
+		gridtster = $(".gridster > ul").gridster({
+			widget_margins: [5, 5], 
+			widget_base_dimensions: [120, 145],
+			min_cols: 2
+		}).data('gridster');
+	});
+</script>
+<?php 
+	foreach ($data as $dev): 
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'device_id='.$dev['id'];
+		// DeviceValues loop
+		foreach (DeviceValues::model()->findAll($criteria) as $l) {
+		 
 		$chart_details = $this->getChartDetails($dev['id'], $l->valuenum, $l->valuerrdtype);
-		
-		// start if GAUGE
-		if ( $l->valuerrdtype == 'GAUGE' && $l->units != null && $l->valuerrddsname != null) {
-	?>
-			<div id="container_gauge_<?php echo $dev['id'] ."_". $l->valuenum; ?>" style="height: 300px; min-width: 300px"></div>
-	<?php
-		} //end if gauge
-		
-		// start if COUNTER
-		if ( count( $chart_details) > 0 && $l->valuerrdtype == 'COUNTER') {
-	?>
-		<div id="container_<?php echo $dev['id'] ."_". $l->valuenum; ?>" style="height: 400px; min-width: 310px"></div>
-	<?php
-		} //end if counter
-		} // end DeviceValues loop
-		endforeach;
-	?>
+	
+	// start if COUNTER
+	if ( count( $chart_details) > 0 && $l->valuerrdtype == 'COUNTER') {
+?>
+	<div id="container_<?php echo $dev['id'] ."_". $l->valuenum; ?>" style="height: 400px; min-width: 310px; border:1px solid black; margin:5px 5px 5px 5px;"></div>
+<?php
+	} //end if counter
+	} // end DeviceValues loop
+	endforeach;
+?>
