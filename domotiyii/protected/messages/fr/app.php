@@ -258,6 +258,8 @@ return array(
     //events
     'Actions to add to event'=>'Actions à rajouter à l\'évènement',
     'Be carefull adding/removing an action from the event is immediately saved !!'=>'ATTENTION rajouter/supprimer une action pour l\'évènement est pris en compte immédiatement !!!!',
-    'Order'=>'Ordre'
+    'Order'=>'Ordre',
+    'Remove from event'=>'Enlever de l\'évènement',
+    'Add to event'=>'Ajouter à l\'évènement'
 );
 ?>
