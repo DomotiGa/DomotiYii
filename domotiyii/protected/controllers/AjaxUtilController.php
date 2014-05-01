@@ -2,6 +2,29 @@
 
 class AjaxUtilController extends CController {
 
+    /**
+     * Default filter for access rules
+     * */
+    public function filters() {
+        return array(
+            'accessControl',
+        );
+    }
+
+    /**
+     * Default access rules
+     * */
+    public function accessRules() {
+        return array(
+            array('allow', // allow authenticated user 
+                'users' => array('@'),
+            ),
+            array('deny', // deny all users
+                'users' => array('*'),
+            ),
+        );
+    }
+
     public function actionTranslate($name) {
         echo json_encode(array('text' => Yii::t('app', $name)));
     }
@@ -25,7 +48,6 @@ class AjaxUtilController extends CController {
             echo "<option value={$m->var} " . ($m->var == $id ? "SELECTED" : "") . ">{$m->var}";
         }
     }
-    
 
     private function getFilter() {
         $crit = new CDbCriteria();
@@ -78,7 +100,6 @@ class AjaxUtilController extends CController {
         die('OK');
     }
 
-
     public function actionSetDevice() {
         $device = Yii::app()->request->getParam('device');
         $action = strip_tags(Yii::app()->request->getParam('action'));
@@ -104,6 +125,6 @@ class AjaxUtilController extends CController {
         } else {
             return $file;
         }
-    }    
-}
+    }
 
+}
