@@ -1,24 +1,16 @@
 <?php
 // Highcharts js scripts
 $pathHighCharts = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.components.assets.highcharts'));
-// Gridster js scripts
-$pathGridster = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.components.assets.gridster'));
 
 // Get client script
 $cs=Yii::app()->clientScript;
-
-// Add CSS
-$cs->registerCSSFile($pathGridster .'/jquery.gridster.css');
-$cs->registerCSSFile($pathGridster .'/graphs_gridster.css');
-
-$cs->registerScriptFile($pathGridster .'/jquery.gridster.js', CClientScript::POS_BEGIN);
 		
 // Add HighCHarts JS
 $cs->registerScriptFile($pathHighCharts .'/highstock.js', CClientScript::POS_BEGIN);
 $cs->registerScriptFile($pathHighCharts .'/highcharts-more.js', CClientScript::POS_BEGIN);
 $cs->registerScriptFile($pathHighCharts .'/modules/exporting.js', CClientScript::POS_BEGIN);
 
-$type = Yii::app()->request->getParam('type', 'Control');
+$type = Yii::app()->request->getParam('type', 'Dashboard');
 $location = Yii::app()->request->getParam('location', 'All');
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
@@ -31,10 +23,62 @@ $maxdate = '';
 // below variables for the charts
 $chartname = '';
 $chartvalue = array();
-//
+// Type is dashboard
+if ( (isset($_GET['type']) && $_GET['type'] == 'Dashboard') OR $type == 'Dashboard') {
 ?>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	// Loop through every chart checkbox and set a cookie
+	$("input.box").each(function() {
+		var mycookie = $.cookie($(this).attr('name'));
+		if (mycookie && mycookie == "true") {
+			$(this).prop('checked', mycookie);
+		} else {
+			// If no cookie found then we create it.
+			$.cookie($(this).attr("name"), $(this).prop('checked'), {
+				path: '/',
+				expires: 365
+			});
+		}
+	});
+	
+	// When checkbox changes we write the cookie and hide or show the chart.
+	$("input.box").change(function() {
+		$.cookie($(this).attr("name"), $(this).prop('checked'), {
+			path: '/',
+			expires: 365
+		});
+		if ( $.cookie($(this).attr('name')) == "true" ) {
+			$('div[name='+ $(this).attr('name') +']').show();
+		} else {
+			$('div[name='+ $(this).attr('name') +']').hide();
+		}		
+	});
 
+	// Show the div with checkboxes
+	$('button.btn').click(function() {
+			$('.device_charts').slideToggle("fast");
+	});
+
+	// Loop through the chartbox divs!
+	$(".chartbox").each(function() {
+		var checkCookie = $.cookie($(this).attr('name'));
+		if ( checkCookie ) {
+			if ( $.cookie($(this).attr('name')) == "true" ) {
+					$('div[name='+ $(this).attr('name') +']').show();
+				} else {
+					$('div[name='+ $(this).attr('name') +']').hide();
+				}
+		} else {
+			alert('Geen cookie: ' + $(this).attr('name'));
+		}
+	});
+});
+</script>
 <?php
+} // end if type dashboard
+
 $lstLocation = array(array('label' => Yii::t('app', 'All'), 'url' => '?type=' . $type . '&location=All'));
 foreach (Locations::model()->used()->findAll(array('order' => 't.name')) as $l) {
     array_push($lstLocation, array('label' => $l->name, 'url' => '?type=' . $type . '&location=' . $l->name));
@@ -44,24 +88,74 @@ $this->widget('bootstrap.widgets.TbNav', array(
     'stacked' => false,
     'items' => array(
         array('label' => Yii::t('app', 'Type') . ' : ' . Yii::t('app', $type), 'items' => array(
-                array('label' => Yii::t('app', 'Control'), 'url' => '?type=Control&location=' . $location, 'active' => $type == 'Control'),
+				array('label' => Yii::t('app', 'Dashboard'), 'url' => '?type=Dashboard&location=' . $location, 'active' => $type == 'Dashboard'),
                 array('label' => Yii::t('app', 'All'), 'url' => '?type=All&location=' . $location, 'active' => $type == 'All'),
+				array('label' => Yii::t('app', 'Control'), 'url' => '?type=Control&location=' . $location, 'active' => $type == 'Control'),
                 array('label' => Yii::t('app', 'Sensors'), 'url' => '?type=Sensors&location=' . $location, 'active' => $type == 'Sensors'))),
         array('label' => Yii::t('app', 'Location') . ' : ' . Yii::t('app', $location), 'items' => $lstLocation)
     ),
 ));
 // 
 
-/* 
-Below we first create a javascript block for all the highcharts. 
-Loop through all devices and create a seperate javascript function for it to display the graph.
-*/
+// Type is dashboard
+if ( (isset($_GET['type']) && $_GET['type'] == 'Dashboard') OR $type == 'Dashboard') {
 ?>
+
+<div id="showmenu"><?php echo TbHtml::button('Set dashboard', array('toggle' => true, 'color' => TbHtml::BUTTON_COLOR_PRIMARY, 'size' => TbHtml::BUTTON_SIZE_MINI)); ?></div>
+<div class="device_charts"  style="display: none; border:1px solid black; margin:5px 5px 5px 5px;">
+<table border=1>
+<tr>
+<?php
+$prev_devid = 0;
+$dev_counter = 0;
+
+foreach ($data as $dev):
+	
+	$showDevice = '<b>- Device: ' . $dev['name'] .'</b><br>';
+	$criteria = new CDbCriteria();
+	$criteria->condition = 'device_id='.$dev['id'];
+
+	// DeviceValues loop
+	foreach (DeviceValues::model()->findAll($criteria) as $l) {
+	 if ( $l->valuerrddsname != null) {
+	 
+	 if ($prev_devid != $dev['id']) {
+		echo '<td>';
+		echo $showDevice;
+	 } else {
+		echo '<td>';
+	 }
+?>
+<label class="checkbox"><input class="box" type="checkbox" name="<?php echo $dev['id'] ."_". $l->valuenum; ?>" id="<?php echo $dev['id'] .'_'. $l->valuerrddsname . '_' .$l->valuenum ; ?>" /><?php echo $l->valuerrddsname . ' ('. $l->valuenum . ')'; ?></label>
+<?php
+	if ($prev_devid != $dev['id']) {
+		echo '</td>';
+	} else {
+		echo '</td>';
+	}
+	if ($dev_counter % 2 == 0) {
+		echo '</tr><tr>';
+	}
+	$prev_devid = $dev['id'];
+	$dev_counter++;
+	} // No empty graphnames
+	} // end deviceValues
+endforeach; // end devices loop
+}
+?>
+</tr>
+</table>
+</div>
 
 <script type='text/javascript'>//<![CDATA[
 $( function() {
 
-<?php foreach ($data as $dev): 
+<?php 
+/* 
+This javascript block is for all the highcharts. 
+Loop through all devices and create a seperate javascript function for it to display the graph.
+*/
+foreach ($data as $dev): 
 	//echo $dev['id']; 
 	echo '<!--'. $dev['name'] .'-->';
 	$criteria = new CDbCriteria();
@@ -344,8 +438,6 @@ $gauge_value = is_null($gauge_value) ? 0 : $gauge_value; // check is null!?
 More graph types will follow soon!<br><br>
 </p>
 
-<div class="gridster">
-    <ul>
 <?php 
 	$gaugeCounter = 1;
 	$gaugeRow = 1;
@@ -369,30 +461,17 @@ More graph types will follow soon!<br><br>
 		$gaugeColumn = 1;
 	} else {
 		$gaugeColumn = 2;
+		echo "<div class='clear' style='clear:both;' ></div>";
 	}
 ?>
-	<li data-row="<?php echo $gaugeRow; ?>" data-col="<?php echo $gaugeColumn; ?>" data-sizex="2" data-sizey="2">
-		<div id="container_gauge_<?php echo $dev['id'] ."_". $l->valuenum; ?>" style="height: 300px; width: 250px;"></div>
-	</li>
+		<div class="chartbox" id="container_gauge_<?php echo $dev['id'] ."_". $l->valuenum; ?>" name="<?php echo $dev['id'] ."_". $l->valuenum; ?>" style="float: left; border:1px solid black; height: 300px; width: 250px; margin:5px 5px 5px 5px;"></div>
 <?php
 	$gaugeCounter++;
 	} //end if gauge 
 	} // end DeviceValues loop
 	endforeach;
 ?>
-    </ul>
-</div>
-<script type="text/javascript">
-	var gridster;
-
-	$(function() {
-		gridtster = $(".gridster > ul").gridster({
-			widget_margins: [5, 5], 
-			widget_base_dimensions: [120, 145],
-			min_cols: 2
-		}).data('gridster');
-	});
-</script>
+<div class='clear' style='clear:both;' ></div>
 <?php 
 	foreach ($data as $dev): 
 		$criteria = new CDbCriteria();
@@ -405,7 +484,7 @@ More graph types will follow soon!<br><br>
 	// start if COUNTER
 	if ( count( $chart_details) > 0 && $l->valuerrdtype == 'COUNTER') {
 ?>
-	<div id="container_<?php echo $dev['id'] ."_". $l->valuenum; ?>" style="height: 400px; min-width: 310px; border:1px solid black; margin:5px 5px 5px 5px;"></div>
+	<div class="chartbox" id="container_<?php echo $dev['id'] ."_". $l->valuenum; ?>" name="<?php echo $dev['id'] ."_". $l->valuenum; ?>" style="height: 400px; min-width: 310px; border:1px solid black; margin:5px 5px 5px 5px;"></div>
 <?php
 	} //end if counter
 	} // end DeviceValues loop

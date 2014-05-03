@@ -28,14 +28,14 @@ class GraphsController extends Controller {
 
     private function getFilter() {
         $crit = new CDbCriteria();
-        $type = yii::app()->request->getParam('type', 'Control');
+        $type = yii::app()->request->getParam('type', 'All');
         $location = yii::app()->request->getParam('location', 'All');
         $crit->order = 't.name ASC';
         if ($type == 'Control') {
             $crit->addCondition('enabled is TRUE');
             $crit->addCondition('hide is FALSE');
             $crit->addColumnCondition(array('switchable' => -1, 'dimable' => -1), 'OR');
-        } else if ($type == 'All') {
+        } else if ($type == 'All' OR $type == 'Dashboard') {
             $crit->addCondition('enabled is TRUE');
             $crit->addCondition('hide is FALSE');
         } else if ($type == 'Sensors') {
