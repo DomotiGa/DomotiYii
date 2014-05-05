@@ -5,7 +5,7 @@
 /* @var $model Devices */
 $dp = new CActiveDataProvider('EventsActions', array(
     'criteria' => array(
-        'condition' => 't.event=' . $model->id,
+        'condition' => 't.event=' . ($model->id ? $model->id : 0),
         'order' => 't.order')));
 
 $this->widget('domotiyii.LiveGridView', array(
