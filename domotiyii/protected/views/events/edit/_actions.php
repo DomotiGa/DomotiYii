@@ -1,11 +1,13 @@
-
+<?php if(is_null($model->id)): ?>
+<h4><?php echo yii::t('app','This tab can\'t be used while the event is not created and saved !'); ?></h4>
+<?php else: ?>
 <h4><?php echo yii::t('app','Be carefull adding/removing an action from the event is immediately saved !!'); ?></h4>
 <?php
 /* @var $this DevicesController */
 /* @var $model Devices */
 $dp = new CActiveDataProvider('EventsActions', array(
     'criteria' => array(
-        'condition' => 't.event=' . ($model->id ? $model->id : 0),
+        'condition' => 't.event=' . $model->id,
         'order' => 't.order')));
 
 $this->widget('domotiyii.LiveGridView', array(
@@ -133,8 +135,4 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         return false;
     }
 </script>
-
-
-
-
-
+<?php endif; ?>

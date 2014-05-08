@@ -260,6 +260,7 @@ return array(
     'Be carefull adding/removing an action from the event is immediately saved !!'=>'ATTENTION rajouter/supprimer une action pour l\'évènement est pris en compte immédiatement !!!!',
     'Order'=>'Ordre',
     'Remove from event'=>'Enlever de l\'évènement',
-    'Add to event'=>'Ajouter à l\'évènement'
+    'Add to event'=>'Ajouter à l\'évènement',
+    'This tab can\'t be used while the event is not created and saved !'=>'Cet onglet ne peut pas être utilisé tant que l\'évènement n\'a pas été créé et sauvé !'
 );
 ?>
