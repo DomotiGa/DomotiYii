@@ -101,7 +101,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
 if ( (isset($_GET['type']) && $_GET['type'] == 'Dashboard') OR $type == 'Dashboard') {
 ?>
 
-<div id="showmenu"><?php echo TbHtml::button('Set dashboard', array('toggle' => true, 'color' => TbHtml::BUTTON_COLOR_PRIMARY, 'size' => TbHtml::BUTTON_SIZE_MINI)); ?></div>
+<div id="showmenu"><?php echo TbHtml::button('Set dashboard', array('toggle' => true, 'color' => TbHtml::BUTTON_COLOR_PRIMARY, 'size' => TbHtml::BUTTON_SIZE_SMALL)); ?></div>
 <div class="device_charts"  style="display: none; border:1px solid black; margin:5px 5px 5px 5px;">
 <table border=1>
 <tr>
@@ -145,6 +145,13 @@ endforeach; // end devices loop
 ?>
 </tr>
 </table>
+<p>
+<b>Supported graph types:</b><br>
+<b>* COUNTER :</b> it will display a graph (only bars) when values of the device are logged and the charts name is filled (Valuerrddsname). <br>
+<b>* GAUGE :</b> it will display a GAUGE when values of the device are logged and the charts name is filled (Valuerrddsname). <br>
+<b>* DERIVE :</b> it will display a line graph when values of the device are logged and the charts name (Valuerrddsname) and units is filled. <br><br>
+More graph types will follow soon!<br><br>
+</p>
 </div>
 
 <script type='text/javascript'>//<![CDATA[
@@ -283,8 +290,11 @@ $gauge_value = is_null($gauge_value) ? 0 : $gauge_value; // check is null!?
 } // End gauge if
 
 	// this function gets all details to display the graphs
-	$chart_details = $this->getChartDetails($dev['id'], $l->valuenum, $l->valuerrdtype);
-
+	if ( $l->valuerrdtype == 'COUNTER' ) {
+		$chart_details = $this->getChartDetails($dev['id'], $l->valuenum, $l->valuerrdtype);
+	} else {
+		$chart_details = null;
+	}
 	if ( count( $chart_details) > 0 && $l->valuerrdtype == 'COUNTER' && $l->valuerrddsname != null) {
 		foreach($chart_details as $item){
 			$chartname = $item['chartname']; // not needed anymore
@@ -306,7 +316,7 @@ $gauge_value = is_null($gauge_value) ? 0 : $gauge_value; // check is null!?
 
 	$.each(<?php echo 'device_'.$dev['id'] ."_". $l->valuenum; ?>, function(<?php echo 'i_'.$dev['id'] ."_". $l->valuenum; ?>, <?php echo 'name_'.$dev['id'] ."_". $l->valuenum; ?>) {
 
-		$.getJSON('<?php echo Yii::app()->request->baseUrl; ?>/Graphs/getGraphData?device=<?php echo $dev['id']; ?>&dev_valnum=<?php echo $l->valuenum; ?>&chartname=<?php echo trim($chartname); ?>&chartval='+ <?php echo 'name_'.$dev['id'] ."_". $l->valuenum; ?> +'&callback=?',	function(data) {
+		$.getJSON('<?php echo Yii::app()->request->baseUrl; ?>/Graphs/getGraphData?device=<?php echo $dev['id']; ?>&dev_valnum=<?php echo $l->valuenum; ?>&chartname=<?php echo trim($chartname); ?>&charttype=<?php echo $l->valuerrdtype; ?>&chartval='+ <?php echo 'name_'.$dev['id'] ."_". $l->valuenum; ?> +'&callback=?',	function(data) {
 
 			<?php echo 'seriesOptions_'.$dev['id'] ."_". $l->valuenum; ?>[<?php echo 'i_'.$dev['id'] ."_". $l->valuenum; ?>] = {
 				type: 'column',
@@ -427,16 +437,158 @@ $gauge_value = is_null($gauge_value) ? 0 : $gauge_value; // check is null!?
 	endforeach; // end devices loop
 	?>
 
+
+<?php 
+/* 
+This javascript block is for all the highcharts. 
+Loop through all devices and create a seperate javascript function for it to display the graph.
+*/
+$prev_valuerrddname = null;
+
+foreach ($data as $dev): 
+	//echo $dev['id']; 
+	echo '<!--'. $dev['name'] .'-->';
+	$criteria = new CDbCriteria();
+	$criteria->condition = 'device_id='.$dev['id'];
+
+	// DeviceValues loop
+	foreach (DeviceValues::model()->findAll($criteria) as $l) {
+
+	if ( $l->valuerrdtype == 'DERIVE' && $l->valuerrddsname != null && $l->units != null) {
+	?>
+<!-- -------------------------------------------------------------- -->
+	var <?php echo 'seriesOptions_'.$dev['id'] ."_". $l->valuenum; ?> = [],
+		yAxisOptions = [],
+		<?php echo 'seriesCounter_'.$dev['id'] ."_". $l->valuenum; ?> = 0,
+		<?php echo 'device_'.$dev['id'] ."_". $l->valuenum; ?> = <?php echo "['" . $l->units . "']" ?> ,
+		colors = Highcharts.getOptions().colors;
+
+	$.each(<?php echo 'device_'.$dev['id'] ."_". $l->valuenum; ?>, function(<?php echo 'i_'.$dev['id'] ."_". $l->valuenum; ?>, <?php echo 'name_'.$dev['id'] ."_". $l->valuenum; ?>) {
+
+		$.getJSON('<?php echo Yii::app()->request->baseUrl; ?>/Graphs/getGraphData?device=<?php echo $dev['id']; ?>&dev_valnum=<?php echo $l->valuenum; ?>&chartname=<?php echo $l->valuerrddsname; ?>&charttype=<?php echo $l->valuerrdtype; ?>&chartval='+ <?php echo 'name_'.$dev['id'] ."_". $l->valuenum; ?> +'&callback=?',	function(data) {
+
+			<?php echo 'seriesOptions_'.$dev['id'] ."_". $l->valuenum; ?>[<?php echo 'i_'.$dev['id'] ."_". $l->valuenum; ?>] = {
+				name: <?php echo 'name_'.$dev['id'] ."_". $l->valuenum; ?>,
+				data: data,
+				dataGrouping: {
+					units: [[
+						'day', // unit name
+						[1] // allowed multiples
+					],
+					[
+						'week', // unit name
+						[1] // allowed multiples
+					], 
+					[
+						'month',
+						[1]
+					]]
+		        }
+			};
+
+			// As we're loading the data asynchronously, we don't know what order it will arrive. So
+			// we keep a counter and create the chart when all the data is loaded.
+			<?php echo 'seriesCounter_'.$dev['id'] ."_". $l->valuenum; ?>++;
+
+			if (<?php echo 'seriesCounter_'.$dev['id'] ."_". $l->valuenum; ?> == <?php echo 'device_'.$dev['id'] ."_". $l->valuenum; ?>.length) {
+				<?php echo 'createChart_'.$dev['id'] ."_". $l->valuenum .'();'?>
+			}
+		});
+	});
+
+	// create the chart when all data is loaded
+	function <?php echo 'createChart_'.$dev['id'] ."_". $l->valuenum .'()'?> {
+
+		$('#container_<?php echo $dev['id'] ."_". $l->valuenum; ?>').highcharts('StockChart', {
+		    chart: {
+		    },
+			title: {
+				text: '<?php echo $l->valuerrddsname; ?>' // Title for the chart
+			},
+			
+			legend: {
+				align: 'right',
+				enabled: true,
+				layout: 'vertical',
+				verticalAlign: 'top',
+				y:50
+			},
+
+		    rangeSelector: {
+				inputEnabled: $('#container<?php echo $dev['id'] ."_". $l->valuenum; ?>').width() > 480,
+				buttons: [{
+					type: 'day',
+					count: 1,
+					text: '1d'
+				}, {
+					type: 'day',
+					count: 3,
+					text: '3d'
+				}, {
+					type: 'week',
+					count: 1,
+					text: '1w'
+				}, {
+					type: 'month',
+					count: 1,
+					text: '1m'
+				}, {
+					type: 'month',
+					count: 3,
+					text: '3m'
+				}, {
+					type: 'ytd',
+					text: 'YTD'
+				}, {
+					type: 'year',
+					count: 1,
+					text: '1y'
+				}, {
+					type: 'all',
+					text: 'All'
+				}],
+				 selected: 0,
+		    },
+
+		    yAxis: {
+		    	labels: {
+		    		formatter: function() {
+		    			return (this.value > 0 ? '+' : '') + this.value; //+ '%';
+		    		}
+		    	},
+		    	plotLines: [{
+		    		value: 0,
+		    		width: 2,
+		    		color: 'silver'
+		    	}]
+		    },
+		    
+		    //plotOptions: {
+		    //	series: {
+		    //		compare: 'percent'
+		    //	}
+		    //},
+		    
+		    tooltip: {
+		    	pointFormat: '<b>{point.y}</b> <span style="color:{series.color}">{series.name}</span><br/>',
+		    	valueDecimals: 0
+		    },
+		    
+		    series: <?php echo 'seriesOptions_'.$dev['id'] ."_". $l->valuenum; ?>
+		});
+	}
+<!-- -------------------------------------------------------------- -->
+    <?php
+	}// array countchart_details
+	} // end DeviceValues loop
+	$chartvalue = '';
+	endforeach; // end devices loop
+	?>
+
+
 });
 //]]>
 </script>
-
-<p>
-<b>Supported graph types:</b><br>
-<b>* COUNTER :</b> it will display a graph (only bars) when values of the device are logged and the charts name is filled (Valuerrddsname) <br>
-<b>* GAUGE :</b> it will display a GAUGE when values of the device are logged and the charts name is filled (Valuerrddsname) <br><br>
-More graph types will follow soon!<br><br>
-</p>
 
 <?php 
 	$gaugeCounter = 1;
@@ -478,14 +630,35 @@ More graph types will follow soon!<br><br>
 		$criteria->condition = 'device_id='.$dev['id'];
 		// DeviceValues loop
 		foreach (DeviceValues::model()->findAll($criteria) as $l) {
-		 
-		$chart_details = $this->getChartDetails($dev['id'], $l->valuenum, $l->valuerrdtype);
-	
+			if ( $l->valuerrdtype == 'COUNTER' ) {
+			$chart_details = $this->getChartDetails($dev['id'], $l->valuenum, $l->valuerrdtype);
+			} else {
+			$chart_details = null;
+			}
 	// start if COUNTER
 	if ( count( $chart_details) > 0 && $l->valuerrdtype == 'COUNTER') {
 ?>
 	<div class="chartbox" id="container_<?php echo $dev['id'] ."_". $l->valuenum; ?>" name="<?php echo $dev['id'] ."_". $l->valuenum; ?>" style="height: 400px; min-width: 310px; border:1px solid black; margin:5px 5px 5px 5px;"></div>
 <?php
+	} //end if counter
+	} // end DeviceValues loop
+	endforeach;
+?>
+
+<?php 
+	$prev_valuerrddname = null;
+	foreach ($data as $dev): 
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'device_id='.$dev['id'];
+		// DeviceValues loop
+		foreach (DeviceValues::model()->findAll($criteria) as $l) {
+
+	// start if DERIVE
+	if ( $l->valuerrdtype == 'DERIVE' && $l->valuerrddsname != null && $l->units != null) {
+?>
+	<div class="chartbox" id="container_<?php echo $dev['id'] ."_". $l->valuenum; ?>" name="<?php echo $dev['id'] ."_". $l->valuenum; ?>" style="height: 400px; min-width: 310px; border:1px solid black; margin:5px 5px 5px 5px;"></div>
+<?php
+	$prev_valuerrddname = $l->valuerrddsname;
 	} //end if counter
 	} // end DeviceValues loop
 	endforeach;

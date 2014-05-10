@@ -55,25 +55,24 @@ class GraphsController extends Controller {
      */
 
     public function getChartDetails($deviceid, $valuenum, $charttype) {
-
-        // Get database name
-        //not needed
-        $config = Yii::app()->getComponents(false);
-        $dbname = explode(";", $config['db']->connectionString);
-        $database = substr($dbname[1], strpos($dbname[1], '=') + 1);
-
+		
         // Create sql to get the chart details
-        $sql = "select dv.valuerrddsname as chartname,
-		dvl.value as chartvalue
-		from device_values dv
-		inner join device_values_log dvl 
-			on dv.device_id = dvl.device_id 
-			and dv.valuenum = dvl.valuenum
-		where dv.valuerrdtype = '" . $charttype . "'
-		and dv.device_id = " . $deviceid . "
-		and dv.valuenum = " . $valuenum . "
-		group by dv.valuerrddsname,
-		dvl.value";
+		if ($charttype == 'COUNTER') {
+			$sql = "select dv.valuerrddsname as chartname,
+			dvl.value as chartvalue,
+			dv.device_id as device
+			from device_values dv
+			inner join device_values_log dvl 
+				on dv.device_id = dvl.device_id 
+				and dv.valuenum = dvl.valuenum
+			where dv.valuerrdtype = '" . $charttype . "'
+			and dv.device_id = " . $deviceid . "
+			and dv.valuenum = " . $valuenum . "
+			group by dv.valuerrddsname,
+			dvl.value";
+		} else {
+			$sql = "select now()";
+		}
 
         // execute query
         $list = Yii::app()->db->createCommand($sql)->queryAll();
@@ -82,7 +81,8 @@ class GraphsController extends Controller {
         foreach ($list as $item) {
             $row = array(
                 'chartname' => $item['chartname'],
-                'chartvalue' => $item['chartvalue']
+                'chartvalue' => $item['chartvalue'],
+				'device' => $item['device']
             );
             $rs[] = $row;
         }
@@ -106,6 +106,10 @@ class GraphsController extends Controller {
             $chartname = $_GET['chartname'];
         }
 
+        if (isset($_GET['charttype'])) {
+            $charttype = $_GET['charttype'];
+        }
+		
         if (isset($_GET['chartval'])) {
             $chartval = $_GET['chartval'];
         }
@@ -151,6 +155,19 @@ class GraphsController extends Controller {
 			and dvl.valuenum = $dev_valnum
 			group by  $date_column 
 			order by dvl.lastchanged;";
+			
+		if ($charttype == 'DERIVE') {
+			$sql = "select  $date_column  as datum, 
+				dvl.value as value1
+				FROM domotiga.devices d
+				inner join domotiga.device_values dv on d.id = dv.device_id 
+				inner join domotiga.device_values_log dvl on d.id = dvl.device_id 
+					and dv.valuenum = dvl.valuenum
+				where dv.valuerrddsname = '$chartname'
+				and d.id = $device_id
+				and dvl.valuenum = $dev_valnum
+				order by dvl.lastchanged;";
+		}
 
 // set UTC time
         Yii::app()->db->createCommand("SET time_zone = '+00:00'")->execute();
