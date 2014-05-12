@@ -23,10 +23,63 @@ $maxdate = '';
 // below variables for the charts
 $chartname = '';
 $chartvalue = array();
+?>
+
+<link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/static/jquery-ui.css">
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-1.10.4.js"></script>
+
+<script type="text/javascript">
+
+var fromDatepicker = $.cookie("fromDatepicker");
+if (!fromDatepicker) {
+	$.cookie("fromDatepicker", "<?php echo date('d-m-Y', strtotime("-6 months")); ?>");
+	fromDatepicker = "<?php echo date('d-m-Y', strtotime("-6 months")); ?>";
+}
+
+var toDatepicker = $.cookie("toDatepicker");
+if (!toDatepicker) {
+	$.cookie("toDatepicker", "<?php echo date('d-m-Y'); ?>");
+	toDatepicker = "<?php echo date('d-m-Y'); ?>";
+}
+
+$(document).ready(function () {
+  $(function() {
+    $( "#from" ).datepicker({
+	  dateFormat: "dd-mm-yy",
+	  showAnim: "slideDown",	  
+      changeMonth: true,
+      numberOfMonths: 1,
+      onClose: function( selectedDate ) {
+        $( "#to" ).datepicker( "option", "minDate", selectedDate );
+		$.cookie("fromDatepicker", selectedDate);
+      }
+    });
+    $( "#to" ).datepicker({
+	  dateFormat: "dd-mm-yy",
+	  showAnim: "slideDown",
+      changeMonth: true,
+      numberOfMonths: 1,
+      onClose: function( selectedDate ) {
+        $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+		$.cookie("toDatepicker", selectedDate);
+      }
+    });
+
+$('#from').datepicker('setDate', fromDatepicker);
+$('#to').datepicker('setDate', toDatepicker);
+  });
+
+$('#refresh-btn').click(function() {
+    location.reload();
+});
+
+});
+</script>
+<?php
 // Type is dashboard
 if ( (isset($_GET['type']) && $_GET['type'] == 'Dashboard') OR $type == 'Dashboard') {
 ?>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.cookie.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
 	// Loop through every chart checkbox and set a cookie
@@ -74,6 +127,7 @@ $(document).ready(function () {
 			alert('Geen cookie: ' + $(this).attr('name'));
 		}
 	});
+
 });
 </script>
 <?php
@@ -145,6 +199,11 @@ endforeach; // end devices loop
 ?>
 </tr>
 </table>
+<label for="from">From</label>
+<input type="text" id="from" name="from">
+<label for="to">to</label>
+<input type="text" id="to" name="to" >
+<div id="refresh-btn"><?php echo TbHtml::button('Refresh graphs', array('toggle' => true, 'color' => TbHtml::BUTTON_COLOR_PRIMARY, 'size' => TbHtml::BUTTON_SIZE_MINI)); ?></div>
 <p>
 <b>Supported graph types:</b><br>
 <b>* COUNTER :</b> it will display a graph (only bars) when values of the device are logged and the charts name is filled (Valuerrddsname). <br>
@@ -185,7 +244,11 @@ foreach (DeviceValuesLog::model()->findAll($criteriaDVL) as $dvl) {
 	print '<!-- DVL value: '. str_replace(",", ".", $dvl->value) .'-->'; // we dont want a comma but a point ... is this realy needed??
 	$gauge_value = str_replace(",", ".", $dvl->value);
 }
-$gauge_value = is_null($gauge_value) ? 0 : $gauge_value; // check is null!?
+if (!isset($gauge_value)) {
+	$gauge_value = 0;
+} else {
+	$gauge_value = is_null($gauge_value) ? 0 : $gauge_value; // check is null!?
+}
 ?>
 
 <!-- ********* GAUGE ********* -->
@@ -302,7 +365,12 @@ $gauge_value = is_null($gauge_value) ? 0 : $gauge_value; // check is null!?
 			
 			$chartvalue[] = $row;
 		}
-		$chartvalues = implode("','",$chartvalue);
+		
+		if (isset($chartvalue)) {
+			$chartvalues = implode("','",$chartvalue);
+		} else {
+			$chartvalue = '';
+		}
 		//echo "'" . $chartvalues . "'";
 
 	?>
@@ -316,7 +384,7 @@ $gauge_value = is_null($gauge_value) ? 0 : $gauge_value; // check is null!?
 
 	$.each(<?php echo 'device_'.$dev['id'] ."_". $l->valuenum; ?>, function(<?php echo 'i_'.$dev['id'] ."_". $l->valuenum; ?>, <?php echo 'name_'.$dev['id'] ."_". $l->valuenum; ?>) {
 
-		$.getJSON('<?php echo Yii::app()->request->baseUrl; ?>/Graphs/getGraphData?device=<?php echo $dev['id']; ?>&dev_valnum=<?php echo $l->valuenum; ?>&chartname=<?php echo trim($chartname); ?>&charttype=<?php echo $l->valuerrdtype; ?>&chartval='+ <?php echo 'name_'.$dev['id'] ."_". $l->valuenum; ?> +'&callback=?',	function(data) {
+		$.getJSON('<?php echo Yii::app()->request->baseUrl; ?>/Graphs/getGraphData?todate='+<?php echo 'toDatepicker'; ?>+'&fromdate='+<?php echo 'fromDatepicker'; ?>+'&device=<?php echo $dev['id']; ?>&dev_valnum=<?php echo $l->valuenum; ?>&chartname=<?php echo trim($chartname); ?>&charttype=<?php echo $l->valuerrdtype; ?>&chartval='+ <?php echo 'name_'.$dev['id'] ."_". $l->valuenum; ?> +'&callback=?',	function(data) {
 
 			<?php echo 'seriesOptions_'.$dev['id'] ."_". $l->valuenum; ?>[<?php echo 'i_'.$dev['id'] ."_". $l->valuenum; ?>] = {
 				type: 'column',
@@ -465,7 +533,7 @@ foreach ($data as $dev):
 
 	$.each(<?php echo 'device_'.$dev['id'] ."_". $l->valuenum; ?>, function(<?php echo 'i_'.$dev['id'] ."_". $l->valuenum; ?>, <?php echo 'name_'.$dev['id'] ."_". $l->valuenum; ?>) {
 
-		$.getJSON('<?php echo Yii::app()->request->baseUrl; ?>/Graphs/getGraphData?device=<?php echo $dev['id']; ?>&dev_valnum=<?php echo $l->valuenum; ?>&chartname=<?php echo $l->valuerrddsname; ?>&charttype=<?php echo $l->valuerrdtype; ?>&chartval='+ <?php echo 'name_'.$dev['id'] ."_". $l->valuenum; ?> +'&callback=?',	function(data) {
+		$.getJSON('<?php echo Yii::app()->request->baseUrl; ?>/Graphs/getGraphData?todate='+<?php echo 'toDatepicker'; ?>+'&fromdate='+<?php echo 'fromDatepicker'; ?>+'&device=<?php echo $dev['id']; ?>&dev_valnum=<?php echo $l->valuenum; ?>&chartname=<?php echo $l->valuerrddsname; ?>&charttype=<?php echo $l->valuerrdtype; ?>&chartval='+ <?php echo 'name_'.$dev['id'] ."_". $l->valuenum; ?> +'&callback=?',	function(data) {
 
 			<?php echo 'seriesOptions_'.$dev['id'] ."_". $l->valuenum; ?>[<?php echo 'i_'.$dev['id'] ."_". $l->valuenum; ?>] = {
 				name: <?php echo 'name_'.$dev['id'] ."_". $l->valuenum; ?>,

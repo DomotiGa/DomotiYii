@@ -10,7 +10,6 @@ class GraphsController extends Controller {
         foreach ($res as $obj) {
             $row = array(
                 'id' => $obj->id,
-                'icon' => str_replace('"', "'", $obj->icon),
                 'name' => $obj->name,
                 'location' => $obj->locationtext,
                 'lastchanged' => $obj->lastchanged
@@ -94,6 +93,14 @@ class GraphsController extends Controller {
             $encryptedMysqlConnection = $_GET['data'];
         }
 
+        if (isset($_GET['fromdate'])) {
+			$fromdate = date("Y-m-d", strtotime($_GET['fromdate']));
+        }
+
+        if (isset($_GET['todate'])) {
+			$todate = date("Y-m-d", strtotime($_GET['todate']));
+        }
+		
         if (isset($_GET['device'])) {
             $device_id = $_GET['device'];
         }
@@ -153,6 +160,7 @@ class GraphsController extends Controller {
 			where dv.valuerrddsname = '$chartname'
 			and d.id =$device_id
 			and dvl.valuenum = $dev_valnum
+			and cast( dvl.lastchanged as date) between '$fromdate' and '$todate'
 			group by  $date_column 
 			order by dvl.lastchanged;";
 			
@@ -166,6 +174,7 @@ class GraphsController extends Controller {
 				where dv.valuerrddsname = '$chartname'
 				and d.id = $device_id
 				and dvl.valuenum = $dev_valnum
+				and cast( dvl.lastchanged as date) between '$fromdate' and '$todate'
 				order by dvl.lastchanged;";
 		}
 
