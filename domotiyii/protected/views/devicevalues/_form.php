@@ -15,7 +15,7 @@
         <?php echo $form->textFieldControlGroup($model,'device_id'); ?>
         <?php echo $form->textFieldControlGroup($model,'valuenum'); ?>
         <?php echo $form->textFieldControlGroup($model,'value'); ?>
-        <?php echo $form->dropDownListControlGroup($model,'units', array('°' => '°', '°C' => '°C', '°F' => '°F', '%' => '%', '€' => '€', '$' => '$', 'Amp' => 'Amp', 'Count' => 'Count', 'hPa' => 'hPa', 'Volt' => 'Volt', 'kWh' => 'kWh', 'kg' => 'kg', 'W' => 'W', 'Wh' => 'Wh', 'Watt' => 'Watt', 'Level' => 'Level', 'lb' => 'lb', 'RSSI' => 'RSSI', 'm/s' => 'm/s', 'mbar' => 'mbar', 'mm' => 'mm', 'mm/hr' => 'mm/hr', 'm3' => 'm3'), array('prompt'=>'')); ?>
+        <?php echo $form->dropDownListControlGroup($model,'units', array('°' => '°', '°C' => '°C', '°F' => '°F', '%' => '%', '€' => '€', '$' => '$', 'Amp' => 'Amp', 'Count' => 'Count', 'hPa' => 'hPa', 'Volt' => 'Volt', 'kWh' => 'kWh', 'kg' => 'kg', 'W' => 'W', 'Wh' => 'Wh', 'Watt' => 'Watt', 'Level' => 'Level', 'lb' => 'lb', 'lux' => 'lux', 'RSSI' => 'RSSI', 'm/s' => 'm/s', 'mbar' => 'mbar', 'mm' => 'mm', 'mm/hr' => 'mm/hr', 'm3' => 'm3'), array('prompt'=>'')); ?>
         <?php echo $form->textFieldControlGroup($model,'valuerrddsname'); ?>
 	<?php echo $form->dropDownListControlGroup($model,'valuerrdtype', array('GAUGE' => 'GAUGE', 'COUNTER' => 'COUNTER', 'DERIVE' => 'DERIVE', 'ABSOLUTE' => 'ABSOLUTE'), array('prompt'=>'')); ?>
 	<?php echo $form->textFieldControlGroup($model,'correction',array('class'=>'span5')); ?>
