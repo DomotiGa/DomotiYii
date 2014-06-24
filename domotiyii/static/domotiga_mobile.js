@@ -83,10 +83,9 @@ $(function() {
             type: "GET",        
             url: "getdeviceupdate",
             data: {location: GetURLParameter("location") }
-        }).always( function (jqXHR, textStatus, errorThrown) {
+        }).always( function (json_data, textStatus, errorThrown) {
             var error = false;            
             if (textStatus == "success"){
-                var json_data = JSON.parse(jqXHR);
                 if(json_data.result == undefined || json_data.result == false || json_data.error != undefined){
                     error = true;
                 }else{

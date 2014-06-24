@@ -114,6 +114,7 @@ class MobileController extends Controller
 
 	public function actionGetDeviceUpdate()
 	{
+	header('Content-type: application/json');
         if(isset($_GET['location']) && is_numeric($_GET['location'])  && $_GET['location'] != 0 )
 		{   
             echo $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all",
