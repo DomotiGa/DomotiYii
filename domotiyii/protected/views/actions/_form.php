@@ -50,10 +50,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
         if (visible === "SHOW") {
             $('#' + sel).show();
             $('[for=' + sel + ']').show();
-            $('[for=' + sel + ']').text(name); //if ajax translation failed we have a text instead of empty field name
-            $.get('<?php echo Yii::app()->homeUrl ?>/AjaxUtil/Translate', {name: name}, function(data) {
-                $('[for=' + sel + ']').text(data.text);
-            }, 'json');
+            $('[for=' + sel + ']').text(name); 
             if (type === 'textarea' && $('textarea #' + sel).length === 0) {
                 var old = $('#' + sel);
                 var textarea = $('<textarea  rows=4 cols=60 name="Actions[param' + id + ']" id="Actions_param' + id + '" type="text" style="display: inline-block;">' + old.val() + '</textarea>');
@@ -69,7 +66,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                 var oldText = old.val();
                 var textinput = $('<span id="sel' + id + '"></span>');
                 old.replaceWith(textinput);
-                $.get('<?php echo Yii::app()->homeUrl ?>/AjaxUtil/getDeviceListSelect', {id: oldText}, function(data) {
+                $.get('<?php echo Yii::app()->homeUrl ?>AjaxUtil/getDeviceListSelect', {id: oldText}, function(data) {
                     $('#sel' + id).html('<select  name="Actions[param' + id + ']" id="Actions_param' + id + '" style="display: inline-block;">' + data);
                     viewOnly();
                 });
@@ -78,7 +75,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                 var oldText = old.val();
                 var textinput = $('<span id="sel' + id + '"></span>');
                 old.replaceWith(textinput);
-                $.get('<?php echo Yii::app()->homeUrl ?>/AjaxUtil/getGlobalVarListSelect', {id: oldText}, function(data) {
+                $.get('<?php echo Yii::app()->homeUrl ?>AjaxUtil/getGlobalVarListSelect', {id: oldText}, function(data) {
                     $('#sel' + id).html('<select  name="Actions[param' + id + ']" id="Actions_param' + id + '" style="display: inline-block;">' + data);
                     viewOnly();
                 });
@@ -111,61 +108,61 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
     function adaptForm(id) {
         hideAll();
         if (id == 1) {
-            fieldSet(1, 'Device', 'SHOW', 'select');
-            fieldSet(2, 'Value number', 'SHOW', 'select');
-            fieldSet(3, 'Value', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Device') ?>', 'SHOW', 'select');
+            fieldSet(2, '<?php echo Yii::t('app', 'Value number') ?>', 'SHOW', 'select');
+            fieldSet(3, '<?php echo Yii::t('app', 'Value') ?>', 'SHOW', 'input');
         } else if (id == 2) {
-            fieldSet(1, 'Globalvar name', 'SHOW', 'select');
-            fieldSet(2, 'Value', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Globalvar name') ?>', 'SHOW', 'select');
+            fieldSet(2, '<?php echo Yii::t('app', 'Value') ?>', 'SHOW', 'input');
         } else if (id == 3) {
-            fieldSet(1, 'To address', 'SHOW', 'input');
-            fieldSet(2, 'Subject', 'SHOW', 'input');
-            fieldSet(3, 'Body', 'SHOW', 'textarea');
+            fieldSet(1, '<?php echo Yii::t('app', 'To address') ?>', 'SHOW', 'input');
+            fieldSet(2, '<?php echo Yii::t('app', 'Subject') ?>', 'SHOW', 'input');
+            fieldSet(3, '<?php echo Yii::t('app', 'Body') ?>', 'SHOW', 'textarea');
         } else if (id == 4) {
-            fieldSet(1, 'Speak text', 'SHOW', 'textarea');
+            fieldSet(1, '<?php echo Yii::t('app', 'Speak text') ?>', 'SHOW', 'textarea');
         } else if (id == 5) {
-            fieldSet(1, 'Execute CMD', 'SHOW', 'textarea');
+            fieldSet(1, '<?php echo Yii::t('app', 'Execute CMD') ?>', 'SHOW', 'textarea');
         } else if (id == 6) {
-            fieldSet(1, 'Tweet message', 'SHOW', 'textarea');
+            fieldSet(1, '<?php echo Yii::t('app', 'Tweet message') ?>', 'SHOW', 'textarea');
         } else if (id == 7) {
-            fieldSet(1, 'SMS Number', 'SHOW', 'input');
-            fieldSet(2, 'Message', 'SHOW', 'textarea');
+            fieldSet(1, '<?php echo Yii::t('app', 'SMS Number') ?>', 'SHOW', 'input');
+            fieldSet(2, '<?php echo Yii::t('app', 'Message') ?>', 'SHOW', 'textarea');
         } else if (id == 8) {
-            fieldSet(1, 'Command string', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Command string') ?>', 'SHOW', 'input');
         } else if (id == 9) {
-            fieldSet(1, 'Sound file', 'SHOW', 'input');
-            fieldSet(2, 'Volume', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Sound file') ?>', 'SHOW', 'input');
+            fieldSet(2, '<?php echo Yii::t('app', 'Volume') ?>', 'SHOW', 'input');
         } else if (id == 10) {
-            fieldSet(1, 'Log text', 'SHOW', 'textarea');
+            fieldSet(1, '<?php echo Yii::t('app', 'Log text') ?>', 'SHOW', 'textarea');
         } else if (id == 11) {
-            fieldSet(1, 'Message to display', 'SHOW', 'textarea');
-            fieldSet(2, 'Display id', 'SHOW', 'input');
-            fieldSet(3, 'Color', 'SHOW', 'input');
-            fieldSet(4, 'Speed', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Message to display') ?>', 'SHOW', 'textarea');
+            fieldSet(2, '<?php echo Yii::t('app', 'Display id') ?>', 'SHOW', 'input');
+            fieldSet(3, '<?php echo Yii::t('app', 'Color') ?>', 'SHOW', 'input');
+            fieldSet(4, '<?php echo Yii::t('app', 'Speed') ?>', 'SHOW', 'input');
         } else if (id == 12) {
-            fieldSet(1, 'Model', 'SHOW', 'input');
-            fieldSet(2, 'Command id', 'SHOW', 'input');
-            fieldSet(3, 'Value', 'SHOW', 'input');
-            fieldSet(4, 'Address', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Model') ?>', 'SHOW', 'input');
+            fieldSet(2, '<?php echo Yii::t('app', 'Command id') ?>', 'SHOW', 'input');
+            fieldSet(3, '<?php echo Yii::t('app', 'Value') ?>', 'SHOW', 'input');
+            fieldSet(4, '<?php echo Yii::t('app', 'Address') ?>', 'SHOW', 'input');
         } else if (id == 13) {
-            fieldSet(1, 'Delay', 'SHOW', 'input');
-            fieldSet(2, 'Random max seconds', 'SHOW', 'input');
-            fieldSet(3, 'Mode (fixe or random)', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Delay') ?>', 'SHOW', 'input');
+            fieldSet(2, '<?php echo Yii::t('app', 'Random max seconds') ?>', 'SHOW', 'input');
+            fieldSet(3, '<?php echo Yii::t('app', 'Mode (fixe or random)') ?>', 'SHOW', 'input');
         } else if (id == 14) {
-            fieldSet(1, 'Title', 'SHOW', 'input');
-            fieldSet(2, 'Text', 'SHOW', 'textarea');
+            fieldSet(1, '<?php echo Yii::t('app', 'Title') ?>', 'SHOW', 'input');
+            fieldSet(2, '<?php echo Yii::t('app', 'Text') ?>', 'SHOW', 'textarea');
         } else if (id == 15) {
-            fieldSet(1, 'Script', 'SHOW', 'textarea');
+            fieldSet(1, '<?php echo Yii::t('app', 'Script') ?>', 'SHOW', 'textarea');
         } else if (id == 16) {
-            fieldSet(1, 'Device', 'SHOW', 'select');
-            fieldSet(2, 'Post/Get', 'SHOW', 'input');
-            fieldSet(3, 'Url', 'SHOW', 'textarea');
+            fieldSet(1, '<?php echo Yii::t('app', 'Device') ?>', 'SHOW', 'select');
+            fieldSet(2, '<?php echo Yii::t('app', 'Post/Get') ?>', 'SHOW', 'input');
+            fieldSet(3, '<?php echo Yii::t('app', 'Url') ?>', 'SHOW', 'textarea');
         } else if (id == 17) {
-            fieldSet(1, 'Prowl message to send', 'SHOW', 'textarea');
+            fieldSet(1, '<?php echo Yii::t('app', 'Prowl message to send') ?>', 'SHOW', 'textarea');
         } else if (id == 18) {
-            fieldSet(1, 'Notify My Android message to send', 'SHOW', 'textarea');
+            fieldSet(1, '<?php echo Yii::t('app', 'Notify My Android message to send') ?>', 'SHOW', 'textarea');
         } else if (id == 19) {
-            fieldSet(1, 'Pushover message to send', 'SHOW', 'textarea');
+            fieldSet(1, '<?php echo Yii::t('app', 'Pushover message to send') ?>', 'SHOW', 'textarea');
         } else {
             showAll();
         }

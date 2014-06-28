@@ -13,6 +13,10 @@ require_once($yii);
 $app = Yii::createWebApplication($config);
 
 // set timezone if default is not set to keep PHP strict happy
-Yii::app()->setTimeZone(Yii::app()->params['timeZone']);
+$app->setTimeZone(Yii::app()->params['timeZone']);
 
+// load helper
+require_once(dirname(__FILE__).'/protected/components/helpers.php');
+
+// start app
 $app->run();

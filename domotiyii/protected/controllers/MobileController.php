@@ -96,8 +96,8 @@ class MobileController extends Controller
 			$current_device_id = intval(strip_tags($_POST['Device']['id']));                   
 			$current_device_value = strip_tags($_POST['Device']['value']);
 
-			$result = $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.set", "params" =>  array("device_id"=>$current_device_id,"value"=>$current_device_value),'id'=>1));
-			echo json_encode($result);
+			$result = doJsonRpc(array("jsonrpc"=>"2.0", "method"=>"device.set", "params" =>  array("device_id"=>$current_device_id,"value"=>$current_device_value),'id'=>1));
+			giveJsonBack($result);
 		}
 	}
 
@@ -107,43 +107,23 @@ class MobileController extends Controller
 		{
 			$current_scene_id = intval(strip_tags($_POST['Scene']['id']));                   
 
-			$result = $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"scene.run", "params" =>  array("scene_id"=>$current_scene_id),'id'=>1));
-			echo $result;
+			$result = doJsonRpc(array("jsonrpc"=>"2.0", "method"=>"scene.run", "params" =>  array("scene_id"=>$current_scene_id),'id'=>1));
+			giveJsonBack($result);
 		}
 	}
 
 	public function actionGetDeviceUpdate()
 	{
-	header('Content-type: application/json');
         if(isset($_GET['location']) && is_numeric($_GET['location'])  && $_GET['location'] != 0 )
 		{   
-            echo $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all",
+            giveJsonBack(doJsonRpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all",
                 "locations"=>array(intval(strip_tags($_GET['location']))),
-                "fields"=>array("device_id","lastseen")),'id'=>1));
+                "fields"=>array("device_id","lastseen")),'id'=>1)));
         }else{
-            echo $this->do_jsonrpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all",
-                "fields"=>array("device_id","lastseen")),'id'=>1));
+            giveJsonBack(doJsonRpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all",
+                "fields"=>array("device_id","lastseen")),'id'=>1)));
         }	
 
     }
 
-	protected function do_jsonrpc($data = array())
-	{
-		$request = json_encode($data);
-		$context = stream_context_create(
-            array('http' => 
-                array('method' => "POST",
-                        'header' =>"Content-Type: application/json\r\n" .
-                                 "Accept: application/json\r\n",
-                        'content' => $request)));
-		$file = @file_get_contents(Yii::app()->params['jsonrpcHost'], false, $context);
-        
-        if ( $file === FALSE )
-		{		
-            // could not connect
-            return json_encode(array("jsonrpc"=>"2.0","result"=>false,"id"=>1));
-		} else {
-            return $file;
-		}
-	}
 }

@@ -11,10 +11,9 @@ $(function() {
             type: "POST",        
             url: "setdevice",
             data: {Device: { id: id, value: value}  }
-        }).always( function (jqXHR, textStatus, errorThrown) {
+        }).always( function (json_data, textStatus, errorThrown) {
             var error = false;            
             if (textStatus == "success"){
-                var json_data = JSON.parse(jqXHR);
                 if((json_data.result != undefined && !json_data.result ) || json_data.error != undefined){
                     error = true;
                 }
@@ -35,10 +34,9 @@ $(function() {
             type: "POST",        
             url: "runscene",
             data: {Scene: { id: id}  }
-        }).always( function (jqXHR, textStatus, errorThrown) {
+        }).always( function (json_data, textStatus, errorThrown) {
             var error = false;            
             if (textStatus == "success"){
-                var json_data = JSON.parse(jqXHR);
                 if((json_data.result != undefined && !json_data.result ) || json_data.error != undefined){
                     error = true;
                 }

@@ -50,10 +50,7 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
         if (visible === "SHOW") {
             $('#' + sel).show();
             $('[for=' + sel + ']').show();
-            $('[for=' + sel + ']').text(name); //if ajax translation failed we have a text instead of empty field name
-            $.get('<?php echo Yii::app()->homeUrl ?>/AjaxUtil/Translate', {name: name}, function(data) {
-                $('[for=' + sel + ']').text(data.text);
-            }, 'json');
+            $('[for=' + sel + ']').text(name);
             if (type === 'textarea' && $('textarea #' + sel).length === 0) {
                 var old = $('#' + sel);
                 var textarea = $('<textarea  rows=4 cols=60 name="Triggers[param' + id + ']" id="Triggers_param' + id + '" type="text" style="display: inline-block;">' + old.val() + '</textarea>');
@@ -131,31 +128,31 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
     function adaptForm(id) {
         hideAll();
         if (id == 1) {
-            fieldSet(1, 'Time (crontab format)', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Time (crontab format)') ?>', 'SHOW', 'input');
         } else if (id == 2) {
-            fieldSet(1, 'Globalvar name', 'SHOW', 'select');
-            fieldSet(2, 'Operator', 'SHOW', 'input');
-            fieldSet(3, 'Value', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Globalvar name') ?>', 'SHOW', 'select');
+            fieldSet(2, '<?php echo Yii::t('app', 'Operator') ?>', 'SHOW', 'input');
+            fieldSet(3, '<?php echo Yii::t('app', 'Value') ?>', 'SHOW', 'input');
         } else if (id == 3) {
-            fieldSet(1, 'Device', 'SHOW', 'select');
-            fieldSet(2, 'Value number', 'SHOW', 'select');
-            fieldSet(3, 'Operator', 'SHOW', 'input');
-            fieldSet(4, 'Value', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Device') ?>', 'SHOW', 'select');
+            fieldSet(2, '<?php echo Yii::t('app', 'Value number') ?>', 'SHOW', 'select');
+            fieldSet(3, '<?php echo Yii::t('app', 'Operator') ?>', 'SHOW', 'input');
+            fieldSet(4, '<?php echo Yii::t('app', 'Value') ?>', 'SHOW', 'input');
         } else if (id == 4) {
-            fieldSet(1, 'Remote', 'SHOW', 'input');
-            fieldSet(2, 'Button', 'SHOW', 'input');
-            fieldSet(3, 'Repeat', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Remote') ?>', 'SHOW', 'input');
+            fieldSet(2, '<?php echo Yii::t('app', 'Button') ?>', 'SHOW', 'input');
+            fieldSet(3, '<?php echo Yii::t('app', 'Repeat') ?>', 'SHOW', 'input');
         } else if (id == 5) {
-            fieldSet(1, 'Device', 'SHOW', 'input');
-            fieldSet(2, 'Join', 'SHOW', 'input');
-            fieldSet(3, 'Value', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Device') ?>', 'SHOW', 'input');
+            fieldSet(2, '<?php echo Yii::t('app', 'Join') ?>', 'SHOW', 'input');
+            fieldSet(3, '<?php echo Yii::t('app', 'Value') ?>', 'SHOW', 'input');
         } else if (id == 6) {
-            fieldSet(1, 'Triggers', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Triggers') ?>', 'SHOW', 'input');
         } else if (id == 7) {
-            fieldSet(1, 'Value', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Value') ?>', 'SHOW', 'input');
         } else if (id == 8) {
-            fieldSet(1, 'Device', 'SHOW', 'lastseen');
-            fieldSet(2, 'Last Seen', 'SHOW', 'input');
+            fieldSet(1, '<?php echo Yii::t('app', 'Device') ?>', 'SHOW', 'lastseen');
+            fieldSet(2, '<?php echo Yii::t('app', 'Last Seen') ?>', 'SHOW', 'input');
         } else {
             showAll();
         }

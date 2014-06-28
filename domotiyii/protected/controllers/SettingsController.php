@@ -1443,7 +1443,7 @@ class SettingsController extends Controller {
     }
 
     public function actionSendTestNMA() {
-        $res = $this->do_jsonrpc(array('jsonrpc' => '2.0', 'method' => 'nma.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
+        $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'nma.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
         if ($res) {
             if ($res->result == "1") {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
@@ -1455,7 +1455,7 @@ class SettingsController extends Controller {
     }
 
     public function actionSendTestProwl() {
-        $res = $this->do_jsonrpc(array('jsonrpc' => '2.0', 'method' => 'prowl.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
+        $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'prowl.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
         if ($res) {
             if ($res->result == "1") {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
@@ -1467,7 +1467,7 @@ class SettingsController extends Controller {
     }
 
     public function actionSendTestPushover() {
-        $res = $this->do_jsonrpc(array('jsonrpc' => '2.0', 'method' => 'pushover.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
+        $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'pushover.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
         if ($res) {
             if ($res->result == "1") {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
@@ -1479,7 +1479,7 @@ class SettingsController extends Controller {
     }
 
     public function actionSendTestTweet() {
-        $res = $this->do_jsonrpc(array('jsonrpc' => '2.0', 'method' => 'twitter.send', 'params' => array('msg' => 'This is a test Tweet!'), 'id' => 1));
+        $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'twitter.send', 'params' => array('msg' => 'This is a test Tweet!'), 'id' => 1));
         if ($res) {
             if ($res->result == "1") {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test tweet.'));
@@ -1491,7 +1491,7 @@ class SettingsController extends Controller {
     }
 
     public function actionSendTestEmail() {
-        $res = $this->do_jsonrpc(array('jsonrpc' => '2.0', 'method' => 'email.send', 'params' => array('msg' => 'If you read this, e-mail support is working!',
+        $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'email.send', 'params' => array('msg' => 'If you read this, e-mail support is working!',
                 'subject' => 'Test e-mail'), 'id' => 1));
         if ($res) {
             if ($res->result == "1") {
@@ -1512,26 +1512,13 @@ class SettingsController extends Controller {
     }
 
     protected function do_restart($plugin) {
-        $res = $this->do_jsonrpc(array('jsonrpc' => '2.0', 'method' => 'plugin.restart', 'params' => array('name' => $plugin), 'id' => 1));
+        $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'plugin.restart', 'params' => array('name' => $plugin), 'id' => 1));
         if ($res) {
             if ($res->result == "1") {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Saved settings & restarted module.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Saving settings & restarting module failed!'));
             }
-        }
-    }
-
-    protected function do_jsonrpc($data = array()) {
-        $request = json_encode($data);
-        $context = stream_context_create(
-            array('http' => array('method' => "POST", 'header' => "Content-Type: application/json\r\n" . "Accept: application/json\r\n", 'content' => $request)));
-
-        $file = @file_get_contents(Yii::app()->params['jsonrpcHost'], false, $context);
-        if ($file === FALSE) {
-            Yii::app()->user->setFlash('error', "Couldn't connect to JSON-RPC service on '" . Yii::app()->params['jsonrpcHost'] . "'");
-        } else {
-            return json_decode($file);
         }
     }
 
