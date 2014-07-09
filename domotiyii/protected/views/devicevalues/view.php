@@ -66,7 +66,7 @@ $this->widget('domotiyii.DetailView', array(
     'type' => 'striped condensed',
     'data' => $model,
     'attributes' => array(
-        array('name' => 'device_id'),
+        array('name' => 'device.name'),
         array('name' => 'valuenum'),
         array('name' => 'value'),
         array('name' => 'correction'),

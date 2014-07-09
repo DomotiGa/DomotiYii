@@ -79,7 +79,8 @@ class DeviceValues extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'device_id' => 'Deviceid',
+            'device_id' => 'Device',
+            'device.name' => 'Device',
             'device' => 'Device',
             'valuenum' => 'Valuenum',
             'value' => 'Value',

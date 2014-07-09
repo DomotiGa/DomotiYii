@@ -12,7 +12,7 @@
 <fieldset>
 <p class="note"><?php echo Yii::t('app','Fields with <span class="required">*</span> are required.') ?></p>
 
-        <?php echo $form->textFieldControlGroup($model,'device_id'); ?>
+	<?php echo $form->dropDownListControlGroup($model,'device_id', $model->getDevices(), array('prompt'=>'', 'id'=>'device_id')); ?>
         <?php echo $form->textFieldControlGroup($model,'valuenum'); ?>
         <?php echo $form->textFieldControlGroup($model,'value'); ?>
         <?php echo $form->dropDownListControlGroup($model,'units', array('°' => '°', '°C' => '°C', '°F' => '°F', '%' => '%', '€' => '€', '$' => '$', 'Amp' => 'Amp', 'Count' => 'Count', 'hPa' => 'hPa', 'Volt' => 'Volt', 'kWh' => 'kWh', 'kg' => 'kg', 'W' => 'W', 'Wh' => 'Wh', 'Watt' => 'Watt', 'Level' => 'Level', 'lb' => 'lb', 'lux' => 'lux', 'RSSI' => 'RSSI', 'm/s' => 'm/s', 'mbar' => 'mbar', 'mm' => 'mm', 'mm/hr' => 'mm/hr', 'm3' => 'm3'), array('prompt'=>'')); ?>
