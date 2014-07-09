@@ -44,7 +44,7 @@
             // could not connect
             return array("jsonrpc" => "2.0", "result" => false, "id" => 1);
         } else {
-            return $file;
+            return @json_decode($file);
         }
     }
 ?>
