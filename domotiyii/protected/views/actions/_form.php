@@ -163,6 +163,8 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
             fieldSet(1, '<?php echo Yii::t('app', 'Notify My Android message to send') ?>', 'SHOW', 'textarea');
         } else if (id == 19) {
             fieldSet(1, '<?php echo Yii::t('app', 'Pushover message to send') ?>', 'SHOW', 'textarea');
+            fieldSet(2, '<?php echo Yii::t('app', 'Priority') ?>', 'SHOW', 'select');
+            fieldSet(3, '<?php echo Yii::t('app', 'Sound') ?>', 'SHOW', 'select');
         } else {
             showAll();
         }
