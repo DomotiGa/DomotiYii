@@ -12,14 +12,14 @@
     if($location_id == '0' && $type == 'all'){
         array_push($breadcrumb_links,Yii::t('app','Devices'));
     }else{
-        $breadcrumb_links[Yii::t('app','Devices')] = 'index';
+        $breadcrumb_links[Yii::t('app','Devices')] = Yii::app()->request->baseUrl . '/mobile/index';
         
         if($location_id != '0' && $type == 'all'){
             array_push($breadcrumb_links,$location_object->name);
         }elseif($location_id == '0' && $type != 'all'){
             array_push($breadcrumb_links,Yii::t('app',$type));
         }else{
-            $breadcrumb_links[$location_object->name] = 'index?location='.$location_id;
+            $breadcrumb_links[$location_object->name] = Yii::app()->request->baseUrl . '/mobile/index?location='.$location_id;
             array_push($breadcrumb_links,Yii::t('app',$type));
         }
     }
@@ -30,19 +30,19 @@
 
 
     // generate location and type menu
-    $links_location = array(array('label'=>Yii::t('app','All'), 'url'=>'index?type='.$type, 'active'=>$location_id == '0'));
+    $links_location = array(array('label'=>Yii::t('app','All'), 'url'=> Yii::app()->request->baseUrl . '/mobile/index?type='.$type, 'active'=>$location_id == '0'));
   
     foreach($model_locations->findAll(array('order'=>'name')) as $currentlocation){
         if ( $currentlocation['name'] != ''){
-            array_push($links_location, array('label'=>$currentlocation['name'], 'url'=>'index?type='.$type.'&location='.$currentlocation['id'], 'active'=>$location_id == $currentlocation['id']));
+            array_push($links_location, array('label'=>$currentlocation['name'], 'url'=> Yii::app()->request->baseUrl . '/mobile/index?type='.$type.'&location='.$currentlocation['id'], 'active'=>$location_id == $currentlocation['id']));
          }
      }
  
     $links_type = array(
-        array('label'=>Yii::t('app','All'), 'url'=>'index?location='.$location_id, 'active'=>$type == 'all'),
-        array('label'=>Yii::t('app','Sensors'), 'url'=>'index?type=sensors&location='.$location_id, 'active'=>$type == 'sensors'),
-        array('label'=>Yii::t('app','Dimmers'), 'url'=>'index?type=dimmers&location='.$location_id, 'active'=>$type == 'dimmers'),
-        array('label'=>Yii::t('app','Switches'), 'url'=>'index?type=switches&location='.$location_id, 'active'=>$type == 'switches'),
+        array('label'=>Yii::t('app','All'), 'url'=> Yii::app()->request->baseUrl . '/mobile/index?location='.$location_id, 'active'=>$type == 'all'),
+        array('label'=>Yii::t('app','Sensors'), 'url'=> Yii::app()->request->baseUrl . '/mobile/index?type=sensors&location='.$location_id, 'active'=>$type == 'sensors'),
+        array('label'=>Yii::t('app','Dimmers'), 'url'=> Yii::app()->request->baseUrl . '/mobile/index?type=dimmers&location='.$location_id, 'active'=>$type == 'dimmers'),
+        array('label'=>Yii::t('app','Switches'), 'url'=> Yii::app()->request->baseUrl . '/mobile/index?type=switches&location='.$location_id, 'active'=>$type == 'switches'),
     );
 
      $this->widget('bootstrap.widgets.TbNav', array(
