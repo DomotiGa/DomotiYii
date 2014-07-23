@@ -193,7 +193,11 @@ class Devices extends CActiveRecord {
      * @return dropdownlist with the list of floorplans
      */
     public function getFloors() {
-        return CHtml::listData(Floors::model()->findAll(array('order' => 'name ASC')), 'name', 'name');
+        return CHtml::listData(Floors::model()->findAll(array('order' => 'name ASC')), 'floor', 'name');
+    }
+
+    public function getFloor() {
+        return Floors::model()->findByPk($this->floorplan)->name;
     }
 
     /**
