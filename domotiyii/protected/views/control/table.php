@@ -187,7 +187,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
             "bAutoWidth": false,
             "aaSorting": [[1, "asc"]],
             "bServerSide": true,
-            "sAjaxSource": '<?php echo Yii::app()->request->baseUrl; ?>/control/table' + $('ul.nav-tabs li.active a').attr('href').replace('table', '') + '&ajax',
+            "sAjaxSource": '<?php echo Yii::app()->request->baseUrl; ?>/control/table' + window.location.search + '&ajax',
             "aoColumnDefs": [{"bVisible": false, "aTargets": [0]},
                 {"sClass": 'names', "aTargets": [2]},
                 {"sClass": 'locations', "aTargets": [3]},
@@ -208,7 +208,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
 
     function needRefresh() {
         if (maxdate !== '' && updateOK)
-            $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/lastChanged' + $('ul.nav-tabs li.active a').attr('href').replace('table', ''), function(data) {
+            $.get('<?php echo Yii::app()->request->baseUrl; ?>/AjaxUtil/lastChanged' + window.location.search, function(data) {
                 if (data != null && data != '?') {
                     $('.lastChanged').html('<b>Last change on server</b> : ' + data + ' - <b>Last change here</b> : ' + maxdate);
                     if (maxdate != data) {

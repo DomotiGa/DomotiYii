@@ -126,7 +126,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                     });
         } else {
             $.get('<?php echo Yii::app()->request->baseUrl ?>/EventsActions/delete',
-                    {event: idEvent, action: idAction},
+                    {eventid: idEvent, actionid: idAction},
                     function(data) {
 //                        alert(data);
                         $.fn.yiiGridView.update('all-eventsActions-grid');

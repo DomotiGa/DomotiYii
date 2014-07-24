@@ -34,8 +34,8 @@ class EventsActionsController extends Controller
         public function actionDelete()
         {
                 // delete the entry from the "events_actions" table
-                $idEvent=yii::app()->request->getParam('event');
-                $idAction=yii::app()->request->getParam('action');
+                $idEvent=yii::app()->request->getParam('eventid');
+                $idAction=yii::app()->request->getParam('actionid');
                 $model = EventsActions::model()->find("t.event='$idEvent' and t.action='$idAction'");
                 $this->do_delete($model);
                 //checking and updating order FIXME TO BE DONE BETTER !!!!!!!!!!!!!!!!!!!!

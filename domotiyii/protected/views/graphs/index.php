@@ -25,7 +25,7 @@ $chartname = '';
 $chartvalue = array();
 ?>
 
-<link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/static/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/static/jquery-ui.css">
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui-1.10.4.js"></script>
 
