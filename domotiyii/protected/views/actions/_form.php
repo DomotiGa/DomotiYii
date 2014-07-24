@@ -91,6 +91,51 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                 buff+='</select>';
                 $('#sel' + id).html(buff);
                 viewOnly();
+            } else if (type === 'select' && name === 'Priority') {
+                var old = $('#' + sel);
+                var oldText = old.val();
+                var textinput = $('<span id="sel' + id + '"></span>');
+                var buff='';
+                old.replaceWith(textinput);
+                buff='<select  name="Actions[param' + id + ']" id="Actions_param' + id + '" style="display: inline-block;">';
+				
+				var options = [["-2","Lowest"],["-1","Low"],["0","Normal"],["1","High"],["2","Emergency"]];
+	
+				for (var i = 0; i < options.length; i++) {
+					buff+= '<option value="'+options[i][0]+'"'
+					if ( options[i][0] === oldText){
+						buff+= ' selected '; 				
+					}
+					buff+= '> ' + options[i][1] + ' (' + options[i][0] + ')';    
+				}
+
+	        	buff+='</select>';
+                $('#sel' + id).html(buff);
+                viewOnly();
+            } else if (type === 'select' && name === 'Sound') {
+                var old = $('#' + sel);
+                var oldText = old.val();
+                var textinput = $('<span id="sel' + id + '"></span>');
+                var buff='';
+                old.replaceWith(textinput);
+                buff='<select  name="Actions[param' + id + ']" id="Actions_param' + id + '" style="display: inline-block;">';
+				
+				var options = ["pushover (default)", "bike", "bugle", "cashregister", "classical", "cosmic", "falling", "gamelan", "incoming", "intermission", "magic", "mechanical", "pianobar", "siren", "spacealarm", "tugboat", "alien", "climb", "persistent", "echo", "updown", "none"];
+	
+				for (var i = 0; i < options.length; i++) {
+					buff+= '<option'
+					if ( options[i] === "pushover (default)" ) {
+						buff+= ' value=""';
+					}
+					if ( options[i] === oldText){
+						buff+= ' selected'; 				
+					}
+					buff+= '> ' + options[i];    
+				}
+
+	        	buff+='</select>';
+                $('#sel' + id).html(buff);
+                viewOnly();
             }
         } else {
             $('#' + sel).hide();
