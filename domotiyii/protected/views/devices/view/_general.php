@@ -30,7 +30,7 @@ $this->widget('domotiyii.DetailView', array(
 		array('name' => 'extcode', 'type' =>'boolean'),
 		array('name' => 'x'),
 		array('name' => 'y'),
-		array('name' => 'floorplan'),
+		array('name' => 'floor'),
 		array('name' => 'lastchanged'),
 		array('name' => 'repeatstate', 'type' =>'boolean'),
 		array('name' => 'repeatperiod'),
