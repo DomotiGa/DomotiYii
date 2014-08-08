@@ -197,7 +197,7 @@ class Devices extends CActiveRecord {
     }
 
     public function getFloor() {
-        return Floors::model()->findByPk($this->floorplan)->name;
+        return (is_null(Floors::model()->findByPk($this->floorplan))?"":Floors::model()->findByPk($this->floorplan)->name);
     }
 
     /**
