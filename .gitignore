@@ -3,8 +3,8 @@
 *~
 
 # ignore yii framework files
-assets/*
-!assets/.gitignore
-protected/runtime/*
-!protected/runtime/.gitignore
-protected/data/*.db
+domotiyii/assets/*
+!domotiyii/assets/.gitignore
+domotiyii/protected/runtime/*
+!domotiyii/protected/runtime/.gitignore
+domotiyii/protected/data/*.db
