@@ -1,3 +1,10 @@
 *.DS_Store
 *.swp
 *~
+
+# ignore yii framework files
+assets/*
+!assets/.gitignore
+protected/runtime/*
+!protected/runtime/.gitignore
+protected/data/*.db
