@@ -86,17 +86,21 @@ class Devices extends CActiveRecord {
      * @return icon path for a device
      */
     public function getIcon() {
-        if ($this->deviceValue1->value === 'On')
-            $icon = $this->onicon;
-        else
-        if (strpos($this->deviceValue1->value, 'Dim') !== FALSE)
-            $icon = $this->dimicon;
-        else
-            $icon = $this->officon;
-        if ($icon === NULL || empty($icon))
+        if (isset($this->deviceValue1->value)) {
+            if ($this->deviceValue1->value === 'On')
+                $icon = $this->onicon;
+            else
+            if (strpos($this->deviceValue1->value, 'Dim') !== FALSE)
+                $icon = $this->dimicon;
+            else
+                $icon = $this->officon;
+            if ($icon === NULL || empty($icon))
+                return "";
+            $imageSrc = Yii::app()->homeUrl . 'static/icons/' . $icon;
+            return '<img src="' . $imageSrc . '">';
+        } else {
             return "";
-        $imageSrc = Yii::app()->homeUrl . 'static/icons/' . $icon;
-        return '<img src="' . $imageSrc . '">';
+        }
     }
 
     /**

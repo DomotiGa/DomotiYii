@@ -167,34 +167,36 @@ class ControlController extends CController {
     }
 
     protected function getActions($obj) {
-        $tmp = str_replace('Dim ', '', $obj->deviceValue1->value);
-        if ($tmp == 'Off')
-            $tmp = 0; else
-        if ($tmp == 'On')
-            $tmp = 100;
-        $valueOne = (!is_numeric($tmp) ? 0 : $tmp);
-        $dimmer = '<div class="slider-container" style="text-align:center;margin:0px;"><input type="text" class="slider" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="' . $valueOne . '" data-slider-orientation="horizontal" data-device="' . $obj->id . '" data-slider-selection="after" data-slider-tooltip="hide">&nbsp;<span style="font-weigth:bold;"></span></div>';
-        $space = '<div class="fixSpace"></div>';
-        $buttons = '<button type="button" name="but" onClick="btAction(event,this)" data-action="Off" data-device="' . $obj->id . '" class="btn btn-primary btn-mini">Off</button>&nbsp;<button type="button" onClick="btAction(event,this)" data-action="On" data-device="' . $obj->id . '" class="btn btn-primary btn-mini">On</button>';
-        if ($obj->SPdevice) {
-            $comma = FALSE;
-            $tmp = $obj->deviceValue1->value;
-            if (strpos($tmp, 'SP') !== FALSE)
-                $tmp = str_replace('SP ', '', $tmp);
+        if (isset($obj->deviceValue1->value)) {
+            $tmp = str_replace('Dim ', '', $obj->deviceValue1->value);
+            if ($tmp == 'Off')
+                $tmp = 0; else
+            if ($tmp == 'On')
+                $tmp = 100;
+            $valueOne = (!is_numeric($tmp) ? 0 : $tmp);
+            $dimmer = '<div class="slider-container" style="text-align:center;margin:0px;"><input type="text" class="slider" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="' . $valueOne . '" data-slider-orientation="horizontal" data-device="' . $obj->id . '" data-slider-selection="after" data-slider-tooltip="hide">&nbsp;<span style="font-weigth:bold;"></span></div>';
+            $space = '<div class="fixSpace"></div>';
+            $buttons = '<button type="button" name="but" onClick="btAction(event,this)" data-action="Off" data-device="' . $obj->id . '" class="btn btn-primary btn-mini">Off</button>&nbsp;<button type="button" onClick="btAction(event,this)" data-action="On" data-device="' . $obj->id . '" class="btn btn-primary btn-mini">On</button>';
+            if ($obj->SPdevice) {
+                $comma = FALSE;
+                $tmp = $obj->deviceValue1->value;
+                if (strpos($tmp, 'SP') !== FALSE)
+                    $tmp = str_replace('SP ', '', $tmp);
 
-            $buff = '<button type="button" name="but" class="btSetPoint btMoins">-</button>'
-                . '<input type="text" class="inputSetPoint" value="' . $tmp . '">'
-                . '<button type="button" class="btSetPoint btPlus">+</button>'
-                . '&nbsp;&nbsp;<button type="button" data-device="' . $obj->id . '" class="btn btn-primary btn-mini btSetPoint">Set</button>';
-            return $buff;
-        }
-        if ($obj->switchable == -1) {
-            return $space . $buttons;
-        } else if ($obj->dimable == -1)
-            return $dimmer . $buttons;
-        else
+                $buff = '<button type="button" name="but" class="btSetPoint btMoins">-</button>'
+                    . '<input type="text" class="inputSetPoint" value="' . $tmp . '">'
+                    . '<button type="button" class="btSetPoint btPlus">+</button>'
+                    . '&nbsp;&nbsp;<button type="button" data-device="' . $obj->id . '" class="btn btn-primary btn-mini btSetPoint">Set</button>';
+                return $buff;
+            }
+            if ($obj->switchable == -1) {
+                return $space . $buttons;
+            } else if ($obj->dimable == -1)
+                return $dimmer . $buttons;
+            else
+                return "";
+        } else {
             return "";
+        }
     }
-
 }
-
