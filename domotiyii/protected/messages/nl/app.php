@@ -83,6 +83,7 @@ return array (
 
 // Cameras
 'Create Camera' => 'Camera Toevoegen',
+
 // Settings
 'Settings' => 'Instellingen',
 'Enabled' => 'Geactiveerd',
@@ -97,10 +98,12 @@ return array (
 'Reset' => 'Herstel',
 'Minutes' => 'Minuten',
 'Seconds' => 'Seconden',
-'Saved settings & restarted module.' => 'Instellingen opgeslagen, module herstart.',
-'Saving settings & restarted module failed!' => 'Opslaan van instellingen en module herstart mislukt!',
 'Settings saved.' => 'Instellingen opgeslagen.',
 'Saving settings failed!' => 'Opslaan van instellingen mislukt!',
+'Settings saved, module restarted.' => 'Instellingen opgeslagen, module herstart.',
+'Settings saved, module restart failed!' => 'Instellingen opgeslagen, herstarten van module mislukt!',
+'Saving settings failed, module restarted!' => 'Opslaan van instellingen mislukt, module herstart!',
+'Cannot connect to JSON-RPC server!' => 'Kan niet verbinden met de JSON-RPC server!',
 
 // Events
 'Create Event' => 'Event Toevoegen',

@@ -1,19 +1,19 @@
 <?php
 
-	function echoTranslate($text){
-		echo Yii::t('app',$text);
-	}
+    function echoTranslate($text) {
+        echo Yii::t('app',$text);
+    }
 
-	function giveJsonBack($data){
-		header('Content-type: application/json');
+    function giveJsonBack($data) {
+        header('Content-type: application/json');
 		
-		// check if data is already be encoded to json
-		if(json_validate($data)){
-			echo $data;
-		}else{
-			echo json_encode($data);
-		}
-	}
+        // check if data is already be encoded to json
+        if(json_validate($data)) {
+            echo $data;
+        } else {
+            echo json_encode($data);
+        }
+    }
 
     function json_validate($string) {
         if (is_string($string)) {
@@ -23,14 +23,12 @@
         return false;
     }
 
-
-
-	function doJsonRpc($data = array()) {
-        if(json_validate($data)){
-			$request = $data;
-		}else{
-			$request = json_encode($data);
-		}
+    function doJsonRpc($data = array()) {
+        if(json_validate($data)) {
+            $request = $data;
+        } else {
+            $request = json_encode($data);
+        }
 
         $context = stream_context_create(
             array('http' =>
@@ -39,8 +37,7 @@
                     "Accept: application/json\r\n",
                     'content' => $request)));
         $file = @file_get_contents(Yii::app()->params['jsonrpcHost'], false, $context);
-
-        if ($file === FALSE) {
+        if ($file === false) {
             // could not connect
 	    Yii::app()->user->setFlash('jsonrpc-error', Yii::t('app', 'Cannot connect to JSON-RPC server!'));
             return (object) array("jsonrpc" => "2.0", "result" => false, "id" => 1);

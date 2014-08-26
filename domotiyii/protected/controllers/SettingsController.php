@@ -234,8 +234,7 @@ class SettingsController extends Controller {
             if($model->validate())
             {
                 // form inputs are valid, do something here
-                $this->do_save($model);
-                $this->do_restart('jerome');
+                $this->do_save_restart($model, 'jerome');
             }
         }
         $this->render('jerome',array('model'=>$model));
@@ -248,8 +247,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsVelbus'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $this->do_save($model);
-                $this->do_restart('velbus');
+                $this->do_save_restart($model, 'velbus');
             }
         }
         $this->render('velbus', array('model' => $model));
@@ -262,8 +260,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsViera'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $this->do_save($model);
-                $this->do_restart('viera');
+                $this->do_save_restart($model, 'viera');
             }
         }
         $this->render('viera', array('model' => $model));
@@ -276,8 +273,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsToon'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $this->do_save($model);
-                $this->do_restart('toon');
+                $this->do_save_restart($model, 'toon');
             }
         }
         $this->render('toon', array('model' => $model));
@@ -303,8 +299,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsP2000'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('P2000');
+                $this->do_save_restart($model, 'P2000');
             }
         }
         $this->render('p2000', array('model' => $model));
@@ -317,8 +312,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsRazberry'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('razberry');
+                $this->do_save_restart($model, 'razberry');
             }
         }
         $this->render('razberry', array('model' => $model));
@@ -331,8 +325,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsGenericio'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('genericio');
+                $this->do_save_restart($model, 'genericio');
             }
         }
         $this->render('genericio', array('model' => $model));
@@ -345,8 +338,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsWeatherug'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('weatherug');
+                $this->do_save_restart($model, 'weatherug');
             }
         }
         $this->render('weatherug', array('model' => $model));
@@ -359,8 +351,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsNMA'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('nma');
+                $this->do_save_restart($model, 'nma');
             }
         }
         $this->render('nma', array('model' => $model));
@@ -373,8 +364,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsPushover'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('pushover');
+                $this->do_save_restart($model, 'pushover');
             }
         }
         $this->render('pushover', array('model' => $model));
@@ -387,8 +377,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsProwl'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('prowl');
+                $this->do_save_restart($model, 'prowl');
             }
         }
         $this->render('prowl', array('model' => $model));
@@ -401,8 +390,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsKmtronicudp'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('kmtronicudp');
+                $this->do_save_restart($model, 'kmtronicudp');
             }
         }
         $this->render('kmtronicudp', array('model' => $model));
@@ -415,8 +403,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsVisonic'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('visonic');
+                $this->do_save_restart($model, 'visonic');
             }
         }
         $this->render('visonic', array('model' => $model));
@@ -429,8 +416,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsPvoutput'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('pvoutput');
+                $this->do_save_restart($model, 'pvoutput');
             }
         }
         $this->render('pvoutput', array('model' => $model));
@@ -443,8 +429,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsMqtt'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('mqtt');
+                $this->do_save_restart($model, 'mqtt');
             }
         }
         $this->render('mqtt', array('model' => $model));
@@ -457,8 +442,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsMochad'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('mochad');
+                $this->do_save_restart($model, 'mochad');
             }
         }
         $this->render('mochad', array('model' => $model));
@@ -471,8 +455,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsSmartvisuserver'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('smartvisuserver');
+                $this->do_save_restart($model, 'smartvisuserver');
             }
         }
         $this->render('smartvisuserver', array('model' => $model));
@@ -485,8 +468,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsFritzbox'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('fritzbox');
+                $this->do_save_restart($model, 'fritzbox');
             }
         }
         $this->render('fritzbox', array('model' => $model));
@@ -499,8 +481,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsRfxcomtrx'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('rfxcomtrx');
+                $this->do_save_restart($model, 'rfxcomtrx');
             }
         }
         $this->render('rfxcomtrx', array('model' => $model));
@@ -513,8 +494,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsAsterisk'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('asterisk');
+                $this->do_save_restart($model, 'asterisk');
             }
         }
         $this->render('asterisk', array('model' => $model));
@@ -527,8 +507,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsMain'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $this->do_save($model);
-                $this->do_restart('main');
+                $this->do_save_restart($model, 'main');
             }
         }
         $this->render('main', array('model' => $model));
@@ -540,7 +519,7 @@ class SettingsController extends Controller {
         if (isset($_POST['SettingsCallerid'])) {
             $model->attributes = $_POST['SettingsCallerid'];
             if ($model->validate()) {
-                // form inputs are valid, save and restart
+                // form inputs are valid, save
                 $this->do_save($model);
             }
         }
@@ -554,8 +533,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsAstro'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('astro');
+                $this->do_save_restart($model, 'astro');
             }
         }
         $this->render('astro', array('model' => $model));
@@ -568,8 +546,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsEmail'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('email');
+                $this->do_save_restart($model, 'email');
             }
         }
         $this->render('email', array('model' => $model));
@@ -582,8 +559,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsGmail'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('gmail');
+                $this->do_save_restart($model, 'gmail');
             }
         }
         $this->render('gmail', array('model' => $model));
@@ -596,8 +572,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsTwitter'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('twitter');
+                $this->do_save_restart($model, 'twitter');
             }
         }
         $this->render('twitter', array('model' => $model));
@@ -610,8 +585,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsSound'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('sound');
+                $this->do_save_restart($model, 'sound');
             }
         }
         $this->render('sound', array('model' => $model));
@@ -624,8 +598,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsVoicetext'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('voicetext');
+                $this->do_save_restart($model, 'voicetext');
             }
         }
         $this->render('voicetext', array('model' => $model));
@@ -638,8 +611,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsTelnetserver'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('telnetserver');
+                $this->do_save_restart($model, 'telnetserver');
             }
         }
         $this->render('telnetserver', array('model' => $model));
@@ -652,8 +624,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsWeatherbug'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('weatherbug');
+                $this->do_save_restart($model, 'weatherbug');
             }
         }
         $this->render('weatherbug', array('model' => $model));
@@ -666,8 +637,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsServerstats'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('serverstats');
+                $this->do_save_restart($model, 'serverstats');
             }
         }
         $this->render('serverstats', array('model' => $model));
@@ -680,8 +650,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsTvguide'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('tvguide');
+                $this->do_save_restart($model, 'tvguide');
             }
         }
         $this->render('tvguide', array('model' => $model));
@@ -707,8 +676,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsThermostat'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('thermostat');
+                $this->do_save_restart($model, 'thermostat');
             }
         }
         $this->render('thermostat', array('model' => $model));
@@ -721,8 +689,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsBwiredmap'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('bwiredmap');
+                $this->do_save_restart($model, 'bwiredmap');
             }
         }
         $this->render('bwiredmap', array('model' => $model));
@@ -735,8 +702,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsPachube'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('pachube');
+                $this->do_save_restart($model, 'pachube');
             }
         }
         $this->render('pachube', array('model' => $model));
@@ -749,8 +715,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsTemperaturnu'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('temperaturnu');
+                $this->do_save_restart($model, 'temperaturnu');
             }
         }
         $this->render('temperaturnu', array('model' => $model));
@@ -763,8 +728,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsDigitemp'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('digitemp');
+                $this->do_save_restart($model, 'digitemp');
             }
         }
         $this->render('digitemp', array('model' => $model));
@@ -777,8 +741,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsTemp08'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('temp08');
+                $this->do_save_restart($model, 'temp08');
             }
         }
         $this->render('temp08', array('model' => $model));
@@ -791,8 +754,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsOwfs'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('owfs');
+                $this->do_save_restart($model, 'owfs');
             }
         }
         $this->render('owfs', array('model' => $model));
@@ -805,8 +767,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsOww'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('oww');
+                $this->do_save_restart($model, 'oww');
             }
         }
         $this->render('oww', array('model' => $model));
@@ -819,8 +780,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsDenon'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('denon');
+                $this->do_save_restart($model, 'denon');
             }
         }
         $this->render('denon', array('model' => $model));
@@ -833,8 +793,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsIport'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('iport');
+                $this->do_save_restart($model, 'iport');
             }
         }
         $this->render('iport', array('model' => $model));
@@ -847,8 +806,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsLgtv'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('lgtv');
+                $this->do_save_restart($model, 'lgtv');
             }
         }
         $this->render('lgtv', array('model' => $model));
@@ -861,8 +819,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsOnkyo'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('onkyo');
+                $this->do_save_restart($model, 'onkyo');
             }
         }
         $this->render('onkyo', array('model' => $model));
@@ -875,8 +832,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsSharptv'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('sharptv');
+                $this->do_save_restart($model, 'sharptv');
             }
         }
         $this->render('sharptv', array('model' => $model));
@@ -889,8 +845,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsSqueezeserver'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('squeezeserver');
+                $this->do_save_restart($model, 'squeezeserver');
             }
         }
         $this->render('squeezeserver', array('model' => $model));
@@ -903,8 +858,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsNcid'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('ncid');
+                $this->do_save_restart($model, 'ncid');
             }
         }
         $this->render('ncid', array('model' => $model));
@@ -917,8 +871,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsCul'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('cul');
+                $this->do_save_restart($model, 'cul');
             }
         }
         $this->render('cul', array('model' => $model));
@@ -931,8 +884,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsVideoserver'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('videoserver');
+                $this->do_save_restart($model, 'videoserver');
             }
         }
         $this->render('videoserver', array('model' => $model));
@@ -945,8 +897,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsVisca'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('visca');
+                $this->do_save_restart($model, 'visca');
             }
         }
         $this->render('visca', array('model' => $model));
@@ -959,8 +910,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsPwrctrl'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('pwrctrl');
+                $this->do_save_restart($model, 'pwrctrl');
             }
         }
         $this->render('pwrctrl', array('model' => $model));
@@ -973,8 +923,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsEzcontrol'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('ezcontrol');
+                $this->do_save_restart($model, 'ezcontrol');
             }
         }
         $this->render('ezcontrol', array('model' => $model));
@@ -987,8 +936,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsEib'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('eib');
+                $this->do_save_restart($model, 'eib');
             }
         }
         $this->render('eib', array('model' => $model));
@@ -1001,8 +949,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsPlcbus'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('plcbus');
+                $this->do_save_restart($model, 'plcbus');
             }
         }
         $this->render('plcbus', array('model' => $model));
@@ -1015,8 +962,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsX10cmd'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('x10cmd');
+                $this->do_save_restart($model, 'x10cmd');
             }
         }
         $this->render('x10cmd', array('model' => $model));
@@ -1029,8 +975,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsCtx35'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('ctx35');
+                $this->do_save_restart($model, 'ctx35');
             }
         }
         $this->render('ctx35', array('model' => $model));
@@ -1043,8 +988,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsOpenzwave'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('openzwave');
+                $this->do_save_restart($model, 'openzwave');
             }
         }
         $this->render('openzwave', array('model' => $model));
@@ -1057,8 +1001,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsDsc'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('dsc');
+                $this->do_save_restart($model, 'dsc');
             }
         }
         $this->render('dsc', array('model' => $model));
@@ -1071,8 +1014,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsCurrentcost'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('currentcost');
+                $this->do_save_restart($model, 'currentcost');
             }
         }
         $this->render('currentcost', array('model' => $model));
@@ -1085,8 +1027,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsPlugwise'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('plugwise');
+                $this->do_save_restart($model, 'plugwise');
             }
         }
         $this->render('plugwise', array('model' => $model));
@@ -1099,8 +1040,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsSmartmeter'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('smartmeter');
+                $this->do_save_restart($model, 'smartmeter');
             }
         }
         $this->render('smartmeter', array('model' => $model));
@@ -1113,8 +1053,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsHddtemp'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('hddtemp');
+                $this->do_save_restart($model, 'hddtemp');
             }
         }
         $this->render('hddtemp', array('model' => $model));
@@ -1127,8 +1066,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsHomematic'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('homematic');
+                $this->do_save_restart($model, 'homematic');
             }
         }
         $this->render('homematic', array('model' => $model));
@@ -1141,8 +1079,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsK8055'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('k8055');
+                $this->do_save_restart($model, 'k8055');
             }
         }
         $this->render('k8055', array('model' => $model));
@@ -1155,8 +1092,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsWeeder'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('weeder');
+                $this->do_save_restart($model, 'weeder');
             }
         }
         $this->render('weeder', array('model' => $model));
@@ -1169,8 +1105,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsIviewer'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('iviewer');
+                $this->do_save_restart($model, 'iviewer');
             }
         }
         $this->render('iviewer', array('model' => $model));
@@ -1183,8 +1118,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsIrman'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('irman');
+                $this->do_save_restart($model, 'irman');
             }
         }
         $this->render('irman', array('model' => $model));
@@ -1197,8 +1131,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsIrtrans'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('irtrans');
+                $this->do_save_restart($model, 'irtrans');
             }
         }
         $this->render('irtrans', array('model' => $model));
@@ -1211,8 +1144,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsLirc'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('lirc');
+                $this->do_save_restart($model, 'lirc');
             }
         }
         $this->render('lirc', array('model' => $model));
@@ -1225,8 +1157,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsDmxPlayer'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('dmxplayer');
+                $this->do_save_restart($model, 'dmxplayer');
             }
         }
         $this->render('dmxplayer', array('model' => $model));
@@ -1239,8 +1170,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsJeelabs'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('jeelabs');
+                $this->do_save_restart($model, 'jeelabs');
             }
         }
         $this->render('jeelabs', array('model' => $model));
@@ -1253,8 +1183,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsLedmatrix'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('ledmatrix');
+                $this->do_save_restart($model, 'ledmatrix');
             }
         }
         $this->render('ledmatrix', array('model' => $model));
@@ -1267,8 +1196,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsBluetooth'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('bluetooth');
+                $this->do_save_restart($model, 'bluetooth');
             }
         }
         $this->render('bluetooth', array('model' => $model));
@@ -1281,8 +1209,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsSms'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('sms');
+                $this->do_save_restart($model, 'sms');
             }
         }
         $this->render('sms', array('model' => $model));
@@ -1295,8 +1222,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsPing'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('ping');
+                $this->do_save_restart($model, 'ping');
             }
         }
         $this->render('ping', array('model' => $model));
@@ -1309,8 +1235,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsGps'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('gps');
+                $this->do_save_restart($model, 'gps');
             }
         }
         $this->render('gps', array('model' => $model));
@@ -1323,8 +1248,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsOpentherm'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('opentherm');
+                $this->do_save_restart($model, 'opentherm');
             }
         }
         $this->render('opentherm', array('model' => $model));
@@ -1337,8 +1261,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsRrdtool'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('rrdtool');
+                $this->do_save_restart($model, 'rrdtool');
             }
         }
         $this->render('rrdtool', array('model' => $model));
@@ -1351,8 +1274,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsRfxcomrx'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('rfxcomrx');
+                $this->do_save_restart($model, 'rfxcomrx');
             }
         }
         $this->render('rfxcomrx', array('model' => $model));
@@ -1365,8 +1287,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsRfxcomtx'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('rfxcomtx');
+                $this->do_save_restart($model, 'rfxcomtx');
             }
         }
         $this->render('rfxcomtx', array('model' => $model));
@@ -1379,8 +1300,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsRfxcomxpl'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('rfxcomxpl');
+                $this->do_save_restart($model, 'rfxcomxpl');
             }
         }
         $this->render('rfxcomxpl', array('model' => $model));
@@ -1393,8 +1313,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsShell'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('shell');
+                $this->do_save_restart($model, 'shell');
             }
         }
         $this->render('shell', array('model' => $model));
@@ -1407,8 +1326,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsUps'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('ups');
+                $this->do_save_restart($model, 'ups');
             }
         }
         $this->render('ups', array('model' => $model));
@@ -1421,8 +1339,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsXpl'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('xpl');
+                $this->do_save_restart($model, 'xpl');
             }
         }
         $this->render('xpl', array('model' => $model));
@@ -1435,8 +1352,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsPioneer'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('pioneer');
+                $this->do_save_restart($model, 'pioneer');
             }
         }
         $this->render('pioneer', array('model' => $model));
@@ -1445,7 +1361,7 @@ class SettingsController extends Controller {
     public function actionSendTestNMA() {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'nma.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
         if ($res) {
-            if ($res->result == "1") {
+            if ($res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test pushmsg failed!'));
@@ -1457,7 +1373,7 @@ class SettingsController extends Controller {
     public function actionSendTestProwl() {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'prowl.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
         if ($res) {
-            if ($res->result == "1") {
+            if ($res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test pushmsg failed!'));
@@ -1469,7 +1385,7 @@ class SettingsController extends Controller {
     public function actionSendTestPushover() {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'pushover.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
         if ($res) {
-            if ($res->result == "1") {
+            if ($res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test pushmsg failed!'));
@@ -1481,7 +1397,7 @@ class SettingsController extends Controller {
     public function actionSendTestTweet() {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'twitter.send', 'params' => array('msg' => 'This is a test Tweet!'), 'id' => 1));
         if ($res) {
-            if ($res->result == "1") {
+            if ($res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test tweet.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test tweet failed!'));
@@ -1494,7 +1410,7 @@ class SettingsController extends Controller {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'email.send', 'params' => array('msg' => 'If you read this, e-mail support is working!',
                 'subject' => 'Test e-mail'), 'id' => 1));
         if ($res) {
-            if ($res->result == "1") {
+            if ($res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test e-mail.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test e-mail failed!'));
@@ -1504,22 +1420,23 @@ class SettingsController extends Controller {
     }
 
     protected function do_save($model) {
-        if ($model->save() === false) {
+        if (!$model->save()) {
             Yii::app()->user->setFlash('error', Yii::t('app', 'Saving settings failed!'));
         } else {
             Yii::app()->user->setFlash('success', Yii::t('app', 'Settings saved.'));
         }
     }
 
-    protected function do_restart($plugin) {
-        $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'plugin.restart', 'params' => array('name' => $plugin), 'id' => 1));
-        if ($res) {
-            if ($res->result == "1") {
-                Yii::app()->user->setFlash('success', Yii::t('app', 'Saved settings & restarted module.'));
-            } else {
-                Yii::app()->user->setFlash('error', Yii::t('app', 'Saving settings & restarting module failed!'));
-            }
+    protected function do_save_restart($model, $plugin) {
+        $save_res = $model->save();
+        $json_res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'plugin.restart', 'params' => array('name' => $plugin), 'id' => 1));
+
+        if ($save_res && $json_res->result) {
+            Yii::app()->user->setFlash('success', Yii::t('app', 'Saved settings, module restarted.'));
+	} else if ($save_res && !$json_res->result) {
+            Yii::app()->user->setFlash('error', Yii::t('app', 'Settings saved, module restart failed!'));
+	} else if (!$save_res && $json_res->result) {
+            Yii::app()->user->setFlash('error', Yii::t('app', 'Saving settings failed, module restarted!'));
         }
     }
-
 }

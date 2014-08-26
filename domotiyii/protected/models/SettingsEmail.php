@@ -76,7 +76,7 @@ class SettingsEmail extends CActiveRecord
 			'toaddress' => 'To address',
 			'smtpserver' => 'SMTP server',
 			'smtpport' => 'SMTP port',
-			'sslenabled' => 'SSL Enabled',
+			'sslenabled' => 'TLS/SSL Enabled',
 			'username' => 'Username',
 			'password' => 'Password',
 			'debug' => 'Debug',
