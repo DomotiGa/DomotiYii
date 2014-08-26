@@ -42,7 +42,7 @@
 
         if ($file === FALSE) {
             // could not connect
-            return array("jsonrpc" => "2.0", "result" => false, "id" => 1);
+            return (object) array("jsonrpc" => "2.0", "result" => false, "id" => 1);
         } else {
             return @json_decode($file);
         }
