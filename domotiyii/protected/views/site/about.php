@@ -28,6 +28,14 @@ GNU General Public License for more details.</p>
 along with this program.  If not, see http://www.gnu.org/licenses/.</p>
 
 <legend>Versions</legend>
+JSON-RPC server 
+<?php $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'api.version', 'id' => 1));
+        if ($res) {
+            if ($res->result) {
+             	echo $res->result;
+            }
+	}
+?></br>
 PHP <?php echo phpversion(); ?></br>
 Yii framework <?php echo Yii::getVersion(); ?></br>
 Yiistrap 1.2.0</br>

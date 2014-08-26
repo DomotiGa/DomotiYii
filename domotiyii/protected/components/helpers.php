@@ -42,6 +42,7 @@
 
         if ($file === FALSE) {
             // could not connect
+	    Yii::app()->user->setFlash('jsonrpc-error', Yii::t('app', 'Cannot connect to JSON-RPC server!'));
             return (object) array("jsonrpc" => "2.0", "result" => false, "id" => 1);
         } else {
             return @json_decode($file);

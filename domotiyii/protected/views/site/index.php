@@ -14,6 +14,8 @@ $this->widget('bootstrap.widgets.TbHeroUnit', array(
     'heading' => 'DomotiGa',
     'content' => yii::t('app', 'This is a new web client build from scratch using the Yii framework together with the Yiistrap extension to add the bootstrap look and feel.')
 ));
+
+echo "<p>";
 try {
     Yii::app()->db;
     $versionDB = Version::model()->findBySql('select id,db from version order by id DESC LIMIT 1')->getAttributes();
@@ -24,4 +26,23 @@ try {
 } catch(Exception $e) {
     echo '<span style="color:red;font-size:150%">Database connexion problem !!!</span>';
 }
+echo "</p>";
+
+echo "<p>";
+try {
+ 	echo "<b>JSON-RPC : </b> Version used : ";
+        $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'api.version', 'id' => 1));
+        if ($res) {
+            if ($res->result) {
+             	echo $res->result;
+            } else {
+		echo '<span style="color:red;font-size:150%">connexion problem !!!</span>';
+            }
+        }
+
+} catch(Exception $e) {
+	echo '<span style="color:red;font-size:150%">connexion problem !!!</span>';
+}
+echo "</p>";
+
 ?>

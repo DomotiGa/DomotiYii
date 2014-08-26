@@ -213,12 +213,11 @@
 		<div class="span10">
 			<div id="content">
 	
-            <?php foreach(array('error', 'notice', 'success') as $key): ?>
-                <?php if (Yii::app()->user->hasFlash($key)): ?>
+            <?php foreach(Yii::app()->user->getFlashes() as $key => $message): ?>
+		<?php if($key=="jsonrpc-error"){ $key = "error"; }  ?>
                 <div class="flash-<?php echo $key ?>">
-                    <?php echo Yii::app()->user->getFlash($key) ?>
+                    <?php echo $message ?>
                 </div>
-                <?php endif; ?>
             <?php endforeach; ?>
             <?php echo $content; ?>
             </div>
