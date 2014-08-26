@@ -31,7 +31,7 @@ class DevicevaluesController extends Controller
                 //$model = DeviceValues::model()->deleteAll("device_id ='" . $id . "'");
 
                 // delete the entry from the "devices" table
-                $model = Devices::model()->findByPk($id);
+                $model = DeviceValues::model()->findByPk($id);
                 $this->do_delete($model);
 
         }
