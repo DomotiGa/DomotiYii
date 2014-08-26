@@ -1,8 +1,7 @@
-DomotiYii - Alpha release!!!!
+DomotiYii
 ---------------------------------
 
-
-**Please be aware before using this that is a alpha release and that it can harm your server.**
+**Please note that this that is an Alpha release and that it can harm your server/data.**
 
 
 DomotiYii is a new web client build from scratch using the Yii framework together with the Yiistrap extension to add the bootstrap look and feel.
@@ -12,8 +11,8 @@ DomotiYii is a new web client build from scratch using the Yii framework togethe
 Development info:
 ----------------
 This version of DomotiYii is build with:
-Yii-1.1.14 - Framework
-Source: https://github.com/yiisoft/yii/releases/download/1.1.14/yii-1.1.14.f0fee9.tar.gz
+Yii-1.1.15 - Framework
+Source: https://github.com/yiisoft/yii/releases/download/1.1.15/yii-1.1.15.022a51.tar.gz
 
 Yiistrap-1.2.0 - Twitter Bootstrap for Yii
 Source: https://github.com/Crisu83/yiistrap/archive/1.2.0.zip
@@ -45,7 +44,7 @@ This directory contains the Yii project and the Yii framework. For more informat
 
 About the Yii Framework:
 -------------
-The framework directory contains the code from the Yii 1.1.14 file above.
+The framework directory contains the code from the Yii 1.1.15 file above.
 
 If you want to use another name or location for this framework directory
 change it's path in domotiyii/index.php.
