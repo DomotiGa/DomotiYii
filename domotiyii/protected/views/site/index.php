@@ -22,26 +22,26 @@ try {
     $versionDBRequired = Yii::app()->params['versionDBRequired'];
     echo "<b>Database : </b> Version used : " . $versionDB['db'] . " - Version required (minimum) : " . $versionDBRequired;
     if ($versionDBRequired > $versionDB['db'])
-        echo '  <span style="color:red;font-size:150%">Database update is needed !!!</span>';
+        echo '  <span style="color:red;font-size:150%">Database update is needed!</span>';
 } catch(Exception $e) {
-    echo '<span style="color:red;font-size:150%">Database connexion problem !!!</span>';
+        Yii::app()->user->setFlash('error', Yii::t('app', 'Cannot connect to DomotiGa\'s database!'));
 }
 echo "</p>";
 
 echo "<p>";
 try {
- 	echo "<b>JSON-RPC : </b> Version used : ";
+ 	echo "<b>JSON-RPC</b> version: ";
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'api.version', 'id' => 1));
         if ($res) {
             if ($res->result) {
              	echo $res->result;
             } else {
-		echo '<span style="color:red;font-size:150%">connexion problem !!!</span>';
+		echo '<span style="color:red;font-size:100%">Not available.</span>';
             }
         }
 
 } catch(Exception $e) {
-	echo '<span style="color:red;font-size:150%">connexion problem !!!</span>';
+	echo '<span style="color:red;font-size:100%">An error occured fetching JSON-RPC\'s version!</span>';
 }
 echo "</p>";
 
