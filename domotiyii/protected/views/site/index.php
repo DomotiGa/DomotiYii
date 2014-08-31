@@ -22,7 +22,7 @@ try {
     $versionDBRequired = Yii::app()->params['versionDBRequired'];
     echo "<b>Database : </b> Version used : " . $versionDB['db'] . " - Version required (minimum) : " . $versionDBRequired;
     if ($versionDBRequired > $versionDB['db'])
-        echo '  <span style="color:red;font-size:150%">Database update is needed!</span>';
+        Yii::app()->user->setFlash('error', Yii::t('app', 'Database update is needed!'));
 } catch(Exception $e) {
         Yii::app()->user->setFlash('error', Yii::t('app', 'Cannot connect to DomotiGa\'s database!'));
 }
