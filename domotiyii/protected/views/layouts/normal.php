@@ -27,7 +27,6 @@
                     array('label'=>'Sound', 'url'=> array('settings/sound')),
                     array('label'=>'VoiceText', 'url'=> array('settings/voicetext')),
                     array('label'=>'Weather', 'url'=>'#', 'items'=>array(
-                       array('label'=>'WeatherBug', 'url'=> array('settings/weatherbug')),
                        array('label'=>'WeatherUnderground', 'url'=> array('settings/weatherug')),
                     )),
                     array('label'=>'Notifiers', 'url'=>'#', 'items'=>array(

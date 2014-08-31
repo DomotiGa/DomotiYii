@@ -28,7 +28,6 @@ class SettingsController extends Controller {
         $listModules[] = 'tvguide';
         $listModules[] = 'twitter';
         $listModules[] = 'voicetext';
-        $listModules[] = 'weatherbug';
         $listModules[] = 'weatherug';
         $listModules[] = 'xmlrpc';
         //FIXME: perhaps use static arrays if dynamic listing of model *.php is a trouble 
@@ -617,18 +616,6 @@ class SettingsController extends Controller {
         $this->render('telnetserver', array('model' => $model));
     }
 
-    public function actionWeatherbug() {
-        $model = SettingsWeatherbug::model()->findByPk(1);
-
-        if (isset($_POST['SettingsWeatherbug'])) {
-            $model->attributes = $_POST['SettingsWeatherbug'];
-            if ($model->validate()) {
-                // form inputs are valid, save and restart
-                $this->do_save_restart($model, 'weatherbug');
-            }
-        }
-        $this->render('weatherbug', array('model' => $model));
-    }
 
     public function actionServerstats() {
         $model = SettingsServerstats::model()->findByPk(1);
