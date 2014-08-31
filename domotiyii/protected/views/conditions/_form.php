@@ -14,7 +14,7 @@
 
 		<?php echo $form->textFieldControlGroup($model,'name'); ?>
 		<?php echo $form->textFieldControlGroup($model,'description',array('class'=>'span5')); ?>
-		<?php echo $form->textFieldControlGroup($model,'formula',array('class'=>'span6')); ?>
+		<?php echo $form->textAreaControlGroup($model,'formula',array('class'=>'span6')); ?>
 </fieldset>
 
 <?php echo TbHtml::formActions(array(
