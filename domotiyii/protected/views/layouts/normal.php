@@ -12,6 +12,7 @@
                     array('label'=>'Main', 'url'=> array('settings/main')),
                     array('label'=>'Astro and Location', 'url'=> array('settings/astro')),
                     array('label'=>'CallerID', 'url'=> array('settings/callerid')),
+                    array('label'=>'Device Discover', 'url'=> array('settings/devicediscover')),
                     array('label'=>'E-mail', 'url'=>'#', 'items'=>array(
                        array('label'=>'E-mail SMTP', 'url'=> array('settings/email')),
                        array('label'=>'GMail Notifier', 'url'=> array('settings/gmail')),
@@ -91,6 +92,7 @@
                        array('label'=>'EZcontrol', 'url'=> array('settings/ezcontrol')),
                        array('label'=>'Jerome I/O', 'url'=> array('settings/jerome')),
                        array('label'=>'KNX/EIB', 'url'=> array('settings/eib')),
+                       array('label'=>'Philips Hue', 'url'=> array('settings/philipshue')),
                        array('label'=>'PLCBUS', 'url'=> array('settings/plcbus')),
                        array('label'=>'Velbus', 'url'=> array('settings/velbus')),
                        array('label'=>'X10', 'url'=>'#', 'items'=>array(

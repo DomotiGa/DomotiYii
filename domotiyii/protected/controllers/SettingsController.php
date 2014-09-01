@@ -8,6 +8,7 @@ class SettingsController extends Controller {
         $listModules[] = 'astro';
         $listModules[] = 'bwiredmap';
         $listModules[] = 'callerid';
+        $listModules[] = 'devicediscover';
         $listModules[] = 'email';
         $listModules[] = 'gmail';
         $listModules[] = 'jsonrpc';
@@ -131,6 +132,7 @@ class SettingsController extends Controller {
         $listInterfaces[] = 'openzwave';
         $listInterfaces[] = 'owfs';
         $listInterfaces[] = 'oww';
+        $listInterfaces[] = 'philipshue';
         $listInterfaces[] = 'ping';
         $listInterfaces[] = 'pioneer';
         $listInterfaces[] = 'plcbus';
@@ -525,6 +527,20 @@ class SettingsController extends Controller {
         $this->render('callerid', array('model' => $model));
     }
 
+    public function actionDevicediscover() {
+        $model = SettingsDevicediscover::model()->findByPk(1);
+
+        if (isset($_POST['SettingsDevicediscover'])) {
+            $model->attributes = $_POST['SettingsDevicediscover'];
+            if ($model->validate()) {
+                // form inputs are valid, save and restart
+                $this->do_save($model);
+                $this->do_restart('devicediscover');
+            }
+        }
+        $this->render('devicediscover', array('model' => $model));
+    }
+
     public function actionAstro() {
         $model = SettingsAstro::model()->findByPk(1);
 
@@ -693,6 +709,20 @@ class SettingsController extends Controller {
             }
         }
         $this->render('pachube', array('model' => $model));
+    }
+
+    public function actionPhilipshue() {
+        $model = SettingsPhilipshue::model()->findByPk(1);
+
+        if (isset($_POST['SettingsPhilipshue'])) {
+            $model->attributes = $_POST['SettingsPhilipshue'];
+            if ($model->validate()) {
+                // form inputs are valid, save and restart
+                $model->save();
+                $this->do_restart('philipshue');
+            }
+        }
+        $this->render('philipshue', array('model' => $model));
     }
 
     public function actionTemperaturnu() {
