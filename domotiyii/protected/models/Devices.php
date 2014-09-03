@@ -121,7 +121,7 @@ class Devices extends CActiveRecord {
      * @return dropdownlist with the list of interfaces
      */
     public function getInterfaces() {
-        return CHtml::listData(Interfaces::model()->findAll(array('order' => 'name ASC')), 'id', 'name');
+        return CHtml::listData(Plugins::model()->findAll(array('order' => 'interface ASC')), 'id', 'interface');
     }
 
     /**
@@ -130,9 +130,9 @@ class Devices extends CActiveRecord {
     public function getInterfacesByDeviceModel($id) {
         $devicetype = Devicetypes::model()->find('id=:id', array(':id' => $id,));
         if ($devicetype === null) {
-            return CHtml::listData(Interfaces::model(), 'id', 'name');
+            return CHtml::listData(Plugins::model(), 'id', 'interface');
         } else {
-            return CHtml::listData(Interfaces::model()->findAll("type LIKE '%" . $devicetype->type . "%'", array('order' => 'name ASC')), 'id', 'name');
+            return CHtml::listData(Plugins::model()->findAll("protocols LIKE '%" . $devicetype->type . "%'", array('order' => 'interface ASC')), 'id', 'interface');
         }
     }
 
@@ -140,14 +140,14 @@ class Devices extends CActiveRecord {
      * @return dropdownlist with the list of interfaces, based on the DeviceType eg '1-Wire'
      */
     public function getInterfacesByDeviceType($type) {
-        return CHtml::listData(Interfaces::model()->findAll("type LIKE '%" . $type . "%'", array('order' => 'name ASC')), 'id', 'name');
+        return CHtml::listData(Plugins::model()->findAll("protocols LIKE '%" . $type . "%'", array('order' => 'interface ASC')), 'id', 'interface');
     }
 
     /**
      * @return dropdownlist with the list of devices, based on the DeviceType
      */
     public function getDeviceTypesByType($protocol) {
-        return CHtml::listData(Devicetypes::model()->findAll("type LIKE '%" . $protocol . "%'", array('order' => 'name ASC')), 'id', 'name');
+        return CHtml::listData(Plugins::model()->findAll("protocols LIKE '%" . $protocol . "%'", array('order' => 'interface ASC')), 'id', 'interface');
     }
 
     /**
@@ -252,7 +252,7 @@ class Devices extends CActiveRecord {
         return array(
             'devicetype' => array(self::BELONGS_TO, 'Devicetypes', 'module'),
             'l_location' => array(self::BELONGS_TO, 'Locations', 'location'),
-            'l_interface' => array(self::BELONGS_TO, 'Interfaces', 'interface'),
+            'l_interface' => array(self::BELONGS_TO, 'Plugins', 'interface'),
             'devicevalues' => array(self::HAS_MANY, 'DeviceValues', 'device_id'),
             'deviceValue1' => array(self::HAS_ONE, 'DeviceValues', 'device_id','on'=>'valuenum=1'),
             'deviceValue2' => array(self::HAS_ONE, 'DeviceValues', 'device_id','on'=>'valuenum=2'),
@@ -293,7 +293,7 @@ class Devices extends CActiveRecord {
             'officon' => Yii::t('app', 'Off icon'),
             'dimicon' => Yii::t('app', 'Dim icon'),
             'interface' => Yii::t('app', 'Interface'),
-            'l_interface.name' => Yii::t('app', 'Interface'),
+            'l_interface.interface' => Yii::t('app', 'Interface'),
             'firstseen' => Yii::t('app', 'First seen'),
             'lastseen' => Yii::t('app', 'Last seen'),
             'enabled' => Yii::t('app', 'Enabled'),

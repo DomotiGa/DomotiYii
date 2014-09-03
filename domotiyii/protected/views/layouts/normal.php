@@ -53,8 +53,8 @@
                        array('label'=>'Toon Thermostat', 'url'=> array('settings/toon')),
                     )),
                  )),
-                 array('label'=>Yii::t('app','Interfaces'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
-                    array('label'=>'Interfaces list', 'url'=> array('settings/indexInterfaces')),
+                 array('label'=>Yii::t('app','Plugins'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
+                    array('label'=>'Plugins list', 'url'=> array('settings/indexPlugins')),
                     array('label'=>'1-Wire', 'url'=>'#', 'items'=>array(
                        array('label'=>'Digitemp', 'url'=> array('settings/digitemp')),
                        array('label'=>'Midon TEMP08', 'url'=> array('settings/temp08')),
@@ -153,7 +153,7 @@
                    array('label'=>Yii::t('app','Locations'), 'url'=> array('locations/index')),
                    array('label'=>Yii::t('app','Floors'), 'url'=> array('floors/index')),
                    array('label'=>Yii::t('app','Blacklists'), 'url'=> array('deviceblacklist/index')),
-                   array('label'=>Yii::t('app','Interfaces'), 'url'=> array('interfaces/index')),
+                   array('label'=>Yii::t('app','Plugins'), 'url'=> array('plugins/index')),
                    array('label'=>Yii::t('app','Values'), 'url'=> array('devicevalues/index')),
                    array('label'=>Yii::t('app','ValuesLog'), 'url'=> array('devicevalueslog/index')),
                 )),

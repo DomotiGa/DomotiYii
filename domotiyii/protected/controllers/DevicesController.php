@@ -111,8 +111,8 @@ class DevicesController extends Controller {
         $data = Devices::model()->getInterfacesByDeviceType($protocol);
         $dropDownInterface = "<option value='null'>Select Interface</option>";
 
-        foreach ($data as $value => $name)
-            $dropDownInterface .= CHtml::tag('option', array('value' => $value), CHtml::encode($name), true);
+        foreach ($data as $value => $interface)
+            $dropDownInterface .= CHtml::tag('option', array('value' => $value), CHtml::encode($interface), true);
 
         // return data in JSON format
         echo CJSON::encode(array(

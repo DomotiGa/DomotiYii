@@ -1,12 +1,12 @@
 <?php
 
-/* @var $this SettingsIrmanController */
-/* @var $model SettingsIrman */
+/* @var $this indexPluginsController */
+/* @var $model indexPlugins */
 /* @var $form bootstrap.widgets.TbActiveForm */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app', 'Interfaces') => 'indexInterfaces',
+        Yii::t('app', 'Plugins') => 'indexPlugins',
         Yii::t('app', 'All'),
     ),
 ));
@@ -15,9 +15,9 @@ $this->widget('bootstrap.widgets.TbNav', array(
     'type'=>'tabs',
     'stacked'=>false,
     'items'=>array(
-        array('label'=>Yii::t('app','All'), 'url'=>'indexInterfaces?filter=all', 'active'=>Yii::app()->request->getParam('filter','Enabled') == 'all'),
-        array('label'=>Yii::t('app','Enabled'), 'url'=>'indexInterfaces?filter=Enabled', 'active'=>Yii::app()->request->getParam('filter','Enabled') == 'Enabled'),
-        array('label'=>Yii::t('app','Disabled'), 'url'=>'indexInterfaces?filter=Disabled', 'active'=>Yii::app()->request->getParam('filter','Enabled') == 'Disabled'),
+        array('label'=>Yii::t('app','All'), 'url'=>'indexPlugins?filter=all', 'active'=>Yii::app()->request->getParam('filter','Enabled') == 'all'),
+        array('label'=>Yii::t('app','Enabled'), 'url'=>'indexPlugins?filter=Enabled', 'active'=>Yii::app()->request->getParam('filter','Enabled') == 'Enabled'),
+        array('label'=>Yii::t('app','Disabled'), 'url'=>'indexPlugins?filter=Disabled', 'active'=>Yii::app()->request->getParam('filter','Enabled') == 'Disabled'),
     ),
 ));
 

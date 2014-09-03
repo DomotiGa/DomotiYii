@@ -94,72 +94,72 @@ class SettingsController extends Controller {
         $this->render('indexModules', array('data' => $arrayDataProvider));
     }
 
-    public function actionIndexInterfaces() {
+    public function actionIndexPlugins() {
         //FIXME : weird code but it works
         $listInterfaces = array();
 
-        $listInterfaces[] = 'asterisk';
-        $listInterfaces[] = 'bluetooth';
-        $listInterfaces[] = 'ctx35';
-        $listInterfaces[] = 'cul';
-        $listInterfaces[] = 'currentcost';
-        $listInterfaces[] = 'denon';
-        $listInterfaces[] = 'digitemp';
-        $listInterfaces[] = 'dmxplayer';
-        $listInterfaces[] = 'dsc';
-        $listInterfaces[] = 'eib';
-        $listInterfaces[] = 'ezcontrol';
-        $listInterfaces[] = 'fritzbox';
-        $listInterfaces[] = 'genericio';
-        $listInterfaces[] = 'gps';
-        $listInterfaces[] = 'hddtemp';
-        $listInterfaces[] = 'homematic';
-        $listInterfaces[] = 'iport';
-        $listInterfaces[] = 'irman';
-        $listInterfaces[] = 'irtrans';
-        $listInterfaces[] = 'iviewer';
-        $listInterfaces[] = 'jeelabs';
-        $listInterfaces[] = 'jerome';
-        $listInterfaces[] = 'k8055';
-        $listInterfaces[] = 'kmtronicudp';
-        $listInterfaces[] = 'ledmatrix';
-        $listInterfaces[] = 'lgtv';
-        $listInterfaces[] = 'lirc';
-        $listInterfaces[] = 'mochad';
-        $listInterfaces[] = 'ncid';
-        $listInterfaces[] = 'onkyo';
-        $listInterfaces[] = 'opentherm';
-        $listInterfaces[] = 'openzwave';
-        $listInterfaces[] = 'owfs';
-        $listInterfaces[] = 'oww';
-        $listInterfaces[] = 'philipshue';
-        $listInterfaces[] = 'ping';
-        $listInterfaces[] = 'pioneer';
-        $listInterfaces[] = 'plcbus';
-        $listInterfaces[] = 'plugwise';
-        $listInterfaces[] = 'pwrctrl';
-        $listInterfaces[] = 'razberry';
-        $listInterfaces[] = 'rfxcomrx';
-        $listInterfaces[] = 'rfxcomtrx';
-        $listInterfaces[] = 'rfxcomtx';
-        $listInterfaces[] = 'rfxcomxpl';
-        $listInterfaces[] = 'rrdtool';
-        $listInterfaces[] = 'sharptv';
-        $listInterfaces[] = 'shell';
-        $listInterfaces[] = 'smartmeter';
-        $listInterfaces[] = 'sms';
-        $listInterfaces[] = 'squeezeserver';
-        $listInterfaces[] = 'temp08';
-        $listInterfaces[] = 'toon';
-        $listInterfaces[] = 'ups';
-        $listInterfaces[] = 'velbus';
-        $listInterfaces[] = 'videoserver';
-        $listInterfaces[] = 'viera';
-        $listInterfaces[] = 'visca';
-        $listInterfaces[] = 'visonic';
-        $listInterfaces[] = 'weeder';
-        $listInterfaces[] = 'x10cmd';
-        $listInterfaces[] = 'xpl';
+        $listPlugins[] = 'asterisk';
+        $listPlugins[] = 'bluetooth';
+        $listPlugins[] = 'ctx35';
+        $listPlugins[] = 'cul';
+        $listPlugins[] = 'currentcost';
+        $listPlugins[] = 'denon';
+        $listPlugins[] = 'digitemp';
+        $listPlugins[] = 'dmxplayer';
+        $listPlugins[] = 'dsc';
+        $listPlugins[] = 'eib';
+        $listPlugins[] = 'ezcontrol';
+        $listPlugins[] = 'fritzbox';
+        $listPlugins[] = 'genericio';
+        $listPlugins[] = 'gps';
+        $listPlugins[] = 'hddtemp';
+        $listPlugins[] = 'homematic';
+        $listPlugins[] = 'iport';
+        $listPlugins[] = 'irman';
+        $listPlugins[] = 'irtrans';
+        $listPlugins[] = 'iviewer';
+        $listPlugins[] = 'jeelabs';
+        $listPlugins[] = 'jerome';
+        $listPlugins[] = 'k8055';
+        $listPlugins[] = 'kmtronicudp';
+        $listPlugins[] = 'ledmatrix';
+        $listPlugins[] = 'lgtv';
+        $listPlugins[] = 'lirc';
+        $listPlugins[] = 'mochad';
+        $listPlugins[] = 'ncid';
+        $listPlugins[] = 'onkyo';
+        $listPlugins[] = 'opentherm';
+        $listPlugins[] = 'openzwave';
+        $listPlugins[] = 'owfs';
+        $listPlugins[] = 'oww';
+        $listPlugins[] = 'philipshue';
+        $listPlugins[] = 'ping';
+        $listPlugins[] = 'pioneer';
+        $listPlugins[] = 'plcbus';
+        $listPlugins[] = 'plugwise';
+        $listPlugins[] = 'pwrctrl';
+        $listPlugins[] = 'razberry';
+        $listPlugins[] = 'rfxcomrx';
+        $listPlugins[] = 'rfxcomtrx';
+        $listPlugins[] = 'rfxcomtx';
+        $listPlugins[] = 'rfxcomxpl';
+        $listPlugins[] = 'rrdtool';
+        $listPlugins[] = 'sharptv';
+        $listPlugins[] = 'shell';
+        $listPlugins[] = 'smartmeter';
+        $listPlugins[] = 'sms';
+        $listPlugins[] = 'squeezeserver';
+        $listPlugins[] = 'temp08';
+        $listPlugins[] = 'toon';
+        $listPlugins[] = 'ups';
+        $listPlugins[] = 'velbus';
+        $listPlugins[] = 'videoserver';
+        $listPlugins[] = 'viera';
+        $listPlugins[] = 'visca';
+        $listPlugins[] = 'visonic';
+        $listPlugins[] = 'weeder';
+        $listPlugins[] = 'x10cmd';
+        $listPlugins[] = 'xpl';
 
         //FIXME: perhaps use static arrays if dynamic listing of model *.php is a trouble 
         $pref = './protected/models/Settings';
@@ -173,7 +173,7 @@ class SettingsController extends Controller {
             $modelName = 'Settings' . $filename;
             $model = $modelName::model();
             $modelAlias = $model->tableName();
-            if (!in_array(strtolower($d1), $listInterfaces))
+            if (!in_array(strtolower($d1), $listPlugins))
                 continue;
 
             if (isset($model) && !empty($model) && in_array($modelAlias, $listTables)) {
@@ -222,7 +222,7 @@ class SettingsController extends Controller {
                 'pageSize' => 30,
             ),
         ));
-        $this->render('indexInterfaces', array('data' => $arrayDataProvider));
+        $this->render('indexPlugins', array('data' => $arrayDataProvider));
     }
 
     public function actionJerome()

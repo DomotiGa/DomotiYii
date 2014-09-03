@@ -1,15 +1,16 @@
 <?php
 
 /**
- * This is the model class for table "interfaces".
+ * This is the model class for table "plugins".
  *
- * The followings are the available columns in table 'interfaces':
+ * The followings are the available columns in table 'plugins':
  * @property string $id
  * @property string $name
+ * @property string $interface
  * @property string $type
- * @property string $mode
+ * @property string $protocols
  */
-class Interfaces extends CActiveRecord
+class Plugins extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -26,7 +27,7 @@ class Interfaces extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'interfaces';
+		return 'plugins';
 	}
 
 	/**
@@ -37,11 +38,11 @@ class Interfaces extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, mode', 'length', 'max'=>32),
-			array('type', 'length', 'max'=>512),
+			array('interface, name, type', 'length', 'max'=>32),
+			array('protocols', 'length', 'max'=>512),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, type, mode', 'safe', 'on'=>'search'),
+			array('id, interface, name, protocols, type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,8 +65,9 @@ class Interfaces extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+			'interface' => 'Interface',
 			'type' => 'Type',
-			'mode' => 'Mode',
+			'protocols' => 'Protocols',
 		);
 	}
 
@@ -83,7 +85,8 @@ class Interfaces extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('type',$this->type,true);
-		$criteria->compare('mode',$this->mode,true);
+		$criteria->compare('interface',$this->interface,true);
+		$criteria->compare('protocols',$this->protocols,true);
 
 		return new CActiveDataProvider($this, array(
                         'criteria'=>$criteria,

@@ -1,5 +1,5 @@
 <?php
-/* @var $this InterfacesController */
+/* @var $this PluginsController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
@@ -51,8 +51,8 @@ $this->endWidget();
     'columns'=>array(
         array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
         array('name'=>'name', 'header'=>Yii::t('app','Name'), 'htmlOptions'=>array('width'=>'100')),
-        array('name'=>'type', 'header'=>Yii::t('app','Protocol Type'), 'htmlOptions'=>array('width'=>'250')),
-        array('name'=>'mode', 'header'=>Yii::t('app','Mode'), 'htmlOptions'=>array('width'=>'70')),
+        array('name'=>'protocols', 'header'=>Yii::t('app','Protocol Type'), 'htmlOptions'=>array('width'=>'250')),
+        array('name'=>'interface', 'header'=>Yii::t('app','Interface'), 'htmlOptions'=>array('width'=>'70')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',
            'template'=> Yii::app()->user->isGuest ? '{view}' : '{view}',
            'header'=>Yii::t('app','Actions'),

@@ -44,7 +44,7 @@ class Deviceblacklist extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'l_interface' => array(self::BELONGS_TO, 'Interfaces','id'),
+			'l_interface' => array(self::BELONGS_TO, 'Plugins','id'),
 		);
 	}
 
