@@ -8,7 +8,7 @@
             'class'=>'bootstrap.widgets.TbNav',
             'items'=>array(
                 array('label'=>Yii::t('app','Modules'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
-                    array('label'=>'Modules list', 'url'=> array('settings/indexModules')),
+                    array('label'=>'Overview', 'url'=> array('settings/indexModules')),
                     array('label'=>'Main', 'url'=> array('settings/main')),
                     array('label'=>'Astro and Location', 'url'=> array('settings/astro')),
                     array('label'=>'CallerID', 'url'=> array('settings/callerid')),
@@ -33,6 +33,7 @@
                     array('label'=>'Notifiers', 'url'=>'#', 'items'=>array(
                        array('label'=>'Prowl', 'url'=> array('settings/prowl')),
                        array('label'=>'Pushover', 'url'=> array('settings/pushover')),
+                       array('label'=>'Pushbullet', 'url'=> array('settings/pushbullet')),
                        array('label'=>'NMA', 'url'=> array('settings/nma')),
                     )),
                     array('label'=>'Server Stats', 'url'=> array('settings/serverstats')),
@@ -53,8 +54,8 @@
                        array('label'=>'Toon Thermostat', 'url'=> array('settings/toon')),
                     )),
                  )),
-                 array('label'=>Yii::t('app','Plugins'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
-                    array('label'=>'Plugins list', 'url'=> array('settings/indexPlugins')),
+                 array('label'=>Yii::t('app','Interfaces'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
+                    array('label'=>'Overview', 'url'=> array('settings/indexPlugins')),
                     array('label'=>'1-Wire', 'url'=>'#', 'items'=>array(
                        array('label'=>'Digitemp', 'url'=> array('settings/digitemp')),
                        array('label'=>'Midon TEMP08', 'url'=> array('settings/temp08')),
@@ -116,6 +117,7 @@
                        array('label'=>'KMTronic UDP', 'url'=> array('settings/kmtronicudp')),
                        array('label'=>'Velleman K8055', 'url'=> array('settings/k8055')),
                        array('label'=>'Weeder I/O', 'url'=> array('settings/weeder')),
+                       array('label'=>'WiringPi', 'url'=> array('settings/wiringpi')),
                     )),
                     array('label'=>'Remote Control', 'url'=>'#', 'items'=>array(
                        array('label'=>'CF iViewer', 'url'=> array('settings/iviewer')),

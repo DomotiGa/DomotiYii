@@ -1375,10 +1375,42 @@ class SettingsController extends Controller {
         $this->render('pioneer', array('model' => $model));
     }
 
+    public function actionWiringpi()
+    {
+        $model = SettingsWiringpi::model()->findByPk(1);
+
+        if(isset($_POST['SettingsWiringpi']))
+        {
+            $model->attributes=$_POST['SettingsWiringpi'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model,'wiringpi');
+            }
+        }
+        $this->render('wiringpi',array('model'=>$model));
+    }
+
+    public function actionPushbullet()
+    {
+        $model = SettingsPushbullet::model()->findByPk(1);
+
+        if(isset($_POST['SettingsPushbullet']))
+        {
+            $model->attributes=$_POST['SettingsPushbullet'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model,'pushbullet');
+            }
+        }
+        $this->render('pushbullet',array('model'=>$model));
+    }
+
     public function actionSendTestNMA() {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'nma.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
         if ($res) {
-            if ($res->result) {
+            if (isset($res->result) && $res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test pushmsg failed!'));
@@ -1390,7 +1422,7 @@ class SettingsController extends Controller {
     public function actionSendTestProwl() {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'prowl.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
         if ($res) {
-            if ($res->result) {
+            if (isset($res->result) && $res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test pushmsg failed!'));
@@ -1402,7 +1434,19 @@ class SettingsController extends Controller {
     public function actionSendTestPushover() {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'pushover.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
         if ($res) {
-            if ($res->result) {
+            if (isset($res->result) && $res->result) {
+                Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test pushmsg failed!'));
+            }
+        }
+        $this->redirect('pushover', true);
+    }
+
+    public function actionSendTestPushbullet() {
+        $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'pushbullet.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
+        if ($res) {
+            if (isset($res->result) && $res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test pushmsg failed!'));
@@ -1414,7 +1458,7 @@ class SettingsController extends Controller {
     public function actionSendTestTweet() {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'twitter.send', 'params' => array('msg' => 'This is a test Tweet!'), 'id' => 1));
         if ($res) {
-            if ($res->result) {
+            if (isset($res->result) && $res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test tweet.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test tweet failed!'));
@@ -1427,7 +1471,7 @@ class SettingsController extends Controller {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'email.send', 'params' => array('msg' => 'If you read this, e-mail support is working!',
                 'subject' => 'Test e-mail'), 'id' => 1));
         if ($res) {
-            if ($res->result) {
+            if (isset($res->result) && $res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test e-mail.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test e-mail failed!'));
