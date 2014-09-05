@@ -38,4 +38,4 @@ JSON-RPC server
 ?></br>
 PHP <?php echo phpversion(); ?></br>
 Yii framework <?php echo Yii::getVersion(); ?></br>
-Yiistrap 1.2.0</br>
+Yiistrap 1.3.0</br>
