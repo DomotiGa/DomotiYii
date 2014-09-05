@@ -61,6 +61,11 @@ $this->widget('domotiyii.LiveGridView', array(
     'columns'=>array(
         array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
         array('name'=>'name', 'header'=>Yii::t('app','Name'), 'htmlOptions'=>array('width'=>'150')),
+        array('name'=>'enabled',
+            'header'=>Yii::t('app','Enabled'),
+            'value'=>'($data->enabled==-1?"<span class=\"icon-ok\"></span>":"")',
+            'type'=>'raw',
+            'htmlOptions'=>array('width'=>'15')),
         array('name'=>'comment', 'header'=>Yii::t('app','Comment'), 'htmlOptions'=>array('width'=>'100')),
         array('name'=>'lastruntext', 'header'=>Yii::t('app','Last Run'), 'htmlOptions'=>array('width'=>'100')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',

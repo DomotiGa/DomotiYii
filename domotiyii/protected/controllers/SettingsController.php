@@ -19,6 +19,7 @@ class SettingsController extends Controller {
         $listModules[] = 'pachube';
         $listModules[] = 'prowl';
         $listModules[] = 'pushover';
+        $listModules[] = 'pushbullet';
         $listModules[] = 'pvoutput';
         $listModules[] = 'serverstats';
         $listModules[] = 'smartvisuserver';
@@ -158,6 +159,7 @@ class SettingsController extends Controller {
         $listPlugins[] = 'visca';
         $listPlugins[] = 'visonic';
         $listPlugins[] = 'weeder';
+        $listPlugins[] = 'wiringpi';
         $listPlugins[] = 'x10cmd';
         $listPlugins[] = 'xpl';
 
