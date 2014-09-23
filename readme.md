@@ -14,8 +14,8 @@ This version of DomotiYii is build with:
 Yii-1.1.15 - Framework
 Source: https://github.com/yiisoft/yii/releases/download/1.1.15/yii-1.1.15.022a51.tar.gz
 
-Yiistrap-1.2.0 - Twitter Bootstrap for Yii
-Source: https://github.com/Crisu83/yiistrap/archive/1.2.0.zip
+Yiistrap-1.3.0 - Twitter Bootstrap for Yii
+Source: https://github.com/Crisu83/yiistrap/archive/1.3.0.zip
 
 
 License:

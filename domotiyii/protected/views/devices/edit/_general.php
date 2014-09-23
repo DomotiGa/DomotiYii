@@ -7,24 +7,24 @@
                         'ajax' =>
                         array(
                         'type'=>'POST',
-                        'url'=>CController::createUrl('UpdateModule'),
+                        'url'=>CController::createUrl('UpdateDeviceType'),
                         'dataType'=>'json',
 			'data'=>array('protocol'=>'js:$(this).val()'),
 			'success'=>'function(data) {
-				$("#module").html(data.dropDownModule);
+				$("#devicetype_id").html(data.dropDownDeviceType);
 				$("#interface").html(data.dropDownInterface);
 			}',
                         ))); ?>
 
-                <?php echo $form->dropDownListControlGroup($model,'module',$model->getDeviceTypes(), array('prompt'=>'', 'id'=>'module',
+                <?php echo $form->dropDownListControlGroup($model,'devicetype_id',$model->getDeviceTypes(), array('prompt'=>'', 'id'=>'devicetype_id',
                         'ajax' =>
                         array(
                         'type'=>'POST',
                         'url'=>CController::createUrl('UpdateAddressFormat'),
                         'update'=>'#addressformat',
-			'data'=>array('module'=>'js:$(this).val()'),
+			'data'=>array('devicetype_id'=>'js:$(this).val()'),
                         ))); ?>
-                <?php echo $form->dropDownListControlGroup($model,'interface',$model->getInterfacesByDeviceModel($model->module), array('prompt'=>'', 'id'=>'interface',
+                <?php echo $form->dropDownListControlGroup($model,'interface',$model->getInterfacesByDeviceModel($model->devicetype_id), array('prompt'=>'', 'id'=>'interface',
                         'ajax' =>
                         array(
                         'type'=>'POST',

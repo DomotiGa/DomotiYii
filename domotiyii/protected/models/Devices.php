@@ -7,7 +7,7 @@
  * @property string $id
  * @property string $name
  * @property string $address
- * @property integer $module
+ * @property integer $devicetype_id
  * @property integer $location
  * @property string $onicon
  * @property string $officon
@@ -104,14 +104,14 @@ class Devices extends CActiveRecord {
     }
 
     /**
-     * @return dropdownlist with the list of modules/devicetypes
+     * @return dropdownlist with the list of devicetypes
      */
     public function getDeviceTypes() {
         return CHtml::listData(Devicetypes::model()->findAll(array('order' => 'name ASC')), 'id', 'name');
     }
 
     /**
-     * @return dropdownlist with the list of modules/devicetypes protocols
+     * @return dropdownlist with the list of devicetypes protocols
      */
     public function getDeviceProtocols() {
         return CHtml::listData(Devicetypes::model()->findAll(array('select' => 'type', 'order' => 'type ASC', 'distinct' => true)), 'type', 'type');
@@ -137,17 +137,17 @@ class Devices extends CActiveRecord {
     }
 
     /**
-     * @return dropdownlist with the list of interfaces, based on the DeviceType eg '1-Wire'
+     * @return dropdownlist with the list of interfaces, based on the protocol eg '1-Wire'
      */
-    public function getInterfacesByDeviceType($type) {
-        return CHtml::listData(Plugins::model()->findAll("protocols LIKE '%" . $type . "%'", array('order' => 'interface ASC')), 'id', 'interface');
+    public function getInterfacesByProtocol($protocol) {
+        return CHtml::listData(Plugins::model()->findAll("protocols LIKE '%" . $protocol . "%'", array('order' => 'interface ASC')), 'id', 'interface');
     }
 
     /**
      * @return dropdownlist with the list of devices, based on the DeviceType
      */
     public function getDeviceTypesByType($protocol) {
-        return CHtml::listData(Plugins::model()->findAll("protocols LIKE '%" . $protocol . "%'", array('order' => 'interface ASC')), 'id', 'interface');
+        return CHtml::listData(Devicetypes::model()->findAll("type LIKE '%" . $protocol . "%'", array('order' => 'name ASC')), 'id', 'name');
     }
 
     /**
@@ -227,19 +227,19 @@ class Devices extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('module, location, interface, tampered, extcode, x, y, floorplan, repeatperiod, resetperiod, poll', 'numerical', 'integerOnly' => true),
+            array('devicetype_id, location, interface, tampered, extcode, x, y, floorplan, repeatperiod, resetperiod, poll', 'numerical', 'integerOnly' => true),
             array('name, onicon, officon, dimicon, batterystatus', 'length', 'max' => 32),
             array('enabled, hide, switchable, dimable, extcode, repeatstate, reset', 'boolean', 'trueValue' => -1),
             array('name', 'notOnlyNumbers'),
             array('address', 'length', 'max' => 64),
             array('groups', 'length', 'max' => 128),
             array('firstseen, lastseen, comments, lastchanged, resetvalue', 'safe'),
-            array('name, module, interface, address', 'required'),
+            array('name, devicetype_id, interface, address', 'required'),
             array('name', 'unique', 'caseSensitive' => false),
 //			array('address', 'unique'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, address, module, location, onicon, officon, dimicon, interface, firstseen, lastseen, enabled, hide, groups, batterystatus, tampered, comments, switchable, dimable, extcode, x, y, floorplan, lastchanged, repeatstate, repeatperiod, reset, resetperiod, resetvalue, poll', 'safe', 'on' => 'search'),
+            array('id, name, address, devicetype_id, location, onicon, officon, dimicon, interface, firstseen, lastseen, enabled, hide, groups, batterystatus, tampered, comments, switchable, dimable, extcode, x, y, floorplan, lastchanged, repeatstate, repeatperiod, reset, resetperiod, resetvalue, poll', 'safe', 'on' => 'search'),
         );
     }
 
@@ -250,7 +250,7 @@ class Devices extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'devicetype' => array(self::BELONGS_TO, 'Devicetypes', 'module'),
+            'devicetype' => array(self::BELONGS_TO, 'Devicetypes', 'devicetype_id'),
             'l_location' => array(self::BELONGS_TO, 'Locations', 'location'),
             'l_interface' => array(self::BELONGS_TO, 'Plugins', 'interface'),
             'devicevalues' => array(self::HAS_MANY, 'DeviceValues', 'device_id'),
@@ -262,7 +262,7 @@ class Devices extends CActiveRecord {
     }
 
     public function getSPdevice() {
-        if ($this->module == 243)
+        if ($this->devicetype_id == 243)
             return TRUE;
         else if (strpos($this->deviceValue1->value, 'SP ') === 0)
             return TRUE;
@@ -273,7 +273,7 @@ class Devices extends CActiveRecord {
     public function scopes() {
         return array(
             'SPdevice' => array(
-                'condition' => "module=243",
+                'condition' => "devicetype_id=243",
             ),
         );
     }
@@ -286,7 +286,7 @@ class Devices extends CActiveRecord {
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
             'address' => Yii::t('app', 'Address'),
-            'module' => Yii::t('app', 'Device'),
+            'devicetype_id' => Yii::t('app', 'DeviceType'),
             'location' => Yii::t('app', 'Location'),
             'l_location.name' => Yii::t('app', 'Location'),
             'onicon' => Yii::t('app', 'On icon'),
@@ -331,7 +331,7 @@ class Devices extends CActiveRecord {
         $criteria->compare('id', $this->id, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('address', $this->address, true);
-        $criteria->compare('module', $this->module);
+        $criteria->compare('devicetype_id', $this->devicetype_id);
         $criteria->compare('location', $this->location);
         $criteria->compare('onicon', $this->onicon, true);
         $criteria->compare('officon', $this->officon, true);

@@ -14,7 +14,7 @@
 <fieldset>
                 <?php echo $form->textFieldControlGroup($model,'name'); ?>
                 <?php echo $form->textFieldControlGroup($model,'address'); ?>
-		<?php echo $form->dropDownListControlGroup($model,'module', $model->getDeviceTypes(), array('prompt'=>'', 'id'=>'module')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'devicetype_id', $model->getDeviceTypes(), array('prompt'=>'', 'id'=>'devicetype_id')); ?>
                 <?php echo $form->dropDownListControlGroup($model,'interface', $model->getInterfaces(), array('prompt'=>'', 'id'=>'interface')); ?>
                 <?php echo $form->dropDownListControlGroup($model,'location', $model->getLocations(), array('prompt'=>'', 'id'=>'location')); ?>
             		

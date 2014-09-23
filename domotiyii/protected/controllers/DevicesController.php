@@ -14,8 +14,8 @@ class DevicesController extends Controller {
                 $criteria->addCondition('name = "' . $model->name . '"');
             if (!empty($model->address))
                 $criteria->addCondition('address = "' . $model->address . '"');
-            if (!empty($model->module))
-                $criteria->addCondition('module = "' . $model->module . '"');
+            if (!empty($model->devicetype_id))
+                $criteria->addCondition('devicetype_id = "' . $model->devicetype_id . '"');
             if (!empty($model->interface))
                 $criteria->addCondition('interface = "' . $model->interface . '"');
         }
@@ -91,24 +91,24 @@ class DevicesController extends Controller {
         $this->do_delete($model);
     }
 
-    public function actionUpdateModule() {
-        // update "module" dropdown
+    public function actionUpdateDeviceType() {
+        // update devicetype dropdown
         $protocol = $_POST['protocol'];
         if (strlen($protocol)) {
 
             $data = Devices::model()->getDeviceTypesByType($protocol);
-            $dropDownModule = "<option value='null'>Select Module</option>";
+            $dropDownDeviceType = "<option value='null'>Select DeviceType</option>";
             foreach ($data as $value => $name)
-                $dropDownModule .= CHtml::tag('option', array('value' => $value), CHtml::encode($name), true);
+                $dropDownDeviceType .= CHtml::tag('option', array('value' => $value), CHtml::encode($name), true);
         } else {
             $data = Devices::model()->getDeviceTypes();
-            $dropDownModule = "<option value='null'>Select Module</option>";
+            $dropDownDeviceType = "<option value='null'>Select DeviceType</option>";
             foreach ($data as $value => $name)
-                $dropDownModule .= CHtml::tag('option', array('value' => $value), CHtml::encode($name), true);
+                $dropDownDeviceType .= CHtml::tag('option', array('value' => $value), CHtml::encode($name), true);
         }
 
-        // update "interfaces" dropdown
-        $data = Devices::model()->getInterfacesByDeviceType($protocol);
+        // update interfaces dropdown
+        $data = Devices::model()->getInterfacesByProtocol($protocol);
         $dropDownInterface = "<option value='null'>Select Interface</option>";
 
         foreach ($data as $value => $interface)
@@ -116,7 +116,7 @@ class DevicesController extends Controller {
 
         // return data in JSON format
         echo CJSON::encode(array(
-            'dropDownModule' => $dropDownModule,
+            'dropDownDeviceType' => $dropDownDeviceType,
             'dropDownInterface' => $dropDownInterface
         ));
     }
