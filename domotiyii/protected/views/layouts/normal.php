@@ -28,6 +28,8 @@
                     array('label'=>'Sound', 'url'=> array('settings/sound')),
                     array('label'=>'VoiceText', 'url'=> array('settings/voicetext')),
                     array('label'=>'Weather', 'url'=>'#', 'items'=>array(
+                       array('label'=>'OpenWeatherMap', 'url'=> array('settings/openweathermap')),
+                       array('label'=>'Forecast.io', 'url'=> array('settings/forecastio')),
                        array('label'=>'WeatherUnderground', 'url'=> array('settings/weatherug')),
                     )),
                     array('label'=>'Notifiers', 'url'=>'#', 'items'=>array(
@@ -154,7 +156,7 @@
                    array('label'=>Yii::t('app','Groups'), 'url'=> array('groups/index')),
                    array('label'=>Yii::t('app','Locations'), 'url'=> array('locations/index')),
                    array('label'=>Yii::t('app','Floors'), 'url'=> array('floors/index')),
-                   array('label'=>Yii::t('app','Blacklists'), 'url'=> array('deviceblacklist/index')),
+                   array('label'=>Yii::t('app','Blacklist'), 'url'=> array('deviceblacklist/index')),
                    array('label'=>Yii::t('app','Plugins'), 'url'=> array('plugins/index')),
                    array('label'=>Yii::t('app','Values'), 'url'=> array('devicevalues/index')),
                    array('label'=>Yii::t('app','ValuesLog'), 'url'=> array('devicevalueslog/index')),

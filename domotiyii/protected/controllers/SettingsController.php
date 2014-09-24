@@ -1409,6 +1409,38 @@ class SettingsController extends Controller {
         $this->render('pushbullet',array('model'=>$model));
     }
 
+    public function actionOpenweathermap()
+    {
+        $model = SettingsOpenweathermap::model()->findByPk(1);
+
+        if(isset($_POST['SettingsOpenweathermap']))
+        {
+            $model->attributes=$_POST['SettingsOpenweathermap'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model,'openweathermap');
+            }
+        }
+        $this->render('openweathermap',array('model'=>$model));
+    }
+
+    public function actionForecastio()
+    {
+        $model = SettingsForecastio::model()->findByPk(1);
+
+        if(isset($_POST['SettingsForecastio']))
+        {
+            $model->attributes=$_POST['SettingsForecastio'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model,'forecastio');
+            }
+        }
+        $this->render('forecastio',array('model'=>$model));
+    }
+
     public function actionSendTestNMA() {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'nma.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
         if ($res) {
