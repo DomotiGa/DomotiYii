@@ -11,7 +11,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 ));
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'settings-main-main-form',
+	'id'=>'settings-main-form',
 	'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 

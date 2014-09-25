@@ -11,7 +11,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 ));
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'settings-mqtt-mqtt-form',
+	'id'=>'settings-mqtt-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 

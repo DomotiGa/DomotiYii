@@ -8,16 +8,14 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         Yii::t('app','Interfaces') => 'indexInterfaces',
         Yii::t('app','Device Discover'),
     ),
-)); ?>
-
-<legend>Device Discover</legend>
-<?php 
+));
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'settings-devicediscover-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
+<legend>Device Discover</legend>
 <fieldset>
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'multicasthost'); ?>

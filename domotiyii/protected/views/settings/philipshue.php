@@ -8,16 +8,14 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
         Yii::t('app','Interfaces') => 'indexInterfaces',
         Yii::t('app','Philips Hue'),
     ),
-)); ?>
-
-<legend>Philips Hue</legend>
-<?php 
+));
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'settings-phlipshue-form',
+	'id'=>'settings-philipshue-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
+<legend>Philips Hue</legend>
 <fieldset>
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'username'); ?>
