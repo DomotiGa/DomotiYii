@@ -1,5 +1,5 @@
 <?php
-/* @var $this CameraViewerController */
+/* @var $this CameraviewerController */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(

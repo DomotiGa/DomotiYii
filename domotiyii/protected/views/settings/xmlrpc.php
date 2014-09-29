@@ -11,7 +11,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 ));
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'settings-x10cmd-form',
+        'id'=>'settings-xmlrpc-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 

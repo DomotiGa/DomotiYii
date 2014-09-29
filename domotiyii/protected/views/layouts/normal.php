@@ -206,11 +206,12 @@
   					array('label' => Yii::t('app','Devices'), 'url' => array('/devices/index')),
   					array('label' => Yii::t('app','Control Table'), 'url' => array('/control/table')),
   					array('label' => Yii::t('app','Control Box'), 'url' => array('/control/list')),
-					array('label' => Yii::t('app','Camera'), 'url' => array('/CameraViewer')),
-					array('label' => Yii::t('app','Graphs'), 'url' => array('/Graphs')),
-   					array('label' => Yii::t('app','Phone'), 'url' => array('cdr/index')),
+					array('label' => Yii::t('app','Camera Viewer'), 'url' => array('/cameraviewer/index')),
+					array('label' => Yii::t('app','Graphs'), 'url' => array('/graphs/index')),
+   					array('label' => Yii::t('app','Phone Calls'), 'url' => array('/cdr/index')),
+   					array('label' => Yii::t('app','Log Files'), 'url' => array('/logs/index')),
 					TbHtml::menuDivider(),
-					array('label' => 'Help', 'icon'=>'flag', 'url' => array('/site/help')),
+					array('label' => 'Help', 'icon' => 'flag', 'url' => array('/site/help')),
 				)
 			));
 			?>

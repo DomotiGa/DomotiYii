@@ -12,6 +12,13 @@
 class Deviceblacklist extends CActiveRecord
 {
 	/**
+	 * @return dropdownlist with the list of interfaces
+	 */
+	public function getInterfaces() {
+		return CHtml::listData(Plugins::model()->findAll(array('order' => 'interface ASC')), 'id', 'interface');
+	}
+
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
