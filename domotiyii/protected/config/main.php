@@ -108,7 +108,7 @@ return array(
 		'versionDBRequired'=>'1.0.017', // database min version needed
 
 		// base path to domotiga
-		'basePath'=>'/home/<changethis>/domotiga/',
+		'basePathDomotiGa'=>'/home/<changethis>/domotiga/',
 
 		// refresh values per page (5000 = 5 seconds)
 		'refreshDevices'=>'5000',
