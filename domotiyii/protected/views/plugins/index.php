@@ -4,7 +4,7 @@
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Interfaces'),
+        Yii::t('app','Plugins'),
     ),
 ));
 
@@ -14,7 +14,7 @@ $('.search-button').click(function(){
     return false;
 });
 $('.search-form form').submit(function(){
-    $.fn.yiiGridView.update('all-interfaces-grid', {
+    $.fn.yiiGridView.update('all-plugins-grid', {
         data: $(this).serialize()
     });
     return false;
@@ -43,8 +43,8 @@ $this->endWidget();
 </div><!-- search-form -->
 
 <?php $this->widget('domotiyii.LiveGridView', array(
-    'id'=>'all-interfaces-grid',
-    'refreshTime'=>Yii::app()->params['refreshInterfaces'], // x second refresh as defined in config
+    'id'=>'all-plugins-grid',
+    'refreshTime'=>Yii::app()->params['refreshPlugins'], // x second refresh as defined in config
     'type'=>'striped condensed',
     'dataProvider'=>$model->search(),
     'template'=>'{items}{pager}{summary}',

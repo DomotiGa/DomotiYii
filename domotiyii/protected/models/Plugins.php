@@ -91,7 +91,7 @@ class Plugins extends CActiveRecord
 		return new CActiveDataProvider($this, array(
                         'criteria'=>$criteria,
                         'pagination' => array(
-                                'pageSize'=>Yii::app()->params['pagesizeInterfaces'],
+                                'pageSize'=>Yii::app()->params['pagesizePlugins'],
                                 'pageVar'=>'page'
                         ),
 		));

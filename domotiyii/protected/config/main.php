@@ -129,7 +129,7 @@ return array(
 		'refreshCameras'=>'5000',
 		'refreshGlobalvars'=>'5000',
 		'refreshDeviceBlacklist'=>'5000',
-		'refreshInterfaces'=>'5000',
+		'refreshPlugins'=>'5000',
 		'refreshMobile'=>'5000',
 		'refreshLogs'=>'5000',
 		
@@ -150,7 +150,7 @@ return array(
 		'pagesizeCameras'=>'20',
 		'pagesizeGlobalvars'=>'20',
 		'pagesizeDeviceBlacklist'=>'20',
-		'pagesizeInterfaces'=>'20',
+		'pagesizePlugins'=>'20',
 		'pagesizeLogs'=>'50',
 	),
 );

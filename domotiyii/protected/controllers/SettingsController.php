@@ -3,7 +3,9 @@
 class SettingsController extends Controller {
 
     public function actionIndexModules() {
-        //FIXME : weird code but it works
+
+        $boolstring='';
+        //FIXME : replace with db lookup for names
         $listModules = array();
         $listModules[] = 'astro';
         $listModules[] = 'bwiredmap';
@@ -32,6 +34,7 @@ class SettingsController extends Controller {
         $listModules[] = 'voicetext';
         $listModules[] = 'weatherug';
         $listModules[] = 'xmlrpc';
+
         //FIXME: perhaps use static arrays if dynamic listing of model *.php is a trouble 
         $pref = './protected/models/Settings';
         $rawData = array();
@@ -61,11 +64,16 @@ class SettingsController extends Controller {
                 continue; //ignore when not finding table
             }
             $d3 = array();
-            //FIXME:  add too much attributes ?? should choose a list of attributes to check
             $values = $modelRecord->getAttributes();
             foreach (array_keys($values) as $l) {
-                if ($l !== 'enabled' && $l !== 'id')
+                if ($l !== 'enabled' && $l !== 'id' && $l !== 'password' && $l !== 'debug')
                     $d3[] = "<b>$l</b>=" . $values[$l];
+                if ($l == 'password')
+                    $d3[] = "<b>$l</b>=" . "*****";
+                if ($l == 'debug') {
+                    $boolstring = ($values[$l]) ? 'true' : 'false';
+                    $d3[] = "<b>$l</b>=" . $boolstring;
+                }
             }
 
             $d3 = implode(', ', $d3);
@@ -96,9 +104,10 @@ class SettingsController extends Controller {
     }
 
     public function actionIndexPlugins() {
-        //FIXME : weird code but it works
-        $listInterfaces = array();
 
+        $boolstring='';
+        //FIXME : replace with db lookup for names
+        $listPlugins = array();
         $listPlugins[] = 'asterisk';
         $listPlugins[] = 'bluetooth';
         $listPlugins[] = 'ctx35';
@@ -193,11 +202,16 @@ class SettingsController extends Controller {
                 continue; //ignore when not finding table
             }
             $d3 = array();
-            //FIXME:  add too much attributes ?? should choose a list of attributes to check
             $values = $modelRecord->getAttributes();
             foreach (array_keys($values) as $l) {
-                if ($l !== 'enabled' && $l !== 'id')
+                if ($l !== 'enabled' && $l !== 'id' && $l !== 'password' && $l !== 'debug')
                     $d3[] = "<b>$l</b>=" . $values[$l];
+                if ($l == 'password')
+                    $d3[] = "<b>$l</b>=" . "*****";
+                if ($l == 'debug') {
+                    $boolstring = ($values[$l]) ? 'true' : 'false';
+                    $d3[] = "<b>$l</b>=" . $boolstring;
+                }
             }
 
             $d3 = implode(', ', $d3);
