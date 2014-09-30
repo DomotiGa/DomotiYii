@@ -1,33 +1,32 @@
 <?php
 class ScenesController extends Controller
 {
-        public function actionIndex()
-        {
-                $criteria = new CDbCriteria();
-                $model=new Scenes('search');
-                $model->unsetAttributes(); // clear any default values
+	public function actionIndex()
+	{
+		$criteria = new CDbCriteria();
+		$model=new Scenes('search');
+		$model->unsetAttributes(); // clear any default values
 
-                if(isset($_GET['Scenes']))
-                {
-                        $model->attributes=$_GET['Scenes'];
+		if(isset($_GET['Scenes']))
+		{
+			$model->attributes=$_GET['Scenes'];
 
-                        if (!empty($model->name)) $criteria->addCondition('name = "'.$model->name.'"');
-                        if (!empty($model->description)) $criteria->addCondition('description = "'.$model->description.'"');
-                        if (!empty($model->type)) $criteria->addCondition('type = "'.$model->type.'"');
-                }
+			if (!empty($model->name)) $criteria->addCondition('name = "'.$model->name.'"');
+			if (!empty($model->description)) $criteria->addCondition('description = "'.$model->description.'"');
+			if (!empty($model->type)) $criteria->addCondition('type = "'.$model->type.'"');
+		}
 
-                $type = Yii::app()->getRequest()->getParam('type');
-  
+		$type = Yii::app()->getRequest()->getParam('type');
 		if (isset($type) && !empty($type))
 		{
 			if ($type == "disabled")
 			{
 				$model->enabled=0;
 				$criteria->addCondition('enabled IS FALSE');
-                        }
+			}
 		} 
-                $this->render('index', array('model'=>$model));
-        }
+		$this->render('index', array('model'=>$model));
+	}
 
         public function actionView($id)
         {
@@ -78,33 +77,6 @@ class ScenesController extends Controller
                         'model'=>$model,
                 ));
         }
-
-	// Uncomment the following methods and override them if needed
-	/*
-	public function filters()
-	{
-		// return the filter configuration for this controller, e.g.:
-		return array(
-			'inlineFilterName',
-			array(
-				'class'=>'path.to.FilterClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-			'action1'=>'path.to.ActionClass',
-			'action2'=>array(
-				'class'=>'path.to.AnotherActionClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-	*/
 
 	protected function do_save($model)
 	{
