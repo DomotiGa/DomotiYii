@@ -94,7 +94,7 @@
                        array('label'=>'DMX Player', 'url'=> array('settings/dmxplayer')),
                        array('label'=>'EZcontrol', 'url'=> array('settings/ezcontrol')),
                        array('label'=>'Jerome I/O', 'url'=> array('settings/jerome')),
-                       array('label'=>'KNX/EIB', 'url'=> array('settings/eib')),
+                       array('label'=>'KNX', 'url'=> array('settings/knx')),
                        array('label'=>'Philips Hue', 'url'=> array('settings/philipshue')),
                        array('label'=>'PLCBUS', 'url'=> array('settings/plcbus')),
                        array('label'=>'Velbus', 'url'=> array('settings/velbus')),

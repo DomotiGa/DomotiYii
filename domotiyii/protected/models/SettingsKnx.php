@@ -1,21 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "settings_eib".
+ * This is the model class for table "settings_knx".
  *
- * The followings are the available columns in table 'settings_eib':
+ * The followings are the available columns in table 'settings_knx':
  * @property integer $id
  * @property boolean $enabled
  * @property string $tcphost
  * @property integer $tcpport
  * @property boolean $debug
  */
-class SettingsEib extends CActiveRecord
+class SettingsKnx extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SettingsEib the static model class
+	 * @return SettingsKnx the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -27,7 +27,7 @@ class SettingsEib extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'settings_eib';
+		return 'settings_knx';
 	}
 
 	/**

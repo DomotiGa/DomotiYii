@@ -117,7 +117,6 @@ class SettingsController extends Controller {
         $listPlugins[] = 'digitemp';
         $listPlugins[] = 'dmxplayer';
         $listPlugins[] = 'dsc';
-        $listPlugins[] = 'eib';
         $listPlugins[] = 'ezcontrol';
         $listPlugins[] = 'fritzbox';
         $listPlugins[] = 'genericio';
@@ -132,6 +131,7 @@ class SettingsController extends Controller {
         $listPlugins[] = 'jerome';
         $listPlugins[] = 'k8055';
         $listPlugins[] = 'kmtronicudp';
+        $listPlugins[] = 'knx';
         $listPlugins[] = 'ledmatrix';
         $listPlugins[] = 'lgtv';
         $listPlugins[] = 'lirc';
@@ -962,17 +962,17 @@ class SettingsController extends Controller {
         $this->render('ezcontrol', array('model' => $model));
     }
 
-    public function actionEib() {
-        $model = SettingsEib::model()->findByPk(1);
+    public function actionKnx() {
+        $model = SettingsKnx::model()->findByPk(1);
 
-        if (isset($_POST['SettingsEib'])) {
-            $model->attributes = $_POST['SettingsEib'];
+        if (isset($_POST['SettingsKnx'])) {
+            $model->attributes = $_POST['SettingsKnx'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $this->do_save_restart($model, 'eib');
+                $this->do_save_restart($model, 'knx');
             }
         }
-        $this->render('eib', array('model' => $model));
+        $this->render('knx', array('model' => $model));
     }
 
     public function actionPlcbus() {
