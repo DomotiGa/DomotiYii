@@ -19,8 +19,10 @@
  * @property string $valuerrdtype
  * @property string $lastchanged
  * @property string $lastseen
- * @property string $type
+ * @property string $type_id
  * @property string $description
+ * @property boolean $control
+ * @property boolean $feedback
  */
 class DeviceValues extends CActiveRecord
 {
@@ -50,9 +52,9 @@ class DeviceValues extends CActiveRecord
         // will receive user inputs.
         return array(
             array('device_id, valuenum', 'required'),
-            array('device_id, valuenum, type', 'length', 'max'=>11),
+            array('device_id, valuenum, type_id', 'length', 'max'=>11),
             array('units, valuerrddsname, valuerrdtype, description', 'length', 'max'=>32),
-            array('log, logdisplay, logspeak, rrd, graph', 'boolean', 'trueValue'=> -1),
+            array('log, logdisplay, logspeak, rrd, graph, control, feedback', 'boolean', 'trueValue'=> -1),
             array('value, correction, log, logdisplay, logspeak, rrd, graph, lastchanged, lastseen', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -91,6 +93,8 @@ class DeviceValues extends CActiveRecord
             'logspeak' => 'Logspeak',
             'rrd' => 'Rrd',
             'graph' => 'Graph',
+            'control' => 'Controllable',
+            'feedback' => 'Feedback',
             'valuerrddsname' => 'Valuerrddsname',
             'valuerrdtype' => 'Valuerrdtype',
             'lastchanged' => 'Lastchanged',
@@ -127,6 +131,8 @@ class DeviceValues extends CActiveRecord
         $criteria->compare('logspeak',$this->logspeak);
         $criteria->compare('rrd',$this->rrd);
         $criteria->compare('graph',$this->graph);
+        $criteria->compare('control',$this->control);
+        $criteria->compare('feedback',$this->feedback);
         $criteria->compare('valuerrddsname',$this->valuerrddsname,true);
         $criteria->compare('valuerrdtype',$this->valuerrdtype,true);
         $criteria->compare('lastchanged',$this->lastchanged,true);

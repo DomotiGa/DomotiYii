@@ -26,7 +26,8 @@
 	<?php echo $form->checkBoxControlGroup($model,'graph', array('value'=>-1)); ?>
         <?php echo $form->textFieldControlGroup($model,'lastchanged'); ?>
         <?php echo $form->textFieldControlGroup($model,'lastseen'); ?>
-        <?php echo $form->textFieldControlGroup($model,'type'); ?>
+	<?php echo $form->checkBoxControlGroup($model,'control', array('value'=>-1)); ?>
+	<?php echo $form->checkBoxControlGroup($model,'feedback', array('value'=>-1)); ?>
 	<?php echo $form->textFieldControlGroup($model,'description',array('class'=>'span5')); ?>
 
 </fieldset>

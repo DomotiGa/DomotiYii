@@ -93,6 +93,7 @@
                        array('label'=>'Anel PwrCtrl', 'url'=> array('settings/pwrctrl')),
                        array('label'=>'DMX Player', 'url'=> array('settings/dmxplayer')),
                        array('label'=>'EZcontrol', 'url'=> array('settings/ezcontrol')),
+                       array('label'=>'HomeMatic', 'url'=> array('settings/homematic')),
                        array('label'=>'Jerome I/O', 'url'=> array('settings/jerome')),
                        array('label'=>'KNX', 'url'=> array('settings/knx')),
                        array('label'=>'Philips Hue', 'url'=> array('settings/philipshue')),
@@ -114,7 +115,6 @@
                        array('label'=>'SmartMeter', 'url'=> array('settings/smartmeter')),
                     )),
                     array('label'=>'HDDTemp', 'url'=> array('settings/hddtemp')),
-                    array('label'=>'HomeMatic', 'url'=> array('settings/homematic')),
                     array('label'=>'Input/Output', 'url'=>'#', 'items'=>array(
                        array('label'=>'KMTronic UDP', 'url'=> array('settings/kmtronicudp')),
                        array('label'=>'Velleman K8055', 'url'=> array('settings/k8055')),
@@ -151,8 +151,8 @@
                     array('label'=>'xPL', 'url'=> array('settings/xpl')),
 	         )),
                 array('label'=>Yii::t('app','Devices'), 'visible'=>!Yii::app()->user->isGuest, 'url'=> '#', 'items'=>array(
-                   array('label' => Yii::t('app','Devices'), 'url' => array('devices/index')),
-                   array('label'=>Yii::t('app','Types'), 'url'=> array('devicetypes/index')),
+                   array('label' => Yii::t('app','List Devices'), 'url' => array('devices/index')),
+                   array('label'=>Yii::t('app','DeviceTypes'), 'url'=> array('devicetypes/index')),
                    array('label'=>Yii::t('app','Groups'), 'url'=> array('groups/index')),
                    array('label'=>Yii::t('app','Locations'), 'url'=> array('locations/index')),
                    array('label'=>Yii::t('app','Floors'), 'url'=> array('floors/index')),
