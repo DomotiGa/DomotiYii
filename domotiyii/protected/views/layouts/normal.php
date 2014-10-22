@@ -185,8 +185,10 @@
                 array('label'=>Yii::t('app','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>Yii::t('app','Logout').' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>Yii::t('app','About'), 'url'=>'#', 'items'=>array(
-                    array('label'=>Yii::t('app','Visit Project Website'), 'url'=>'http://domotiga.nl', 'linkOptions'=>array('target'=>'_blank')),
+                    array('label'=>Yii::t('app','Visit Project Website'), 'url'=>'https://domotiga.nl', 'linkOptions'=>array('target'=>'_blank')),
                     array('label'=>Yii::t('app','Donate to Project'), 'url'=>'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=NT48KZRT7F3FA&lc=US&item_name=DomotiGa%20Open%20Source%20Project&item_number=domotiga&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted', 'linkOptions'=>array('target'=>'_blank')),
+                    array('label'=>Yii::t('app','Google+ Community'), 'url'=>'https://plus.google.com/u/0/communities/109060776024494564180', 'linkOptions'=>array('target'=>'_blank')),
+                    array('label'=>Yii::t('app','DomotiGa on GitHub'), 'url'=>'https:/github.com/DomotiGa', 'linkOptions'=>array('target'=>'_blank')),
 		TbHtml::menuDivider(),
                     array('label'=>Yii::t('app','About DomotiGa'), 'url'=> array('/site/about')),
                 )),
@@ -194,7 +196,6 @@
         ),
     ),
 )); ?>
-
 
 <div class="container-fluid" id="page">
 	<div class="row-fluid">
@@ -243,7 +244,5 @@
 		</div><!-- span10 -->
 	</div><!-- row-fluid -->
 </div><!-- container-fluid -->
-
-
 
 <?php $this->endContent(); ?>
