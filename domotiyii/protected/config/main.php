@@ -100,7 +100,7 @@ return array(
 		// Security allow mobile control without login
 	  	'allowMobileWithoutLogin'=>False, // Dont allow, you can do this if you have setup ssl client certificate
 		// refresh time for specific gridviews
-		'versionDBRequired'=>'1.0.017', // database min version needed
+		'versionDBRequired'=>'1.0.016', // database min version needed
 		'refreshDevices'=>'5000', // 5 second refresh
 		'refreshDeviceValues'=>'5000', // 5 second refresh
 		'refreshDeviceValuesLog'=>'5000', // 5 second refresh
