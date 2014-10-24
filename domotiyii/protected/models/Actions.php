@@ -37,6 +37,9 @@ class Actions extends CActiveRecord {
       ' send Prowl        | 17                 | Prowl message to send
       ' send NMA          | 18                 | Notify My Android message to send
       ' send Pushover     | 19                 | Pushover message to send
+      ' send Pushbullet   | 20                 | pushbullet message to send| optional title (default 'DomotiGa') | optional deviceid ('all' for all devices)
+      ' soft dimming      | 21                 | deviceid                  | minutes              | value
+
      */
 
     /**
@@ -61,7 +64,9 @@ class Actions extends CActiveRecord {
         '16' => 'JSON Post/Get',
         '17' => 'Send Prowl PushMsg',
         '18' => 'Send NMA PushMsg',
-        '19' => 'Send Pushover PushMsg'
+        '19' => 'Send Pushover PushMsg',
+        '20' => 'Send Pushbullet PushMsg',
+        '21' => 'Soft Dimming'
     );
 
     /**
