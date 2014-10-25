@@ -3,7 +3,9 @@
 class SettingsController extends Controller {
 
     public function actionIndexModules() {
-        //FIXME : weird code but it works
+
+        $boolstring='';
+        //FIXME : replace with db lookup for names
         $listModules = array();
         $listModules[] = 'astro';
         $listModules[] = 'bwiredmap';
@@ -19,6 +21,7 @@ class SettingsController extends Controller {
         $listModules[] = 'pachube';
         $listModules[] = 'prowl';
         $listModules[] = 'pushover';
+        $listModules[] = 'pushbullet';
         $listModules[] = 'pvoutput';
         $listModules[] = 'serverstats';
         $listModules[] = 'smartvisuserver';
@@ -31,6 +34,7 @@ class SettingsController extends Controller {
         $listModules[] = 'voicetext';
         $listModules[] = 'weatherug';
         $listModules[] = 'xmlrpc';
+
         //FIXME: perhaps use static arrays if dynamic listing of model *.php is a trouble 
         $pref = './protected/models/Settings';
         $rawData = array();
@@ -60,11 +64,16 @@ class SettingsController extends Controller {
                 continue; //ignore when not finding table
             }
             $d3 = array();
-            //FIXME:  add too much attributes ?? should choose a list of attributes to check
             $values = $modelRecord->getAttributes();
             foreach (array_keys($values) as $l) {
-                if ($l !== 'enabled' && $l !== 'id')
+                if ($l !== 'enabled' && $l !== 'id' && $l !== 'password' && $l !== 'debug')
                     $d3[] = "<b>$l</b>=" . $values[$l];
+                if ($l == 'password')
+                    $d3[] = "<b>$l</b>=" . "*****";
+                if ($l == 'debug') {
+                    $boolstring = ($values[$l]) ? 'true' : 'false';
+                    $d3[] = "<b>$l</b>=" . $boolstring;
+                }
             }
 
             $d3 = implode(', ', $d3);
@@ -94,72 +103,74 @@ class SettingsController extends Controller {
         $this->render('indexModules', array('data' => $arrayDataProvider));
     }
 
-    public function actionIndexInterfaces() {
-        //FIXME : weird code but it works
-        $listInterfaces = array();
+    public function actionIndexPlugins() {
 
-        $listInterfaces[] = 'asterisk';
-        $listInterfaces[] = 'bluetooth';
-        $listInterfaces[] = 'ctx35';
-        $listInterfaces[] = 'cul';
-        $listInterfaces[] = 'currentcost';
-        $listInterfaces[] = 'denon';
-        $listInterfaces[] = 'digitemp';
-        $listInterfaces[] = 'dmxplayer';
-        $listInterfaces[] = 'dsc';
-        $listInterfaces[] = 'eib';
-        $listInterfaces[] = 'ezcontrol';
-        $listInterfaces[] = 'fritzbox';
-        $listInterfaces[] = 'genericio';
-        $listInterfaces[] = 'gps';
-        $listInterfaces[] = 'hddtemp';
-        $listInterfaces[] = 'homematic';
-        $listInterfaces[] = 'iport';
-        $listInterfaces[] = 'irman';
-        $listInterfaces[] = 'irtrans';
-        $listInterfaces[] = 'iviewer';
-        $listInterfaces[] = 'jeelabs';
-        $listInterfaces[] = 'jerome';
-        $listInterfaces[] = 'k8055';
-        $listInterfaces[] = 'kmtronicudp';
-        $listInterfaces[] = 'ledmatrix';
-        $listInterfaces[] = 'lgtv';
-        $listInterfaces[] = 'lirc';
-        $listInterfaces[] = 'mochad';
-        $listInterfaces[] = 'ncid';
-        $listInterfaces[] = 'onkyo';
-        $listInterfaces[] = 'opentherm';
-        $listInterfaces[] = 'openzwave';
-        $listInterfaces[] = 'owfs';
-        $listInterfaces[] = 'oww';
-        $listInterfaces[] = 'philipshue';
-        $listInterfaces[] = 'ping';
-        $listInterfaces[] = 'pioneer';
-        $listInterfaces[] = 'plcbus';
-        $listInterfaces[] = 'plugwise';
-        $listInterfaces[] = 'pwrctrl';
-        $listInterfaces[] = 'razberry';
-        $listInterfaces[] = 'rfxcomrx';
-        $listInterfaces[] = 'rfxcomtrx';
-        $listInterfaces[] = 'rfxcomtx';
-        $listInterfaces[] = 'rfxcomxpl';
-        $listInterfaces[] = 'rrdtool';
-        $listInterfaces[] = 'sharptv';
-        $listInterfaces[] = 'shell';
-        $listInterfaces[] = 'smartmeter';
-        $listInterfaces[] = 'sms';
-        $listInterfaces[] = 'squeezeserver';
-        $listInterfaces[] = 'temp08';
-        $listInterfaces[] = 'toon';
-        $listInterfaces[] = 'ups';
-        $listInterfaces[] = 'velbus';
-        $listInterfaces[] = 'videoserver';
-        $listInterfaces[] = 'viera';
-        $listInterfaces[] = 'visca';
-        $listInterfaces[] = 'visonic';
-        $listInterfaces[] = 'weeder';
-        $listInterfaces[] = 'x10cmd';
-        $listInterfaces[] = 'xpl';
+        $boolstring='';
+        //FIXME : replace with db lookup for names
+        $listPlugins = array();
+        $listPlugins[] = 'asterisk';
+        $listPlugins[] = 'bluetooth';
+        $listPlugins[] = 'ctx35';
+        $listPlugins[] = 'cul';
+        $listPlugins[] = 'currentcost';
+        $listPlugins[] = 'denon';
+        $listPlugins[] = 'digitemp';
+        $listPlugins[] = 'dmxplayer';
+        $listPlugins[] = 'dsc';
+        $listPlugins[] = 'ezcontrol';
+        $listPlugins[] = 'fritzbox';
+        $listPlugins[] = 'genericio';
+        $listPlugins[] = 'gps';
+        $listPlugins[] = 'hddtemp';
+        $listPlugins[] = 'homematic';
+        $listPlugins[] = 'iport';
+        $listPlugins[] = 'irman';
+        $listPlugins[] = 'irtrans';
+        $listPlugins[] = 'iviewer';
+        $listPlugins[] = 'jeelabs';
+        $listPlugins[] = 'jerome';
+        $listPlugins[] = 'k8055';
+        $listPlugins[] = 'kmtronicudp';
+        $listPlugins[] = 'knx';
+        $listPlugins[] = 'ledmatrix';
+        $listPlugins[] = 'lgtv';
+        $listPlugins[] = 'lirc';
+        $listPlugins[] = 'mochad';
+        $listPlugins[] = 'ncid';
+        $listPlugins[] = 'onkyo';
+        $listPlugins[] = 'opentherm';
+        $listPlugins[] = 'openzwave';
+        $listPlugins[] = 'owfs';
+        $listPlugins[] = 'oww';
+        $listPlugins[] = 'philipshue';
+        $listPlugins[] = 'ping';
+        $listPlugins[] = 'pioneer';
+        $listPlugins[] = 'plcbus';
+        $listPlugins[] = 'plugwise';
+        $listPlugins[] = 'pwrctrl';
+        $listPlugins[] = 'razberry';
+        $listPlugins[] = 'rfxcomrx';
+        $listPlugins[] = 'rfxcomtrx';
+        $listPlugins[] = 'rfxcomtx';
+        $listPlugins[] = 'rfxcomxpl';
+        $listPlugins[] = 'rrdtool';
+        $listPlugins[] = 'sharptv';
+        $listPlugins[] = 'shell';
+        $listPlugins[] = 'smartmeter';
+        $listPlugins[] = 'sms';
+        $listPlugins[] = 'squeezeserver';
+        $listPlugins[] = 'temp08';
+        $listPlugins[] = 'toon';
+        $listPlugins[] = 'ups';
+        $listPlugins[] = 'velbus';
+        $listPlugins[] = 'videoserver';
+        $listPlugins[] = 'viera';
+        $listPlugins[] = 'visca';
+        $listPlugins[] = 'visonic';
+        $listPlugins[] = 'weeder';
+        $listPlugins[] = 'wiringpi';
+        $listPlugins[] = 'x10cmd';
+        $listPlugins[] = 'xpl';
 
         //FIXME: perhaps use static arrays if dynamic listing of model *.php is a trouble 
         $pref = './protected/models/Settings';
@@ -173,7 +184,7 @@ class SettingsController extends Controller {
             $modelName = 'Settings' . $filename;
             $model = $modelName::model();
             $modelAlias = $model->tableName();
-            if (!in_array(strtolower($d1), $listInterfaces))
+            if (!in_array(strtolower($d1), $listPlugins))
                 continue;
 
             if (isset($model) && !empty($model) && in_array($modelAlias, $listTables)) {
@@ -191,11 +202,16 @@ class SettingsController extends Controller {
                 continue; //ignore when not finding table
             }
             $d3 = array();
-            //FIXME:  add too much attributes ?? should choose a list of attributes to check
             $values = $modelRecord->getAttributes();
             foreach (array_keys($values) as $l) {
-                if ($l !== 'enabled' && $l !== 'id')
+                if ($l !== 'enabled' && $l !== 'id' && $l !== 'password' && $l !== 'debug')
                     $d3[] = "<b>$l</b>=" . $values[$l];
+                if ($l == 'password')
+                    $d3[] = "<b>$l</b>=" . "*****";
+                if ($l == 'debug') {
+                    $boolstring = ($values[$l]) ? 'true' : 'false';
+                    $d3[] = "<b>$l</b>=" . $boolstring;
+                }
             }
 
             $d3 = implode(', ', $d3);
@@ -222,7 +238,7 @@ class SettingsController extends Controller {
                 'pageSize' => 30,
             ),
         ));
-        $this->render('indexInterfaces', array('data' => $arrayDataProvider));
+        $this->render('indexPlugins', array('data' => $arrayDataProvider));
     }
 
     public function actionJerome()
@@ -946,17 +962,17 @@ class SettingsController extends Controller {
         $this->render('ezcontrol', array('model' => $model));
     }
 
-    public function actionEib() {
-        $model = SettingsEib::model()->findByPk(1);
+    public function actionKnx() {
+        $model = SettingsKnx::model()->findByPk(1);
 
-        if (isset($_POST['SettingsEib'])) {
-            $model->attributes = $_POST['SettingsEib'];
+        if (isset($_POST['SettingsKnx'])) {
+            $model->attributes = $_POST['SettingsKnx'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $this->do_save_restart($model, 'eib');
+                $this->do_save_restart($model, 'knx');
             }
         }
-        $this->render('eib', array('model' => $model));
+        $this->render('knx', array('model' => $model));
     }
 
     public function actionPlcbus() {
@@ -1375,10 +1391,74 @@ class SettingsController extends Controller {
         $this->render('pioneer', array('model' => $model));
     }
 
+    public function actionWiringpi()
+    {
+        $model = SettingsWiringpi::model()->findByPk(1);
+
+        if(isset($_POST['SettingsWiringpi']))
+        {
+            $model->attributes=$_POST['SettingsWiringpi'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model,'wiringpi');
+            }
+        }
+        $this->render('wiringpi',array('model'=>$model));
+    }
+
+    public function actionPushbullet()
+    {
+        $model = SettingsPushbullet::model()->findByPk(1);
+
+        if(isset($_POST['SettingsPushbullet']))
+        {
+            $model->attributes=$_POST['SettingsPushbullet'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model,'pushbullet');
+            }
+        }
+        $this->render('pushbullet',array('model'=>$model));
+    }
+
+    public function actionOpenweathermap()
+    {
+        $model = SettingsOpenweathermap::model()->findByPk(1);
+
+        if(isset($_POST['SettingsOpenweathermap']))
+        {
+            $model->attributes=$_POST['SettingsOpenweathermap'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model,'openweathermap');
+            }
+        }
+        $this->render('openweathermap',array('model'=>$model));
+    }
+
+    public function actionForecastio()
+    {
+        $model = SettingsForecastio::model()->findByPk(1);
+
+        if(isset($_POST['SettingsForecastio']))
+        {
+            $model->attributes=$_POST['SettingsForecastio'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model,'forecastio');
+            }
+        }
+        $this->render('forecastio',array('model'=>$model));
+    }
+
     public function actionSendTestNMA() {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'nma.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
         if ($res) {
-            if ($res->result) {
+            if (isset($res->result) && $res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test pushmsg failed!'));
@@ -1390,7 +1470,7 @@ class SettingsController extends Controller {
     public function actionSendTestProwl() {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'prowl.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
         if ($res) {
-            if ($res->result) {
+            if (isset($res->result) && $res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test pushmsg failed!'));
@@ -1402,7 +1482,19 @@ class SettingsController extends Controller {
     public function actionSendTestPushover() {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'pushover.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
         if ($res) {
-            if ($res->result) {
+            if (isset($res->result) && $res->result) {
+                Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test pushmsg failed!'));
+            }
+        }
+        $this->redirect('pushover', true);
+    }
+
+    public function actionSendTestPushbullet() {
+        $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'pushbullet.send', 'params' => array('msg' => 'This is a test Msg!'), 'id' => 1));
+        if ($res) {
+            if (isset($res->result) && $res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test pushmsg.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test pushmsg failed!'));
@@ -1414,7 +1506,7 @@ class SettingsController extends Controller {
     public function actionSendTestTweet() {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'twitter.send', 'params' => array('msg' => 'This is a test Tweet!'), 'id' => 1));
         if ($res) {
-            if ($res->result) {
+            if (isset($res->result) && $res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test tweet.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test tweet failed!'));
@@ -1427,7 +1519,7 @@ class SettingsController extends Controller {
         $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'email.send', 'params' => array('msg' => 'If you read this, e-mail support is working!',
                 'subject' => 'Test e-mail'), 'id' => 1));
         if ($res) {
-            if ($res->result) {
+            if (isset($res->result) && $res->result) {
                 Yii::app()->user->setFlash('success', Yii::t('app', 'Sent test e-mail.'));
             } else {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test e-mail failed!'));

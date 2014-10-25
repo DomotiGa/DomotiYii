@@ -5,13 +5,13 @@
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Interfaces') => 'indexInterfaces',
+        Yii::t('app','Plugins') => 'indexPlugins',
         Yii::t('app','Mochad'),
     ),
 ));
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'settings-x10cmd-form',
+        'id'=>'settings-mochad-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 

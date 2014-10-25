@@ -1,12 +1,8 @@
 DomotiYii
----------------------------------
+=========
 
-**Please note that this that is an Alpha release and that it can harm your server/data.**
-
-
-DomotiYii is a new web client build from scratch using the Yii framework together with the Yiistrap extension to add the bootstrap look and feel.
-
-
+DomotiYii is a new web client build from scratch using the Yii
+framework together with the Yiistrap extension to add the bootstrap look and feel.
 
 Development info:
 ----------------
@@ -14,13 +10,12 @@ This version of DomotiYii is build with:
 Yii-1.1.15 - Framework
 Source: https://github.com/yiisoft/yii/releases/download/1.1.15/yii-1.1.15.022a51.tar.gz
 
-Yiistrap-1.2.0 - Twitter Bootstrap for Yii
-Source: https://github.com/Crisu83/yiistrap/archive/1.2.0.zip
-
+Yiistrap-1.3.0 - Twitter Bootstrap for Yii
+Source: https://github.com/Crisu83/yiistrap/archive/1.3.0.zip
 
 License:
 -------
-Both DomotiGa and DomotiYii are released under the terms of GNU GPL v3 license.
+DomotiYii is released under the terms of GNU GPL v3 license.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -35,12 +30,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see http://www.gnu.org/licenses/.
 
-
 How to install 'DomotiYii':
 -------------------
-Unpack domotiyii directory to /var/www, or put it's contents in the webroot.
-This directory contains the Yii project and the Yii framework. For more information see http://domotiga.nl/projects/domotiyii/wiki/Installation
 
+Visit this [wiki page](http://domotiga.nl/projects/domotiyii/wiki/Installation) for installation notes.
 
 About the Yii Framework:
 -------------
@@ -60,12 +53,10 @@ Generate correct settings forms with bootstrap widgets:
 framework/gii/generators/form/templates/default/action.php
 framework/gii/generators/form/templates/default/form.php
 
-
 Correct permissions:
 -------------------
-The assets folder must be writable by the Web server (usually www-data), same for protected/models and protected/runtime
+The assets folder must be writable by the Web server (usually run with user www-data), same for 'protected/[models,views,controllers]' and 'protected/runtime'
 so Gii can generate files there.
-
 
 Configure DomotiYii:
 -------------------
@@ -176,12 +167,18 @@ add section like
 
 Create page under protected/views/site/about.php
 
+
+Using Gii to create code:
+------------------------
+
 To add a new settings form follow these steps:
 
 Login
 Enter Gii
+<Giiha>
 
 Generate a model:
+
 Goto Model Generator
 Fill in database table to generate model for
 Table Name:
@@ -192,6 +189,7 @@ Click preview, Click generate
 If permission denied
 
 Generate a form:
+
 Goto Form Generator
 Model Class
 SettingsSmartvisu

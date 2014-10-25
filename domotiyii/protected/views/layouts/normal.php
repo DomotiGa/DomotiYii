@@ -8,7 +8,7 @@
             'class'=>'bootstrap.widgets.TbNav',
             'items'=>array(
                 array('label'=>Yii::t('app','Modules'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
-                    array('label'=>'Modules list', 'url'=> array('settings/indexModules')),
+                    array('label'=>'Overview', 'url'=> array('settings/indexModules')),
                     array('label'=>'Main', 'url'=> array('settings/main')),
                     array('label'=>'Astro and Location', 'url'=> array('settings/astro')),
                     array('label'=>'CallerID', 'url'=> array('settings/callerid')),
@@ -28,11 +28,14 @@
                     array('label'=>'Sound', 'url'=> array('settings/sound')),
                     array('label'=>'VoiceText', 'url'=> array('settings/voicetext')),
                     array('label'=>'Weather', 'url'=>'#', 'items'=>array(
+                       array('label'=>'OpenWeatherMap', 'url'=> array('settings/openweathermap')),
+                       array('label'=>'Forecast.io', 'url'=> array('settings/forecastio')),
                        array('label'=>'WeatherUnderground', 'url'=> array('settings/weatherug')),
                     )),
                     array('label'=>'Notifiers', 'url'=>'#', 'items'=>array(
                        array('label'=>'Prowl', 'url'=> array('settings/prowl')),
                        array('label'=>'Pushover', 'url'=> array('settings/pushover')),
+                       array('label'=>'Pushbullet', 'url'=> array('settings/pushbullet')),
                        array('label'=>'NMA', 'url'=> array('settings/nma')),
                     )),
                     array('label'=>'Server Stats', 'url'=> array('settings/serverstats')),
@@ -54,7 +57,7 @@
                     )),
                  )),
                  array('label'=>Yii::t('app','Interfaces'), 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
-                    array('label'=>'Interfaces list', 'url'=> array('settings/indexInterfaces')),
+                    array('label'=>'Overview', 'url'=> array('settings/indexPlugins')),
                     array('label'=>'1-Wire', 'url'=>'#', 'items'=>array(
                        array('label'=>'Digitemp', 'url'=> array('settings/digitemp')),
                        array('label'=>'Midon TEMP08', 'url'=> array('settings/temp08')),
@@ -90,8 +93,9 @@
                        array('label'=>'Anel PwrCtrl', 'url'=> array('settings/pwrctrl')),
                        array('label'=>'DMX Player', 'url'=> array('settings/dmxplayer')),
                        array('label'=>'EZcontrol', 'url'=> array('settings/ezcontrol')),
+                       array('label'=>'HomeMatic', 'url'=> array('settings/homematic')),
                        array('label'=>'Jerome I/O', 'url'=> array('settings/jerome')),
-                       array('label'=>'KNX/EIB', 'url'=> array('settings/eib')),
+                       array('label'=>'KNX', 'url'=> array('settings/knx')),
                        array('label'=>'Philips Hue', 'url'=> array('settings/philipshue')),
                        array('label'=>'PLCBUS', 'url'=> array('settings/plcbus')),
                        array('label'=>'Velbus', 'url'=> array('settings/velbus')),
@@ -111,11 +115,11 @@
                        array('label'=>'SmartMeter', 'url'=> array('settings/smartmeter')),
                     )),
                     array('label'=>'HDDTemp', 'url'=> array('settings/hddtemp')),
-                    array('label'=>'HomeMatic', 'url'=> array('settings/homematic')),
                     array('label'=>'Input/Output', 'url'=>'#', 'items'=>array(
                        array('label'=>'KMTronic UDP', 'url'=> array('settings/kmtronicudp')),
                        array('label'=>'Velleman K8055', 'url'=> array('settings/k8055')),
                        array('label'=>'Weeder I/O', 'url'=> array('settings/weeder')),
+                       array('label'=>'WiringPi', 'url'=> array('settings/wiringpi')),
                     )),
                     array('label'=>'Remote Control', 'url'=>'#', 'items'=>array(
                        array('label'=>'CF iViewer', 'url'=> array('settings/iviewer')),
@@ -147,13 +151,13 @@
                     array('label'=>'xPL', 'url'=> array('settings/xpl')),
 	         )),
                 array('label'=>Yii::t('app','Devices'), 'visible'=>!Yii::app()->user->isGuest, 'url'=> '#', 'items'=>array(
-                   array('label' => Yii::t('app','Devices'), 'url' => array('devices/index')),
-                   array('label'=>Yii::t('app','Types'), 'url'=> array('devicetypes/index')),
+                   array('label' => Yii::t('app','List Devices'), 'url' => array('devices/index')),
+                   array('label'=>Yii::t('app','DeviceTypes'), 'url'=> array('devicetypes/index')),
                    array('label'=>Yii::t('app','Groups'), 'url'=> array('groups/index')),
                    array('label'=>Yii::t('app','Locations'), 'url'=> array('locations/index')),
                    array('label'=>Yii::t('app','Floors'), 'url'=> array('floors/index')),
-                   array('label'=>Yii::t('app','Blacklists'), 'url'=> array('deviceblacklist/index')),
-                   array('label'=>Yii::t('app','Interfaces'), 'url'=> array('interfaces/index')),
+                   array('label'=>Yii::t('app','Blacklist'), 'url'=> array('deviceblacklist/index')),
+                   array('label'=>Yii::t('app','Plugins'), 'url'=> array('plugins/index')),
                    array('label'=>Yii::t('app','Values'), 'url'=> array('devicevalues/index')),
                    array('label'=>Yii::t('app','ValuesLog'), 'url'=> array('devicevalueslog/index')),
                 )),
@@ -181,8 +185,10 @@
                 array('label'=>Yii::t('app','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>Yii::t('app','Logout').' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>Yii::t('app','About'), 'url'=>'#', 'items'=>array(
-                    array('label'=>Yii::t('app','Visit Project Website'), 'url'=>'http://domotiga.nl', 'linkOptions'=>array('target'=>'_blank')),
+                    array('label'=>Yii::t('app','Visit Project Website'), 'url'=>'https://domotiga.nl', 'linkOptions'=>array('target'=>'_blank')),
                     array('label'=>Yii::t('app','Donate to Project'), 'url'=>'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=NT48KZRT7F3FA&lc=US&item_name=DomotiGa%20Open%20Source%20Project&item_number=domotiga&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted', 'linkOptions'=>array('target'=>'_blank')),
+                    array('label'=>Yii::t('app','Google+ Community'), 'url'=>'https://plus.google.com/u/0/communities/109060776024494564180', 'linkOptions'=>array('target'=>'_blank')),
+                    array('label'=>Yii::t('app','DomotiGa on GitHub'), 'url'=>'https:/github.com/DomotiGa', 'linkOptions'=>array('target'=>'_blank')),
 		TbHtml::menuDivider(),
                     array('label'=>Yii::t('app','About DomotiGa'), 'url'=> array('/site/about')),
                 )),
@@ -190,7 +196,6 @@
         ),
     ),
 )); ?>
-
 
 <div class="container-fluid" id="page">
 	<div class="row-fluid">
@@ -202,11 +207,12 @@
   					array('label' => Yii::t('app','Devices'), 'url' => array('/devices/index')),
   					array('label' => Yii::t('app','Control Table'), 'url' => array('/control/table')),
   					array('label' => Yii::t('app','Control Box'), 'url' => array('/control/list')),
-					array('label' => Yii::t('app','Camera'), 'url' => array('/CameraViewer')),
-					array('label' => Yii::t('app','Graphs'), 'url' => array('/Graphs')),
-   					array('label' => Yii::t('app','Phone'), 'url' => array('cdr/index')),
+					array('label' => Yii::t('app','Camera Viewer'), 'url' => array('/cameraviewer/index')),
+					array('label' => Yii::t('app','Graphs'), 'url' => array('/graphs/index')),
+   					array('label' => Yii::t('app','Phone Calls'), 'url' => array('/cdr/index')),
+   					array('label' => Yii::t('app','Log Files'), 'url' => array('/logs/index')),
 					TbHtml::menuDivider(),
-					array('label' => 'Help', 'icon'=>'flag', 'url' => array('/site/help')),
+					array('label' => 'Help', 'icon' => 'flag', 'url' => array('/site/help')),
 				)
 			));
 			?>
@@ -238,7 +244,5 @@
 		</div><!-- span10 -->
 	</div><!-- row-fluid -->
 </div><!-- container-fluid -->
-
-
 
 <?php $this->endContent(); ?>

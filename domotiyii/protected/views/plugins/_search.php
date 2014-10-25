@@ -1,5 +1,5 @@
 <?php  $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-        'id'=>'search-interfaces-form',
+        'id'=>'search-plugins-form',
         'action'=>Yii::app()->createUrl($this->route),
 	'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
         'method'=>'get',
@@ -9,7 +9,8 @@
                 <?php echo $form->textFieldControlGroup($model,'id'); ?>
                 <?php echo $form->textFieldControlGroup($model,'name'); ?>
                 <?php echo $form->textFieldControlGroup($model,'type'); ?>
-                <?php echo $form->textFieldControlGroup($model,'mode'); ?>
+                <?php echo $form->textFieldControlGroup($model,'protocols'); ?>
+                <?php echo $form->textFieldControlGroup($model,'interface'); ?>
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

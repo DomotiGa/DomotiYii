@@ -27,7 +27,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
 $this->endWidget();
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'login-form',
+        'id'=>'settings-bwiredmap-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 

@@ -44,5 +44,4 @@ try {
 	echo '<span style="color:red;font-size:100%">An error occured fetching JSON-RPC\'s version!</span>';
 }
 echo "</p>";
-
 ?>

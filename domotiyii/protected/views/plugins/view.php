@@ -1,10 +1,10 @@
 <?php
-/* @var $this InterfacesController */
-/* @var $model Globalvars */
+/* @var $this PluginsController */
+/* @var $model Plugins */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Interfaces') => 'index',  
+        Yii::t('app','Plugins') => 'index',  
         Yii::t('app','View'),
     ),
 ));
@@ -33,6 +33,7 @@ $this->endWidget();
                 array('name' => 'id'),
                 array('name' => 'name'),
                 array('name' => 'type'),
-                array('name' => 'mode'),
+                array('name' => 'protocols'),
+                array('name' => 'interface'),
 	),
 )); ?>

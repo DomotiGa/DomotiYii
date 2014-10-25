@@ -5,7 +5,7 @@
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Interfaces') => 'indexInterfaces',
+        Yii::t('app','Plugins') => 'indexPlugins',
         Yii::t('app','KMTronicUDP'),
     ),
 ));

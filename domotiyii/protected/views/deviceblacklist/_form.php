@@ -12,7 +12,7 @@
 <fieldset>
 		<?php echo $model->isNewRecord ? "": $form->textFieldControlGroup($model,'blid',array('readonly'=>true)); ?>
 		<?php echo $form->textFieldControlGroup($model,'address'); ?>
-		<?php echo $form->dropDownListControlGroup($model,'id', Devices::getInterfaces(), array('prompt'=>'', 'id'=>'id')); ?>
+		<?php echo $form->dropDownListControlGroup($model,'id', $model->getInterfaces(), array('prompt'=>'', 'id'=>'id')); ?>
 		<?php echo $form->textFieldControlGroup($model,'comments', array('span'=>8)); ?>
 </fieldset>
 

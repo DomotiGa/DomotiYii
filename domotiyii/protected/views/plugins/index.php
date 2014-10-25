@@ -1,10 +1,10 @@
 <?php
-/* @var $this InterfacesController */
+/* @var $this PluginsController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Interfaces'),
+        Yii::t('app','Plugins'),
     ),
 ));
 
@@ -14,7 +14,7 @@ $('.search-button').click(function(){
     return false;
 });
 $('.search-form form').submit(function(){
-    $.fn.yiiGridView.update('all-interfaces-grid', {
+    $.fn.yiiGridView.update('all-plugins-grid', {
         data: $(this).serialize()
     });
     return false;
@@ -43,16 +43,16 @@ $this->endWidget();
 </div><!-- search-form -->
 
 <?php $this->widget('domotiyii.LiveGridView', array(
-    'id'=>'all-interfaces-grid',
-    'refreshTime'=>Yii::app()->params['refreshInterfaces'], // x second refresh as defined in config
+    'id'=>'all-plugins-grid',
+    'refreshTime'=>Yii::app()->params['refreshPlugins'], // x second refresh as defined in config
     'type'=>'striped condensed',
     'dataProvider'=>$model->search(),
     'template'=>'{items}{pager}{summary}',
     'columns'=>array(
         array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
         array('name'=>'name', 'header'=>Yii::t('app','Name'), 'htmlOptions'=>array('width'=>'100')),
-        array('name'=>'type', 'header'=>Yii::t('app','Protocol Type'), 'htmlOptions'=>array('width'=>'250')),
-        array('name'=>'mode', 'header'=>Yii::t('app','Mode'), 'htmlOptions'=>array('width'=>'70')),
+        array('name'=>'protocols', 'header'=>Yii::t('app','Protocol Type'), 'htmlOptions'=>array('width'=>'250')),
+        array('name'=>'interface', 'header'=>Yii::t('app','Interface'), 'htmlOptions'=>array('width'=>'70')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',
            'template'=> Yii::app()->user->isGuest ? '{view}' : '{view}',
            'header'=>Yii::t('app','Actions'),

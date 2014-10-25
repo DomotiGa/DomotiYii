@@ -6,8 +6,8 @@ return array(
 	'name'=>'DomotiGa',
 	// path aliases
 	'aliases'=>array(
-		'bootstrap'=> realpath(__DIR__.'/../extensions/bootstrap'),
-		'domotiyii' => realpath(__DIR__ . '/../extensions/domotiyii'),
+		'bootstrap'=>realpath(__DIR__.'/../extensions/bootstrap'),
+		'domotiyii'=>realpath(__DIR__ . '/../extensions/domotiyii'),
 	),
 	// preloading 'log' component
 	'preload'=>array(
@@ -18,13 +18,15 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'bootstrap.helpers.TbHtml',
+		'bootstrap.helpers.TbArray',
+		'bootstrap.behaviors.TbWidget',
 	),
 	'modules'=>array(
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'Giiha',
-			'ipFilters' => array('127.0.0.1', '192.168.*.*'),
-			'generatorPaths' => array('bootstrap.gii'),
+			'ipFilters'=>array('127.0.0.1', '192.168.*.*'),
+			'generatorPaths'=>array('bootstrap.gii'),
 		),
 	),
 	// application components
@@ -46,11 +48,11 @@ return array(
 			),
 		),
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=domotiga',
-			'emulatePrepare' => true,
-			'username' => 'domouser',
-			'password' => 'kung-fu',
-			'charset' => 'utf8',
+			'connectionString'=>'mysql:host=localhost;dbname=domotiga',
+			'emulatePrepare'=>True,
+			'username'=>'domouser',
+			'password'=>'kung-fu',
+			'charset'=>'utf8',
 			// uncomment the following to get sql statistics inside debug toolbar
 			'enableProfiling'=>true,
 			'enableParamLogging'=>true,
@@ -69,7 +71,7 @@ return array(
 				// uncomment the following to show debug toolbar
 /*
 				array(
-					'class' => 'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
+					'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
 					'ipFilters'=>array('*'),
 				)
 */
@@ -78,32 +80,40 @@ return array(
 		'bootstrap'=>array(
 			'class'=>'bootstrap.components.TbApi',
 		),
-		'domotiyii' => array(
-			'class' => 'domotiyii',
+		'domotiyii'=>array(
+			'class'=>'domotiyii',
 		),
-		'mobileDetect' => array(
-			'class' => 'domotiyii.MobileDetect'
+		'mobileDetect'=>array(
+			'class'=>'domotiyii.MobileDetect'
 		),
 	),
 
 	// language settings
-	'sourceLanguage' => 'en',
-	'language' => 'en', // add new translations under protected/messages/ 
+	'sourceLanguage'=>'en',
+	'language'=>'en', // add new translations under protected/messages/ 
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// default timezone
 		'timeZone'=>'Europe/Amsterdam',
+
 		// server settings
 		'jsonrpcHost'=>'http://localhost:9090',
-		// Security allow mobile control without login
-	  	'allowMobileWithoutLogin'=>False, // Dont allow, you can do this if you have setup ssl client certificate
+
+		// security allow mobile control without login
+	  	'allowMobileWithoutLogin'=>False, // don't allow, you can do this if you have setup ssl client certificate
+
 		// refresh time for specific gridviews
-		'versionDBRequired'=>'1.0.016', // database min version needed
-		'refreshDevices'=>'5000', // 5 second refresh
-		'refreshDeviceValues'=>'5000', // 5 second refresh
-		'refreshDeviceValuesLog'=>'5000', // 5 second refresh
+		'versionDBRequired'=>'1.0.017', // database min version needed
+
+		// base path to domotiga
+		'basePathDomotiGa'=>'/home/<changethis>/domotiga/',
+
+		// refresh values per page (5000 = 5 seconds)
+		'refreshDevices'=>'5000',
+		'refreshDeviceValues'=>'5000',
+		'refreshDeviceValuesLog'=>'5000',
 		'refreshPhonecalls'=>'5000',
 		'refreshContacts'=>'5000',
 		'refreshEvents'=>'5000',
@@ -119,8 +129,9 @@ return array(
 		'refreshCameras'=>'5000',
 		'refreshGlobalvars'=>'5000',
 		'refreshDeviceBlacklist'=>'5000',
-		'refreshInterfaces'=>'5000',
+		'refreshPlugins'=>'5000',
 		'refreshMobile'=>'5000',
+		'refreshLogs'=>'5000',
 		
 		// page size for specific gridviews
 		'pagesizeDevices'=>'20', // entries per page
@@ -139,6 +150,7 @@ return array(
 		'pagesizeCameras'=>'20',
 		'pagesizeGlobalvars'=>'20',
 		'pagesizeDeviceBlacklist'=>'20',
-		'pagesizeInterfaces'=>'20',
+		'pagesizePlugins'=>'20',
+		'pagesizeLogs'=>'50',
 	),
 );

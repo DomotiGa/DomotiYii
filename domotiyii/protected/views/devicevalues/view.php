@@ -80,7 +80,8 @@ $this->widget('domotiyii.DetailView', array(
         array('name' => 'valuerrdtype'),
         array('name' => 'lastchanged'),
         array('name' => 'lastseen'),
-        array('name' => 'type'),
+        array('name' => 'control', 'type' => 'boolean'),
+        array('name' => 'feedback', 'type' => 'boolean'),
         array('name' => 'description'),
     ),
 ));

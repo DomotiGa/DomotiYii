@@ -1,21 +1,21 @@
 <?php
-/* @var $this SettingsEibController */
-/* @var $model SettingsEib */
+/* @var $this SettingsKnxController */
+/* @var $model SettingsKnx */
 /* @var $form bootstrap.widgets.TbActiveForm */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Interfaces') => 'indexInterfaces',
-        Yii::t('app','KNX/EIB'),
+        Yii::t('app','Plugins') => 'indexPlugins',
+        Yii::t('app','KNX'),
     ),
 ));
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'settings-eib-form',
+        'id'=>'settings-knx-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
-<legend>EIB KNX</legend>
+<legend>KNX</legend>
 <fieldset>
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'tcphost'); ?>

@@ -1,21 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "settings_eib".
+ * This is the model class for table "plugins".
  *
- * The followings are the available columns in table 'settings_eib':
- * @property integer $id
- * @property boolean $enabled
- * @property string $tcphost
- * @property integer $tcpport
- * @property boolean $debug
+ * The followings are the available columns in table 'plugins':
+ * @property string $id
+ * @property string $name
+ * @property string $interface
+ * @property string $type
+ * @property string $protocols
  */
-class SettingsEib extends CActiveRecord
+class Plugins extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SettingsEib the static model class
+	 * @return Interfaces the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -27,7 +27,7 @@ class SettingsEib extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'settings_eib';
+		return 'plugins';
 	}
 
 	/**
@@ -38,13 +38,11 @@ class SettingsEib extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
-			array('id, tcpport', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
-			array('tcphost', 'length', 'max'=>32),
+			array('interface, name, type', 'length', 'max'=>32),
+			array('protocols', 'length', 'max'=>512),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enabled, tcphost, tcpport, debug', 'safe', 'on'=>'search'),
+			array('id, interface, name, protocols, type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,10 +64,10 @@ class SettingsEib extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'enabled' => 'Enabled',
-			'tcphost' => 'Tcphost',
-			'tcpport' => 'Tcpport',
-			'debug' => 'Debug',
+			'name' => 'Name',
+			'interface' => 'Interface',
+			'type' => 'Type',
+			'protocols' => 'Protocols',
 		);
 	}
 
@@ -84,14 +82,18 @@ class SettingsEib extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('enabled',$this->enabled);
-		$criteria->compare('tcphost',$this->tcphost,true);
-		$criteria->compare('tcpport',$this->tcpport);
-		$criteria->compare('debug',$this->debug);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('type',$this->type,true);
+		$criteria->compare('interface',$this->interface,true);
+		$criteria->compare('protocols',$this->protocols,true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+                        'criteria'=>$criteria,
+                        'pagination' => array(
+                                'pageSize'=>Yii::app()->params['pagesizePlugins'],
+                                'pageVar'=>'page'
+                        ),
 		));
 	}
 }

@@ -210,6 +210,14 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
             fieldSet(1, '<?php echo Yii::t('app', 'Pushover message to send') ?>', 'SHOW', 'textarea');
             fieldSet(2, '<?php echo Yii::t('app', 'Priority') ?>', 'SHOW', 'select');
             fieldSet(3, '<?php echo Yii::t('app', 'Sound') ?>', 'SHOW', 'select');
+        } else if (id == 20) {
+            fieldSet(1, '<?php echo Yii::t('app', 'Pushbullet message to send') ?>', 'SHOW', 'textarea');
+            fieldSet(2, '<?php echo Yii::t('app', 'Title') ?>', 'SHOW', 'input');
+            fieldSet(3, '<?php echo Yii::t('app', 'Device') ?>', 'SHOW', 'textarea');
+        } else if (id == 21) {
+            fieldSet(1, '<?php echo Yii::t('app', 'Device') ?>', 'SHOW', 'select');
+            fieldSet(2, '<?php echo Yii::t('app', 'Seconds') ?>', 'SHOW', 'input');
+            fieldSet(3, '<?php echo Yii::t('app', 'Value') ?>', 'SHOW', 'input');
         } else {
             showAll();
         }

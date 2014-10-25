@@ -1,20 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "interfaces".
+ * This is the model class for table "settings_knx".
  *
- * The followings are the available columns in table 'interfaces':
- * @property string $id
- * @property string $name
- * @property string $type
- * @property string $mode
+ * The followings are the available columns in table 'settings_knx':
+ * @property integer $id
+ * @property boolean $enabled
+ * @property string $tcphost
+ * @property integer $tcpport
+ * @property boolean $debug
  */
-class Interfaces extends CActiveRecord
+class SettingsKnx extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Interfaces the static model class
+	 * @return SettingsKnx the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -26,7 +27,7 @@ class Interfaces extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'interfaces';
+		return 'settings_knx';
 	}
 
 	/**
@@ -37,11 +38,13 @@ class Interfaces extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, mode', 'length', 'max'=>32),
-			array('type', 'length', 'max'=>512),
+			array('id', 'required'),
+			array('id, tcpport', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('tcphost', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, type, mode', 'safe', 'on'=>'search'),
+			array('id, enabled, tcphost, tcpport, debug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,9 +66,10 @@ class Interfaces extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'type' => 'Type',
-			'mode' => 'Mode',
+			'enabled' => 'Enabled',
+			'tcphost' => 'Tcphost',
+			'tcpport' => 'Tcpport',
+			'debug' => 'Debug',
 		);
 	}
 
@@ -80,17 +84,14 @@ class Interfaces extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('type',$this->type,true);
-		$criteria->compare('mode',$this->mode,true);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('enabled',$this->enabled);
+		$criteria->compare('tcphost',$this->tcphost,true);
+		$criteria->compare('tcpport',$this->tcpport);
+		$criteria->compare('debug',$this->debug);
 
 		return new CActiveDataProvider($this, array(
-                        'criteria'=>$criteria,
-                        'pagination' => array(
-                                'pageSize'=>Yii::app()->params['pagesizeInterfaces'],
-                                'pageVar'=>'page'
-                        ),
+			'criteria'=>$criteria,
 		));
 	}
 }

@@ -11,7 +11,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 ));
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'login-form',
+        'id'=>'settings-astro-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
