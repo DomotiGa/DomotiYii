@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "settings_pachube".
+ * This is the model class for table "settings_xively".
  *
- * The followings are the available columns in table 'settings_pachube':
+ * The followings are the available columns in table 'settings_xively':
  * @property integer $id
  * @property boolean $enabled
  * @property integer $feed
@@ -11,12 +11,12 @@
  * @property integer $pushtime
  * @property boolean $debug
  */
-class SettingsPachube extends CActiveRecord
+class SettingsXively extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SettingsPachube the static model class
+	 * @return SettingsXively the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,7 +28,7 @@ class SettingsPachube extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'settings_pachube';
+		return 'settings_xively';
 	}
 
 	/**

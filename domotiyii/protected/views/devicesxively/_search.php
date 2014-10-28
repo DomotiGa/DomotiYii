@@ -1,5 +1,5 @@
 <?php  $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
-        'id'=>'search-devicespachube-form',
+        'id'=>'search-devicesxively-form',
         'action'=>Yii::app()->createUrl($this->route),
 	'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
         'method'=>'get',
@@ -19,7 +19,7 @@ $this->endWidget();
 
  <script>
         $(".btnreset").click(function(){
-                $(":input","#search-devicespachube-form").each(function() {
+                $(":input","#search-devicesxively-form").each(function() {
                 var type = this.type;
                 var tag = this.tagName.toLowerCase(); // normalize case
                 if (type == "text" || type == "password" || tag == "textarea") this.value = "";

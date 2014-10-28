@@ -1,21 +1,21 @@
 <?php
-/* @var $this DevicespachubeController */
+/* @var $this DevicesxivelyController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Pachube Devices'),
+        Yii::t('app','Xively Devices'),
     ),
 )); ?>
 
-<legend>Pachube/COSM/Xively Devices</legend>
+<legend>Xively Devices</legend>
 <?php Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
     $('.search-form').slideToggle('fast');
     return false;
 });
 $('.search-form form').submit(function(){
-    $.fn.yiiGridView.update('all-devicespachube-grid', {
+    $.fn.yiiGridView.update('all-devicesxively-grid', {
         data: $(this).serialize()
     });
     return false;
@@ -30,7 +30,7 @@ $this->beginWidget('zii.widgets.CPortlet', array(
 $this->widget('bootstrap.widgets.TbNav', array(
         'type'=>TbHtml::NAV_TYPE_PILLS,
         'items'=>array(
-                array('label'=>Yii::t('app','Settings'), 'icon'=>'icon-wrench', 'url'=>Yii::app()->controller->createUrl('settings/pachube'), 'linkOptions'=>array()),
+                array('label'=>Yii::t('app','Settings'), 'icon'=>'icon-wrench', 'url'=>Yii::app()->controller->createUrl('settings/xively'), 'linkOptions'=>array()),
                 array('label'=>Yii::t('app','Apparaten'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('index'),'active'=>true, 'linkOptions'=>array()),
                 array('label'=>Yii::t('app','Search'), 'icon'=>'icon-search', 'url'=>'#', 'linkOptions'=>array('class'=>'search-button')),
                 array('label'=>Yii::t('app','Create'), 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
@@ -46,7 +46,7 @@ $this->endWidget();
 </div><!-- search-form -->
 
 <?php $this->widget('domotiyii.LiveGridView', array(
-    'id'=>'all-devicespachube-grid',
+    'id'=>'all-devicesxively-grid',
     'refreshTime'=>Yii::app()->params['refreshDevices'], // x second refresh as defined in config
     'type'=>'striped condensed',
     'dataProvider'=>$model->search(),
@@ -54,7 +54,7 @@ $this->endWidget();
     'selectableRows'=>1,
     'columns'=>array(
         array('name'=>'id', 'header'=>'#', 'htmlOptions'=>array('width'=>'20')),
-        array('name'=>'datastreamid', 'header'=>'DataStreamId', 'htmlOptions'=>array('width'=>'20')),
+        array('name'=>'datastreamid', 'header'=>'Channel/DataStreamId', 'htmlOptions'=>array('width'=>'20')),
         array('name'=>'devicename', 'header'=>Yii::t('app','Name'), 'htmlOptions'=>array('width'=>'150')),
         array('name'=>'tags', 'header'=>Yii::t('app','Tags'), 'htmlOptions'=>array('width'=>'150')),
         array('name'=>'value', 'header'=>Yii::t('app','Value'), 'htmlOptions'=>array('width'=>'150')),

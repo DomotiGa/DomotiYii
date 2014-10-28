@@ -1,16 +1,16 @@
 <?php
 
-class DevicespachubeController extends Controller
+class DevicesxivelyController extends Controller
 {
         public function actionIndex()
         {
                 $criteria = new CDbCriteria();
-                $model=new DevicesPachube('search');
+                $model=new DevicesXively('search');
                 $model->unsetAttributes(); // clear any default values
 
-                if(isset($_GET['DevicesPachube']))
+                if(isset($_GET['DevicesXively']))
                 {
-                        $model->attributes=$_GET['DevicesPachube'];
+                        $model->attributes=$_GET['DevicesXively'];
 
                         if (!empty($model->name)) $criteria->addCondition('name = "'.$model->name.'"');
                 }
@@ -19,23 +19,23 @@ class DevicespachubeController extends Controller
 
         public function actionView($id)
         {
-                $model = DevicesPachube::model()->findByPk($id);
+                $model = DevicesXively::model()->findByPk($id);
                 $this->render('view', array('model'=>$model));
         }
 
         public function actionDelete($id)
         {
-                // delete the entry from the "devices_pachube" table
-                $model = DevicesPachube::model()->findByPk($id);
+                // delete the entry from the "devices_xively" table
+                $model = DevicesXively::model()->findByPk($id);
                 $this->do_delete($model);
         }
 
         public function actionUpdate($id)
         {
-                $model = DevicesPachube::model()->findByPk($id);
-                if(isset($_POST['DevicesPachube']))
+                $model = DevicesXively::model()->findByPk($id);
+                if(isset($_POST['DevicesXively']))
                 {
-                        $model->attributes=$_POST['DevicesPachube'];
+                        $model->attributes=$_POST['DevicesXively'];
                         if($model->validate())
                         {
                                 // form inputs are valid, do something here
@@ -49,14 +49,14 @@ class DevicespachubeController extends Controller
 
         public function actionCreate()
         {
-                $model=new DevicesPachube;
+                $model=new DevicesXively;
 
                 // Uncomment the following line if AJAX validation is needed
                 // $this->performAjaxValidation($model);
 
-                if(isset($_POST['DevicesPachube']))
+                if(isset($_POST['DevicesXively']))
                 {
-                        $model->attributes=$_POST['DevicesPachube'];
+                        $model->attributes=$_POST['DevicesXively'];
                         if($model->validate())
                         {
                                 $this->do_save($model);
@@ -98,9 +98,9 @@ class DevicespachubeController extends Controller
         {
                 if ($model->save() === false)
                 {
-                        Yii::app()->user->setFlash('error', Yii::t('app','Pachube Device save failed!'));
+                        Yii::app()->user->setFlash('error', Yii::t('app','Xively Device save failed!'));
                 } else {
-                        Yii::app()->user->setFlash('success', Yii::t('app','Pachube Device saved.'));
+                        Yii::app()->user->setFlash('success', Yii::t('app','Xively Device saved.'));
                 }
         }
 
@@ -108,9 +108,9 @@ class DevicespachubeController extends Controller
         {
                 if ($model->delete() === false)
                 {
-                        Yii::app()->user->setFlash('error', Yii::t('app','Pachube Device delete failed!'));
+                        Yii::app()->user->setFlash('error', Yii::t('app','Xively Device delete failed!'));
                 } else {
-                        Yii::app()->user->setFlash('success', Yii::t('app','Pachube Device deleted.'));
+                        Yii::app()->user->setFlash('success', Yii::t('app','Xively Device deleted.'));
                         $this->redirect(array('index'));
                 }
         }
