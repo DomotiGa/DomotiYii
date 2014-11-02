@@ -149,6 +149,7 @@
                     array('label'=>'Shell', 'url'=> array('settings/shell')),
                     array('label'=>'UPS Monitor', 'url'=> array('settings/ups')),
                     array('label'=>'xPL', 'url'=> array('settings/xpl')),
+					array('label'=>'Graphs', 'url'=> array('yiiGraphs/index')),
 	         )),
                 array('label'=>Yii::t('app','Devices'), 'visible'=>!Yii::app()->user->isGuest, 'url'=> '#', 'items'=>array(
                    array('label' => Yii::t('app','List Devices'), 'url' => array('devices/index')),
