@@ -36,7 +36,7 @@ $this->endWidget();
                 array('name' => 'id'),
                 array('name' => 'name'),
 		array('name' => 'description'),
-		array('name' => 'type'),
+		array('name' => 'protocol'),
 		array('name' => 'addressformat'),
 	),
 )); ?>

@@ -17,7 +17,7 @@ class DevicesController extends Controller {
             if (!empty($model->devicetype_id))
                 $criteria->addCondition('devicetype_id = "' . $model->devicetype_id . '"');
             if (!empty($model->interface))
-                $criteria->addCondition('interface = "' . $model->interface . '"');
+                $criteria->addCondition('interface_id = "' . $model->interface_id . '"');
         }
 
         $type = Yii::app()->getRequest()->getParam('type');
@@ -43,10 +43,10 @@ class DevicesController extends Controller {
         }
 
         $location = Yii::app()->getRequest()->getParam('location');
-        if (isset($location) && !empty($location)) {
+        if (isset($location_id) && !empty($location_id)) {
             if ($type != "0") {
-                $model->location = $location;
-                $criteria->addCondition('location = "' . $location . '"');
+                $model->location_id = $location_id;
+                $criteria->addCondition('location_id = "' . $location_id . '"');
                 $criteria->addCondition('dimable IS FALSE');
             }
         }
@@ -95,7 +95,6 @@ class DevicesController extends Controller {
         // update devicetype dropdown
         $protocol = $_POST['protocol'];
         if (strlen($protocol)) {
-
             $data = Devices::model()->getDeviceTypesByType($protocol);
             $dropDownDeviceType = "<option value='null'>Select DeviceType</option>";
             foreach ($data as $value => $name)

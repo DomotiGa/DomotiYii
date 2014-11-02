@@ -17,6 +17,7 @@ $this->widget('domotiyii.DetailView', array(
 		array('name' => 'dimicon'),
         // TODO rename _
 		array('name' => 'l_interface.name'),
+		array('name' => 'instance_id'),
 		array('name' => 'firstseen'),
 		array('name' => 'lastseen'),
 		array('name' => 'enabled', 'type' =>'boolean'),

@@ -104,13 +104,13 @@ return array(
 		// security allow mobile control without login
 	  	'allowMobileWithoutLogin'=>False, // don't allow, you can do this if you have setup ssl client certificate
 
-		// refresh time for specific gridviews
-		'versionDBRequired'=>'1.0.017', // database min version needed
+		// database minimum version needed
+		'versionDBRequired'=>'1.0.018',
 
 		// base path to domotiga
 		'basePathDomotiGa'=>'/home/<changethis>/domotiga/',
 
-		// refresh values per page (5000 = 5 seconds)
+		// default refresh values per gridview (5000 = 5 seconds)
 		'refreshDevices'=>'5000',
 		'refreshDeviceValues'=>'5000',
 		'refreshDeviceValuesLog'=>'5000',
@@ -133,7 +133,7 @@ return array(
 		'refreshMobile'=>'5000',
 		'refreshLogs'=>'5000',
 		
-		// page size for specific gridviews
+		// default page sizes for specific gridviews
 		'pagesizeDevices'=>'20', // entries per page
 		'pagesizePhonecalls'=>'30',
 		'pagesizeContacts'=>'20',

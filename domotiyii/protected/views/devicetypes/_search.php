@@ -8,7 +8,7 @@
 <fieldset>
                 <?php echo $form->textFieldControlGroup($model,'name'); ?>
                 <?php echo $form->textFieldControlGroup($model,'description'); ?>
-                <?php echo $form->textFieldControlGroup($model,'type'); ?>
+                <?php echo $form->textFieldControlGroup($model,'protocol'); ?>
                 <?php echo $form->textFieldControlGroup($model,'addressformat'); ?>
 </fieldset>
 

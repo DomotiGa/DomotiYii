@@ -15,10 +15,10 @@
                 <?php echo $form->textFieldControlGroup($model,'name'); ?>
                 <?php echo $form->textFieldControlGroup($model,'address'); ?>
 		<?php echo $form->dropDownListControlGroup($model,'devicetype_id', $model->getDeviceTypes(), array('prompt'=>'', 'id'=>'devicetype_id')); ?>
-                <?php echo $form->dropDownListControlGroup($model,'interface', $model->getInterfaces(), array('prompt'=>'', 'id'=>'interface')); ?>
-                <?php echo $form->dropDownListControlGroup($model,'location', $model->getLocations(), array('prompt'=>'', 'id'=>'location')); ?>
+                <?php echo $form->dropDownListControlGroup($model,'interface_id', $model->getInterfaces(), array('prompt'=>'', 'id'=>'interface_id')); ?>
+                <?php echo $form->dropDownListControlGroup($model,'location_id', $model->getLocations(), array('prompt'=>'', 'id'=>'location_id')); ?>
             		
-        <?php // echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
+                <?php // echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
 		<?php // echo $form->checkBoxControlGroup($model,'hide', array('value'=>-1)); ?>
 		<?php // echo $form->checkBoxControlGroup($model,'switchable', array('value'=>-1)); ?>
 		<?php // echo $form->checkBoxControlGroup($model,'dimable', array('value'=>-1)); ?>

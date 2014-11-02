@@ -11,14 +11,14 @@
  * @property string $firstrun
  * @property string $lastrun
  * @property string $comments
- * @property integer $trigger1
- * @property integer $condition1
+ * @property integer $trigger_id
+ * @property integer $condition1_id
  * @property string $operand
- * @property integer $condition2
+ * @property integer $condition2_id
  * @property boolean $rerunenabled
  * @property integer $rerunvalue
  * @property string $reruntype
- * @property integer $category
+ * @property integer $category_id
  */
 
 /**
@@ -75,16 +75,16 @@ class Events extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('trigger1, condition1, condition2, rerunvalue, category', 'numerical', 'integerOnly'=>true),
+			array('trigger_id, condition1_id, condition2_id, rerunvalue, category_id', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>64),
 			array('operand, reruntype', 'length', 'max'=>16),
 			array('enabled, log, rerunenabled', 'boolean', 'trueValue'=>-1),
 			array('firstrun, lastrun, comments', 'safe'),
-			array('name, trigger1', 'required'),
+			array('name, trigger_id', 'required'),
 			array('name', 'unique', 'caseSensitive'=>false),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, enabled, name, log, firstrun, lastrun, comments, trigger1, condition1, operand, condition2, rerunenabled, rerunvalue, reruntype, category', 'safe', 'on'=>'search'),
+			array('id, enabled, name, log, firstrun, lastrun, comments, trigger_id, condition1_id, operand, condition2_id, rerunenabled, rerunvalue, reruntype, category_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -96,10 +96,10 @@ class Events extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'triggers' => array(self::BELONGS_TO, 'Triggers', 'trigger1'),
-			'l_condition1' => array(self::BELONGS_TO, 'Conditions', 'condition1'),
-			'l_condition2' => array(self::BELONGS_TO, 'Conditions', 'condition2'),
-			'l_category' => array(self::BELONGS_TO, 'Category', 'category'),
+			'triggers' => array(self::BELONGS_TO, 'Triggers', 'trigger_id'),
+			'l_condition1' => array(self::BELONGS_TO, 'Conditions', 'condition1_id'),
+			'l_condition2' => array(self::BELONGS_TO, 'Conditions', 'condition2_id'),
+			'l_category' => array(self::BELONGS_TO, 'Category', 'category_id'),
 			'events_actions' => array(self::HAS_MANY, 'EventsActions', 'event'), 
 			'actions' => array(self::HAS_MANY, 'Actions', 'action', 'through' => 'events_actions', 'order' => 'events_actions.order'),
 		);
@@ -118,26 +118,26 @@ class Events extends CActiveRecord
 			'firstrun' => Yii::t('app','Firstrun'),
 			'lastrun' => Yii::t('app','Lastrun'),
 			'comments' => Yii::t('app','Comments'),
-			'trigger1' => Yii::t('app','Trigger'),
+			'trigger_id' => Yii::t('app','Trigger'),
 			'triggername' => Yii::t('app','Trigger'),
-			'condition1' => Yii::t('app','Condition1'),
+			'condition1_id' => Yii::t('app','Condition1'),
 			'conditionname1' => Yii::t('app','Condition1'),
 			'operand' => Yii::t('app','Operand'),
-			'condition2' => Yii::t('app','Condition2'),
+			'condition2_id' => Yii::t('app','Condition2'),
 			'conditionname2' => Yii::t('app','Condition2'),
 			'rerunenabled' => Yii::t('app','Rerun enabled'),
 			'rerunvalue' => Yii::t('app','Rerun value'),
 			'reruntype' => Yii::t('app','Rerun type'),
-			'category' => Yii::t('app','Category'),
+			'category_id' => Yii::t('app','Category'),
 			'categoryname' => Yii::t('app','Category'),
 		);
 	}
     public function beforeSave() {
         if (parent::beforeSave()) {
-            if ($this->condition1 == NULL)
-                $this->condition1 = 0;
-            if ($this->condition2 == NULL)
-                $this->condition2 = 0;
+            if ($this->condition1_id == NULL)
+                $this->condition1_id = 0;
+            if ($this->condition2_id == NULL)
+                $this->condition2_id = 0;
             return TRUE;
         }
         return FALSE;
@@ -167,14 +167,14 @@ class Events extends CActiveRecord
 		$criteria->compare('firstrun',$this->firstrun,true);
 		$criteria->compare('lastrun',$this->lastrun,true);
 		$criteria->compare('comments',$this->comments,true);
-		$criteria->compare('trigger1',$this->trigger1);
-		$criteria->compare('condition1',$this->condition1);
+		$criteria->compare('trigger_id',$this->trigger_id);
+		$criteria->compare('condition1_id',$this->condition1_id);
 		$criteria->compare('operand',$this->operand,true);
-		$criteria->compare('condition2',$this->condition2);
+		$criteria->compare('condition2_id',$this->condition2_id);
 		$criteria->compare('rerunenabled',$this->rerunenabled);
 		$criteria->compare('rerunvalue',$this->rerunvalue);
 		$criteria->compare('reruntype',$this->reruntype,true);
-		$criteria->compare('category',$this->category);
+		$criteria->compare('category_id',$this->category_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -209,7 +209,7 @@ class Events extends CActiveRecord
          */
         public function getCategoryName()
         {
-                if (!empty($this->category->name)) { return $this->category->name; }
+                if (!empty($this->category_id->name)) { return $this->category_id->name; }
 	}
 
         /**
@@ -217,9 +217,9 @@ class Events extends CActiveRecord
          */
         public function getConditionName1()
         {
-                if (!empty($this->l_condition1->name))
+                if (!empty($this->l_condition1_id->name))
 		{
-			return $this->l_condition1->name;
+			return $this->l_condition1_id->name;
 		} else {
 			return null;
 		}
@@ -230,9 +230,9 @@ class Events extends CActiveRecord
          */
         public function getConditionName2()
         {
-                if (!empty($this->l_condition2->name))
+                if (!empty($this->l_condition2_id->name))
 		{
-			return $this->l_condition2->name;
+			return $this->l_condition2_id->name;
 		} else {
 			return null;
 		}

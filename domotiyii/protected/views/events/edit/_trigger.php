@@ -1,2 +1,2 @@
-                <?php echo $form->dropDownListControlGroup($model,'trigger1', $model->getAllTriggers(), array('prompt'=>'', 'id'=>'trigger1')); ?>
+                <?php echo $form->dropDownListControlGroup($model,'trigger_id', $model->getAllTriggers(), array('prompt'=>'', 'id'=>'trigger_id')); ?>
 
