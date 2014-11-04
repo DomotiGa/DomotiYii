@@ -8,11 +8,11 @@ class GraphsController extends Controller {
 		// Here we check if the table is already available if not we create the table!
 		try{
 			// execute query
-			$list = Yii::app()->db->createCommand("SELECT count(1) FROM yiiGraphs")->queryRow();
+			$list = Yii::app()->db->createCommand("SELECT count(1) FROM yii_graphs")->queryRow();
 			//Table exists so do nothing!!!
 		} catch(Exception $tbe) {
 			////Table does not exists so create it! 
-			$create_sql = "CREATE TABLE `yiiGraphs` (
+			$create_sql = "CREATE TABLE `yii_graphs` (
 						  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 						  `name` varchar(45) NOT NULL,
 						  `enabled` varchar(45) NOT NULL,
@@ -109,7 +109,7 @@ class GraphsController extends Controller {
         // Create all the yiiGraphs
 		$sql = "SELECT g.id,
 					concat(g.name, ' - ', g.type ) as description
-				  FROM yiiGraphs g
+				  FROM yii_graphs g
 				  WHERE g.enabled = -1;";
 
         // execute query
