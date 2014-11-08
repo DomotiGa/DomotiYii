@@ -25,7 +25,7 @@ class YiiGraphs extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'yiiGraphs';
+		return 'yii_graphs';
 	}
 
 	/**
