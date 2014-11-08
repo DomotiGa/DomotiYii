@@ -25,11 +25,6 @@ $this->endWidget();
 ?>
 
 <legend><?php echo Yii::t('app','Create Yii Graphs') ?></legend>
-<p>
-<b><?php echo Yii::t('app','Supported graph types:') ?></b><br>
-<b><?php echo Yii::t('app','Barchart :') ?></b> <?php echo Yii::t('app','Displays a graph (only bars) when values of the device are logged. It shows a count of the values over time.') ?><br>
-<b><?php echo Yii::t('app','Gauge :') ?></b> <?php echo Yii::t('app','Displays a gauge when values of the device are logged. It shows the last logged value.') ?> <br>
-<b><?php echo Yii::t('app','Linechart :') ?></b> <?php echo Yii::t('app','Displays a line graph when values of the device are logged. It shows all logged values over time.') ?>  <br><br>
-</p>
-
+<?php echo TbHtml::alert(TbHtml::ALERT_COLOR_INFO, '<b>Available graph types are:</b></br><b>Barchart:</b> Displays a graph with bars, it shows a count of the values over time.</br><b>Gauge:</b> It shows the last logged values.</br><b>Linechart:</b> It shows all logged values over time.</br></br>You can only use device values which have the option \'log\' enabled, and have \'units\' defined.'); ?>
+<br/>
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

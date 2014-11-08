@@ -49,8 +49,8 @@ if (!toDatepicker) {
 $(document).ready(function () {
   $(function() {
     $( "#from" ).datepicker({
-	  dateFormat: "dd-mm-yy",
-	  showAnim: "slideDown",	  
+      dateFormat: "dd-mm-yy",
+      showAnim: "slideDown",	  
       changeMonth: true,
       numberOfMonths: 1,
       onClose: function( selectedDate ) {
@@ -59,8 +59,8 @@ $(document).ready(function () {
       }
     });
     $( "#to" ).datepicker({
-	  dateFormat: "dd-mm-yy",
-	  showAnim: "slideDown",
+      dateFormat: "dd-mm-yy",
+      showAnim: "slideDown",
       changeMonth: true,
       numberOfMonths: 1,
       onClose: function( selectedDate ) {
@@ -145,11 +145,11 @@ $this->widget('bootstrap.widgets.TbNav', array(
     'stacked' => false,
     'items' => array(
         array('label' => Yii::t('app', 'Type') . ' : ' . Yii::t('app', $type), 'items' => array(
-				array('label' => Yii::t('app', 'Dashboard'), 'url' => '?type=Dashboard&location=' . $location, 'active' => $type == 'Dashboard'),
+		array('label' => Yii::t('app', 'Dashboard'), 'url' => '?type=Dashboard&location=' . $location, 'active' => $type == 'Dashboard'),
                 array('label' => Yii::t('app', 'All'), 'url' => '?type=All&location=' . $location, 'active' => $type == 'All'),
-				array('label' => Yii::t('app', 'Control'), 'url' => '?type=Control&location=' . $location, 'active' => $type == 'Control'),
+		array('label' => Yii::t('app', 'Control'), 'url' => '?type=Control&location=' . $location, 'active' => $type == 'Control'),
                 array('label' => Yii::t('app', 'Sensors'), 'url' => '?type=Sensors&location=' . $location, 'active' => $type == 'Sensors'))),
-        array('label' => Yii::t('app', 'Location') . ' : ' . Yii::t('app', $location), 'items' => $lstLocation)
+		array('label' => Yii::t('app', 'Location') . ' : ' . Yii::t('app', $location), 'items' => $lstLocation),
     ),
 ));
 
@@ -200,7 +200,7 @@ if ( (isset($_GET['type']) && $_GET['type'] == 'Dashboard') OR $type == 'Dashboa
 <?php
 
 	
-// Lijst met YiiGraphs ophalen!
+// Get list of YiiGraphs
 //$yiiGraphs = $this->getYiiGraphs();
 foreach (YiiGraphs::model()->findAll($graph_criteria) as $G) {
 	//print 'id: '. $G->id .'<br/>';

@@ -23,16 +23,8 @@ $this->widget('bootstrap.widgets.TbNav', array(
 ));
 $this->endWidget();
 ?>
-<p>
-<b><?php echo Yii::t('app','Supported graph types:') ?></b><br>
-<b><?php echo Yii::t('app','Barchart :') ?></b> <?php echo Yii::t('app','Displays a graph (only bars) when values of the device are logged. It shows a count of the values over time.') ?><br>
-<b><?php echo Yii::t('app','Gauge :') ?></b> <?php echo Yii::t('app','Displays a gauge when values of the device are logged. It shows the last logged value.') ?> <br>
-<b><?php echo Yii::t('app','Linechart :') ?></b> <?php echo Yii::t('app','Displays a line graph when values of the device are logged. It shows all logged values over time.') ?>  <br><br>
-<?php echo Yii::t('app','The graphs below are only available in Domotiyii.') ?><br/>
-<?php echo Yii::t('app','It is mandatory to enable the log option on a device value!') ?><br/>
-<?php echo Yii::t('app','It is mandatory to set a unit on a device value!') ?>
+<?php echo TbHtml::alert(TbHtml::ALERT_COLOR_INFO, 'Please note that these graphs are only visible in DomotiYii.'); ?>
 <br/>
-</p>
 <?php
 $this->widget('domotiyii.LiveGridView', array(
     'id'=>'all-cameras-grid',

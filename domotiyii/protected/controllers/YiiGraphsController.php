@@ -3,12 +3,6 @@
 class YiiGraphsController extends Controller
 {
 	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
-	// $layout='//layouts/column2';
-
-	/**
 	 * @return array action filters
 	 */
 	public function filters()
@@ -95,7 +89,6 @@ class YiiGraphsController extends Controller
 		{
 			$model->attributes=$_POST['YiiGraphs'];
 			if($model->save())
-				//$this->redirect(array('view','id'=>$model->id));
 				$this->redirect(array('index','id'=>$model->id));
 		}
 
@@ -128,10 +121,10 @@ class YiiGraphsController extends Controller
 		// Here we check if the table is already available if not we create the table!
 		try{
 			// execute query
-			$list = Yii::app()->db->createCommand("SELECT count(1) FROM yii_graphs")->queryRow();
-			//Table exists so do nothing!!!
+			$list = Yii::app()->db->createCommand("SELECT count(1) FROM yiigraphs")->queryRow();
+			// table exists so do nothing!!!
 		} catch(Exception $tbe) {
-			////Table does not exists so create it! 
+			// table does not exists so we create it! 
 			$create_sql = "CREATE TABLE `yii_graphs` (
 						  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 						  `name` varchar(45) NOT NULL,
@@ -153,7 +146,7 @@ class YiiGraphsController extends Controller
 				Yii::app()->db->createCommand($create_sql)->execute();
 			} catch(Exception $tbe) {
 				//Something wrong....
-				Yii::app()->user->setFlash('error', Yii::t('app', 'Cannot create table in DomotiGa\'s database!'));
+				Yii::app()->user->setFlash('error', Yii::t('app', 'Cannot create table yii_graphs in DomotiGa\'s database!'));
 			}
 		}
 		$dataProvider=new CActiveDataProvider('YiiGraphs');

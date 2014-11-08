@@ -165,6 +165,7 @@
                    array('label'=>'Contacts', 'url'=> array('contacts/index')),
                    array('label'=>'GlobalVars', 'url'=> array('globalvars/index')),
                    array('label'=>'Users', 'url'=> array('users/index')),
+                   array('label'=>'Graphs', 'url'=> array('yiiGraphs/index')),
 		)),
                 array('label'=>'Events', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                    array('label'=>'Events', 'url'=> array('events/index')),

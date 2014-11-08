@@ -2,26 +2,14 @@
 /* @var $this YiiGraphsController */
 /* @var $model YiiGraphs */
 /* @var $form CActiveForm */
-?>
 
-<div class="form">
-
-
-<?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 	'id'=>'yii-graphs-form',
-	// Please note: When you enable ajax validation, make sure the corresponding
-	// controller action is handling ajax validation correctly.
-	// There is a call to performAjaxValidation() commented in generated controller code.
-	// See class documentation of CActiveForm for details on this.
-	//'enableAjaxValidation'=>false,
 	'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
 <p class="note">Fields with <span class="required">*</span> are required.<br/>
-<?php echo Yii::t('app','Connect the graph to a device value.')?><br/>
-<?php echo Yii::t('app','It is mandatory to enable the log option on a device value!') ?><br/>
-<?php echo Yii::t('app','It is mandatory to set a unit on a device value!') ?>
 </p>
 
 	<?php echo $form->errorSummary($model); ?>
@@ -78,5 +66,3 @@
 )); ?>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- form -->
