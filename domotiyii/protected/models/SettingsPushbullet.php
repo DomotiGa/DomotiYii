@@ -57,7 +57,7 @@ class SettingsPushbullet extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'token' => 'Token',
+			'token' => 'Access Token',
 			'device' => 'Device',
 			'debug' => 'Debug',
 		);

@@ -14,7 +14,7 @@ class DevicetypesController extends Controller
 
 			if (!empty($model->name)) $criteria->addCondition('name = "'.$model->name.'"');
 			if (!empty($model->description)) $criteria->addCondition('description = "'.$model->description.'"');
-			if (!empty($model->type)) $criteria->addCondition('type = "'.$model->type.'"');
+			if (!empty($model->protocol)) $criteria->addCondition('protocol = "'.$model->protocol.'"');
 			if (!empty($model->addressformat)) $criteria->addCondition('addressformat = "'.$model->addressformat.'"');
 		}
 		$this->render('index', array('model'=>$model));

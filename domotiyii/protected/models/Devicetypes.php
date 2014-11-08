@@ -7,18 +7,8 @@
  * @property string $id
  * @property string $name
  * @property string $description
- * @property string $type
+ * @property string $protocol
  * @property string $addressformat
- * @property string $onicon
- * @property string $officon
- * @property string $dimicon
- * @property boolean $switchable
- * @property boolean $dimable
- * @property boolean $extcode
- * @property integer $label
- * @property integer $label2
- * @property integer $label3
- * @property integer $label4
  */
 class Devicetypes extends CActiveRecord
 {
@@ -48,14 +38,12 @@ class Devicetypes extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('label, label2, label3, label4', 'numerical', 'integerOnly'=>true),
-			array('name, description, type, onicon, officon, dimicon', 'length', 'max'=>32),
+			array('name, description, protocol', 'length', 'max'=>32),
 			array('addressformat', 'length', 'max'=>128),
-			array('switchable, dimable, extcode', 'boolean', 'trueValue'=>-1),
-			array('name, type, addressformat', 'required'),
+			array('name, protocol, addressformat', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, description, type, addressformat, onicon, officon, dimicon, switchable, dimable, extcode, label, label2, label3, label4', 'safe', 'on'=>'search'),
+			array('id, name, description, protocol, addressformat', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -79,18 +67,8 @@ class Devicetypes extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'description' => 'Description',
-			'type' => 'Type',
+			'protocol' => 'Protocol',
 			'addressformat' => 'Addressformat',
-			'onicon' => 'Onicon',
-			'officon' => 'Officon',
-			'dimicon' => 'Dimicon',
-			'switchable' => 'Switchable',
-			'dimable' => 'Dimable',
-			'extcode' => 'Extcode',
-			'label' => 'Label',
-			'label2' => 'Label2',
-			'label3' => 'Label3',
-			'label4' => 'Label4',
 		);
 	}
 
@@ -108,18 +86,8 @@ class Devicetypes extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('description',$this->description,true);
-		$criteria->compare('type',$this->type,true);
+		$criteria->compare('protocol',$this->protocol,true);
 		$criteria->compare('addressformat',$this->addressformat,true);
-		$criteria->compare('onicon',$this->onicon,true);
-		$criteria->compare('officon',$this->officon,true);
-		$criteria->compare('dimicon',$this->dimicon,true);
-		$criteria->compare('switchable',$this->switchable);
-		$criteria->compare('dimable',$this->dimable);
-		$criteria->compare('extcode',$this->extcode);
-		$criteria->compare('label',$this->label);
-		$criteria->compare('label2',$this->label2);
-		$criteria->compare('label3',$this->label3);
-		$criteria->compare('label4',$this->label4);
 
 		return new CActiveDataProvider($this, array(
 			'pagination' => array(

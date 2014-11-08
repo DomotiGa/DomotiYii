@@ -18,7 +18,7 @@ class SettingsController extends Controller {
         $listModules[] = 'mqtt';
         $listModules[] = 'nma';
         $listModules[] = 'p2000';
-        $listModules[] = 'pachube';
+        $listModules[] = 'xively';
         $listModules[] = 'prowl';
         $listModules[] = 'pushover';
         $listModules[] = 'pushbullet';
@@ -714,17 +714,17 @@ class SettingsController extends Controller {
         $this->render('bwiredmap', array('model' => $model));
     }
 
-    public function actionPachube() {
-        $model = SettingsPachube::model()->findByPk(1);
+    public function actionXively() {
+        $model = SettingsXively::model()->findByPk(1);
 
-        if (isset($_POST['SettingsPachube'])) {
-            $model->attributes = $_POST['SettingsPachube'];
+        if (isset($_POST['SettingsXively'])) {
+            $model->attributes = $_POST['SettingsXively'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $this->do_save_restart($model, 'pachube');
+                $this->do_save_restart($model, 'xively');
             }
         }
-        $this->render('pachube', array('model' => $model));
+        $this->render('xively', array('model' => $model));
     }
 
     public function actionPhilipshue() {

@@ -8,11 +8,11 @@
  * @property string $name
  * @property string $address
  * @property integer $devicetype_id
- * @property integer $location
+ * @property integer $location_id
  * @property string $onicon
  * @property string $officon
  * @property string $dimicon
- * @property integer $interface
+ * @property integer $interface_id
  * @property string $firstseen
  * @property string $lastseen
  * @property boolean $enabled
@@ -28,7 +28,8 @@
  * @property boolean $extcode
  * @property integer $x
  * @property integer $y
- * @property integer $floorplan
+ * @property integer $floorplan_id
+ * @property integer $instance_id
  * @property string $lastchanged
  * @property integer $repeatstate
  * @property integer $repeatperiod
@@ -114,7 +115,7 @@ class Devices extends CActiveRecord {
      * @return dropdownlist with the list of devicetypes protocols
      */
     public function getDeviceProtocols() {
-        return CHtml::listData(Devicetypes::model()->findAll(array('select' => 'type', 'order' => 'type ASC', 'distinct' => true)), 'type', 'type');
+        return CHtml::listData(Devicetypes::model()->findAll(array('select' => 'protocol', 'order' => 'protocol ASC', 'distinct' => true)), 'protocol', 'protocol');
     }
 
     /**
@@ -132,7 +133,7 @@ class Devices extends CActiveRecord {
         if ($devicetype === null) {
             return CHtml::listData(Plugins::model(), 'id', 'interface');
         } else {
-            return CHtml::listData(Plugins::model()->findAll("protocols LIKE '%" . $devicetype->type . "%'", array('order' => 'interface ASC')), 'id', 'interface');
+            return CHtml::listData(Plugins::model()->findAll("protocols LIKE '%" . $devicetype->protocol . "%'", array('order' => 'interface ASC')), 'id', 'interface');
         }
     }
 
@@ -147,7 +148,7 @@ class Devices extends CActiveRecord {
      * @return dropdownlist with the list of devices, based on the DeviceType
      */
     public function getDeviceTypesByType($protocol) {
-        return CHtml::listData(Devicetypes::model()->findAll("type LIKE '%" . $protocol . "%'", array('order' => 'name ASC')), 'id', 'name');
+        return CHtml::listData(Devicetypes::model()->findAll("protocol LIKE '%" . $protocol . "%'", array('order' => 'name ASC')), 'id', 'name');
     }
 
     /**
@@ -190,7 +191,7 @@ class Devices extends CActiveRecord {
      * @return dropdownlist with the list of types/protocols
      */
     public function getTypes() {
-        return CHtml::listData(Devicetypes::model()->findAll(), 'type', 'type');
+        return CHtml::listData(Devicetypes::model()->findAll(), 'protocol', 'protocol');
     }
 
     /**
@@ -201,7 +202,7 @@ class Devices extends CActiveRecord {
     }
 
     public function getFloor() {
-        return (is_null(Floors::model()->findByPk($this->floorplan))?"":Floors::model()->findByPk($this->floorplan)->name);
+        return (is_null(Floors::model()->findByPk($this->floorplan_id))?"":Floors::model()->findByPk($this->floorplan_id)->name);
     }
 
     /**
@@ -227,14 +228,14 @@ class Devices extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('devicetype_id, location, interface, tampered, extcode, x, y, floorplan, repeatperiod, resetperiod, poll', 'numerical', 'integerOnly' => true),
+            array('devicetype_id, location_id, instance_id, interface_id, tampered, extcode, x, y, floorplan_id, repeatperiod, resetperiod, poll', 'numerical', 'integerOnly' => true),
             array('name, onicon, officon, dimicon, batterystatus', 'length', 'max' => 32),
             array('enabled, hide, switchable, dimable, extcode, repeatstate, reset', 'boolean', 'trueValue' => -1),
             array('name', 'notOnlyNumbers'),
             array('address', 'length', 'max' => 64),
             array('groups', 'length', 'max' => 128),
             array('firstseen, lastseen, comments, lastchanged, resetvalue', 'safe'),
-            array('name, devicetype_id, interface, address', 'required'),
+            array('name, devicetype_id, interface_id, address', 'required'),
             array('name', 'unique', 'caseSensitive' => false),
 //			array('address', 'unique'),
             // The following rule is used by search().
@@ -251,8 +252,8 @@ class Devices extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'devicetype' => array(self::BELONGS_TO, 'Devicetypes', 'devicetype_id'),
-            'l_location' => array(self::BELONGS_TO, 'Locations', 'location'),
-            'l_interface' => array(self::BELONGS_TO, 'Plugins', 'interface'),
+            'l_location' => array(self::BELONGS_TO, 'Locations', 'location_id'),
+            'l_interface' => array(self::BELONGS_TO, 'Plugins', 'interface_id'),
             'devicevalues' => array(self::HAS_MANY, 'DeviceValues', 'device_id'),
             'deviceValue1' => array(self::HAS_ONE, 'DeviceValues', 'device_id','on'=>'valuenum=1'),
             'deviceValue2' => array(self::HAS_ONE, 'DeviceValues', 'device_id','on'=>'valuenum=2'),
@@ -286,14 +287,14 @@ class Devices extends CActiveRecord {
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
             'address' => Yii::t('app', 'Address'),
-            'devicetype_id' => Yii::t('app', 'DeviceType'),
-            'location' => Yii::t('app', 'Location'),
+            'devicetype' => Yii::t('app', 'DeviceType'),
+            'location_id' => Yii::t('app', 'Location'),
             'l_location.name' => Yii::t('app', 'Location'),
             'onicon' => Yii::t('app', 'On icon'),
             'officon' => Yii::t('app', 'Off icon'),
             'dimicon' => Yii::t('app', 'Dim icon'),
-            'interface' => Yii::t('app', 'Interface'),
-            'l_interface.interface' => Yii::t('app', 'Interface'),
+            'interface_id' => Yii::t('app', 'Interface'),
+            'l_interface.name' => Yii::t('app', 'Interface'),
             'firstseen' => Yii::t('app', 'First seen'),
             'lastseen' => Yii::t('app', 'Last seen'),
             'enabled' => Yii::t('app', 'Enabled'),
@@ -307,7 +308,7 @@ class Devices extends CActiveRecord {
             'extcode' => Yii::t('app', 'Supports extended X10'),
             'x' => Yii::t('app', 'X'),
             'y' => Yii::t('app', 'Y'),
-            'floorplan' => Yii::t('app', 'Floorplan'),
+            'floorplan_id' => Yii::t('app', 'Floorplan'),
             'lastchanged' => Yii::t('app', 'Last changed'),
             'repeatstate' => Yii::t('app', 'Repeat state enabled'),
             'repeatperiod' => Yii::t('app', 'Repeat period'),
@@ -332,11 +333,12 @@ class Devices extends CActiveRecord {
         $criteria->compare('name', $this->name, true);
         $criteria->compare('address', $this->address, true);
         $criteria->compare('devicetype_id', $this->devicetype_id);
-        $criteria->compare('location', $this->location);
+        $criteria->compare('location_id', $this->location_id);
         $criteria->compare('onicon', $this->onicon, true);
         $criteria->compare('officon', $this->officon, true);
         $criteria->compare('dimicon', $this->dimicon, true);
-        $criteria->compare('interface', $this->interface);
+        $criteria->compare('interface_id', $this->interface_id);
+        $criteria->compare('instance_id', $this->instance_id);
         $criteria->compare('firstseen', $this->firstseen, true);
         $criteria->compare('lastseen', $this->lastseen, true);
         $criteria->compare('enabled', $this->enabled);
@@ -350,7 +352,7 @@ class Devices extends CActiveRecord {
         $criteria->compare('extcode', $this->extcode);
         $criteria->compare('x', $this->x);
         $criteria->compare('y', $this->y);
-        $criteria->compare('floorplan', $this->floorplan);
+        $criteria->compare('floorplan_id', $this->floorplan_id);
         $criteria->compare('lastchanged', $this->lastchanged, true);
         $criteria->compare('repeatstate', $this->repeatstate);
         $criteria->compare('repeatperiod', $this->repeatperiod);

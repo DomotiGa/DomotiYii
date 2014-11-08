@@ -1,16 +1,16 @@
 <?php
-/* @var $this SettingsPachubeController */
-/* @var $model SettingsPachube */
+/* @var $this SettingsXivelyController */
+/* @var $model SettingsXively. */
 /* @var $form bootstrap.widgets.TbActiveForm */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
         Yii::t('app','Modules') => 'indexModules',
-        Yii::t('app','Pachube/COSM/Xively'),
+        Yii::t('app','Xively'),
     ),
 )); ?>
 
-<legend>Pachube/COSM/Xively</legend>
+<legend>Xively</legend>
 <?php $this->beginWidget('zii.widgets.CPortlet', array(
         'htmlOptions'=>array(
                 'class'=>''
@@ -19,15 +19,15 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 $this->widget('bootstrap.widgets.TbNav', array(
         'type'=>TbHtml::NAV_TYPE_PILLS,
         'items'=>array(
-                array('label'=>Yii::t('app','Settings'), 'icon'=>'icon-wrench', 'url'=>Yii::app()->controller->createUrl('pachube'),'active'=>true, 'linkOptions'=>array()),
-                array('label'=>Yii::t('app','Devices'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('devicespachube/index'), 'linkOptions'=>array()),
+                array('label'=>Yii::t('app','Settings'), 'icon'=>'icon-wrench', 'url'=>Yii::app()->controller->createUrl('xively'),'active'=>true, 'linkOptions'=>array()),
+                array('label'=>Yii::t('app','Devices'), 'icon'=>'icon-th-list', 'url'=>Yii::app()->controller->createUrl('devicesxively/index'), 'linkOptions'=>array()),
 		array('label'=>Yii::t('app','Your Xively Feed'), 'icon'=>'icon-globe', 'url'=>'https://xively.com/feeds/'.$model->feed , 'linkOptions'=>array('target'=>'_blank')),
         ),
 ));
 $this->endWidget();
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'settings-pachube-form',
+        'id'=>'settings-xively-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 

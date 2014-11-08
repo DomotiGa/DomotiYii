@@ -1,7 +1,7 @@
 <?php if(is_null($model->id)): ?>
 <h4><?php echo yii::t('app','This tab can\'t be used while the event is not created and saved !'); ?></h4>
 <?php else: ?>
-<h4><?php echo yii::t('app','Be carefull adding/removing an action from the event is immediately saved !!'); ?></h4>
+<h4><?php echo yii::t('app','Be careful changes to this table are immediately saved!'); ?></h4>
 <?php
 /* @var $this DevicesController */
 /* @var $model Devices */
@@ -60,7 +60,7 @@ $this->widget('domotiyii.LiveGridView', array(
     ),
 ));
 ?>
-<legend><?php echo yii::t('app', 'Actions to add to event'); ?></legend>
+<legend><?php echo yii::t('app', 'Available Actions'); ?></legend>
 
 <?php
 

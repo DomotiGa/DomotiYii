@@ -1,28 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "devices_pachube".
+ * This is the model class for table "devices_xively".
  *
- * The followings are the available columns in table 'devices_pachube':
+ * The followings are the available columns in table 'devices_xively':
  * @property string $id
  * @property string $datastreamid
  * @property string $tags
  * @property string $devicename
  * @property integer $deviceid
  * @property string $devicelabel
- * @property string $devicelabelshort
  * @property string $units
  * @property string $unittype
  * @property string $value
  */
-class DevicesPachube extends CActiveRecord
+class DevicesXively extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'devices_pachube';
+		return 'devices_xively';
 	}
 
 	/**
@@ -34,13 +33,12 @@ class DevicesPachube extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('deviceid', 'numerical', 'integerOnly'=>true),
-			array('datastreamid, devicelabelshort', 'length', 'max'=>8),
-			array('tags, devicename, units', 'length', 'max'=>32),
+			array('tags, devicename, units, datastreamid', 'length', 'max'=>32),
 			array('devicelabel, unittype', 'length', 'max'=>16),
 			array('value', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, datastreamid, tags, devicename, deviceid, devicelabel, devicelabelshort, units, unittype, value', 'safe', 'on'=>'search'),
+			array('id, datastreamid, tags, devicename, deviceid, devicelabel, units, unittype, value', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,7 +65,6 @@ class DevicesPachube extends CActiveRecord
 			'devicename' => 'Devicename',
 			'deviceid' => 'Deviceid',
 			'devicelabel' => 'Devicelabel',
-			'devicelabelshort' => 'Devicelabelshort',
 			'units' => 'Units',
 			'unittype' => 'Unittype',
 			'value' => 'Value',
@@ -98,7 +95,6 @@ class DevicesPachube extends CActiveRecord
 		$criteria->compare('devicename',$this->devicename,true);
 		$criteria->compare('deviceid',$this->deviceid);
 		$criteria->compare('devicelabel',$this->devicelabel,true);
-		$criteria->compare('devicelabelshort',$this->devicelabelshort,true);
 		$criteria->compare('units',$this->units,true);
 		$criteria->compare('unittype',$this->unittype,true);
 		$criteria->compare('value',$this->value,true);
@@ -112,7 +108,7 @@ class DevicesPachube extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return DevicesPachube the static model class
+	 * @return DevicesXively the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

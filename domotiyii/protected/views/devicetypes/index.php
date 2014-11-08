@@ -54,7 +54,7 @@ $this->endWidget();
         array('name'=>'name', 'header'=>Yii::t('app','Name'), 'htmlOptions'=>array('width'=>'150')),
         array('name'=>'description', 'header'=>Yii::t('app','Description'), 'htmlOptions'=>array('width'=>'150')),
         array('name'=>'addressformat', 'header'=>Yii::t('app','AddressFormat'), 'htmlOptions'=>array('width'=>'150')),
-        array('name'=>'type', 'header'=>Yii::t('app','Protocol'), 'htmlOptions'=>array('width'=>'150')),
+        array('name'=>'protocol', 'header'=>Yii::t('app','Protocol'), 'htmlOptions'=>array('width'=>'150')),
         array('class'=>'bootstrap.widgets.TbButtonColumn',
            'template'=> Yii::app()->user->isGuest ? '{view}' : '{view}  {update}  {delete}',
            'header'=>Yii::t('app','Actions'),

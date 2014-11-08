@@ -24,12 +24,12 @@
                         'update'=>'#addressformat',
 			'data'=>array('devicetype_id'=>'js:$(this).val()'),
                         ))); ?>
-                <?php echo $form->dropDownListControlGroup($model,'interface',$model->getInterfacesByDeviceModel($model->devicetype_id), array('prompt'=>'', 'id'=>'interface',
+                <?php echo $form->dropDownListControlGroup($model,'interface_id',$model->getInterfacesByDeviceModel($model->devicetype_id), array('prompt'=>'', 'id'=>'interface',
                         'ajax' =>
                         array(
                         'type'=>'POST',
-                        'url'=>CController::createUrl('UpdateAddressFormat2'),
-                        'update'=>'#addressformat2',
+                        'url'=>CController::createUrl('UpdateAddressFormat'),
+                        'update'=>'#addressformat',
                         ))); ?>
                 <?php echo $form->textFieldControlGroup($model,'address', array('size'=>60,'maxlength'=>64,'class'=>'span5', 'id'=>'address')); ?>
                 <?php echo $form->textFieldControlGroup($model,'addressformat', array('value'=>($model->devicetype===null)?"":$model->devicetype->addressformat, 'readonly'=>true, 'size'=>60,'maxlength'=>64,'class'=>'span5','id'=>'addressformat')); ?>

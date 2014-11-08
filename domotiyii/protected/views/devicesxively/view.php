@@ -1,15 +1,15 @@
 <?php
-/* @var $this DevicespachubeController */
-/* @var $model DevicesPachube */
+/* @var $this DevicesxivelyController */
+/* @var $model DevicesXively */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Pachube Devices') => 'index',  
+        Yii::t('app','Xively Devices') => 'index',  
         Yii::t('app','View'),
     ),
 )); ?>
 
-<legend>Pachube/COSM/Xively Devices</legend>
+<legend>Xively Devices</legend>
 <?php $this->beginWidget('zii.widgets.CPortlet', array(
         'htmlOptions'=>array(
                 'class'=>''
@@ -22,7 +22,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
                 array('label'=>Yii::t('app','Create'), 'icon'=>'icon-plus', 'url'=>Yii::app()->controller->createUrl('create'), 'linkOptions'=>array()),
                 array('label'=>Yii::t('app','View'), 'icon'=>'icon-eye-open', 'url'=>array('view', 'id'=>$model->id), 'active'=>true, 'linkOptions'=>array()),
                 array('label'=>Yii::t('app','Edit'), 'icon'=>'icon-edit', 'url'=>array('update', 'id'=>$model->id)),
-                array('label'=>Yii::t('app','Delete'), 'icon'=>'icon-trash', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>Yii::t('app','Are you sure you want to delete this pachube device?')))
+                array('label'=>Yii::t('app','Delete'), 'icon'=>'icon-trash', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>Yii::t('app','Are you sure you want to delete this Xively device?')))
         ),
 ));
 $this->endWidget();
@@ -41,7 +41,6 @@ $this->endWidget();
                 array('name' => 'tags'),
                 array('name' => 'value'),
                 array('name' => 'devicelabel'),
-                array('name' => 'devicelabelshort'),
                 array('name' => 'units'),
                 array('name' => 'unittype'),
 	),
