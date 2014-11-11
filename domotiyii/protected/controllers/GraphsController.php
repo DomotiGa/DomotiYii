@@ -3,6 +3,40 @@
 class GraphsController extends Controller {
 
     public function actionIndex() {
+
+		// For the YiiGraphs, a database table is to be created!
+		// Here we check if the table is already available if not we create the table!
+		try{
+			// execute query
+			$list = Yii::app()->db->createCommand("SELECT count(1) FROM yii_graphs")->queryRow();
+			//Table exists so do nothing!!!
+		} catch(Exception $tbe) {
+			////Table does not exists so create it! 
+			$create_sql = "CREATE TABLE `yii_graphs` (
+						  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+						  `name` varchar(45) NOT NULL,
+						  `enabled` varchar(45) NOT NULL,
+						  `type` varchar(45) NOT NULL,
+						  `group` varchar(45) DEFAULT NULL,
+						  `description` varchar(45) DEFAULT NULL,
+						  `device_value_01` int(11) unsigned DEFAULT NULL,
+						  `device_value_02` int(11) unsigned DEFAULT NULL,
+						  `device_value_03` int(11) unsigned DEFAULT NULL,
+						  `device_value_04` int(11) unsigned DEFAULT NULL,
+						  `created_date` datetime DEFAULT NULL,
+						  `graph_width` int(11) DEFAULT NULL,
+						  `graph_height` int(11) DEFAULT NULL,
+						  PRIMARY KEY (`id`)
+						) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1";
+			try{
+				// execute query create statement
+				Yii::app()->db->createCommand($create_sql)->execute();
+			} catch(Exception $tbe) {
+				//Something wrong....
+				Yii::app()->user->setFlash('error', Yii::t('app', 'Cannot create table in DomotiGa\'s database!'));
+			}
+		}
+		
         $crit = $this->getFilter();
 
         $res = Devices::model()->findAll($crit);
@@ -50,13 +84,54 @@ class GraphsController extends Controller {
     }
 
     /*
+      This functions returns an array with the location id.
+     */
+
+    public function getLocation($name) {
+        // Create all the yiiGraphs
+		$sql = "SELECT l.id FROM locations l WHERE l.name ='" . $name . "';";
+
+        // execute query
+        $list = Yii::app()->db->createCommand($sql)->queryAll();
+
+        $rs = array();
+        foreach ($list as $item) {
+            $rs[] = $item['id'];
+        }
+        return $rs;
+    }	
+	
+    /*
+      This functions returns an array with the chart details set in the device value log.
+     */
+
+    public function getYiiGraphs() {
+        // Create all the yiiGraphs
+		$sql = "SELECT g.id,
+					concat(g.name, ' - ', g.type ) as description
+				  FROM yii_graphs g
+				  WHERE g.enabled = -1;";
+
+        // execute query
+        $list = Yii::app()->db->createCommand($sql)->queryAll();
+
+        $rs = array();
+        foreach ($list as $item) {
+            $rs[$item['id']] = $item['description'];
+        }
+		ksort($rs);
+
+        return $rs;
+    }	
+
+    /*
       This functions returns an array with the chart details set in the device value log.
      */
 
     public function getChartDetails($deviceid, $valuenum, $charttype) {
 		
         // Create sql to get the chart details
-		if ($charttype == 'COUNTER') {
+		if ($charttype == 1) {
 			$sql = "select dv.valuerrddsname as chartname,
 			dvl.value as chartvalue,
 			dv.device_id as device
@@ -64,8 +139,7 @@ class GraphsController extends Controller {
 			inner join device_values_log dvl 
 				on dv.device_id = dvl.device_id 
 				and dv.valuenum = dvl.valuenum
-			where dv.valuerrdtype = '" . $charttype . "'
-			and dv.device_id = " . $deviceid . "
+			where dv.device_id = " . $deviceid . "
 			and dv.valuenum = " . $valuenum . "
 			group by dv.valuerrddsname,
 			dvl.value";
@@ -150,6 +224,14 @@ class GraphsController extends Controller {
         $startTime = gmstrftime('%Y-%m-%d %H:%M:%S', $start / 1000);
         $endTime = gmstrftime('%Y-%m-%d %H:%M:%S', $end / 1000);
 
+		////////////////////////////
+		//Chart types:
+		// 0 = none
+		// 1 = Barchart
+		// 2 = Linechart
+		// 3 = Gauge
+		/////////////////////////////
+	
         $date_column = "unix_timestamp(CONCAT(date(dvl.lastchanged), ' ', maketime(HOUR(dvl.lastchanged),MINUTE(dvl.lastchanged),0))) * 1000";
 
         $sql = "select  $date_column  as datum, 
@@ -164,15 +246,14 @@ class GraphsController extends Controller {
 			group by  $date_column 
 			order by dvl.lastchanged;";
 			
-		if ($charttype == 'DERIVE') {
+		if ($charttype == 2) {
 			$sql = "select  $date_column  as datum, 
 				dvl.value as value1
 				FROM domotiga.devices d
 				inner join domotiga.device_values dv on d.id = dv.device_id 
 				inner join domotiga.device_values_log dvl on d.id = dvl.device_id 
 					and dv.valuenum = dvl.valuenum
-				where dv.valuerrddsname = '$chartname'
-				and d.id = $device_id
+				where d.id = $device_id
 				and dvl.valuenum = $dev_valnum
 				and cast( dvl.lastchanged as date) between '$fromdate' and '$todate'
 				order by dvl.lastchanged;";
