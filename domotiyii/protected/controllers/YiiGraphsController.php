@@ -121,7 +121,7 @@ class YiiGraphsController extends Controller
 		// Here we check if the table is already available if not we create the table!
 		try{
 			// execute query
-			$list = Yii::app()->db->createCommand("SELECT count(1) FROM yiigraphs")->queryRow();
+			$list = Yii::app()->db->createCommand("SELECT count(1) FROM yii_graphs")->queryRow();
 			// table exists so do nothing!!!
 		} catch(Exception $tbe) {
 			// table does not exists so we create it! 
