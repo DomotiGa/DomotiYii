@@ -355,7 +355,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsWeatherug'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $this->do_save_restart($model, 'weatherug');
+                $this->do_save_restart($model, 'weatherunderground');
             }
         }
         $this->render('weatherug', array('model' => $model));
