@@ -62,8 +62,8 @@ class MobileController extends Controller
 		{
 			if($location != "0")
 			{
-				$model_devices->location=$location;
-				$criteria_devices->addCondition('location = "'.$location.'"');
+				$model_devices->location_id=$location;
+				$criteria_devices->addCondition('location_id = "'.$location.'"');
 			}
 		}
 
