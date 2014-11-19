@@ -54,8 +54,8 @@ return array(
 			'password'=>'kung-fu',
 			'charset'=>'utf8',
 			// uncomment the following to get sql statistics inside debug toolbar
-			'enableProfiling'=>true,
-			'enableParamLogging'=>true,
+			//'enableProfiling'=>true,
+			//'enableParamLogging'=>true,
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
@@ -69,12 +69,10 @@ return array(
 					'levels'=>'error, warning, info',
 				),
 				// uncomment the following to show debug toolbar
-/*
-				array(
-					'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
-					'ipFilters'=>array('*'),
-				)
-*/
+				//array(
+				//	'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
+				//	'ipFilters'=>array('*'),
+				//)
 			),
 		),
 		'bootstrap'=>array(
