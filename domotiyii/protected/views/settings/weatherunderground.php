@@ -1,6 +1,6 @@
 <?php
-/* @var $this SettingsWeatherugController */
-/* @var $model SettingsWeatherug */
+/* @var $this SettingsWeatherundergroundController */
+/* @var $model SettingsWeatherunderground */
 /* @var $form CActiveForm */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
@@ -10,7 +10,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     ),
 )); ?>
 
-<legend>Wunderground</legend>
+<legend>WeatherUnderground</legend>
 <?php $this->beginWidget('zii.widgets.CPortlet', array(
         'htmlOptions'=>array(
                 'class'=>''
@@ -19,14 +19,14 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 $this->widget('bootstrap.widgets.TbNav', array(
         'type'=>TbHtml::NAV_TYPE_PILLS,
         'items'=>array(
-                array('label'=>Yii::t('app','Wunderground'), 'icon'=>'icon-globe', 'url'=>'http://www.wunderground.com/', 'linkOptions'=>array('target'=>'_blank')),
+                array('label'=>Yii::t('app','WeatherUnderground'), 'icon'=>'icon-globe', 'url'=>'http://www.wunderground.com/', 'linkOptions'=>array('target'=>'_blank')),
                 array('label'=>Yii::t('app','Register for API'), 'icon'=>'icon-globe', 'url'=>'http://www.wunderground.com/weather/api', 'linkOptions'=>array('target'=>'_blank')),
         ),
 ));
 $this->endWidget();
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'settings-weatherug-form',
+        'id'=>'settings-weatherunderground-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 

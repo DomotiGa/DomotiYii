@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "settings_weatherug".
+ * This is the model class for table "settings_weatherunderground".
  *
- * The followings are the available columns in table 'settings_weatherug':
+ * The followings are the available columns in table 'settings_weatherunderground':
  * @property integer $id
  * @property boolean $enabled
  * @property string $apikey
@@ -11,7 +11,7 @@
  * @property integer $polltime
  * @property boolean $debug
  */
-class SettingsWeatherug extends CActiveRecord
+class SettingsWeatherunderground extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -28,7 +28,7 @@ class SettingsWeatherug extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'settings_weatherug';
+		return 'settings_weatherunderground';
 	}
 
 	/**

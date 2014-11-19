@@ -30,7 +30,7 @@
                     array('label'=>'Weather', 'url'=>'#', 'items'=>array(
                        array('label'=>'OpenWeatherMap', 'url'=> array('settings/openweathermap')),
                        array('label'=>'Forecast.io', 'url'=> array('settings/forecastio')),
-                       array('label'=>'WeatherUnderground', 'url'=> array('settings/weatherug')),
+                       array('label'=>'WeatherUnderground', 'url'=> array('settings/weatherunderground')),
                     )),
                     array('label'=>'Notifiers', 'url'=>'#', 'items'=>array(
                        array('label'=>'Prowl', 'url'=> array('settings/prowl')),

@@ -32,7 +32,7 @@ class SettingsController extends Controller {
         $listModules[] = 'tvguide';
         $listModules[] = 'twitter';
         $listModules[] = 'voicetext';
-        $listModules[] = 'weatherug';
+        $listModules[] = 'weatherunderground';
         $listModules[] = 'xmlrpc';
 
         //FIXME: perhaps use static arrays if dynamic listing of model *.php is a trouble 
@@ -348,17 +348,17 @@ class SettingsController extends Controller {
         $this->render('genericio', array('model' => $model));
     }
 
-    public function actionWeatherug() {
-        $model = SettingsWeatherug::model()->findByPk(1);
+    public function actionWeatherunderground() {
+        $model = SettingsWeatherunderground::model()->findByPk(1);
 
-        if (isset($_POST['SettingsWeatherug'])) {
-            $model->attributes = $_POST['SettingsWeatherug'];
+        if (isset($_POST['SettingsWeatherunderground'])) {
+            $model->attributes = $_POST['SettingsWeatherunderground'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
                 $this->do_save_restart($model, 'weatherunderground');
             }
         }
-        $this->render('weatherug', array('model' => $model));
+        $this->render('weatherunderground', array('model' => $model));
     }
 
     public function actionNMA() {
