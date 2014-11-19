@@ -64,7 +64,7 @@ class Cdr extends CActiveRecord
 	 * @return string the correct call type (Outgoing or Incoming)
 	 */
 	public function getDirection($dcontext) {
-		if ($dcontext == 'from-internal') {
+		if ($dcontext == 'default') {
 			return Yii::t('app','Outgoing');
 		}
 		return Yii::t('app','Incoming');
@@ -74,7 +74,7 @@ class Cdr extends CActiveRecord
 	 * @return string the phonenumber to process (calling or called)
 	 */
 	public function getFromTo($data) {
-		if ($data->dcontext == 'from-internal') {
+		if ($data->dcontext == 'default') {
 			return $data->dst;
 		}
 		return $data->src;
@@ -212,7 +212,7 @@ class Cdr extends CActiveRecord
 		} elseif ($filter == "incoming") {
 			$criteria->addSearchCondition('dcontext', "incoming");
 		} elseif ($filter == "outgoing") {
-			$criteria->addSearchCondition('dcontext', "from-internal");
+			$criteria->addSearchCondition('dcontext', "default");
 		}
 
 		$criteria->order = "calldate desc";
