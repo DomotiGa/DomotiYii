@@ -134,6 +134,7 @@
                     )),
                     array('label'=>'Network Ping', 'url'=> array('settings/ping')),
                     array('label'=>'NMEA GPS', 'url'=> array('settings/gps')),
+                    array('label'=>'Omniksol', 'url'=> array('settings/omniksol')),
                     array('label'=>'OpenTherm', 'url'=> array('settings/opentherm')),
                     array('label'=>'RRDTool', 'url'=> array('settings/rrdtool')),
                     array('label'=>'RFXCom', 'url'=>'#', 'items'=>array(
