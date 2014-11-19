@@ -383,20 +383,6 @@ class Devices extends CActiveRecord {
     }
 
     /**
-     * request an xmlrpc call
-     */
-    protected function do_xmlrpc($request) {
-
-        $context = stream_context_create(array('http' => array('method' => "POST", 'header' => "Content-Type: text/xml", 'content' => $request)));
-        if ($file = @file_get_contents(Yii::app()->params['xmlrpcHost'], false, $context)) {
-            $file = str_replace("i8", "double", $file);
-            return xmlrpc_decode($file, "UTF-8");
-        } else {
-            Yii::app()->user->setFlash('error', "Couldn't connect to XML-RPC service on '" . Yii::app()->params['xmlrpcHost'] . "'");
-        }
-    }
-
-    /**
      * Check if the value is not empty and does not only contain numbers
      * This is the 'notOnlyNumbers' validator as declared in rules().
      */
