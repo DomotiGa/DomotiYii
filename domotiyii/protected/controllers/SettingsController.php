@@ -551,8 +551,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsDevicediscover'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $this->do_save($model);
-                $this->do_restart('devicediscover');
+                $this->do_save_restart($model,'devicediscover');
             }
         }
         $this->render('devicediscover', array('model' => $model));
@@ -731,12 +730,11 @@ class SettingsController extends Controller {
     public function actionPhilipshue() {
         $model = SettingsPhilipshue::model()->findByPk(1);
 
-        if (isset($_POST['SettingsPhilipshue'])) {
-            $model->attributes = $_POST['SettingsPhilipshue'];
+        if (isset($_POST['SettingsPhilipsHue'])) {
+            $model->attributes = $_POST['SettingsPhilipsHue'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $model->save();
-                $this->do_restart('philipshue');
+                $this->do_save_restart($model,'philipshue');
             }
         }
         $this->render('philipshue', array('model' => $model));
