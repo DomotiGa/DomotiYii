@@ -62,6 +62,7 @@ class SettingsOmniksol extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
+			'serial' => 'Serial #',
 			'tcphost' => 'Tcphost',
 			'tcpport' => 'Tcpport',
 			'serial' => 'Serial #',

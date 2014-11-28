@@ -25,20 +25,18 @@ $this->widget('bootstrap.widgets.TbNav', array(
 $this->endWidget();
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-	'id'=>'settings-omniksol-form',
+        'id'=>'settings-omniksol-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
 <fieldset>
                 <?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
-
-		<?php echo $form->textFieldControlGroup($model,'tcpport'); ?>
-		<?php echo $form->textFieldControlGroup($model,'tcphost'); ?>
-		<?php echo $form->textFieldControlGroup($model,'serial'); ?>
-		<?php echo $form->textFieldControlGroup($model,'cron'); ?>
+                <?php echo $form->textFieldControlGroup($model,'tcpport'); ?>
+                <?php echo $form->textFieldControlGroup($model,'tcphost'); ?>
+                <?php echo $form->textFieldControlGroup($model,'serial'); ?>
+                <?php echo $form->textFieldControlGroup($model,'cron'); ?>
                 <?php echo $form->checkBoxControlGroup($model,'discover', array('value'=>-1)); ?>
                 <?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
-
 </fieldset>
 
 <?php echo TbHtml::formActions(array(

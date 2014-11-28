@@ -137,9 +137,9 @@ class SettingsController extends Controller {
         $listPlugins[] = 'lirc';
         $listPlugins[] = 'mochad';
         $listPlugins[] = 'ncid';
+        $listPlugins[] = 'omniksol';
         $listPlugins[] = 'onkyo';
         $listPlugins[] = 'opentherm';
-        $listPlugins[] = 'omniksol';
         $listPlugins[] = 'openzwave';
         $listPlugins[] = 'owfs';
         $listPlugins[] = 'oww';
@@ -304,7 +304,7 @@ class SettingsController extends Controller {
             $model->attributes = $_POST['SettingsJsonrpc'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $this->do_save($model);
+                $this->do_save_restart($model, 'jsonrpc');
             }
         }
         $this->render('jsonrpc', array('model' => $model));
@@ -844,6 +844,19 @@ class SettingsController extends Controller {
         $this->render('lgtv', array('model' => $model));
     }
 
+    public function actionOmniksol() {
+        $model = SettingsOmniksol::model()->findByPk(1);
+
+        if (isset($_POST['SettingsOmniksol'])) {
+            $model->attributes = $_POST['SettingsOmniksol'];
+            if ($model->validate()) {
+                // form inputs are valid, save and restart
+                $this->do_save_restart($model, 'omniksol');
+            }
+        }
+        $this->render('omniksol', array('model' => $model));
+    }
+
     public function actionOnkyo() {
         $model = SettingsOnkyo::model()->findByPk(1);
 
@@ -1271,19 +1284,6 @@ class SettingsController extends Controller {
             }
         }
         $this->render('gps', array('model' => $model));
-    }
-
-    public function actionOmniksol() {
-        $model = SettingsOmniksol::model()->findByPk(1);
-
-        if (isset($_POST['SettingsOmniksol'])) {
-            $model->attributes = $_POST['SettingsOmniksol'];
-            if ($model->validate()) {
-                // form inputs are valid, save and restart
-                $this->do_save_restart($model, 'omniksol');
-            }
-        }
-        $this->render('omniksol', array('model' => $model));
     }
 
     public function actionOpentherm() {

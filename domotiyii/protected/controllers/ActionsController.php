@@ -46,6 +46,15 @@ class ActionsController extends Controller {
         ));
     }
 
+    public function actionRun($id) {
+        // run the action
+        $model = Actions::model()->findByPk($id);
+        $this->do_run($model);
+        $this->render('view', array(
+            'model' => $model,
+        ));
+    }
+
     public function actionDelete($id) {
         // delete the entry from the "actions" table
         $model = Actions::model()->findByPk($id);
@@ -69,32 +78,16 @@ class ActionsController extends Controller {
         ));
     }
 
-    // Uncomment the following methods and override them if needed
-    /*
-      public function filters()
-      {
-      // return the filter configuration for this controller, e.g.:
-      return array(
-      'inlineFilterName',
-      array(
-      'class'=>'path.to.FilterClass',
-      'propertyName'=>'propertyValue',
-      ),
-      );
-      }
-
-      public function actions()
-      {
-      // return external action classes, e.g.:
-      return array(
-      'action1'=>'path.to.ActionClass',
-      'action2'=>array(
-      'class'=>'path.to.AnotherActionClass',
-      'propertyName'=>'propertyValue',
-      ),
-      );
-      }
-     */
+    protected function do_run($model) {
+        $res = doJsonRpc(array('jsonrpc' => '2.0', 'method' => 'action.run', 'params' => array('action_id' => (int) $model->id), 'id' => 1));
+        if ($res) {
+            if (isset($res->result) && $res->result) {
+                Yii::app()->user->setFlash('success', Yii::t('app', 'Action started.'));
+            } else {
+                Yii::app()->user->setFlash('error', Yii::t('app', 'Action run failed!'));
+            }
+        }
+    }
 
     protected function do_save($model) {
         if ($model->save() === false) {
@@ -113,5 +106,4 @@ class ActionsController extends Controller {
             $this->redirect(array('index'));
         }
     }
-
 }

@@ -97,8 +97,8 @@ class Events extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'triggers' => array(self::BELONGS_TO, 'Triggers', 'trigger_id'),
-			'l_condition1' => array(self::BELONGS_TO, 'Conditions', 'condition1_id'),
-			'l_condition2' => array(self::BELONGS_TO, 'Conditions', 'condition2_id'),
+			'l_condition1_id' => array(self::BELONGS_TO, 'Conditions', 'condition1_id'),
+			'l_condition2_id' => array(self::BELONGS_TO, 'Conditions', 'condition2_id'),
 			'l_category' => array(self::BELONGS_TO, 'Category', 'category_id'),
 			'events_actions' => array(self::HAS_MANY, 'EventsActions', 'event'), 
 			'actions' => array(self::HAS_MANY, 'Actions', 'action', 'through' => 'events_actions', 'order' => 'events_actions.order'),
@@ -120,10 +120,10 @@ class Events extends CActiveRecord
 			'comments' => Yii::t('app','Comments'),
 			'trigger_id' => Yii::t('app','Trigger'),
 			'triggername' => Yii::t('app','Trigger'),
-			'condition1_id' => Yii::t('app','Condition1'),
+			'l_condition1_id' => Yii::t('app','Condition1'),
 			'conditionname1' => Yii::t('app','Condition1'),
 			'operand' => Yii::t('app','Operand'),
-			'condition2_id' => Yii::t('app','Condition2'),
+			'l_condition2_id' => Yii::t('app','Condition2'),
 			'conditionname2' => Yii::t('app','Condition2'),
 			'rerunenabled' => Yii::t('app','Rerun enabled'),
 			'rerunvalue' => Yii::t('app','Rerun value'),
