@@ -18,8 +18,10 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 <legend>RRDTool</legend>
 <fieldset>
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
-		<?php echo $form->textFieldControlGroup($model,'rra',array('class'=>'span7')); ?>
 		<?php echo $form->numberFieldControlGroup($model,'polltime', array('append' => 'Seconds')); ?>
+		<?php echo $form->numberFieldControlGroup($model,'width', array('append' => 'Pixels')); ?>
+		<?php echo $form->numberFieldControlGroup($model,'height', array('append' => 'Pixels')); ?>
+		<?php echo $form->textFieldControlGroup($model,'rra',array('class'=>'span7')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 </fieldset>
 

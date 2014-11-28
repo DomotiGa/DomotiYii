@@ -6,6 +6,8 @@
  * The followings are the available columns in table 'settings_rrdtool':
  * @property integer $id
  * @property integer $polltime
+ * @property integer $width
+ * @property integer $height
  * @property boolean $enabled
  * @property boolean $debug
  * @property string $rra
@@ -39,7 +41,7 @@ class SettingsRrdtool extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, polltime', 'numerical', 'integerOnly'=>true),
+			array('id, polltime, width, height', 'numerical', 'integerOnly'=>true),
 			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('rra', 'length', 'max'=>256),
 			// The following rule is used by search().
@@ -67,6 +69,8 @@ class SettingsRrdtool extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'polltime' => 'Polltime',
+			'width' => 'Graph Width',
+			'height' => 'Graph Height',
 			'enabled' => 'Enabled',
 			'debug' => 'Debug',
 			'rra' => 'Rra',
@@ -86,6 +90,8 @@ class SettingsRrdtool extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('polltime',$this->polltime);
+		$criteria->compare('width',$this->width);
+		$criteria->compare('height',$this->height);
 		$criteria->compare('enabled',$this->enabled);
 		$criteria->compare('debug',$this->debug);
 		$criteria->compare('rra',$this->rra,true);
