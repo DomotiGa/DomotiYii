@@ -1512,7 +1512,7 @@ class SettingsController extends Controller {
                 Yii::app()->user->setFlash('error', Yii::t('app', 'Sending a test pushmsg failed!'));
             }
         }
-        $this->redirect('pushover', true);
+        $this->redirect('pushbullet', true);
     }
 
     public function actionSendTestTweet() {
