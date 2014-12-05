@@ -64,6 +64,7 @@ body {
 .device .device_status
 {
     float: right;
+    white-space: nowrap;
 }
 
 .device .device_name, .device_status
