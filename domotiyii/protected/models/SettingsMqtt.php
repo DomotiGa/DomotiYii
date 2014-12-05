@@ -17,6 +17,8 @@
  * @property boolean $retain
  * @property integer $qos
  * @property boolean $debug
+ * @property boolean $enablepublish
+ * @property boolean $enablesubscribe
  */
 class SettingsMqtt extends CActiveRecord
 {
@@ -53,10 +55,10 @@ class SettingsMqtt extends CActiveRecord
 			array('tcphost', 'length', 'max'=>64),
 			array('username, password', 'length', 'max'=>32),
 			array('pubtopic, subtopic', 'length', 'max'=>256),
-			array('enabled, retain, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, retain, debug, enablepublish, enablesubscribe', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enabled, tcphost, tcpport, username, password, pubtopic, subtopic, heartbeat, retain, qos, debug', 'safe', 'on'=>'search'),
+			array('id, enabled, tcphost, tcpport, username, password, pubtopic, subtopic, heartbeat, retain, qos, debug, enablepublish, enablesubscribe', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -90,6 +92,8 @@ class SettingsMqtt extends CActiveRecord
 			'retain' => 'Retain',
 			'qos' => 'Qos',			
 			'debug' => 'Debug',
+			'enablesubscribe' => 'Subscribe',
+			'enablepublish' => 'Publish',
 		);
 	}
 
@@ -117,6 +121,8 @@ class SettingsMqtt extends CActiveRecord
 		$criteria->compare('retain',$this->retain);
 		$criteria->compare('qos',$this->qos,true);
 		$criteria->compare('debug',$this->debug);
+		$criteria->compare('enablepublish',$this->enablepublish);
+		$criteria->compare('enablesubscribe',$this->enablesubscribe);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

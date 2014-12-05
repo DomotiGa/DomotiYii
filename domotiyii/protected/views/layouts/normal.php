@@ -95,6 +95,7 @@
                        array('label'=>'EZcontrol', 'url'=> array('settings/ezcontrol')),
                        array('label'=>'HomeMatic', 'url'=> array('settings/homematic')),
                        array('label'=>'Jerome I/O', 'url'=> array('settings/jerome')),
+                       array('label'=>'IPX800', 'url'=> array('settings/ipx800')),
                        array('label'=>'KNX', 'url'=> array('settings/knx')),
                        array('label'=>'Philips Hue', 'url'=> array('settings/philipshue')),
                        array('label'=>'PLCBUS', 'url'=> array('settings/plcbus')),

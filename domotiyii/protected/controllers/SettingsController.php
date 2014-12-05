@@ -124,6 +124,7 @@ class SettingsController extends Controller {
         $listPlugins[] = 'hddtemp';
         $listPlugins[] = 'homematic';
         $listPlugins[] = 'iport';
+        $listPlugins[] = 'ipx800';
         $listPlugins[] = 'irman';
         $listPlugins[] = 'irtrans';
         $listPlugins[] = 'iviewer';
@@ -829,6 +830,19 @@ class SettingsController extends Controller {
             }
         }
         $this->render('iport', array('model' => $model));
+    }
+
+    public function actionIpx800() {
+        $model = SettingsIpx800::model()->findByPk(1);
+
+        if (isset($_POST['SettingsIpx800'])) {
+            $model->attributes = $_POST['SettingsIpx800'];
+            if ($model->validate()) {
+                // form inputs are valid, save and restart
+                $this->do_save_restart($model, 'ipx800');
+            }
+        }
+        $this->render('ipx800', array('model' => $model));
     }
 
     public function actionLgtv() {
