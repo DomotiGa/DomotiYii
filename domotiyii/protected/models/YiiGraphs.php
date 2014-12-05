@@ -20,6 +20,23 @@
  */
 class YiiGraphs extends CActiveRecord
 {
+   /**
+     * Define graph names
+     */
+    private $graphtype = array(
+        '0' => 'None',
+        '1' => 'Bar Graph',
+        '2' => 'Line Graph',
+        '3' => 'Gauge Widget',
+    );
+
+    /**
+     * @return graphname for $graph
+     */
+    public function getGraphType($graph) {
+        return isset($this->graphtype[$graph]) ? Yii::t('app',$this->graphtype[$graph]) : null;
+    }
+
 	/**
 	 * @return string the associated database table name
 	 */
