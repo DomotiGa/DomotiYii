@@ -1,32 +1,36 @@
+<?php $this->beginContent('/layouts/main'); ?>
 <script type="text/javascript">
     window.refreshMobile = <?php echo Yii::app()->params['refreshMobile'] ?>;
 </script>
-<?php $this->beginContent('/layouts/main'); ?>
-<?php $this->widget('bootstrap.widgets.TbNavbar',array(
-    'display'=> TbHtml::NAVBAR_COLOR_INVERSE, 
-    'brandLabel'=>'<img height="25" width="25" src="' . Yii::app()->request->baseUrl . '/static/logo.png">',
-    'collapse'=>true, // requires bootstrap-responsive.css
-    'items'=>array(
-        array(
-            'class'=>'bootstrap.widgets.TbNav',
-            'items'=>array(
-                array('label'=>Yii::t('app','Devices'), 'url'=> array('mobile/index')),
-            ),
-        ),
-        array(
-            'class'=>'bootstrap.widgets.TbNav',
-            'htmlOptions'=>array('class'=>'pull-right'),
-            'items'=>array(
-                array('label'=>Yii::t('app','Login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                array('label'=>Yii::t('app','Logout').' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
-            ),
-        ),
-    ),
-)); ?>
 
-
-<div class="container" id="page">
-	<div id="content">
+<div data-role="page" class="container" id="page">
+  <div data-role="header" data-position="fixed">
+	<?php
+	if( isset(Yii::app()->session['inversemobiledetect']) ){
+		echo "<a href='/domotiyii/index.php?inversemobiledetect=False' data-role='button' target='_self'>Normal layout</a>";
+	}else{
+		echo "<a href='?inversemobiledetect=True' data-role='button' target='_self'>Mobile layout</a> ";
+	}
+	?>
+	<?php if (!Yii::app()->user->isGuest){ ?>
+		<a href="<?php echo Yii::app()->createAbsoluteUrl('site/logout'); ?>" data-role='button' target='_self'>Logout</a>
+	<?php } else { ?>
+		<!--<a href='mobile_login' data-role='button'>Login</a>-->
+	<?php } ?>
+	
+	<h1>         
+	<?php
+	if (  $this->browserdetect->isMobile() ) {
+		echo "<img src='" . Yii::app()->request->baseUrl ."/static/logo.png' style='width:25px;height:25px'>";
+	} else {
+		echo "<img src='" . Yii::app()->request->baseUrl ."/static/logo.png' style='width:25px;height:25px'>"; 
+		//echo Yii::app()->session['inversemobiledetect'];
+	}
+	?>
+	</h1>
+  </div><!-- /header -->
+  
+	<div data-role="content" id="content">
 	    <?php foreach(array('error', 'notice', 'success') as $key): ?>
             <?php if (Yii::app()->user->hasFlash($key)): ?>
                 <div class="flash-<?php echo $key ?>">
@@ -36,26 +40,16 @@
         <?php endforeach; ?>
         <?php echo $content; ?>
     </div>
-    
-    <div id="footer">
-        Credits and Copyright © <?php echo date("Y"); ?> <a href="http://www.domotiga.nl/" >DomotiGa</a> <a href="mailto:support@domotiga.nl"></a> by Ron Klinkien     
-        <?php
-        if (  $this->browserdetect->isMobile() ) {
-		    echo "| mobile <i class='icon-signal'></i>";
-	    }
-        ?>
 
-		<?php
-        if( isset(Yii::app()->session['inversemobiledetect']) ){
-		    echo "| <a href='?inversemobiledetect=False'>Undo mobile layout</a>";
-	    }else{
-			echo "| <a href='?inversemobiledetect=True'>View normal layout</a> ";
-		}
-        ?>
-	</div><!-- footer -->
-
+  <div data-role="footer" data-position="fixed">
+    <div data-role="navbar">
+      <ul>
+        <li><a href="index" id='device' data-role='button' data-icon="arrow-u" target="_self">Control</a></li>
+        <li><a href="scene" id='scene' data-role='button' data-icon="arrow-u" target="_self">Scene</a></li>
+        <!--<li><a href="graphs" data-role='button' data-icon="arrow-u">Graphs</a></li>-->
+      </ul>
+    </div>
+  </div>
 </div><!-- container-fluid -->
-
-
 
 <?php $this->endContent(); ?>
