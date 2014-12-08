@@ -3,193 +3,192 @@ $(function() {
     // If no refresh rate is set set a fallback value of 5 seconds
     window.refreshMobile = window.refreshMobile || 5000;
 
-// Set a device by sending id and value to the server
-// Finnaly check on result: 
-// If failed set the buttons and slider to red. 
-function set_device(id,value) {
-	$.ajax({
-		type: "POST",        
-		url: "setdevice",
-		data: {Device: { id: id, value: value}  }
-	}).always( function (json_data, textStatus, errorThrown) {
-		var error = false;            
-		if (textStatus == "success"){
-			if((json_data.result != undefined && !json_data.result ) || json_data.error != undefined){
-				error = true;
-			}
-		} else { error = true; }   
+    // Set a device by sending id and value to the server
+    // Finnaly check on result: 
+    // If failed set the buttons and slider to red. 
+    function set_device(id,value) {
+        $.ajax({
+            type: "POST",        
+            url: "setdevice",
+            data: {Device: { id: id, value: value}  }
+        }).always( function (json_data, textStatus, errorThrown) {
+            var error = false;            
+            if (textStatus == "success"){
+                if((json_data.result != undefined && !json_data.result ) || json_data.error != undefined){
+                    error = true;
+                }
+            }else{ error = true; }   
 
-		if(error){
-			// Both buttons inactive
-			device.find("#but-off").removeClass('ui-btn-active ui-state-persist');
-			device.find("#but-on").removeClass('ui-btn-active ui-state-persist');			
-		}  
-  })
-}
+            if(error){
+                $(".device[data-id=" + id + "] .switch_device > button").removeClass("btn-primary").addClass("btn-danger");
+                $(".device[data-id=" + id + "] .slider-handle").addClass("slider-handle-error");
+            }  
+      })
+    }
+    
+    // Start a scene by id
+    // Finnaly check on result: 
+    // If failed set the button to red. 
+    function run_scene(id) {
+        $.ajax({
+            type: "POST",        
+            url: "runscene",
+            data: {Scene: { id: id}  }
+        }).always( function (json_data, textStatus, errorThrown) {
+            var error = false;            
+            if (textStatus == "success"){
+                if((json_data.result != undefined && !json_data.result ) || json_data.error != undefined){
+                    error = true;
+                }
+            }else{ error = true; }   
 
-// Start a scene by id
-// Finnaly check on result: 
-// If failed set the button to red. 
-function run_scene(id) {
-	$.ajax({
-		type: "POST",        
-		url: "runscene",
-		data: {Scene: { id: id}  }
-	}).always( function (json_data, textStatus, errorThrown) {
-		var error = false;            
-		if (textStatus == "success"){
-			if((json_data.result != undefined && !json_data.result ) || json_data.error != undefined){
-				error = true;
-			}
-		}else{ error = true; }   
+            if(error){
+                $(".scene[data-id=" + id + "] > button").removeClass("btn-primary").addClass("btn-danger");
+            }  
+      })
+    }
 
-		if(error){
-			// Write error message
-			this.find(".device_error").html('Error; ' + textStatus);
-		}  
-  })
-}
-	
-// Handle for all on/off buttons and slider that the are in sync with its value.
-function update_control(){
-	// handle start values
-	$(".device").each(function (){ 
-		device = $(this);
-		device_value = device.find(".device_status").html();
-		device_value_number = device_value.replace(/[^\d.]/g,'');
+    // Handle for all on/off buttons and slider that the are in sync with its value.
+    function update_control(){
+        // handle start values
+        $(".device").each(function (){ 
+            device = $(this);
+            device_value = device.find(".device_status").html();
+            device_value_number = device_value.replace(/[^\d.]/g,'');
+        
+            if(device_value.indexOf("On") !==-1){
+                device_value_number = 100;
+            }else if(device_value.indexOf("Off") !==-1){
+                device_value_number = 0;
+            }
+            
+            device.find(".slider input").slider('setValue', device_value_number); 
+            if(device_value_number > 0 && device_value_number <= 100){
+                device.find("button").removeClass("btn-primary");
+                device.find("button:nth-child(2)").addClass("btn-primary");      
+            }else{
+                device.find("button").removeClass("btn-primary");
+                device.find("button:nth-child(1)").addClass("btn-primary"); 
+            }
+        });   
+    }
+    
+    // Update frequently the status of the devices.
+    // Finnaly check on result: 
+    // If failed set the button to red. 
+    function getDeviceUpdates(){
+        $.ajax({
+            type: "GET",        
+            url: "getdeviceupdate",
+            data: {location: GetURLParameter("location") }
+        }).always( function (json_data, textStatus, errorThrown) {
+            var error = false;            
+            if (textStatus == "success"){
+                if(json_data.result == undefined || json_data.result == false || json_data.error != undefined){
+                    error = true;
+                }else{
+                    // parse data, loop trough each device
+                    $.each( json_data.result,function() {
+                        var device = $(".device[data-id="+this.device_id+"]");
+                        device.find(".device_lastseen").html('<i class="icon-time"></i>' + this.lastseen);
+                        // loop trough each device value
+                        $.each( this.values,function() {
+                            var device_value = device.find(".device_value_"+this.valuenum);
+                            if (this.valuenum == 1){
+                              device.find(".device_status").html(this.value + " " + this.units);
+                            }
+                            
+                            if ((this.value + this.units).length > 0){
+                              if(device_value.length == 0){
+                                device.find(".device_info_value").append('<p class="device_value_'+this.valuenum+'">');
+                              }
+                              device.find(".device_value_"+this.valuenum).html('<i class="icon-tag"></i>' +this.value + " " + this.units);
+                            }else{
+                              device.remove(".device_value_"+this.valuenum);
+                            }
+                         })
+                    })
+                }
+            }else{ error = true; }   
 
-		if(device_value.indexOf("On") !== -1){
-			device_value_number = 100;
-		}else if(device_value.indexOf("Off") !== -1){
-			device_value_number = 0;
-		}
-		
-		// Set slider value
-		$('#slider' +device.data("id")).val(device_value_number).slider("refresh");
-		
-		if(device_value_number > 0 && device_value_number <= 100){		
-			device.find("#but-on").addClass('ui-btn-active ui-state-persist');
-			device.find("#but-off").removeClass('ui-btn-active ui-state-persist');
-		}else{
-			device.find("#but-off").addClass('ui-btn-active ui-state-persist');
-			device.find("#but-on").removeClass('ui-btn-active ui-state-persist');			
-		}
-	});   
-}
+            if(error){
+                $(".switch_device > button").removeClass("btn-primary").addClass("btn-danger");
+                $(".slider-handle").addClass("slider-handle-error");
+            }else{
+                update_control();    
+            }  
+            window.setTimeout(getDeviceUpdates, window.refreshMobile);
+      })        
+    }
 
-function getDeviceUpdates(){
-	$.ajax({
-		type: "GET",        
-		url: "getdeviceupdate",
-		data: {location: GetURLParameter("location") }
-	}).always( function (json_data, textStatus, errorThrown) {
-		var error = false;            
-		if (textStatus == "success"){
-			if(json_data.result == undefined || json_data.result == false || json_data.error != undefined){
-				error = true;
-			}else{
-				// parse data, loop through each device
-				$.each( json_data.result,function() {
-					var device = $(".device[data-id="+this.device_id+"]");
-					//device.find(".device_lastseen").html('Lastseen:' + this.lastseen);
-					// loop through each device value
-					$.each( this.values,function() {
-						var device_value = device.find(".device_value_"+this.valuenum);
-						if (this.valuenum == 1){
-						  device.find(".device_status").html(this.value + " " + this.units);
-						}
-					 })
-				})
-			}
-		}else{ error = true; }   
+    // Toggle extra data and update icon
+    $( ".device_name" ).click(function() {
+        detail = $(this).parents(".device").children(".device_info");
+        if ( detail.is(":visible") ){
+            $(this).children("i").removeClass("icon-chevron-up").addClass("icon-chevron-down");    
+        }else{
+            $(this).children("i").removeClass("icon-chevron-down").addClass("icon-chevron-up");
+        }    
+        detail.slideToggle();
 
-		if(error){
-			// Write error message
-			this.find(".device_error").html('Error; ' + textStatus);
-		}else{
-			update_control();    
-		}  
-		window.setTimeout(getDeviceUpdates, window.refreshMobile);
-  })        
-}
+    });
 
-function refreshPage() {
-	// Refresh page with parameters
-	if ($('#type').val() == 'All' && $('#location').val() == 'All') {
-		window.location.href = "http://" + window.location.host + window.location.pathname ;
-	} else if ($('#type').val() == 'All') {
-		window.location.href = "http://" + window.location.host + window.location.pathname + '?location=' + $('#location').val() ;
-	} else if ($('#location').val() == 'All') {
-		window.location.href = "http://" + window.location.host + window.location.pathname + '?type=' + $('#type').val() ;
-	} else {
-		var params = ["type=" + $('#type').val(),"location=" + $('#location').val()];
-		window.location.href = "http://" + window.location.host + window.location.pathname + '?' + params.join('&') ;	
-	}
-}
-	
-///////////////////////////////////////////////////////////////////
-// The click listeners
+    // The click listeners
 
-//Location select from parameter
-$("#location option[value='"+ GetURLParameter('location') +"']").attr('selected', 'selected');  
-$('#location').selectmenu('refresh');
+    // Run scene
+    $(".scene button").click(function() {
+        scene = $(this).parents(".scene");
+        run_scene(scene.data("id"));
+    });
 
-//Type select from parameter
-$("#type option[value='"+ GetURLParameter('type') +"']").attr('selected', 'selected');  
-$('#type').selectmenu('refresh');
+    // Switch device
+    $(".switch_device > button").click(function() {
+        device_value = $(this).html();
+        device = $(this).parents(".device");
+        device.find("button").removeClass("btn-primary");
+        $(this).addClass("btn-primary");
+        
+        if(device_value.indexOf("On") !==-1){
+            device.find(".slider input").slider('setValue', 100);
+        }else{
+            device.find(".slider input").slider('setValue', 0);
+        }
 
-//Location select
-$('#location').on('change', function(e) {
- refreshPage();
-});
+        device.find(".device_status").html(device_value);
+        set_device(device.data("id"), device_value);
+    });
 
-//Type select
-$('#type').on('change', function() {
-  refreshPage();
-});
+    // dim device
+    $('.slider').slider()
+        .on('slideStop', function(ev){
+            device_value = ev.value;
+            device = $(this).parents(".device");
 
-// Get slider dim value
-$("[id^=slider]").on("slidestop", function(event, ui){
-   device_value = $('#'+ $(this).attr('id')).val();
-   device = $(this).parents(".device");
-   
-	if(device_value == 0){
-		device_value = "Off";
-	}else if(device_value == 100){
-		device_value = "On";
-	}else{
-		device_value= "Dim " + device_value;
-	}
-	
-	//alert(device_value + ' - ' + device.data("id"));
-	set_device(device.data("id"), device_value); 
-});
+            if( (device_value > 0 && device_value <= 100)){
+                device.find("button").removeClass("btn-primary");
+                device.find("button:nth-child(2)").addClass("btn-primary");                
+            }else{
+                device.find("button").removeClass("btn-primary");
+                device.find("button:nth-child(1)").addClass("btn-primary"); 
+            }
 
-// Switch device
-$('div[data-role="navbar"] ul li a').on('click', function () {
-	device_value = $(this).html();
-	device = $(this).parents(".device");
-	
-	if(device_value.indexOf("On") !== -1){
-		//alert("On clicked " + device.data("id"));
-		device_value = "On";
-	}else{
-		//alert("Off clicked " + device.data("id"));
-		device_value = "Off";
-	}
-	set_device(device.data("id"), device_value);
-});
+            if(device_value == 0){
+                device_value = "Off";
+            }else if(device_value == 100){
+                device_value = "On";
+            }else{
+                device_value= "Dim " + device_value;
+            }
+            
+            device.find(".device_status").html(device_value);
+            set_device(device.data("id"), device_value);   
+        });
 
-// Run scene
-$("[id^=run]").click(function() {
-	scene = $(this).parents(".scene");
-	//alert(scene.data("id"));
-	run_scene(scene.data("id"));
-});
-	
+
     //start system
     update_control();
-	getDeviceUpdates();
+    getDeviceUpdates();
+
 });
 
 

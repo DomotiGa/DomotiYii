@@ -1,89 +1,118 @@
 <?php
-// Assets path
-$pathHighCharts = Yii::app()->assetManager->publish(Yii::getPathOfAlias('application.components.assets.jquerymobile'));
+/* @var $this DevicesController */
+/* @var $dataProvider CActiveDataProvider */
 
-// Get client script
-$cs=Yii::app()->clientScript;
+  $type = Yii::app()->request->getParam('type','all');
+  $location_id = Yii::app()->request->getParam('location','0');
+  $location_object = $model_locations->findByPk($location_id);
 
-$cs->registerCssFile( $pathHighCharts . '/jquery.mobile-1.3.1.css' );
+    // Generate breadcrumb
+    $breadcrumb_links = array();
 
-// Add Js
-$cs->registerScriptFile($pathHighCharts .'/jquery-1.9.1.min.js', CClientScript::POS_HEAD);
-$cs->registerScriptFile($pathHighCharts .'/jquery.mobile-1.3.1.min.js', CClientScript::POS_HEAD);
+    if($location_id == '0' && $type == 'all'){
+        array_push($breadcrumb_links,Yii::t('app','Devices'));
+    }else{
+        $breadcrumb_links[Yii::t('app','Devices')] = Yii::app()->request->baseUrl . '/mobile/index';
+        
+        if($location_id != '0' && $type == 'all'){
+            array_push($breadcrumb_links,$location_object->name);
+        }elseif($location_id == '0' && $type != 'all'){
+            array_push($breadcrumb_links,Yii::t('app',$type));
+        }else{
+            $breadcrumb_links[$location_object->name] = Yii::app()->request->baseUrl . '/mobile/index?location='.$location_id;
+            array_push($breadcrumb_links,Yii::t('app',$type));
+        }
+    }
+   
+    $this->widget('bootstrap.widgets.TbBreadcrumb', array(
+        'links' => $breadcrumb_links,
+    ));
 
-$type = Yii::app()->request->getParam('type','all');
-$location_id = Yii::app()->request->getParam('location','0');
 
-$loc = array();
-$loc['All'] = Yii::t('app','All locations');
+    // generate location and type menu
+    $links_location = array(array('label'=>Yii::t('app','All'), 'url'=> Yii::app()->request->baseUrl . '/mobile/index?type='.$type, 'active'=>$location_id == '0'));
+  
+    foreach($model_locations->findAll(array('order'=>'name')) as $currentlocation){
+        if ( $currentlocation['name'] != ''){
+            array_push($links_location, array('label'=>$currentlocation['name'], 'url'=> Yii::app()->request->baseUrl . '/mobile/index?type='.$type.'&location='.$currentlocation['id'], 'active'=>$location_id == $currentlocation['id']));
+         }
+     }
+ 
+    $links_type = array(
+        array('label'=>Yii::t('app','All'), 'url'=> Yii::app()->request->baseUrl . '/mobile/index?location='.$location_id, 'active'=>$type == 'all'),
+        array('label'=>Yii::t('app','Sensors'), 'url'=> Yii::app()->request->baseUrl . '/mobile/index?type=sensors&location='.$location_id, 'active'=>$type == 'sensors'),
+        array('label'=>Yii::t('app','Dimmers'), 'url'=> Yii::app()->request->baseUrl . '/mobile/index?type=dimmers&location='.$location_id, 'active'=>$type == 'dimmers'),
+        array('label'=>Yii::t('app','Switches'), 'url'=> Yii::app()->request->baseUrl . '/mobile/index?type=switches&location='.$location_id, 'active'=>$type == 'switches'),
+    );
 
-foreach($model_locations->findAll(array('order'=>'name')) as $currentlocation){
-	if ( $currentlocation['name'] != ''){
-		$loc[$currentlocation['id']] = $currentlocation['name'];
-	}
-}
-
-$typ = array();
-$typ['All'] = Yii::t('app','All types');
-$typ['sensors'] = Yii::t('app','Sensors');
-$typ['dimmers'] = Yii::t('app','Dimmers');
-$typ['switches'] = Yii::t('app','Switches');
+     $this->widget('bootstrap.widgets.TbNav', array(
+         'type'=>'tabs',
+         'stacked'=>false,
+         'items'=>array(
+            array('label'=>Yii::t('app','Location'), 'icon'=>'map-marker', 'url'=>'#', 'items' => $links_location),
+            array('label'=>'Type', 'icon'=>'tags', 'url'=>'#', 'items' => $links_type),
+         ),
+     ));
 ?>
-    <div class="device_error"></div>
-	<div data-role="navbar">
-	  <ul>
-		<li>
-		<div data-role="fieldcontain">
-			<?php echo CHtml::dropDownList('location', '', $loc);?>
-		</div>
-		</li>
-		<li>
-		<div data-role="fieldcontain">
-			<?php echo CHtml::dropDownList('type', '', $typ);?>
-		</div> 
-		</li>
-	  </ul>
-	</div>	
 
-<div class="devices" data-role="collapsible-set">
+<?php
+    // end generate location and type menu
+
+    foreach($model_scenes->search(false)->getData() as $scene):
+?>
+    <div class="scene" data-id="<?php echo $scene['id']; ?>"> 
+        <div>
+            <h5 class="scene_name">
+                <?php echo $scene['name'];  ?>
+            </h5>    
+           	<button class="btn btn-primary scene_action">Run</button>
+        </div>  
+        <div class="clear"></div>   
+    </div>
+<?php
+    endforeach;
+?>
+
+
 <?php
     // end generate location and type menu
 
     foreach($model_devices->search(false)->getData() as $device):
 ?>
 
-    <div style="margin-top: 10px;" data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b" class="device" data-id="<?php echo $device['id']; ?>"> 
-            <h3 class="device_name">
+       
+    <div class="device" data-id="<?php echo $device['id']; ?>"> 
+        <div>
+            <h5 class="device_name">
                 <?php echo $device['name']; ?>
-				<div class="device_status"></div>				
-            </h3>
-		<p>
-		<?php if( $device['switchable'] || $device['dimable'] ): ?>
-		<div id="button-set" data-role="navbar" data-type="horizontal">
-			<ul>
-				<li><a href="#" data-role="button" data-theme='c' value='On' data-icon="check" id="but-on"/>On</a></li>
-				<li><a href="#" data-role="button" data-theme='c' value='Off' data-icon="delete" id="but-off"/>Off</a></li>
-			</ul>
-		</div>           
-		<?php endif; ?>
-        <div class="device_info">
-		<br/>
-			<?php if( !(trim($device['locationtext']) === "") ): ?>
-			<b>Location:</b> <?php echo $device['locationtext']; ?><br/>
-			<?php endif; ?>
-			<b>Last changed:</b> <?php echo $device['lastchanged']; ?><br/>
-			<b>Last seen:</b> <?php echo $device['lastseen']; ?><br/>
-			<?php if( !(trim($device['batterystatus']) === "") ): ?>
-			<b>Battery:</b> <?php echo $device['batterystatus']; ?> <br/>
-			<?php endif; ?>		
-
-			<div class="slider-container" <?php if(!$device['dimable']): ?> style="display:none" <?php endif; ?>>
-				<input type="range" name="slider<?php echo $device['id']; ?>" id="slider<?php echo $device['id']; ?>" min="0" max="100" step="1" value="0" data-highlight="true" data-theme="d" data-track-theme="a">
-			</div>
+                <i class="icon-chevron-down"></i>
+            </h5>    
+            <h6 class="device_status">
+            </h6>
         </div>
-		</p>
+        <div class="clear"></div>   
+        <div class="device_info">
+            <div class="device_info_value">
+                <?php if( !(trim($device['locationtext']) === "") ): ?>
+                    <h6 class="device_location"><i class="icon-map-marker"></i><?php echo $device['locationtext']; ?></h6>
+                <?php endif; ?>
+            </div>
+            <h6 class="device_lastseen"><i class="icon-time"></i><?php echo $device['lastseen']; ?></h6>
+            
+            <?php if( $device['switchable'] || $device['dimable'] ): ?>
+                <div class="btn-group switch_device">
+                    <button class="btn">Off</button>
+                    <button class="btn">On</button>
+                </div>            
+            <?php endif; ?>
+            <?php if($device['dimable']): ?>  
+                <div class="slider-container">
+                    <input type="text" class="slider" value="" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">
+                </div>
+            <?php endif; ?>
+        </div>
     </div>
+
 <?php
     endforeach;
 ?>
-</div>

@@ -23,6 +23,7 @@ class MobileController extends Controller
         );
     }
   }
+    
 
 	public function actionIndex()
 	{
@@ -87,68 +88,6 @@ class MobileController extends Controller
 		$this->render('index', array('model_devices'=>$model_devices,'model_locations'=>$model_locations,'model_scenes'=>$model_scenes));
 	}
 
-	public function actionScene()
-	{
-       $this->pageTitle = 'DomotiGa - Mobile';
-		
-		$type = Yii::app()->getRequest()->getParam('type');
-		$location = Yii::app()->getRequest()->getParam('location');
-
-
-        $criteria_devices = new CDbCriteria();
-		$model_devices=new Devices('search');
-		$model_devices->unsetAttributes(); // clear any default values
-
-
-	    $model_devices->enabled=-1;
-	    $criteria_devices->addCondition('enabled IS TRUE');
-
-		if (isset($type) && !empty($type))
-		{
-			if($type == "sensors")
-			{
-				$model_devices->switchable=0;
-				$model_devices->dimable=0;
-				$criteria_devices->addCondition('switchable IS FALSE');
-				$criteria_devices->addCondition('dimable IS FALSE');
-			} elseif($type == "dimmers") {
-				$model_devices->dimable=-1;
-				$criteria_devices->addCondition('dimable IS TRUE');
-			} elseif($type == "switches") {
-				$model_devices->switchable=-1;
-				$criteria_devices->addCondition('switchable IS TRUE');
-			}
-		}
-
-		if (isset($location) && !empty($location))
-		{
-			if($location != "0")
-			{
-				$model_devices->location_id=$location;
-				$criteria_devices->addCondition('location_id = "'.$location.'"');
-			}
-		}
-
-        $criteria_scenes = new CDbCriteria();
-		$model_scenes=new Scenes('search');
-		$model_scenes->unsetAttributes(); // clear any default values
-
-	    $model_scenes->enabled=-1;
-	    $criteria_scenes->addCondition('enabled IS TRUE');
-
-		if (isset($location) && !empty($location))
-		{
-			if($location != "0")
-			{
-				$model_scenes->location_id=$location;
-				$criteria_scenes->addCondition('location_id = "'.$location.'"');
-			}
-		}
-
-		$model_locations = Locations::model();
-
-		$this->render('scene', array('model_devices'=>$model_devices,'model_locations'=>$model_locations,'model_scenes'=>$model_scenes));
-	}
 
 	public function actionSetDevice()
 	{
