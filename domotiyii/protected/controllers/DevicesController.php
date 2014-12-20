@@ -25,21 +25,29 @@ class DevicesController extends Controller {
             if ($type == "sensors") {
                 $model->switchable = 0;
                 $model->dimable = 0;
+				$model->enabled = -1;
                 $criteria->addCondition('switchable IS FALSE');
                 $criteria->addCondition('dimable IS FALSE');
+				$criteria->addCondition('enabled IS TRUE');		
             } elseif ($type == "dimmers") {
                 $model->dimable = -1;
+				$model->enabled = -1;
                 $criteria->addCondition('dimable IS TRUE');
+				$criteria->addCondition('enabled IS TRUE');		
             } elseif ($type == "switches") {
                 $model->switchable = -1;
+				$model->enabled = -1;
                 $criteria->addCondition('switchable IS TRUE');
+				$criteria->addCondition('enabled IS TRUE');		
             } elseif ($type == "hidden") {
                 $model->hide = -1;
+				$model->enabled = -1;
                 $criteria->addCondition('hide IS TRUE');
+				$criteria->addCondition('enabled IS TRUE');
             } elseif ($type == "disabled") {
-                $model->enabled = 0;
+                $model->enabled = 1;
                 $criteria->addCondition('enabled IS FALSE');
-            }
+            } 
         }
 
         $location = Yii::app()->getRequest()->getParam('location');

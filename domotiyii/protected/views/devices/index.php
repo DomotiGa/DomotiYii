@@ -71,7 +71,7 @@ $this->widget('domotiyii.LiveGridView', array(
             'value'=>'($data->enabled==-1?"<span class=\"icon-ok\"></span>":"")',
             'type'=>'raw',
             'htmlOptions'=>array('width'=>'15')),
-        array('name'=>'enabled', 
+        array('name'=>'hide', 
             'header'=>Yii::t('app','Hidden'), 
             'value'=>'($data->hide==-1?"<span class=\"icon-ok\"></span>":"")',
             'type'=>'raw',
