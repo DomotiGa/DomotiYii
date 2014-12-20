@@ -68,6 +68,9 @@ $typ['switches'] = Yii::t('app','Switches');
 		<?php endif; ?>
         <div class="device_info">
 		<br/>
+			<div class="device_value_2"></div>
+			<div class="device_value_3"></div>
+			<div class="device_value_4"></div>
 			<?php if( !(trim($device['locationtext']) === "") ): ?>
 			<b>Location:</b> <?php echo $device['locationtext']; ?><br/>
 			<?php endif; ?>

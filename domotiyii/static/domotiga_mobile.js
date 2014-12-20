@@ -98,6 +98,15 @@ function getDeviceUpdates(){
 						if (this.valuenum == 1){
 						  device.find(".device_status").html(this.value + " " + this.units);
 						}
+						if (this.valuenum == 2 && this.value != " "){
+						  device.find(".device_value_2").html("<b>Value2:</b> " + this.value + " " + this.units + "<br/>");
+						}
+						if (this.valuenum == 3 && this.value != " "){
+						  device.find(".device_value_3").html("<b>Value3:</b> " + this.value + " " + this.units + "<br/>");
+						}
+						if (this.valuenum == 4 && this.value != " "){
+						  device.find(".device_value_4").html("<b>Value4:</b> " + this.value + " " + this.units + "<br/>");
+						}
 					 })
 				})
 			}
