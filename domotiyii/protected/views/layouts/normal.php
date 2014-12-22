@@ -164,6 +164,7 @@
                    array('label'=>Yii::t('app','ValuesLog'), 'url'=> array('devicevalueslog/index')),
                 )),
                 array('label'=>'Edit', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
+                   array('label'=>'Open Zwave Commander', 'url'=> array('openzwavecommander/index')),                   
                    array('label'=>'Contacts', 'url'=> array('contacts/index')),
                    array('label'=>'GlobalVars', 'url'=> array('globalvars/index')),
                    array('label'=>'Users', 'url'=> array('users/index')),
