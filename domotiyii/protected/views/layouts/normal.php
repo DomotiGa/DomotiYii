@@ -133,7 +133,7 @@
                        array('label'=>'Bluetooth', 'url'=> array('settings/bluetooth')),
                        array('label'=>'SMS Modem', 'url'=> array('settings/sms')),
                     )),
-                    array('label'=>'Network Ping', 'url'=> array('settings/ping')),
+                    array('label'=>'Network Detect', 'url'=> array('settings/networkdetect')),
                     array('label'=>'NMEA GPS', 'url'=> array('settings/gps')),
                     array('label'=>'Omniksol', 'url'=> array('settings/omniksol')),
                     array('label'=>'OpenTherm', 'url'=> array('settings/opentherm')),

@@ -1,15 +1,17 @@
 <?php
 
 /**
- * This is the model class for table "settings_ping".
+ * This is the model class for table "settings_networkdetect".
  *
- * The followings are the available columns in table 'settings_ping':
+ * The followings are the available columns in table 'settings_networkdetect':
  * @property integer $id
  * @property boolean $enabled
  * @property integer $polltime
+ * @property boolean $enable_ping
+ * @property boolean $enable_arpscan
  * @property boolean $debug
  */
-class SettingsPing extends CActiveRecord
+class SettingsNetworkDetect extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -26,7 +28,7 @@ class SettingsPing extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'settings_ping';
+		return 'settings_networkdetect';
 	}
 
 	/**
@@ -39,10 +41,10 @@ class SettingsPing extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, polltime', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, enable_ping, enable_arpscan, debug', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enabled, polltime, debug', 'safe', 'on'=>'search'),
+			array('id, enabled, polltime, enable_ping, enable_arpscan, debug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,6 +68,8 @@ class SettingsPing extends CActiveRecord
 			'id' => 'ID',
 			'enabled' => 'Enabled',
 			'polltime' => 'Polltime',
+			'enable_ping' => 'Ping',
+			'enable_arpscan' => 'Arp-Scan',
 			'debug' => 'Debug',
 		);
 	}
@@ -84,6 +88,8 @@ class SettingsPing extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('enabled',$this->enabled);
 		$criteria->compare('polltime',$this->polltime);
+		$criteria->compare('enable_ping',$this->enable_ping);
+		$criteria->compare('enable_arpscan',$this->enable_arpscan);
 		$criteria->compare('debug',$this->debug);
 
 		return new CActiveDataProvider($this, array(

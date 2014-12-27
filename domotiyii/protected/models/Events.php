@@ -125,9 +125,9 @@ class Events extends CActiveRecord
 			'operand' => Yii::t('app','Operand'),
 			'l_condition2_id' => Yii::t('app','Condition2'),
 			'conditionname2' => Yii::t('app','Condition2'),
-			'rerunenabled' => Yii::t('app','Rerun enabled'),
-			'rerunvalue' => Yii::t('app','Rerun value'),
-			'reruntype' => Yii::t('app','Rerun type'),
+			'rerunenabled' => Yii::t('app','Don\'t rerun event if it already ran in last:'),
+			'rerunvalue' => Yii::t('app',''),
+			'reruntype' => Yii::t('app',''),
 			'category_id' => Yii::t('app','Category'),
 			'categoryname' => Yii::t('app','Category'),
 		);

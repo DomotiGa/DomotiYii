@@ -138,6 +138,7 @@ class SettingsController extends Controller {
         $listPlugins[] = 'lirc';
         $listPlugins[] = 'mochad';
         $listPlugins[] = 'ncid';
+        $listPlugins[] = 'networkdetect';
         $listPlugins[] = 'omniksol';
         $listPlugins[] = 'onkyo';
         $listPlugins[] = 'opentherm';
@@ -145,7 +146,6 @@ class SettingsController extends Controller {
         $listPlugins[] = 'owfs';
         $listPlugins[] = 'oww';
         $listPlugins[] = 'philipshue';
-        $listPlugins[] = 'ping';
         $listPlugins[] = 'pioneer';
         $listPlugins[] = 'plcbus';
         $listPlugins[] = 'plugwise';
@@ -1274,17 +1274,17 @@ class SettingsController extends Controller {
         $this->render('sms', array('model' => $model));
     }
 
-    public function actionPing() {
-        $model = SettingsPing::model()->findByPk(1);
+    public function actionNetworkDetect() {
+        $model = SettingsNetworkDetect::model()->findByPk(1);
 
-        if (isset($_POST['SettingsPing'])) {
-            $model->attributes = $_POST['SettingsPing'];
+        if (isset($_POST['SettingsNetworkDetect'])) {
+            $model->attributes = $_POST['SettingsNetworkDetect'];
             if ($model->validate()) {
                 // form inputs are valid, save and restart
-                $this->do_save_restart($model, 'ping');
+                $this->do_save_restart($model, 'networkdetect');
             }
         }
-        $this->render('ping', array('model' => $model));
+        $this->render('networkdetect', array('model' => $model));
     }
 
     public function actionGps() {
