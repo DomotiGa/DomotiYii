@@ -1,23 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "settings_networkdetect".
+ * This is the model class for table "settings_mysensors".
  *
- * The followings are the available columns in table 'settings_networkdetect':
+ * The followings are the available columns in table 'settings_mysensors':
  * @property integer $id
  * @property boolean $enabled
- * @property integer $polltime
- * @property boolean $enable_ping
- * @property boolean $enable_arpscan
- * @property integer $timeout
+ * @property string $tcphost
+ * @property integer $tcpport
+ * @property string $type
+ * @property string $serialport
+ * @property string $baudrate
  * @property boolean $debug
+ * @property boolean $relayenabled
+ * @property integer $relayport
+ * @property boolean $useack
  */
-class SettingsNetworkDetect extends CActiveRecord
+class SettingsMysensors extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SettingsNetworkDetect the static model class
+	 * @return SettingsMysensors the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -29,7 +33,7 @@ class SettingsNetworkDetect extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'settings_networkdetect';
+		return 'settings_mysensors';
 	}
 
 	/**
@@ -41,11 +45,13 @@ class SettingsNetworkDetect extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, polltime, timeout', 'numerical', 'integerOnly'=>true),
-			array('enabled, enable_ping, enable_arpscan, debug', 'boolean', 'trueValue'=>-1),
+			array('id, tcpport, relayport', 'numerical', 'integerOnly'=>true),
+			array('enabled, debug, relayenabled, useack', 'boolean', 'trueValue'=>-1),
+			array('tcphost, type, baudrate', 'length', 'max'=>32),
+			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enabled, polltime, enable_ping, enable_arpscan, debug', 'safe', 'on'=>'search'),
+			array('id, enabled, tcphost, tcpport, type, serialport, baudrate, debug, relayenabled, relayport, useack', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,11 +74,15 @@ class SettingsNetworkDetect extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'polltime' => 'Polltime',
-			'enable_ping' => 'Ping',
-			'enable_arpscan' => 'Arp-Scan',
-			'timeout' => 'Arp-Scan TimeOut',
+			'tcphost' => 'Tcphost',
+			'tcpport' => 'Tcpport',
+			'type' => 'Type',
+			'serialport' => 'Serialport',
+			'baudrate' => 'Baudrate',
 			'debug' => 'Debug',
+			'relayenabled' => 'Relay enabled',
+			'relayport' => 'Relayport',
+			'useack' => 'Use ACK',
 		);
 	}
 
@@ -89,11 +99,15 @@ class SettingsNetworkDetect extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('enabled',$this->enabled);
-		$criteria->compare('polltime',$this->polltime);
-		$criteria->compare('enable_ping',$this->enable_ping);
-		$criteria->compare('enable_arpscan',$this->enable_arpscan);
-		$criteria->compare('timeout',$this->timeout);
+		$criteria->compare('tcphost',$this->tcphost,true);
+		$criteria->compare('tcpport',$this->tcpport);
+		$criteria->compare('type',$this->type,true);
+		$criteria->compare('serialport',$this->serialport,true);
+		$criteria->compare('baudrate',$this->baudrate,true);
 		$criteria->compare('debug',$this->debug);
+		$criteria->compare('relayenabled',$this->relayenabled);
+		$criteria->compare('relayport',$this->relayport);
+		$criteria->compare('useack',$this->useack);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

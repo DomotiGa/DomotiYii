@@ -9,6 +9,7 @@ class SettingsController extends Controller {
         $listModules = array();
         $listModules[] = 'astro';
         $listModules[] = 'bwiredmap';
+        $listModules[] = 'broadcastudp';
         $listModules[] = 'callerid';
         $listModules[] = 'devicediscover';
         $listModules[] = 'email';
@@ -113,6 +114,7 @@ class SettingsController extends Controller {
         $listPlugins[] = 'ctx35';
         $listPlugins[] = 'cul';
         $listPlugins[] = 'currentcost';
+        $listPlugins[] = 'conrad8relay';
         $listPlugins[] = 'denon';
         $listPlugins[] = 'digitemp';
         $listPlugins[] = 'dmxplayer';
@@ -137,6 +139,7 @@ class SettingsController extends Controller {
         $listPlugins[] = 'lgtv';
         $listPlugins[] = 'lirc';
         $listPlugins[] = 'mochad';
+        $listPlugins[] = 'mysensors';
         $listPlugins[] = 'ncid';
         $listPlugins[] = 'networkdetect';
         $listPlugins[] = 'omniksol';
@@ -241,6 +244,54 @@ class SettingsController extends Controller {
             ),
         ));
         $this->render('indexPlugins', array('data' => $arrayDataProvider));
+    }
+
+    public function actionBroadcastudp()
+    {
+        $model = SettingsBroadcastudp::model()->findByPk(1);
+
+        if(isset($_POST['SettingsBroadcastudp']))
+        {
+            $model->attributes=$_POST['SettingsBroadcastudp'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model, 'broadcastudp');
+            }
+        }
+        $this->render('broadcastudp',array('model'=>$model));
+    }
+
+    public function actionMysensors()
+    {
+        $model = SettingsMysensors::model()->findByPk(1);
+
+        if(isset($_POST['SettingsMysensors']))
+        {
+            $model->attributes=$_POST['SettingsMysensors'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model, 'mysensors');
+            }
+        }
+        $this->render('mysensors',array('model'=>$model));
+    }
+
+    public function actionConrad8relay()
+    {
+        $model = SettingsConrad8relay::model()->findByPk(1);
+
+        if(isset($_POST['SettingsConrad8relay']))
+        {
+            $model->attributes=$_POST['SettingsConrad8relay'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model, 'conrad8relay');
+            }
+        }
+        $this->render('conrad8relay',array('model'=>$model));
     }
 
     public function actionJerome()

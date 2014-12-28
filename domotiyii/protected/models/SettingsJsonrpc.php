@@ -58,8 +58,8 @@ class SettingsJsonrpc extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'httpport' => 'Jsonrpcport',
-			'maxconn' => 'Maxconn',
+			'httpport' => 'JSON-RPC port',
+			'maxconn' => 'Max connections',
 			'type' => 'Type',
 			'auth' => 'Authentication',
 			'debug' => 'Debug',

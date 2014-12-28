@@ -20,6 +20,7 @@
                     array('label'=>'Twitter', 'url'=> array('settings/twitter')),
                     array('label'=>'P2000 Scanner', 'url'=> array('settings/p2000')),
                     array('label'=>'Servers', 'url'=>'#', 'items'=>array(
+                       array('label'=>'Broadcast UDP', 'url'=> array('settings/broadcastudp')),
                        array('label'=>'Telnet Server', 'url'=> array('settings/telnetserver')),
                        array('label'=>'SmartVISU Server', 'url'=> array('settings/smartvisuserver')),
                        array('label'=>'XML-RPC Server', 'url'=> array('settings/xmlrpc')),
@@ -117,6 +118,7 @@
                     )),
                     array('label'=>'HDDTemp', 'url'=> array('settings/hddtemp')),
                     array('label'=>'Input/Output', 'url'=>'#', 'items'=>array(
+                       array('label'=>'Conrad 8-Relay', 'url'=> array('settings/conrad8relay')),
                        array('label'=>'KMTronic UDP', 'url'=> array('settings/kmtronicudp')),
                        array('label'=>'Velleman K8055', 'url'=> array('settings/k8055')),
                        array('label'=>'Weeder I/O', 'url'=> array('settings/weeder')),
@@ -135,6 +137,7 @@
                     )),
                     array('label'=>'Network Detect', 'url'=> array('settings/networkdetect')),
                     array('label'=>'NMEA GPS', 'url'=> array('settings/gps')),
+                    array('label'=>'MySensors', 'url'=> array('settings/mysensors')),
                     array('label'=>'Omniksol', 'url'=> array('settings/omniksol')),
                     array('label'=>'OpenTherm', 'url'=> array('settings/opentherm')),
                     array('label'=>'RRDTool', 'url'=> array('settings/rrdtool')),
