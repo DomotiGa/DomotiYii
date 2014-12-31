@@ -128,9 +128,9 @@ class YiiGraphsController extends Controller
 			$create_sql = "CREATE TABLE `yii_graphs` (
 						  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 						  `name` varchar(45) NOT NULL,
-						  `enabled` varchar(45) NOT NULL,
-						  `type` varchar(45) NOT NULL,
-						  `group` varchar(45) DEFAULT NULL,
+						  `enabled` tinyint(1) NOT NULL DEFAULT 0,
+						  `type` int(11) NOT NULL DEFAULT 0,
+						  `group` int(11) NOT NULL,
 						  `description` varchar(45) DEFAULT NULL,
 						  `device_value_01` int(11) unsigned DEFAULT NULL,
 						  `device_value_02` int(11) unsigned DEFAULT NULL,
@@ -140,7 +140,7 @@ class YiiGraphsController extends Controller
 						  `graph_width` int(11) DEFAULT NULL,
 						  `graph_height` int(11) DEFAULT NULL,
 						  PRIMARY KEY (`id`)
-						) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1";
+						) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8";
 			try{
 				// execute query create statement
 				Yii::app()->db->createCommand($create_sql)->execute();

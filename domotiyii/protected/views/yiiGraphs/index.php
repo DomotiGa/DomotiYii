@@ -27,8 +27,8 @@ $this->endWidget();
 <br/>
 <?php
 $this->widget('domotiyii.LiveGridView', array(
-    'id'=>'all-cameras-grid',
-    'refreshTime'=>Yii::app()->params['refreshCameras'], // x second refresh as defined in config
+    'id'=>'yii-graphs-grid',
+    'refreshTime'=>Yii::app()->params['refreshYiiGraphs'], // x second refresh as defined in config
     'type'=>'striped condensed',
     'dataProvider'=>$dataProvider,
     'template'=>'{items}{pager}{summary}',
@@ -71,4 +71,3 @@ $this->widget('domotiyii.LiveGridView', array(
 ));
  
 ?>
-

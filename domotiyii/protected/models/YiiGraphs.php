@@ -6,9 +6,9 @@
  * The followings are the available columns in table 'yiiGraphs':
  * @property string $id
  * @property string $name
- * @property string $enabled
- * @property string $type
- * @property string $group
+ * @property boolean $enabled
+ * @property integer $type
+ * @property integer $group
  * @property string $description
  * @property string $device_value_01
  * @property string $device_value_02
@@ -53,9 +53,10 @@ class YiiGraphs extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, enabled, type', 'required'),
-			array('graph_width, graph_height', 'numerical', 'integerOnly'=>true),
-			array('name, enabled, type, group, description', 'length', 'max'=>45),
+			array('name, type', 'required'),
+			array('enabled', 'boolean', 'trueValue'=>-1),
+			array('type, group, graph_width, graph_height', 'numerical', 'integerOnly'=>true),
+			array('name, description', 'length', 'max'=>45),
 			array('device_value_01, device_value_02, device_value_03, device_value_04', 'length', 'max'=>11),
 			array('created_date', 'safe'),
 			// The following rule is used by search().
