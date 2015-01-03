@@ -187,7 +187,7 @@ $this->widget('bootstrap.widgets.TbNav', array(
             "bAutoWidth": false,
             "aaSorting": [[1, "asc"]],
             "bServerSide": true,
-            "sAjaxSource": '<?php echo Yii::app()->request->baseUrl; ?>/control/table' + window.location.search + '&ajax',
+            "sAjaxSource": '<?php echo Yii::app()->request->baseUrl; ?>/control/table' + (window.location.search || '?') + '&ajax',
             "aoColumnDefs": [{"bVisible": false, "aTargets": [0]},
                 {"sClass": 'names', "aTargets": [2]},
                 {"sClass": 'locations', "aTargets": [3]},
