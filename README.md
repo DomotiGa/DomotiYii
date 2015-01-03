@@ -87,45 +87,8 @@ Check JSON-RPC host url
 Webserver installation:
 ----------------------
 
-This code is tested with the folowing webserver configurations.
-Choose lighttpd if you want to use a small embedded system.
-
-
-Configure Apache:
-----------------
-
-This is to give .htaccess permission so index.php is removed from urls.
-There is a .htaccess file in domotiyii directory which does this.
-
-Enable mod rewrite:
-$ sudo a2enmod rewrite
-
-Add this section to /etc/apache2/sites-enabled/000-default
-
-        <directory /var/www/domotiyii/>
-                allowoverride all
-        </directory>
-
-restart
-$ sudo service apache2 restart
-
-
-Configure lighttpd:
-------------------
-
-	$ apt-get install lighttpd
-	$ apt-get install php5-common php5-cgi php5 php5-mysql php5-gd
-
-	$ lighty-enable-mod fastcgi-php
-
-	$ cp config/99-domotiyii.conf /etc/lighttpd/conf-available/
-
-	$ lighty-enable-mod domotiyii
-	Enabling domotiyii: ok
-
-	$ /etc/init.d/lighttpd force-reload
-
-If you get errors about duplicate fastcgi entries, remove the lines from 99-domotiyii.conf and try again.
+Read the installation wiki page here:
+https://domotiga.nl/projects/domotiyii/wiki/Installation
 
 
 Logging and debugging:
