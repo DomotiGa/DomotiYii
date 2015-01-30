@@ -240,7 +240,7 @@ class Devices extends CActiveRecord {
 //			array('address', 'unique'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, address, devicetype_id, location, onicon, officon, dimicon, interface, firstseen, lastseen, enabled, hide, groups, batterystatus, tampered, comments, switchable, dimable, extcode, x, y, floorplan, lastchanged, repeatstate, repeatperiod, reset, resetperiod, resetvalue, poll', 'safe', 'on' => 'search'),
+            array('id, name, address, devicetype_id, location, onicon, officon, dimicon, interface_id, firstseen, lastseen, enabled, hide, groups, batterystatus, tampered, comments, switchable, dimable, extcode, x, y, floorplan, lastchanged, repeatstate, repeatperiod, reset, resetperiod, resetvalue, poll', 'safe', 'on' => 'search'),
         );
     }
 
