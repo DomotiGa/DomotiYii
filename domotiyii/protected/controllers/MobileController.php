@@ -116,12 +116,10 @@ class MobileController extends Controller
 	{
         if(isset($_GET['location']) && is_numeric($_GET['location'])  && $_GET['location'] != 0 )
 		{   
-            giveJsonBack(doJsonRpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all",
-                "locations"=>array(intval(strip_tags($_GET['location']))),
-                "fields"=>array("device_id","lastseen")),'id'=>1)));
+            giveJsonBack(doJsonRpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "enabled",
+                "locations"=>array(intval(strip_tags($_GET['location'])))),'id'=>1)));
         }else{
-            giveJsonBack(doJsonRpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "all",
-                "fields"=>array("device_id","lastseen")),'id'=>1)));
+            giveJsonBack(doJsonRpc(array("jsonrpc"=>"2.0", "method"=>"device.list", "params" => array("list"=> "enabled"),'id'=>1)));
         }	
 
     }
