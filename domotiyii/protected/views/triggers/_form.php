@@ -79,8 +79,13 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
                 var buff = '';
                 old.replaceWith(textinput);
                 buff = '<select  name="Triggers[param' + id + ']" id="Triggers_param' + id + '" style="display: inline-block;">';
-                for (var x = 1; x < 5; x++)
-                    buff += '<option>' + x;
+                for (var x = 1; x < 5; x++){
+		            if(parseInt(oldText) === x){
+                        buff += '<option selected>' + x;
+                    }else{
+                        buff += '<option>' + x;                
+                    }
+		        }
                 buff += '</select>';
                 $('#sel' + id).html(buff);
                 viewOnly();
