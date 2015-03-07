@@ -1,22 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "settings_toon".
+ * This is the model class for table "settings_meteohub".
  *
- * The followings are the available columns in table 'settings_toon':
+ * The followings are the available columns in table 'settings_meteohub':
  * @property integer $id
  * @property boolean $enabled
  * @property integer $polltime
- * @property string $user
- * @property string $password
+ * @property string $fetchurl
  * @property boolean $debug
  */
-class SettingsToon extends CActiveRecord
+class SettingsMeteohub extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SettingsToon the static model class
+	 * @return SettingsMeteohub the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,7 +27,7 @@ class SettingsToon extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'settings_toon';
+		return 'settings_meteohub';
 	}
 
 	/**
@@ -42,10 +41,10 @@ class SettingsToon extends CActiveRecord
 			array('id', 'required'),
 			array('id, polltime', 'numerical', 'integerOnly'=>true),
 			array('enabled, debug', 'boolean', 'trueValue'=>-1),
-			array('user, password', 'length', 'max'=>32),
+			array('fetchurl', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enabled, polltime, user, password, debug', 'safe', 'on'=>'search'),
+			array('id, enabled, polltime, fetchurl, debug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,8 +68,7 @@ class SettingsToon extends CActiveRecord
 			'id' => 'ID',
 			'enabled' => 'Enabled',
 			'polltime' => 'Polltime',
-			'user' => 'User',
-			'password' => 'Password',
+			'fetchurl' => 'Fetch URL',
 			'debug' => 'Debug',
 		);
 	}
@@ -89,8 +87,7 @@ class SettingsToon extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('enabled',$this->enabled);
 		$criteria->compare('polltime',$this->polltime);
-		$criteria->compare('user',$this->user,true);
-		$criteria->compare('password',$this->password,true);
+		$criteria->compare('fetchurl',$this->fetchurl,true);
 		$criteria->compare('debug',$this->debug);
 
 		return new CActiveDataProvider($this, array(

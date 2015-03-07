@@ -32,6 +32,7 @@
                        array('label'=>'OpenWeatherMap', 'url'=> array('settings/openweathermap')),
                        array('label'=>'Forecast.io', 'url'=> array('settings/forecastio')),
                        array('label'=>'WeatherUnderground', 'url'=> array('settings/weatherunderground')),
+                       array('label'=>'Meteohub', 'url'=> array('settings/meteohub')),
                     )),
                     array('label'=>'Notifiers', 'url'=>'#', 'items'=>array(
                        array('label'=>'Prowl', 'url'=> array('settings/prowl')),
@@ -153,6 +154,7 @@
                     )),
                     array('label'=>'Shell', 'url'=> array('settings/shell')),
                     array('label'=>'UPS Monitor', 'url'=> array('settings/ups')),
+                    array('label'=>'WirelessTags', 'url'=> array('settings/wirelesstags')),
                     array('label'=>'xPL', 'url'=> array('settings/xpl')),
 	         )),
                 array('label'=>Yii::t('app','Devices'), 'visible'=>!Yii::app()->user->isGuest, 'url'=> '#', 'items'=>array(

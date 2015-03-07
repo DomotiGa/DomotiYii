@@ -138,6 +138,7 @@ class SettingsController extends Controller {
         $listPlugins[] = 'ledmatrix';
         $listPlugins[] = 'lgtv';
         $listPlugins[] = 'lirc';
+        $listPlugins[] = 'meteohub';
         $listPlugins[] = 'mochad';
         $listPlugins[] = 'mysensors';
         $listPlugins[] = 'ncid';
@@ -173,6 +174,7 @@ class SettingsController extends Controller {
         $listPlugins[] = 'visca';
         $listPlugins[] = 'visonic';
         $listPlugins[] = 'weeder';
+        $listPlugins[] = 'wirelesstags';
         $listPlugins[] = 'wiringpi';
         $listPlugins[] = 'x10cmd';
         $listPlugins[] = 'xpl';
@@ -490,6 +492,19 @@ class SettingsController extends Controller {
             }
         }
         $this->render('pvoutput', array('model' => $model));
+    }
+
+    public function actionMeteohub() {
+        $model = SettingsMeteohub::model()->findByPk(1);
+
+        if (isset($_POST['SettingsMeteohub'])) {
+            $model->attributes = $_POST['SettingsMeteohub'];
+            if ($model->validate()) {
+                // form inputs are valid, save and restart
+                $this->do_save_restart($model, 'meteohub');
+            }
+        }
+        $this->render('meteohub', array('model' => $model));
     }
 
     public function actionMqtt() {
@@ -1466,6 +1481,22 @@ class SettingsController extends Controller {
             }
         }
         $this->render('pioneer', array('model' => $model));
+    }
+
+    public function actionWirelesstags()
+    {
+        $model = SettingsWirelesstags::model()->findByPk(1);
+
+        if(isset($_POST['SettingsWirelesstags']))
+        {
+            $model->attributes=$_POST['SettingsWirelesstags'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model,'wirelesstags');
+            }
+        }
+        $this->render('wirelesstags',array('model'=>$model));
     }
 
     public function actionWiringpi()

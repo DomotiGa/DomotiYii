@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "settings_toon".
+ * This is the model class for table "settings_wirelesstags".
  *
- * The followings are the available columns in table 'settings_toon':
+ * The followings are the available columns in table 'settings_wirelesstags':
  * @property integer $id
  * @property boolean $enabled
  * @property integer $polltime
@@ -11,12 +11,12 @@
  * @property string $password
  * @property boolean $debug
  */
-class SettingsToon extends CActiveRecord
+class SettingsWirelesstags extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return SettingsToon the static model class
+	 * @return SettingsWirelesstags the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,7 +28,7 @@ class SettingsToon extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'settings_toon';
+		return 'settings_wirelesstags';
 	}
 
 	/**
@@ -42,7 +42,7 @@ class SettingsToon extends CActiveRecord
 			array('id', 'required'),
 			array('id, polltime', 'numerical', 'integerOnly'=>true),
 			array('enabled, debug', 'boolean', 'trueValue'=>-1),
-			array('user, password', 'length', 'max'=>32),
+			array('user, password', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, polltime, user, password, debug', 'safe', 'on'=>'search'),
