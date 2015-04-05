@@ -10,6 +10,7 @@
  * @property boolean $enable_ping
  * @property boolean $enable_arpscan
  * @property integer $timeout
+ * @property string $interface
  * @property boolean $debug
  */
 class SettingsNetworkDetect extends CActiveRecord
@@ -43,9 +44,10 @@ class SettingsNetworkDetect extends CActiveRecord
 			array('id', 'required'),
 			array('id, polltime, timeout', 'numerical', 'integerOnly'=>true),
 			array('enabled, enable_ping, enable_arpscan, debug', 'boolean', 'trueValue'=>-1),
+			array('interface', 'length', 'max'=>16),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enabled, polltime, enable_ping, enable_arpscan, debug', 'safe', 'on'=>'search'),
+			array('id, enabled, polltime, enable_ping, enable_arpscan, interface, debug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,6 +74,7 @@ class SettingsNetworkDetect extends CActiveRecord
 			'enable_ping' => 'Ping',
 			'enable_arpscan' => 'Arp-Scan',
 			'timeout' => 'Arp-Scan TimeOut',
+			'interface' => 'Interface',
 			'debug' => 'Debug',
 		);
 	}
@@ -93,6 +96,7 @@ class SettingsNetworkDetect extends CActiveRecord
 		$criteria->compare('enable_ping',$this->enable_ping);
 		$criteria->compare('enable_arpscan',$this->enable_arpscan);
 		$criteria->compare('timeout',$this->timeout);
+		$criteria->compare('interface',$this->interface);
 		$criteria->compare('debug',$this->debug);
 
 		return new CActiveDataProvider($this, array(

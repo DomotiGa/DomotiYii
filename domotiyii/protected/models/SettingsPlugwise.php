@@ -8,6 +8,7 @@
  * @property boolean $enabled
  * @property string $serialport
  * @property integer $polltime
+ * @property integer $busytime
  * @property boolean $debug
  */
 class SettingsPlugwise extends CActiveRecord
@@ -39,12 +40,12 @@ class SettingsPlugwise extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, polltime', 'numerical', 'integerOnly'=>true),
+			array('id, polltime, busytime', 'numerical', 'integerOnly'=>true),
 			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enabled, serialport, polltime, debug', 'safe', 'on'=>'search'),
+			array('id, enabled, serialport, polltime, busytime, debug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +70,7 @@ class SettingsPlugwise extends CActiveRecord
 			'enabled' => 'Enabled',
 			'serialport' => 'Serialport',
 			'polltime' => 'Polltime',
+			'busytime' => 'Busytime',
 			'debug' => 'Debug',
 		);
 	}
@@ -88,6 +90,7 @@ class SettingsPlugwise extends CActiveRecord
 		$criteria->compare('enabled',$this->enabled);
 		$criteria->compare('serialport',$this->serialport,true);
 		$criteria->compare('polltime',$this->polltime);
+		$criteria->compare('busytime',$this->busytime);
 		$criteria->compare('debug',$this->debug);
 
 		return new CActiveDataProvider($this, array(

@@ -26,6 +26,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->checkBoxControlGroup($model,'debugdevices', array('value'=>-1)); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debugenergy', array('value'=>-1)); ?>
 		<?php echo $form->checkBoxControlGroup($model,'autodevicecreate', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'logallvalueupdates', array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'startpage'); ?>
 		<?php echo $form->textFieldControlGroup($model,'logprefix'); ?>
 </fieldset>

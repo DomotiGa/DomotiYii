@@ -39,7 +39,7 @@ class Plugins extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('interface, name, type', 'length', 'max'=>32),
-			array('protocols', 'length', 'max'=>512),
+			array('protocols', 'length', 'max'=>1024),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, interface, name, protocols, type', 'safe', 'on'=>'search'),

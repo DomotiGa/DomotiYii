@@ -22,6 +22,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->checkBoxControlGroup($model,'enable_ping', array('value'=>-1)); ?>
 		<?php echo $form->checkBoxControlGroup($model,'enable_arpscan', array('value'=>-1)); ?>
 		<?php echo $form->numberFieldControlGroup($model,'timeout', array('append' => 'mS')); ?>
+		<?php echo $form->textFieldControlGroup($model,'interface', array('class'=>'span1')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 </fieldset>
 

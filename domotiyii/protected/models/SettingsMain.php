@@ -19,6 +19,7 @@
  * @property string $homerightpanel
  * @property string $homebottompanel
  * @property boolean $autodevicecreate
+ * @property boolean $logallvalueupdates
  * @property string $logprefix
  */
 class SettingsMain extends CActiveRecord
@@ -51,13 +52,13 @@ class SettingsMain extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, sleeptime, flushtime, debug, logbuffer, authentication, debugevents, debugdevices, debugenergy, autodevicecreate', 'numerical', 'integerOnly'=>true),
-			array('debug, authentication, debugevents, debugdevices, debugenergy, autodevicecreate', 'boolean', 'trueValue'=>-1),
+			array('debug, authentication, debugevents, debugdevices, debugenergy, autodevicecreate, logallvalueupdates', 'boolean', 'trueValue'=>-1),
 			array('startpage', 'length', 'max'=>32),
 			array('hometoppanel, homeleftpanel, homerightpanel, homebottompanel', 'length', 'max'=>256),
 			array('logprefix', 'length', 'max'=>16),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, sleeptime, flushtime, debug, logbuffer, authentication, startpage, debugevents, debugdevices, debugenergy, hometoppanel, homeleftpanel, homerightpanel, homebottompanel, autodevicecreate, logprefix', 'safe', 'on'=>'search'),
+			array('id, sleeptime, flushtime, debug, logbuffer, authentication, startpage, debugevents, debugdevices, debugenergy, hometoppanel, homeleftpanel, homerightpanel, homebottompanel, autodevicecreate, logprefix, logallvalueupdates', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -93,6 +94,7 @@ class SettingsMain extends CActiveRecord
 			'homerightpanel' => 'Homerightpanel',
 			'homebottompanel' => 'Homebottompanel',
 			'autodevicecreate' => 'Autocreate devices',
+			'logallvalueupdates' => 'Log all valueupdates',
 			'logprefix' => 'Logprefix',
 		);
 	}
@@ -124,6 +126,7 @@ class SettingsMain extends CActiveRecord
 		$criteria->compare('homebottompanel',$this->homebottompanel,true);
 		$criteria->compare('autodevicecreate',$this->autodevicecreate);
 		$criteria->compare('logprefix',$this->logprefix,true);
+		$criteria->compare('logallvalueupdates',$this->logallvalueupdates,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
