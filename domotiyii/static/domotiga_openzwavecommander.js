@@ -1,6 +1,23 @@
+// ===========================
+// Settings
+// ===========================
+
 // If no refresh rate is set set a fallback value of 5 seconds
 window.refreshOpenZwaveCommander = window.refreshOpenZwaveCommander || 5000;
 window.heartbeat = 0;
+window.node_id = 0;
+
+
+// ===========================
+// Listeners
+// ===========================
+
+$(document).on("click", "#includenode", includenode);
+$(document).on("click", "#excludenode", excludenode);
+$(document).on("click", "#cancelcommand", cancelcommand);
+$(document).on("click", "#healcommand", healcommand);
+$(document).on("click", ".devices tbody tr", showDevice);
+$(document).on("change", "#device .config td select", updateDeviceConfigList);
 
 // start openzwave
 function start_openzwave() {
@@ -16,18 +33,7 @@ function getZwaveController(){
         url: "GetController",
         data: { instance_id: openzwavelist.instance_id[0]  }
     }).always( function (json_data, textStatus, errorThrown) {
-        var error = false;            
-        if (textStatus == "success"){
-            if(json_data.result == undefined || json_data.result == false || json_data.error != undefined){
-                error = true;
-            }
-        }else{ error = true; }   
-
-        // update heartbeat info
-        window.heartbeat = window.heartbeat + 1;
-        $("#heartbeat .badge").html(window.heartbeat);
-
-        if(error){
+        if (textStatus != "success" || json_data.result == undefined || json_data.result == false || json_data.error != undefined){
             $("#heartbeat").removeClass("btn-success").addClass("btn-danger");
         }else{
             $("#heartbeat").removeClass("btn-danger").addClass("btn-success");
@@ -40,35 +46,15 @@ function getZwaveController(){
             }
 
             cleanupDevices(json_data.result.nodeinfo);
-
-    
             parseStatistics(json_data.result.statistics);
             parseNodeInfo(json_data.result.nodeinfo);
         }  
 
+        updateHeartbeat();
         window.setTimeout(getZwaveController, window.refreshOpenZwaveCommander);
 
       })
 }
-
-function cleanupDevices(nodeInfo){
-    var devices = new Array();
-
-    $.each( nodeInfo,function() {
-        devices.push(this.node_id);
-    });
-    
-    $(".devices tr").each(function() {
-        var id = $(this).data("id");
-        if(id != undefined){
-            if($.inArray(id, devices)==-1){
-                this.remove();
-            }
-        }
-    });
-
-}
-
 
 function parseStatistics(statistics){
     $("#sendPackets .badge").html(statistics.write);
@@ -79,7 +65,7 @@ function parseNodeInfo(nodeInfo){
     $.each( nodeInfo,function() {
         var device = $(".devices").find("#device_"+this.node_id);        
         if(device.length == 0){
-            $(".devices tbody") .append('<tr data-id="'+this.node_id+'" id="device_'+this.node_id+'"> \
+            $(".devices tbody").append('<tr data-id="'+this.node_id+'" id="device_'+this.node_id+'"> \
                                     <td>'+this.node_id+'</td> \
                                     <td>'+this.specific+'</td> \
                                     <td class="state">'+this.state+'</td> \
@@ -95,122 +81,189 @@ function parseNodeInfo(nodeInfo){
         device.find(".manufacturername").html(this.manufacturername);
         device.find(".productname").html(this.productname);
         device.find(".lastseen").html(this.lastseen);
-          
-     });
+
+        if(window.node_id == this.node_id){
+            displayNodeInfo(this);
+        }
+
+    });
+
+}
+
+function displayNodeInfo(node){
+    $("#device .info .id td").html(node.node_id);
+    $("#device .info .lastseen td").html(node.lastseen);
+
+    var configs = $("#device .config");
+
+    if(node.config == undefined){
+        return true;
+    }
+
+    $.each(node.config, function() {
+
+        var config = configs.find("#config_"+this.index);
+        if(config.length == 0){
+            $("#device .config tbody").append('<tr data-id="'+this.index+'" id="config_'+this.index+'"> \
+                    <th>' + this.index + ' - ' +this.label+'</th> \
+                    <td></td> \
+                  </tr>');
+            config = configs.find("#config_"+this.index);
+
+            if(this.type == "list") {
+                options = "<select>";
+                $.each(this.list, function() {
+                    options += '<option value="'+this+'">'+this+'</option>';
+                })
+                options += "</select>";
+                config.find("td").html(options);
+            }
+        }
+
+        if (this.writeonly == false){
+            if(this.readonly == true){
+                config.find("td").html(this.value);
+            } else if(this.type == "list") {
+                config.find("td").find("select").val(this.value);
+            } else {
+                config.find("td").html(this.value);
+            }
+        }
+
+    })
 
 }
 
 
-$(function() {
+function showDevice(){
+    if (window.node_id != $(this).data('id')){
+        window.node_id = $(this).data('id');
+        $("#device").hide();
+        $("#device .title").text("Device#" + window.node_id);
+        $("#device .info .id td").html("Loading...");
+        $("#device .info .lastseen td").html("Loading...");
+        $("#device .config tbody").html("");
+        $("#device").show();
+    }
+}
 
 
-    // Include Node
-    $("#includenode").click(function() {
+// ==============================================
+// Actions
+// ==============================================
 
-        $("#includenode").removeClass("btn-success").removeClass("btn-danger");
+function includenode(){
+    if ($("#includenode").hasClass("btn-success") || $("#includenode").hasClass("btn-danger")){
+        return true;
+    }
 
-        $.ajax({
-            type: "POST",        
-            url: "IncludeNode",
-            data: { instance_id: openzwavelist.instance_id[0]  }
-        }).always( function (json_data, textStatus, errorThrown) {
-            var error = false;            
-            if (textStatus == "success"){
-                if(json_data.result == undefined || json_data.result == false || json_data.error != undefined){
-                    error = true;
-                }
-            }else{ error = true; }   
-    
-            if(error){
-                $("#includenode").addClass("btn-danger");
-            }else{
-                $("#includenode").addClass("btn-success");
-            }
- 
+    $.ajax({
+        type: "POST",
+        url: "IncludeNode",
+        data: { instance_id: openzwavelist.instance_id[0]  }
+    }).always( function (json_data, textStatus, errorThrown) {
+        if (textStatus != "success" || json_data.result == undefined || json_data.result == false || json_data.error != undefined){
+            $("#includenode").addClass("btn-danger");
+        }else{
+            $("#includenode").addClass("btn-success");
+        }
+        setTimeout("$('#includenode').removeClass('btn-success btn-danger');", 30000);
+
+    })
+}
+
+
+function excludenode() {
+    if ($("#excludenode").hasClass("btn-success") || $("#excludenode").hasClass("btn-danger")){
+        return true;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "ExcludeNode",
+        data: { instance_id: openzwavelist.instance_id[0]  }
+    }).always( function (json_data, textStatus, errorThrown) {
+        if (textStatus != "success" || json_data.result == undefined || json_data.result == false || json_data.error != undefined){
+            $("#excludenode").addClass("btn-danger");
+        }else{
+            $("#excludenode").addClass("btn-success");
+        }
+        setTimeout("$('#excludenode').removeClass('btn-success btn-danger');", 30000);
+    })
+}
+
+function cancelcommand() {
+    if ($("#cancelcommand").hasClass("btn-success") || $("#cancelcommand").hasClass("btn-danger")){
+        return true;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "CancelCommand",
+        data: { instance_id: openzwavelist.instance_id[0] }
+    }).always( function (json_data, textStatus, errorThrown) {
+        if (textStatus != "success" || json_data.result == undefined || json_data.result == false || json_data.error != undefined){
+            $("#cancelcommand").addClass("btn-danger");
+        }else{
+            $("#cancelcommand").addClass("btn-success");
+            $('#includenode').removeClass('btn-success btn-danger');
+            $('#excludenode').removeClass('btn-success btn-danger');
+        }
+
+        setTimeout("$('#cancelcommand').removeClass('btn-success btn-danger');", 5000);
       })
+}
 
+function healcommand() {
+    $("#healcommand").removeClass("btn-success").removeClass("btn-danger");
+
+    $.ajax({
+        type: "POST",
+        url: "Healnetwork",
+        data: { instance_id: openzwavelist.instance_id[0]  }
+    }).always( function (json_data, textStatus, errorThrown) {
+        if (textStatus != "success" || json_data.result == undefined || json_data.result == false || json_data.error != undefined){
+            $("#healcommand").addClass("btn-danger");
+        }else{
+            $("#healcommand").addClass("btn-success");
+        }
+    })
+}
+
+
+function updateDeviceConfigList(){
+    config_index = $(this).parent().parent().data("id");
+
+    $.ajax({
+        type: "POST",
+        url: "SetConfig",
+        data: { instance_id: openzwavelist.instance_id[0], node_id: window.node_id, index: config_index, type: 'list', value: this.value }
+    })
+
+}
+
+// ==============================================
+// Helper functions
+// ==============================================
+
+function updateHeartbeat(){
+    $("#heartbeat .badge").html(window.heartbeat = window.heartbeat + 1);
+}
+
+function cleanupDevices(nodeInfo){
+    var devices = new Array();
+
+    $.each( nodeInfo,function() {
+        devices.push(this.node_id);
     });
 
-    // Exclude Node
-    $("#excludenode").click(function() {
-
-        $("#excludenode").removeClass("btn-success").removeClass("btn-danger");
-
-        $.ajax({
-            type: "POST",        
-            url: "ExcludeNode",
-            data: { instance_id: openzwavelist.instance_id[0]  }
-        }).always( function (json_data, textStatus, errorThrown) {
-            var error = false;            
-            if (textStatus == "success"){
-                if(json_data.result == undefined || json_data.result == false || json_data.error != undefined){
-                    error = true;
-                }
-            }else{ error = true; }   
-    
-            if(error){
-                $("#excludenode").addClass("btn-danger");
-            }else{
-                $("#excludenode").addClass("btn-success");
+    $(".devices tr").each(function() {
+        var id = $(this).data("id");
+        if(id != undefined){
+            if($.inArray(id, devices)==-1){
+                this.remove();
             }
- 
-      })
-
+        }
     });
 
-    // Cancel command
-    $("#cancelcommand").click(function() {
-
-        $("#cancelcommand").removeClass("btn-success").removeClass("btn-danger");
-
-        $.ajax({
-            type: "POST",        
-            url: "CancelCommand",
-            data: { instance_id: openzwavelist.instance_id[0]  }
-        }).always( function (json_data, textStatus, errorThrown) {
-            var error = false;            
-            if (textStatus == "success"){
-                if(json_data.result == undefined || json_data.result == false || json_data.error != undefined){
-                    error = true;
-                }
-            }else{ error = true; }   
-    
-            if(error){
-                $("#cancelcommand").addClass("btn-danger");
-            }else{
-                $("#cancelcommand").addClass("btn-success");
-            }
- 
-      })
-
-    });
-
-    // Cancel command
-    $("#healcommand").click(function() {
-
-        $("#healcommand").removeClass("btn-success").removeClass("btn-danger");
-
-        $.ajax({
-            type: "POST",        
-            url: "Healnetwork",
-            data: { instance_id: openzwavelist.instance_id[0]  }
-        }).always( function (json_data, textStatus, errorThrown) {
-            var error = false;            
-            if (textStatus == "success"){
-                if(json_data.result == undefined || json_data.result == false || json_data.error != undefined){
-                    error = true;
-                }
-            }else{ error = true; }   
-    
-            if(error){
-                $("#healcommand").addClass("btn-danger");
-            }else{
-                $("#healcommand").addClass("btn-success");
-            }
- 
-      })
-
-    });
-
-
-});
+}

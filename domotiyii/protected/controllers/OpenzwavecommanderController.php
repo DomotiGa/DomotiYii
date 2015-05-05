@@ -76,5 +76,23 @@ class OpenzwavecommanderController extends Controller
 		}
 	}
 
+   public function actionSetConfig()
+	{
+		if( isset($_POST['instance_id']) &&  isset($_POST['node_id']) && isset($_POST['index']) && isset($_POST['type']) && isset($_POST['value']) )
+		{
+			$instance_id = intval(strip_tags($_POST['instance_id']));
+			$node_id = intval(strip_tags($_POST['node_id']));
+			$index = intval(strip_tags($_POST['index']));
+            $type =  strip_tags($_POST['type']);
+			$value = strip_tags($_POST['value']);
+
+            // TODO, add some extra checks?
+
+			$result = doJsonRpc(array("jsonrpc"=>"2.0", "method"=>"tools.openzwave.set", "params" =>  array("command" => "setconfig", "instance_id"=>$instance_id, "node_id"=>$node_id, "index"=>$index, "type"=>$type, "value"=>$value),'id'=>1));
+
+			giveJsonBack($result);
+		}
+	}
+
 
 }

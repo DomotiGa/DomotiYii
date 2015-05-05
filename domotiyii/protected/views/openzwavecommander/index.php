@@ -38,37 +38,57 @@ if(!$model->enabled || !$openzwavelist || !$openzwavelist->result || $openzwavel
         </tr>
     </thead>
     <tbody>
-
-    
+        <!-- Devices will be added here -->
     </tbody>
 </table>
 
+<div id="device" style="display: none;">
+    <h2 class="title">Device()</h2>
+    <h4>Info</h4>
+    <table class="info detail-view table table-striped table-condensed">
+        <tbody>
+            <tr class="id"><th>Node ID</th><td>Loading...</td></tr>
+            <tr class="lastseen"><th>Lastseen</th><td>Loading...</td></tr>
+        </tbody>
+    </table>
+
+    <h4>Config</h4>
+    <table class="config detail-view table table-striped table-condensed">
+        <tbody>
+        </tbody>
+    </table>
+  </div>
+</div>
+
+
 <h2>Controller</h2>
-<button type="button" class="btn btn-default" id="includenode">
-    Include Node
-</button>
-<button type="button" class="btn btn-default" id="excludenode">
-    Exclude Node
-</button>
-<button type="button" class="btn btn-default" id="cancelcommand">
-    Cancel Command
-</button>
-<button type="button" class="btn btn-default" id="healcommand">
-    Heal Command
-</button>
+<div>
+    <button type="button" class="btn btn-default" id="includenode">
+        Include Node
+    </button>
+    <button type="button" class="btn btn-default" id="excludenode">
+        Exclude Node
+    </button>
+    <button type="button" class="btn btn-default" id="cancelcommand">
+        Cancel Command
+    </button>
+    <button type="button" class="btn btn-default" id="healcommand">
+        Heal Command
+    </button>
+</div>
 
 <h2>Statics</h2>
 <div>
-    <button type="button" class="btn btn-default" id="heartbeat">
+    <button type="button" class="btn btn-default" id="heartbeat" disabled="disabled">
         Heartbeat <span class="badge">0</span>
     </button>
-    <button type="button" class="btn btn-default" id="status">
+    <button type="button" class="btn btn-default" id="status" disabled="disabled">
         Status <span class="badge"> </span>
     </button>
-    <button type="button" class="btn btn-default" id="sendPackets">
+    <button type="button" class="btn btn-default" id="sendPackets" disabled="disabled">
         Send packets <span class="badge">0</span>
     </button>
-    <button type="button" class="btn btn-default" id="recivedPackets">
+    <button type="button" class="btn btn-default" id="recivedPackets" disabled="disabled">
         Recived packets <span class="badge">0</span>
     </button>
 </div>

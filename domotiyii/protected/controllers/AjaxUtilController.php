@@ -99,10 +99,11 @@ class AjaxUtilController extends CController {
     public function actionSetDevice() {
         $device = Yii::app()->request->getParam('device');
         $action = strip_tags(Yii::app()->request->getParam('action'));
-        if (is_null($device) || is_null($action))
+        if (is_null($device) || is_null($action)) {
             return json_encode(array("jsonrpc" => "2.0", "result" => false, "id" => 1));;
+        }
         $result = doJsonRpc('{"jsonrpc": "2.0", "method": "device.set", "params": {"device_id": ' . $device . ', "value": "' . $action . '"}, "id": 1}');
-        echo $result;
+        giveJsonBack($result);
     }
 
 }
