@@ -17,7 +17,8 @@ $(document).on("click", "#excludenode", excludenode);
 $(document).on("click", "#cancelcommand", cancelcommand);
 $(document).on("click", "#healcommand", healcommand);
 $(document).on("click", ".devices tbody tr", showDevice);
-$(document).on("change", "#device .config td select", updateDeviceConfigList);
+$(document).on("change", "#device .config td select", updateDeviceConfigListSelect);
+$(document).on("input", "#device .config td input", updateDeviceConfigListInput);
 $(document).on("click", "#device #basicreport", basicreportCommand);
 
 // start openzwave
@@ -119,6 +120,8 @@ function displayNodeInfo(node){
                 })
                 options += "</select>";
                 config.find("td").html(options);
+            } else if(this.type == "short" || this.type == "byte") {
+                config.find("td").html("<input type='text' data-type='" + this.type + "' data-min='" + this.min + "' data-max='" + this.max + "' >");
             }
         }
 
@@ -127,6 +130,8 @@ function displayNodeInfo(node){
                 config.find("td").html(this.value);
             } else if(this.type == "list") {
                 config.find("td").find("select").val(this.value);
+            } else if(this.type == "short" || this.type == "byte") {
+                config.find("td").find("input").val(this.value);
             } else {
                 config.find("td").html(this.value);
             }
@@ -234,13 +239,32 @@ function healcommand() {
 }
 
 
-function updateDeviceConfigList(){
+function updateDeviceConfigListSelect(){
     config_index = $(this).parent().parent().data("id");
 
     $.ajax({
         type: "POST",
         url: "SetConfig",
         data: { instance_id: openzwavelist.instance_id[0], node_id: window.node_id, index: config_index, type: 'list', value: this.value }
+    })
+
+}
+
+function updateDeviceConfigListInput(){
+    config_index = $(this).parent().parent().data("id");
+    type = $(this).data("type");
+    min = $(this).data("min");
+    max = $(this).data("max");
+    value = this.value;
+
+    if (value > max || value < min){
+        return true;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "SetConfig",
+        data: { instance_id: openzwavelist.instance_id[0], node_id: window.node_id, index: config_index, type: type, value: this.value }
     })
 
 }
