@@ -49,8 +49,14 @@ if(!$model->enabled || !$openzwavelist || !$openzwavelist->result || $openzwavel
         <tbody>
             <tr class="id"><th>Node ID</th><td>Loading...</td></tr>
             <tr class="lastseen"><th>Lastseen</th><td>Loading...</td></tr>
+            <tr class="neighbors"><th>Neighbors</th><td>Loading...</td></tr>
         </tbody>
     </table>
+
+    <h4>Control</h4>
+    <button type="button" class="btn btn-default" id="basicreport">
+        Basic report
+    </button>
 
     <h4>Config</h4>
     <table class="config detail-view table table-striped table-condensed">

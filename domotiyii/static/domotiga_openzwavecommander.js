@@ -18,6 +18,7 @@ $(document).on("click", "#cancelcommand", cancelcommand);
 $(document).on("click", "#healcommand", healcommand);
 $(document).on("click", ".devices tbody tr", showDevice);
 $(document).on("change", "#device .config td select", updateDeviceConfigList);
+$(document).on("click", "#device #basicreport", basicreportCommand);
 
 // start openzwave
 function start_openzwave() {
@@ -93,6 +94,7 @@ function parseNodeInfo(nodeInfo){
 function displayNodeInfo(node){
     $("#device .info .id td").html(node.node_id);
     $("#device .info .lastseen td").html(node.lastseen);
+    $("#device .info .neighbors td").html(node.neighbors);
 
     var configs = $("#device .config");
 
@@ -142,6 +144,7 @@ function showDevice(){
         $("#device .title").text("Device#" + window.node_id);
         $("#device .info .id td").html("Loading...");
         $("#device .info .lastseen td").html("Loading...");
+        $("#device .info .neighbors td").html("Loading...");
         $("#device .config tbody").html("");
         $("#device").show();
     }
@@ -239,6 +242,24 @@ function updateDeviceConfigList(){
         url: "SetConfig",
         data: { instance_id: openzwavelist.instance_id[0], node_id: window.node_id, index: config_index, type: 'list', value: this.value }
     })
+
+}
+
+function basicreportCommand(){
+
+    $.ajax({
+        type: "POST",
+        url: "Basicreport",
+        data: { instance_id: openzwavelist.instance_id[0], node_id: window.node_id }
+    }).always( function (json_data, textStatus, errorThrown) {
+        if (textStatus != "success" || json_data.result == undefined || json_data.result == false || json_data.error != undefined){
+            $("#basicreport").addClass("btn-danger");
+        }else{
+            $("#basicreport").addClass("btn-success");
+        }
+    })
+
+    setTimeout("$('#basicreport').removeClass('btn-success btn-danger');", 5000);
 
 }
 
