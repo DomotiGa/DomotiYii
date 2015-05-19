@@ -120,7 +120,7 @@ function displayNodeInfo(node){
                 })
                 options += "</select>";
                 config.find("td").html(options);
-            } else if(this.type == "short" || this.type == "byte") {
+            } else if(this.type == "short" || this.type == "byte" || this.type == "int") {
                 config.find("td").html("<input type='text' data-type='" + this.type + "' data-min='" + this.min + "' data-max='" + this.max + "' >");
             }
         }
@@ -130,7 +130,7 @@ function displayNodeInfo(node){
                 config.find("td").html(this.value);
             } else if(this.type == "list") {
                 config.find("td").find("select").val(this.value);
-            } else if(this.type == "short" || this.type == "byte") {
+            } else if(this.type == "short" || this.type == "byte" || this.type == "int") {
                 config.find("td").find("input").val(this.value);
             } else {
                 config.find("td").html(this.value);
