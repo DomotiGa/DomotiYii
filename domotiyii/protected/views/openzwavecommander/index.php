@@ -58,6 +58,13 @@ if(!$model->enabled || !$openzwavelist || !$openzwavelist->result || $openzwavel
         Basic report
     </button>
 
+    <h4>Groups</h4>
+    <table class="groups detail-view table table-striped table-condensed">
+        <tbody>
+        </tbody>
+    </table>
+
+
     <h4>Config</h4>
     <table class="config detail-view table table-striped table-condensed">
         <tbody>

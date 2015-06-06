@@ -97,6 +97,30 @@ function displayNodeInfo(node){
     $("#device .info .lastseen td").html(node.lastseen);
     $("#device .info .neighbors td").html(node.neighbors);
 
+
+    var groups =  $("#device .groups");
+
+
+    $.each(node.group, function() {
+
+        var group = groups.find("#group_"+this.group);
+        if(group.length == 0){
+            $("#device .groups tbody").append('<tr data-id="'+this.group+'" id="group_'+this.group+'"> \
+                    <th>' + this.group + ' - ' +this.label+'</th> \
+                    <td></td> \
+                  </tr>');
+            group = groups.find("#group_"+this.group);
+        }
+
+        association = "";
+        $.each(this.association, function() {
+          association += this+',';
+        })
+        group.find("td").html(association);
+
+    })
+
+
     var configs = $("#device .config");
 
     if(node.config == undefined){
@@ -151,6 +175,7 @@ function showDevice(){
         $("#device .info .lastseen td").html("Loading...");
         $("#device .info .neighbors td").html("Loading...");
         $("#device .config tbody").html("");
+        $("#device .groups tbody").html("");
         $("#device").show();
     }
 }
