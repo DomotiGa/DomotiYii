@@ -9,6 +9,10 @@
  * @property string $serialport
  * @property integer $type
  * @property string $mastercode
+ * @property boolean $autosynctime
+ * @property boolean $forcestandardmode
+ * @property integer $motiontimeout
+ * @property integer $sensorarmstatus
  * @property boolean $debug
  */
 class SettingsVisonic extends CActiveRecord
@@ -43,7 +47,8 @@ class SettingsVisonic extends CActiveRecord
 			array('id, type', 'numerical', 'integerOnly'=>true),
 			array('serialport', 'length', 'max'=>128),
 			array('mastercode', 'length', 'max'=>16),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('motiontimeout, sensorarmstatus', 'length', 'max'=>11),
+			array('enabled, debug, autosynctime, forcestandardmode', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, serialport, type, mastercode, debug', 'safe', 'on'=>'search'),
@@ -72,6 +77,10 @@ class SettingsVisonic extends CActiveRecord
 			'serialport' => 'Serialport',
 			'type' => 'Type',
 			'mastercode' => 'Master code',
+			'autosyncmode' => 'Auto sync time',
+			'forcestandardmode' => 'Force standard mode',
+			'motiontimeout' => 'Motion timeout',
+			'sensorarmstatus' => 'Sensor ARM status',
 			'debug' => 'Debug',
 		);
 	}

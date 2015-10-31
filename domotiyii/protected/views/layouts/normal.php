@@ -29,6 +29,7 @@
                     array('label'=>'Sound', 'url'=> array('settings/sound')),
                     array('label'=>'VoiceText', 'url'=> array('settings/voicetext')),
                     array('label'=>'Weather', 'url'=>'#', 'items'=>array(
+                       array('label'=>'Buienradar', 'url'=> array('settings/buienradar')),
                        array('label'=>'OpenWeatherMap', 'url'=> array('settings/openweathermap')),
                        array('label'=>'Forecast.io', 'url'=> array('settings/forecastio')),
                        array('label'=>'WeatherUnderground', 'url'=> array('settings/weatherunderground')),

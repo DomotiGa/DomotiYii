@@ -21,6 +21,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->numberFieldControlGroup($model,'httpport'); ?>
 		<?php echo $form->numberFieldControlGroup($model,'maxconn'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'auth', array('disabled'=>true,'value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'sslenabled', array('value'=>-1)); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 </fieldset>
 

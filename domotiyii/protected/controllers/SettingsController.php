@@ -111,6 +111,7 @@ class SettingsController extends Controller {
         $listPlugins = array();
         $listPlugins[] = 'asterisk';
         $listPlugins[] = 'bluetooth';
+        $listPlugins[] = 'buienradar';
         $listPlugins[] = 'ctx35';
         $listPlugins[] = 'cul';
         $listPlugins[] = 'currentcost';
@@ -1529,6 +1530,22 @@ class SettingsController extends Controller {
             }
         }
         $this->render('pushbullet',array('model'=>$model));
+    }
+
+    public function actionBuienradar()
+    {
+        $model = SettingsBuienradar::model()->findByPk(1);
+
+        if(isset($_POST['SettingsBuienradar']))
+        {
+            $model->attributes=$_POST['SettingsBuienradar'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model,'buienradar');
+            }
+        }
+        $this->render('buienradar',array('model'=>$model));
     }
 
     public function actionOpenweathermap()

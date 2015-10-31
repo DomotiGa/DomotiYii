@@ -219,6 +219,10 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
             fieldSet(1, '<?php echo Yii::t('app', 'Device') ?>', 'SHOW', 'select');
             fieldSet(2, '<?php echo Yii::t('app', 'Seconds') ?>', 'SHOW', 'input');
             fieldSet(3, '<?php echo Yii::t('app', 'Value') ?>', 'SHOW', 'input');
+        } else if (id == 22) {
+            fieldSet(1, '<?php echo Yii::t('app', 'Address') ?>', 'SHOW', 'input');
+            fieldSet(2, '<?php echo Yii::t('app', 'UDP Port') ?>', 'SHOW', 'input');
+            fieldSet(3, '<?php echo Yii::t('app', 'Message') ?>', 'SHOW', 'textarea');
         } else {
             showAll();
         }

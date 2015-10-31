@@ -39,6 +39,7 @@ class Actions extends CActiveRecord {
       ' send Pushover     | 19                 | Pushover message to send
       ' send Pushbullet   | 20                 | pushbullet message to send| optional title (default 'DomotiGa') | optional deviceid ('all' for all devices)
       ' soft dimming      | 21                 | deviceid                  | minutes              | value
+      ' send up message   | address            | udp port                  | message
 
      */
 
@@ -66,7 +67,8 @@ class Actions extends CActiveRecord {
         '18' => 'Send NMA PushMsg',
         '19' => 'Send Pushover PushMsg',
         '20' => 'Send Pushbullet PushMsg',
-        '21' => 'Soft Dimming'
+        '21' => 'Soft Dimming',
+        '22' => 'Send UDP Message'
     );
 
     /**

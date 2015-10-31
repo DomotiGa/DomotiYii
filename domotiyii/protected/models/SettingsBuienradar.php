@@ -1,26 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "settings_jsonrpc".
+ * This is the model class for table "settings_buienradar".
  *
- * The followings are the available columns in table 'settings_jsonrpc':
+ * The followings are the available columns in table 'settings_buienradar':
  * @property integer $id
  * @property boolean $enabled
- * @property integer $httpport
- * @property integer $maxconn
- * @property integer $type
- * @property integer $auth
+ * @property string $urlbuienradar
+ * @property string $latitude
+ * @property string $longitude
+ * @property string $city
+ * @property integer $polltime
+ * @property integer $outputprecision
+ * @property string $output
+ * @property integer $devmaxvalue
+ * @property integer $devtimevalue
  * @property boolean $debug
- * @property boolean $sslenabled
  */
-class SettingsJsonrpc extends CActiveRecord
+class SettingsBuienradar extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'settings_jsonrpc';
+		return 'settings_buienradar';
 	}
 
 	/**
@@ -32,11 +36,14 @@ class SettingsJsonrpc extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, httpport, maxconn', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug, auth, sslenabled', 'boolean', 'trueValue'=>-1),
+			array('id, polltime, outputprecision, devmaxvalue, devtimevalue', 'numerical', 'integerOnly'=>true),
+			array('urlbuienradar, city', 'length', 'max'=>128),
+			array('output', 'length', 'max'=>32),
+			array('latitude, longitude', 'length', 'max'=>32),
+			array('enabled, debug', 'boolean', 'trueValue'=>-1),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, enabled, httpport, maxconn, type, auth, debug', 'safe', 'on'=>'search'),
+			array('id, enabled, urlbuienradar, latitude, longitude, city, polltime, debug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,12 +66,16 @@ class SettingsJsonrpc extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'httpport' => 'JSON-RPC port',
-			'maxconn' => 'Max connections',
-			'type' => 'Type',
-			'auth' => 'Authentication',
+			'urlbuienradar' => 'Base URL',
+			'latitude' => 'Latitude',
+			'longitude' => 'Longitude',
+			'city' => 'City',
+			'outputprecision' => 'Output Precision',
+			'output' => 'Output format',
+			'devmaxvalue' => 'Number of value(s)',
+			'devtimevalue' => 'Place of time value',
+			'polltime' => 'Update frequency',
 			'debug' => 'Debug',
-			'sslenabled' => 'SSL/TLS Enabled',
 		);
 	}
 
@@ -88,12 +99,17 @@ class SettingsJsonrpc extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('enabled',$this->enabled);
-		$criteria->compare('httpport',$this->httpport);
-		$criteria->compare('maxconn',$this->maxconn);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('auth',$this->auth);
+		$criteria->compare('urlbuienradar',$this->urlbuienradar,true);
+		$criteria->compare('latitude',$this->latitude,true);
+		$criteria->compare('longitude',$this->longitude,true);
+		$criteria->compare('city',$this->city,true);
+		$criteria->compare('polltime',$this->polltime);
+		$criteria->compare('outputprecision',$this->outputprecision);
+		$criteria->compare('output',$this->output);
+		$criteria->compare('devmaxvalue',$this->devmaxvalue);
+		$criteria->compare('devtimevalue',$this->devtimevalue);
+		$criteria->compare('polltime',$this->polltime);
 		$criteria->compare('debug',$this->debug);
-		$criteria->compare('sslenabled',$this->sslenabled);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -104,7 +120,7 @@ class SettingsJsonrpc extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return SettingsJsonrpc the static model class
+	 * @return SettingsBuienradar the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -103,7 +103,7 @@ return array(
 	  	'allowMobileWithoutLogin'=>False, // don't allow, you can do this if you have setup ssl client certificate
 
 		// database minimum version needed
-		'versionDBRequired'=>'1.0.021',
+		'versionDBRequired'=>'1.0.022',
 
 		// base path to domotiga
 		'basePathDomotiGa'=>'/home/<changethis>/domotiga/',
