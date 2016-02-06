@@ -326,7 +326,7 @@ if (!isset($gauge_value)) {
 	    title: {
 	        text: <?php echo "'". $G->name ."'"; ?>
 	    },
-	    
+
 	    pane: {
 	        startAngle: -150,
 	        endAngle: 150,
@@ -696,6 +696,11 @@ foreach (DeviceValues::model()->findAll($criteria) as $l) {
 		    		color: 'silver'
 		    	}]
 		    },
+
+	            xAxis: {
+			type: "datetime",
+			ordinal: false
+	            },
 		    
 		    //plotOptions: {
 		    //	series: {
