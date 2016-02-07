@@ -223,6 +223,10 @@ Yii::app()->clientScript->registerScript('dynamicForm', "
             fieldSet(1, '<?php echo Yii::t('app', 'Address') ?>', 'SHOW', 'input');
             fieldSet(2, '<?php echo Yii::t('app', 'UDP Port') ?>', 'SHOW', 'input');
             fieldSet(3, '<?php echo Yii::t('app', 'Message') ?>', 'SHOW', 'textarea');
+        } else if (id == 23) {
+            fieldSet(1, '<?php echo Yii::t('app', 'MQTT Topic') ?>', 'SHOW', 'input');
+            fieldSet(2, '<?php echo Yii::t('app', 'MQTT Payload') ?>', 'SHOW', 'textarea');
+            fieldSet(3, '<?php echo Yii::t('app', 'Rawtopic') ?>', 'SHOW', 'input');
         } else {
             showAll();
         }
