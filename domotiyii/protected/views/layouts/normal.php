@@ -21,10 +21,10 @@
                     array('label'=>'P2000 Scanner', 'url'=> array('settings/p2000')),
                     array('label'=>'Servers', 'url'=>'#', 'items'=>array(
                        array('label'=>'Broadcast UDP', 'url'=> array('settings/broadcastudp')),
-                       array('label'=>'Telnet Server', 'url'=> array('settings/telnetserver')),
-                       array('label'=>'SmartVISU Server', 'url'=> array('settings/smartvisuserver')),
-                       array('label'=>'XML-RPC Server', 'url'=> array('settings/xmlrpc')),
                        array('label'=>'JSON-RPC Server', 'url'=> array('settings/jsonrpc')),
+                       array('label'=>'SmartVISU Server', 'url'=> array('settings/smartvisuserver')),
+                       array('label'=>'Telnet Server', 'url'=> array('settings/telnetserver')),
+                       array('label'=>'XML-RPC Server', 'url'=> array('settings/xmlrpc')),
 		    )),
                     array('label'=>'Sound', 'url'=> array('settings/sound')),
                     array('label'=>'VoiceText', 'url'=> array('settings/voicetext')),
@@ -122,6 +122,7 @@
                     array('label'=>'Input/Output', 'url'=>'#', 'items'=>array(
                        array('label'=>'Conrad 8-Relay', 'url'=> array('settings/conrad8relay')),
                        array('label'=>'KMTronic UDP', 'url'=> array('settings/kmtronicudp')),
+                       array('label'=>'UniPi', 'url'=> array('settings/unipi')),
                        array('label'=>'Velleman K8055', 'url'=> array('settings/k8055')),
                        array('label'=>'Weeder I/O', 'url'=> array('settings/weeder')),
                        array('label'=>'WiringPi', 'url'=> array('settings/wiringpi')),
@@ -172,8 +173,9 @@
                 array('label'=>'Edit', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                    array('label'=>'Contacts', 'url'=> array('contacts/index')),
                    array('label'=>'GlobalVars', 'url'=> array('globalvars/index')),
-                   array('label'=>'Users', 'url'=> array('users/index')),
                    array('label'=>'Graphs', 'url'=> array('yiiGraphs/index')),
+                   array('label'=>'SSL Certificates', 'url'=> array('sslcertificates/index')),
+                   array('label'=>'Users', 'url'=> array('users/index')),
 		)),
                 array('label'=>'Events', 'visible'=>!Yii::app()->user->isGuest, 'url'=>'#', 'items'=>array(
                    array('label'=>'Events', 'url'=> array('events/index')),

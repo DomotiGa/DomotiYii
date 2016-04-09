@@ -1,27 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "settings_jsonrpc".
+ * This is the model class for table "settings_unipi".
  *
- * The followings are the available columns in table 'settings_jsonrpc':
+ * The followings are the available columns in table 'settings_unipi':
  * @property integer $id
  * @property boolean $enabled
- * @property integer $httpport
- * @property integer $maxconn
- * @property integer $type
- * @property integer $auth
- * @property boolean $debug
+ * @property string $tcphost
+ * @property integer $tcpport
  * @property boolean $sslenabled
- * @property integer $sslcertificate_id
+ * @property boolean $debug
  */
-class SettingsJsonrpc extends CActiveRecord
+class SettingsUnipi extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'settings_jsonrpc';
+		return 'settings_unipi';
 	}
 
 	/**
@@ -33,11 +30,12 @@ class SettingsJsonrpc extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, httpport, maxconn, type, auth, sslcertificate_id', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug, auth, sslenabled', 'boolean', 'trueValue'=>-1),
+			array('id, tcpport', 'numerical', 'integerOnly'=>true),
+			array('tcphost', 'length', 'max'=>32),
+			array('enabled, sslenabled, debug', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, enabled, httpport, maxconn, type, auth, debug, sslenabled, sslcertificate_id', 'safe', 'on'=>'search'),
+			array('id, enabled, tcphost, tcpport, sslenabled, debug', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,13 +58,10 @@ class SettingsJsonrpc extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'httpport' => 'JSON-RPC port',
-			'maxconn' => 'Max connections',
-			'type' => 'Type',
-			'auth' => 'Authentication',
-			'debug' => 'Debug',
+			'tcphost' => 'Tcphost',
+			'tcpport' => 'Tcpport',
 			'sslenabled' => 'SSL Enabled',
-			'sslcertificate_id' => 'SSL Certificate',
+			'debug' => 'Debug',
 		);
 	}
 
@@ -90,13 +85,10 @@ class SettingsJsonrpc extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('enabled',$this->enabled);
-		$criteria->compare('httpport',$this->httpport);
-		$criteria->compare('maxconn',$this->maxconn);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('auth',$this->auth);
-		$criteria->compare('debug',$this->debug);
+		$criteria->compare('tcphost',$this->tcphost,true);
+		$criteria->compare('tcpport',$this->tcpport);
 		$criteria->compare('sslenabled',$this->sslenabled);
-		$criteria->compare('sslcertificate_id',$this->sslcertificate_id);
+		$criteria->compare('debug',$this->debug);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -107,7 +99,7 @@ class SettingsJsonrpc extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return SettingsJsonrpc the static model class
+	 * @return SettingsUnipi the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

@@ -168,6 +168,7 @@ class SettingsController extends Controller {
         $listPlugins[] = 'squeezeserver';
         $listPlugins[] = 'temp08';
         $listPlugins[] = 'toon';
+        $listPlugins[] = 'unipi';
         $listPlugins[] = 'ups';
         $listPlugins[] = 'velbus';
         $listPlugins[] = 'videoserver';
@@ -1443,6 +1444,19 @@ class SettingsController extends Controller {
             }
         }
         $this->render('shell', array('model' => $model));
+    }
+
+    public function actionUnipi() {
+        $model = SettingsUnipi::model()->findByPk(1);
+
+        if (isset($_POST['SettingsUnipi'])) {
+            $model->attributes = $_POST['SettingsUnipi'];
+            if ($model->validate()) {
+                // form inputs are valid, save and restart
+                $this->do_save_restart($model, 'unipi');
+            }
+        }
+        $this->render('unipi', array('model' => $model));
     }
 
     public function actionUps() {

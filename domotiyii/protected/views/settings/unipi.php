@@ -1,25 +1,26 @@
 <?php
-/* @var $this SettingsXmlrpcController */
-/* @var $model SettingsXmlrpc */
+/* @var $this SettingsUnipiController */
+/* @var $model SettingsUnipi */
 /* @var $form bootstrap.widgets.TbActiveForm */
 
 $this->widget('bootstrap.widgets.TbBreadcrumb', array(
     'links' => array(
-        Yii::t('app','Modules') => 'indexModules',
-        Yii::t('app','XML-RPC'),
+        Yii::t('app','Plugins') => 'indexPlugins',
+        Yii::t('app','Unipi'),
     ),
 ));
 
 $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
-        'id'=>'settings-xmlrpc-form',
+        'id'=>'settings-unipi-form',
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 )); ?>
 
-<legend>XML-RPC Server</legend>
+<legend>UniPi</legend>
 <fieldset>
 		<?php echo $form->checkBoxControlGroup($model,'enabled', array('value'=>-1)); ?>
-		<?php echo $form->numberFieldControlGroup($model,'httpport'); ?>
-		<?php echo $form->numberFieldControlGroup($model,'maxconn'); ?>
+		<?php echo $form->textFieldControlGroup($model,'tcphost'); ?>
+		<?php echo $form->numberFieldControlGroup($model,'tcpport'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'sslenabled', array('value'=>-1)); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 </fieldset>
 

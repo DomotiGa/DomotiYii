@@ -1,27 +1,32 @@
 <?php
 
 /**
- * This is the model class for table "settings_jsonrpc".
+ * This is the model class for table "sslcertificates".
  *
- * The followings are the available columns in table 'settings_jsonrpc':
- * @property integer $id
- * @property boolean $enabled
- * @property integer $httpport
- * @property integer $maxconn
- * @property integer $type
- * @property integer $auth
- * @property boolean $debug
- * @property boolean $sslenabled
- * @property integer $sslcertificate_id
+ * The followings are the available columns in table 'sslcertificates':
+ * @property string $id
+ * @property string $name
+ * @property string $certificate
+ * @property string $private
+ * @property string $client
+ * @property string $description
  */
-class SettingsJsonrpc extends CActiveRecord
+class Sslcertificates extends CActiveRecord
 {
+
+	/**
+	 * @return dropdownlist with the list of devices (used in temperaturenu, bwired, pachube devices)
+	 */
+	public static function getSSLCertificates() {
+		return CHtml::listData(Sslcertificates::model()->findAll(array('order' => 'name ASC')), 'id', 'name');
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'settings_jsonrpc';
+		return 'sslcertificates';
 	}
 
 	/**
@@ -32,12 +37,13 @@ class SettingsJsonrpc extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
-			array('id, httpport, maxconn, type, auth, sslcertificate_id', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug, auth, sslenabled', 'boolean', 'trueValue'=>-1),
+			array('name', 'required'),
+			array('name', 'length', 'max'=>64),
+			array('certificate, private, client', 'length', 'max'=>128),
+			array('description', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, enabled, httpport, maxconn, type, auth, debug, sslenabled, sslcertificate_id', 'safe', 'on'=>'search'),
+			array('id, name, certificate, private, client, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,14 +65,11 @@ class SettingsJsonrpc extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'enabled' => 'Enabled',
-			'httpport' => 'JSON-RPC port',
-			'maxconn' => 'Max connections',
-			'type' => 'Type',
-			'auth' => 'Authentication',
-			'debug' => 'Debug',
-			'sslenabled' => 'SSL Enabled',
-			'sslcertificate_id' => 'SSL Certificate',
+			'name' => 'Name',
+			'certificate' => 'Certificate',
+			'private' => 'Private',
+			'client' => 'Client',
+			'description' => 'Description',
 		);
 	}
 
@@ -88,15 +91,12 @@ class SettingsJsonrpc extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('enabled',$this->enabled);
-		$criteria->compare('httpport',$this->httpport);
-		$criteria->compare('maxconn',$this->maxconn);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('auth',$this->auth);
-		$criteria->compare('debug',$this->debug);
-		$criteria->compare('sslenabled',$this->sslenabled);
-		$criteria->compare('sslcertificate_id',$this->sslcertificate_id);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('certificate',$this->certificate,true);
+		$criteria->compare('private',$this->private,true);
+		$criteria->compare('client',$this->client,true);
+		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -107,7 +107,7 @@ class SettingsJsonrpc extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return SettingsJsonrpc the static model class
+	 * @return Sslcertificates the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

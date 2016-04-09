@@ -67,10 +67,9 @@ class SettingsXmlrpc extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'httpport' => 'Xmlrpcport',
-			'maxconn' => 'Maxconn',
+			'httpport' => 'XML-RPC port',
+			'maxconn' => 'Max connections',
 			'debug' => 'Debug',
-			'broadcastudp' => 'Broadcast UDP',
 		);
 	}
 
