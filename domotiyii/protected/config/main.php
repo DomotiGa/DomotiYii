@@ -131,6 +131,7 @@ return array(
 		'refreshMobile'=>'5000',
 		'refreshLogs'=>'5000',
 		'refreshYiiGraphs'=>'5000',
+		'refreshSslcertificates'=>'5000',
 		
 		// default page sizes for specific gridviews
 		'pagesizeDevices'=>'20', // entries per page
