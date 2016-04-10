@@ -78,7 +78,7 @@ class UsersController extends Controller
 			//$model->password = $model->hashPassword($_POST['Users']['password'], $_POST['Users']['password']);
 			if($model->validate())
 			{
-				$model->do_save($model);
+				$this->do_save($model);
 			}
 		}
 		$this->render('create',array(

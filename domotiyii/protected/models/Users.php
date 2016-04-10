@@ -15,6 +15,47 @@
  */
 class Users extends CActiveRecord
 {
+
+	// holds the password confirmation word
+	public $repeat_password;
+ 
+	//will hold the encrypted password for update actions.
+	public $initialPassword;
+
+	public function afterFind()
+	{
+		//reset the password to null because we don't want the hash to be shown.
+		$this->initialPassword = $this->password;
+		$this->password = null;
+		$this->repeat_password = null;
+ 
+		parent::afterFind();
+	}
+
+	public function afterSave()
+	{
+		//reset the password to null because we don't want the hash to be shown.
+		$this->initialPassword = $this->password;
+		$this->password = null;
+		$this->repeat_password = null;
+ 
+		parent::afterSave();
+	}
+
+	public function beforeSave()
+	{
+	// in this case, we will use the old hashed password.
+		if(empty($this->password) && empty($this->repeat_password) && !empty($this->initialPassword))
+		{
+			$this->password=$this->initialPassword;
+		} else {
+			// Hash the new password
+			$this->password=$this->hashPassword($this->password, null);
+		}
+
+		return parent::beforeSave();
+	}
+
 	/**
 	 * @return boolean validate user
 	 */
@@ -38,6 +79,11 @@ class Users extends CActiveRecord
 
 	public function hashPassword($phrase, $salt)
 	{
+		// Create new salt if none is supplied
+		if (empty($salt)) {
+			$salt = substr(str_shuffle(str_repeat("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz./", 8)), 0, 8);
+		}
+
 		$md5 = crypt($phrase, "\$1\$" . $salt . "\$");
 		$md5 = substr($md5, (22*-1));
 		return 'MD5' . $salt . $md5;
@@ -70,7 +116,9 @@ class Users extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, fullname, lastlogin, emailaddress', 'length', 'max'=>32),
-			array('password', 'length', 'max'=>64),
+			array('password, repeat_password', 'required', 'on'=>'insert'),
+			array('password, repeat_password', 'length', 'min'=>6, 'max'=>64),
+			array('password', 'compare', 'compareAttribute'=>'repeat_password'),
 			array('comments', 'safe'),
 			array('username', 'required'),
 			array('admin', 'boolean'),

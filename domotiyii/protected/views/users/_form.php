@@ -14,7 +14,8 @@
 
 		<?php echo $form->textFieldControlGroup($model,'username'); ?>
 		<?php echo $form->textFieldControlGroup($model,'fullname'); ?>
-		<?php echo $form->passwordFieldControlGroup($model,'password',array('readonly'=>true)); ?>
+		<?php echo $form->passwordFieldControlGroup($model,'password'); ?>
+		<?php echo $form->passwordFieldControlGroup($model,'repeat_password'); ?>
 		<?php echo $form->textFieldControlGroup($model,'emailaddress'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'admin',array('value'=>1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'lastlogin'); ?>

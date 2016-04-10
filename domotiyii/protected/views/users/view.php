@@ -37,7 +37,7 @@ $this->endWidget();
                 array('name' => 'username'),
                 array('name' => 'fullname'),
                 array('name' => 'admin', 'type' =>'boolean'),
-                array('name' => 'password'),
+                array('name' => 'password', 'value' => '**********'),
                 array('name' => 'lastlogin'),
                 array('name' => 'emailaddress'),
                 array('name' => 'comments'),
