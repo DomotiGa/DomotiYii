@@ -7,8 +7,8 @@ framework together with the Yiistrap extension to add the bootstrap look and fee
 Development info:
 ----------------
 This version of DomotiYii is build with:
-Yii-1.1.16 - Framework
-Source: https://github.com/yiisoft/yii/releases/download/1.1.16/yii-1.1.16.bca042.tar.gz
+Yii-1.1.17 - Framework
+Source: https://github.com/yiisoft/yii/releases/download/1.1.17/yii-1.1.17.467ff50.tar.gz
 
 Yiistrap-1.3.0 - Twitter Bootstrap for Yii
 Source: https://github.com/Crisu83/yiistrap/archive/1.3.0.zip
@@ -37,7 +37,7 @@ Visit this [wiki page](http://domotiga.nl/projects/domotiyii/wiki/Installation) 
 
 About the Yii Framework:
 -------------
-The framework directory contains the code from the Yii 1.1.16 file above.
+The framework directory contains the code from the Yii 1.1.17 file above.
 
 If you want to use another name or location for this framework directory
 change it's path in domotiyii/index.php.

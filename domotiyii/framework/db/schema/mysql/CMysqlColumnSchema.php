@@ -28,7 +28,7 @@ class CMysqlColumnSchema extends CDbColumnSchema
 		elseif(strpos($dbType,'float')!==false || strpos($dbType,'double')!==false)
 			$this->type='double';
         // Patched by RDNZL
-		elseif(strpos($dbType,'tinyint(1)')!==false)
+                elseif(strpos($dbType,'tinyint(1)')!==false)
 			$this->type='boolean';
 		elseif(strpos($dbType,'int')===0 && strpos($dbType,'unsigned')===false || preg_match('/(bit|tinyint|smallint|mediumint)/',$dbType))
 			$this->type='integer';
@@ -45,7 +45,7 @@ class CMysqlColumnSchema extends CDbColumnSchema
 	{
 		if(strncmp($this->dbType,'bit',3)===0)
 			$this->defaultValue=bindec(trim($defaultValue,'b\''));
-		elseif($this->dbType==='timestamp' && $defaultValue==='CURRENT_TIMESTAMP')
+		elseif(($this->dbType==='timestamp' || $this->dbType==='datetime')  && $defaultValue==='CURRENT_TIMESTAMP')
 			$this->defaultValue=null;
 		else
 			parent::extractDefault($defaultValue);
