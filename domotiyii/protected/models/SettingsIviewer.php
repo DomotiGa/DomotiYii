@@ -67,7 +67,7 @@ class SettingsIviewer extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'tcpport' => 'Tcpport',
+			'tcpport' => 'TCP Port',
 			'password' => 'Password',
 			'debug' => 'Debug',
 		);

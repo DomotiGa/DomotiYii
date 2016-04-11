@@ -58,8 +58,8 @@ class SettingsMochad extends CActiveRecord
         return array(
             'id' => 'ID',
             'enabled' => 'Enabled',
-            'tcphost' => 'Tcphost',
-            'tcpport' => 'Tcpport',
+            'tcphost' => 'TCP Host',
+            'tcpport' => 'TCP Port',
             'globalX10' => 'Global X10',
             'debug' => 'Debug',
         );

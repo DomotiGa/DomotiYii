@@ -69,9 +69,9 @@ class SettingsHddtemp extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'tcphost' => 'Tcphost',
-			'tcpport' => 'Tcpport',
-			'polltime' => 'Polltime',
+			'tcphost' => 'TCP Host',
+			'tcpport' => 'TCP Port',
+			'polltime' => 'Poll Interval',
 			'threshold' => 'Threshold',
 			'debug' => 'Debug',
 		);

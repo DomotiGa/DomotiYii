@@ -65,7 +65,7 @@ class SettingsSmartvisuserver extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'tcpport' => 'Tcpport',
+			'tcpport' => 'TCP Port',
 			'debug' => 'Debug',
 		);
 	}

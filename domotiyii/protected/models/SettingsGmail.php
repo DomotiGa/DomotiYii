@@ -70,7 +70,7 @@ class SettingsGmail extends CActiveRecord
 			'enabled' => 'Enabled',
 			'user' => 'User',
 			'password' => 'Password',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'debug' => 'Debug',
 		);
 	}

@@ -69,7 +69,7 @@ class SettingsGlatitude extends CActiveRecord
 			'enabled' => 'Enabled',
 			'rangetype' => 'Range type',
 			'rangevalue' => 'Range value',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'debug' => 'Debug',
 		);
 	}

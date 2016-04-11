@@ -68,7 +68,7 @@ class SettingsRrdtool extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'width' => 'Graph Width',
 			'height' => 'Graph Height',
 			'enabled' => 'Enabled',

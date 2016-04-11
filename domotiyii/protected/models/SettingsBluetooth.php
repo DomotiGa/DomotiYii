@@ -70,7 +70,7 @@ class SettingsBluetooth extends CActiveRecord
 			'enabled' => 'Enabled',
 			'device' => 'Device',
 			'threshold' => 'Threshold',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'debug' => 'Debug',
 		);
 	}

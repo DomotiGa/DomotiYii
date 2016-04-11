@@ -68,8 +68,8 @@ class SettingsPlugwise extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'serialport' => 'Serialport',
-			'polltime' => 'Polltime',
+			'serialport' => 'Serial Port',
+			'polltime' => 'Poll Interval',
 			'busytime' => 'Busytime',
 			'debug' => 'Debug',
 		);

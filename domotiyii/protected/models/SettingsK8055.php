@@ -68,7 +68,7 @@ class SettingsK8055 extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'boardaddress' => 'Board address',
 			'debouncetime1' => 'Debounce time1',
 			'debouncetime2' => 'Debounce time2',

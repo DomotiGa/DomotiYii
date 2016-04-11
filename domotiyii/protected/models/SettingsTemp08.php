@@ -67,8 +67,8 @@ class SettingsTemp08 extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'serialport' => 'Serialport',
-			'baudrate' => 'Baudrate',
+			'serialport' => 'Serial Port',
+			'baudrate' => 'Baud Rate',
 			'debug' => 'Debug',
 		);
 	}

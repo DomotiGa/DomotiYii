@@ -74,7 +74,7 @@ class SettingsVisonic extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'serialport' => 'Serialport',
+			'serialport' => 'Serial Port',
 			'type' => 'Type',
 			'mastercode' => 'Master code',
 			'autosyncmode' => 'Auto sync time',

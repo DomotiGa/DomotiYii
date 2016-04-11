@@ -70,10 +70,10 @@ class SettingsRflink extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'tcphost' => 'Tcphost',
-			'tcpport' => 'Tcpport',
+			'tcphost' => 'TCP Host',
+			'tcpport' => 'TCP Port',
 			'type' => 'Type',
-			'serialport' => 'Serialport',
+			'serialport' => 'Serial Port',
 			'debug' => 'Debug',
 		);
 	}

@@ -69,10 +69,10 @@ class SettingsHomematic extends CActiveRecord
 			'id' => 'ID',
 			'enabled' => 'Enabled',
 			'debug' => 'Debug',
-			'tcphost' => 'Tcphost',
+			'tcphost' => 'TCP Host',
 			'hmid' => 'HmId',
 			'model' => 'Model',
-			'tcpport' => 'Tcpport',
+			'tcpport' => 'TCP Port',
 		);
 	}
 

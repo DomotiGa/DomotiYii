@@ -71,8 +71,8 @@ class SettingsDigitemp extends CActiveRecord
 			'enabled' => Yii::t('app','Enabled'),
 			'command' => Yii::t('app','Command'),
 			'config' => Yii::t('app','Config'),
-			'polltime' => Yii::t('app','Polltime'),
-			'readtime' => Yii::t('app','Readtime'),
+			'polltime' => Yii::t('app','Poll Interval'),
+			'readtime' => Yii::t('app','Read Time'),
 			'debug' => Yii::t('app','Debug'),
 		);
 	}

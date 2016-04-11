@@ -71,10 +71,10 @@ class SettingsSms extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'enabled' => 'Enabled',
-			'serialport' => 'Serialport',
-			'baudrate' => 'Baudrate',
+			'serialport' => 'Serial Port',
+			'baudrate' => 'Baud Rate',
 			'pin' => 'Pin code',
 			'servicecentre' => 'Service centre',
 			'contact' => 'Contact',

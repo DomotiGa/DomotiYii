@@ -66,7 +66,7 @@ class SettingsWeeder extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'serialport' => 'Serialport',
+			'serialport' => 'Serial Port',
 			'debug' => 'Debug',
 		);
 	}

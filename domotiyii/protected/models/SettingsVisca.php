@@ -70,8 +70,8 @@ class SettingsVisca extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'serialport' => 'Serialport',
-			'baudrate' => 'Baudrate',
+			'serialport' => 'Serial Port',
+			'baudrate' => 'Baud Rate',
 			'cameraaddress' => 'Camera address',
 			'debug' => 'Debug',
 			'device' => 'Device',

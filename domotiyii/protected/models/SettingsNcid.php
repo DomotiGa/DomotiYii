@@ -67,9 +67,9 @@ class SettingsNcid extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'tcphost' => 'Tcphost',
+			'tcphost' => 'TCP Host',
 			'debug' => 'Debug',
-			'tcpport' => 'Tcpport',
+			'tcpport' => 'TCP Port',
 		);
 	}
 

@@ -70,8 +70,8 @@ class SettingsDsc extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'serialport' => 'Serialport',
-			'baudrate' => 'Baudrate',
+			'serialport' => 'Serial Port',
+			'baudrate' => 'Baud Rate',
 			'type' => 'Type',
 			'mastercode' => 'Mastercode',
 			'debug' => 'Debug',

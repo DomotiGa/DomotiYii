@@ -87,7 +87,7 @@ class SettingsP2000 extends CActiveRecord
 			'georange' => 'Georange',
 			'fetchimage' => 'Fetchimage',
 			'maplink' => 'Maplink',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'debug' => 'Debug',
 		);
 	}

@@ -68,7 +68,7 @@ class SettingsWirelesstags extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'user' => 'User',
 			'password' => 'Password',
 			'debug' => 'Debug',

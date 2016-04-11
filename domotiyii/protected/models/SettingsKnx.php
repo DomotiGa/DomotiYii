@@ -67,8 +67,8 @@ class SettingsKnx extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'tcphost' => 'Tcphost',
-			'tcpport' => 'Tcpport',
+			'tcphost' => 'TCP Host',
+			'tcpport' => 'TCP Port',
 			'debug' => 'Debug',
 		);
 	}

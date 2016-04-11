@@ -14,6 +14,7 @@
  * @property boolean $debug
  * @property boolean $relayenabled
  * @property integer $relayport
+ * @property integer $heartbeat
  * @property boolean $useack
  */
 class SettingsMysensors extends CActiveRecord
@@ -45,13 +46,13 @@ class SettingsMysensors extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, tcpport, relayport', 'numerical', 'integerOnly'=>true),
+			array('id, tcpport, relayport, heartbeat', 'numerical', 'integerOnly'=>true),
 			array('enabled, debug, relayenabled, useack', 'boolean', 'trueValue'=>-1),
 			array('tcphost, type, baudrate', 'length', 'max'=>32),
 			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enabled, tcphost, tcpport, type, serialport, baudrate, debug, relayenabled, relayport, useack', 'safe', 'on'=>'search'),
+			array('id, enabled, tcphost, tcpport, type, serialport, baudrate, debug, relayenabled, relayport, useack, heartbeat', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,14 +75,15 @@ class SettingsMysensors extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'tcphost' => 'Tcphost',
-			'tcpport' => 'Tcpport',
+			'tcphost' => 'TCP Host',
+			'tcpport' => 'TCP Port',
 			'type' => 'Type',
-			'serialport' => 'Serialport',
-			'baudrate' => 'Baudrate',
+			'serialport' => 'Serial Port',
+			'baudrate' => 'Baud Rate',
 			'debug' => 'Debug',
 			'relayenabled' => 'Relay enabled',
-			'relayport' => 'Relayport',
+			'relayport' => 'Relay Port',
+			'heartbeat' => 'TCP heartbeat',
 			'useack' => 'Use ACK',
 		);
 	}

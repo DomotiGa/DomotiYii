@@ -66,7 +66,7 @@ class SettingsFritzbox extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'tcphost' => 'Tcphost',
+			'tcphost' => 'TCP Host',
 			'debug' => 'Debug',
 		);
 	}

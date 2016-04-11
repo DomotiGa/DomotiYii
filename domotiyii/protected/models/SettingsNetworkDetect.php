@@ -70,7 +70,7 @@ class SettingsNetworkDetect extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'enable_ping' => 'Ping',
 			'enable_arpscan' => 'Arp-Scan',
 			'timeout' => 'Arp-Scan TimeOut',

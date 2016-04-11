@@ -62,11 +62,11 @@ class SettingsJerome extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'tcphost' => 'Tcphost',
-			'tcpport' => 'Tcpport',
+			'tcphost' => 'TCP Host',
+			'tcpport' => 'TCP Port',
 			'username' => 'Username',
 			'password' => 'Password',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'debug' => 'Debug',
 		);
 	}

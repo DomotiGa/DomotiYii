@@ -70,9 +70,9 @@ class SettingsCtx35 extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'serialport' => 'Serialport',
-			'baudrate' => 'Baudrate',
-			'polltime' => 'Polltime',
+			'serialport' => 'Serial Port',
+			'baudrate' => 'Baud Rate',
+			'polltime' => 'Poll Interval',
 			'globalx10' => 'Global X10',
 			'debug' => 'Debug',
 		);

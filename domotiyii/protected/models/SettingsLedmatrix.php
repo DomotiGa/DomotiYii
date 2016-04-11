@@ -69,7 +69,7 @@ class SettingsLedmatrix extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'serialport' => 'Serialport',
+			'serialport' => 'Serial Port',
 			'color' => 'Color',
 			'speed' => 'Speed',
 			'displayid' => 'Displayid',

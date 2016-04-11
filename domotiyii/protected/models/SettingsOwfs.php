@@ -68,7 +68,7 @@ class SettingsOwfs extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'basedir' => 'Basedir',
 			'cached' => 'Cached',
 			'debug' => 'Debug',

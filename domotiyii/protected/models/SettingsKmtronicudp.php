@@ -67,7 +67,7 @@ class SettingsKmtronicudp extends CActiveRecord
 			'id' => 'ID',
 			'enabled' => 'Enabled',
 			'udpport' => 'Udpport',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'debug' => 'Debug',
 		);
 	}

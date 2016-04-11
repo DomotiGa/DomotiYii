@@ -73,8 +73,8 @@ class SettingsVideoserver extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'tcphost' => 'Tcphost',
-			'tcpport' => 'Tcpport',
+			'tcphost' => 'TCP Host',
+			'tcpport' => 'TCP Port',
 			'user' => 'User',
 			'password' => 'Password',
 			'channel1' => 'Channel #1',

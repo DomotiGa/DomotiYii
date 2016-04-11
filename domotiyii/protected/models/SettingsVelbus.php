@@ -63,14 +63,14 @@ class SettingsVelbus extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'serialport' => 'Serialport',
-			'tcphost' => 'Tcphost',
-			'tcpport' => 'Tcpport',
+			'serialport' => 'Serial Port',
+			'tcphost' => 'TCP Host',
+			'tcpport' => 'TCP Port',
 			'type' => 'Type',
 			'relayenabled' => 'Relayenabled',
-			'relayport' => 'Relayport',
+			'relayport' => 'Relay Port',
 			'debug' => 'Debug',
-			'baudrate' => 'Baudrate',
+			'baudrate' => 'Baud Rate',
 		);
 	}
 

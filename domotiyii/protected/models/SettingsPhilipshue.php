@@ -61,7 +61,7 @@ class SettingsPhilipsHue extends CActiveRecord
 			'id' => 'ID',
 			'enabled' => 'Enabled',
 			'username' => 'Username',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'debug' => 'Debug',
 		);
 	}

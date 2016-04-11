@@ -67,10 +67,10 @@ class SettingsGps extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'polltime' => 'Polltime',
+			'polltime' => 'Poll Interval',
 			'enabled' => 'Enabled',
-			'serialport' => 'Serialport',
-			'baudrate' => 'Baudrate',
+			'serialport' => 'Serial Port',
+			'baudrate' => 'Baud Rate',
 			'debug' => 'Debug',
 		);
 	}

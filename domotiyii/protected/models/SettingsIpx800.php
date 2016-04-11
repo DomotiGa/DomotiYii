@@ -61,8 +61,8 @@ class SettingsIpx800 extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'enabled' => 'Enabled',
-			'tcphost' => 'Tcphost',
-			'tcpport' => 'Tcpport',
+			'tcphost' => 'TCP Host',
+			'tcpport' => 'TCP Port',
 			'username' => 'Username',
 			'password' => 'Password',
 			'poll' => 'Poll',
