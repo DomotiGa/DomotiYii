@@ -540,11 +540,12 @@ function <?php echo 'createChart_'. $G->id .'()'?> {
 			}]
 		},
 		
-		//plotOptions: {
-		//	series: {
+		plotOptions: {
+			series: {
 		//		compare: 'percent'
-		//	}
-		//},
+				step: true,
+			}
+		},
 		
 		tooltip: {
 			pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
@@ -702,11 +703,12 @@ foreach (DeviceValues::model()->findAll($criteria) as $l) {
 			ordinal: false
 	            },
 		    
-		    //plotOptions: {
-		    //	series: {
+		    plotOptions: {
+		    	series: {
 		    //		compare: 'percent'
-		    //	}
-		    //},
+		    		step: true,
+		    	}
+		    },
 		    
 		    tooltip: {
 		    	pointFormat: '<b>{point.y}</b> <span style="color:{series.color}">{series.name}</span><br/>',
