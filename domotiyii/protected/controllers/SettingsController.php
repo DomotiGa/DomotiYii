@@ -156,6 +156,7 @@ class SettingsController extends Controller {
         $listPlugins[] = 'plugwise';
         $listPlugins[] = 'pwrctrl';
         $listPlugins[] = 'razberry';
+        $listPlugins[] = 'rflink';
         $listPlugins[] = 'rfxcomrx';
         $listPlugins[] = 'rfxcomtrx';
         $listPlugins[] = 'rfxcomtx';
@@ -559,6 +560,19 @@ class SettingsController extends Controller {
             }
         }
         $this->render('fritzbox', array('model' => $model));
+    }
+
+    public function actionRflink() {
+        $model = SettingsRflink::model()->findByPk(1);
+
+        if (isset($_POST['SettingsRflink'])) {
+            $model->attributes = $_POST['SettingsRflink'];
+            if ($model->validate()) {
+                // form inputs are valid, save and restart
+                $this->do_save_restart($model, 'rflink');
+            }
+        }
+        $this->render('rflink', array('model' => $model));
     }
 
     public function actionRfxcomtrx() {

@@ -143,6 +143,7 @@
                     array('label'=>'MySensors', 'url'=> array('settings/mysensors')),
                     array('label'=>'Omniksol', 'url'=> array('settings/omniksol')),
                     array('label'=>'OpenTherm', 'url'=> array('settings/opentherm')),
+                    array('label'=>'RFLink', 'url'=> array('settings/rflink')),
                     array('label'=>'RRDTool', 'url'=> array('settings/rrdtool')),
                     array('label'=>'RFXCom', 'url'=>'#', 'items'=>array(
                        array('label'=>'RFXCom Receiver', 'url'=> array('settings/rfxcomrx')),
