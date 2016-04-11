@@ -15,19 +15,17 @@
  */
 class Users extends CActiveRecord
 {
+	//will hold the encrypted password for update actions.
+	public $initialpassword;
 
 	// holds the password confirmation word
-	public $repeat_password;
+	public $repeatpassword;
  
-	//will hold the encrypted password for update actions.
-	public $initialPassword;
-
 	public function afterFind()
 	{
 		//reset the password to null because we don't want the hash to be shown.
-		$this->initialPassword = $this->password;
-		$this->password = null;
-		$this->repeat_password = null;
+		$this->initialpassword = null;
+		$this->repeatpassword = null;
  
 		parent::afterFind();
 	}
@@ -35,9 +33,8 @@ class Users extends CActiveRecord
 	public function afterSave()
 	{
 		//reset the password to null because we don't want the hash to be shown.
-		$this->initialPassword = $this->password;
-		$this->password = null;
-		$this->repeat_password = null;
+		$this->initialpassword = null;
+		$this->repeatpassword = null;
  
 		parent::afterSave();
 	}
@@ -45,12 +42,12 @@ class Users extends CActiveRecord
 	public function beforeSave()
 	{
 	// in this case, we will use the old hashed password.
-		if(empty($this->password) && empty($this->repeat_password) && !empty($this->initialPassword))
+		if(empty($this->initialpassword) && empty($this->repeatpassword) && !empty($this->password))
 		{
-			$this->password=$this->initialPassword;
+			// do nothing
 		} else {
 			// Hash the new password
-			$this->password=$this->hashPassword($this->password, null);
+			$this->password=$this->hashPassword($this->initialpassword);
 		}
 
 		return parent::beforeSave();
@@ -61,32 +58,54 @@ class Users extends CActiveRecord
 	 */
 	public function validatePassword($password)
 	{
-		if (strlen($this->password) < 11)
-		{
-			if($password == $this->password)
-			{
-				return true;
-			} else {
-				return false;
-			}
+		if ( strpos($this->password, "MD5") === 0 ) {
+			// hash length = 8, total length = 33
+			if ( strlen($this->password) <> 33 ) return false;
+			$salt = substr($this->password, 3, 8);
+			$encrypt = crypt($password, "\$1\$" . $salt . "\$");
+			$encrypt = "MD5" . $salt . substr($encrypt, (22*-1));
+		} elseif ( strpos($this->password, "SHA256") === 0 ) {
+			// hash length = 13, total length= 62
+			if ( strlen($this->password) <> 62 ) return false;
+			$salt = substr($this->password, 6, 13);
+			$encrypt = crypt($password, "\$5\$" . $salt . "\$");
+			$encrypt = "SHA256" . $salt . substr($encrypt, (43*-1));
+		} elseif ( strpos($this->password, "SHA512") === 0 ) {
+			// hash length = 13, total length = 105
+			if ( strlen($this->password) <> 105 ) return false;
+			$salt = substr($this->password, 6, 13);
+			$encrypt = crypt($password, "\$6\$" . $salt . "\$");
+			$encrypt = "SHA512" . $salt . substr($encrypt, (86*-1));
+		} else {
+			return false;
 		}
-		return $this->hashPassword($password, substr($this->password, 3, 8)) == $this->password;
+
+		return $encrypt == $this->password;
 	}
 
 	/**
 	 * @return hashed value
 	 */
 
-	public function hashPassword($phrase, $salt)
+	public function hashPassword($phrase, $type = "SHA256")
 	{
-		// Create new salt if none is supplied
-		if (empty($salt)) {
+
+		if ( $type === "MD5" ) {
 			$salt = substr(str_shuffle(str_repeat("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz./", 8)), 0, 8);
+			$encrypt = crypt($phrase, "\$1\$" . $salt . "\$");
+			return "MD5" . $salt . substr($encrypt, (22*-1));
+		} elseif ( $type === "SHA256" ) { 
+			$salt = substr(str_shuffle(str_repeat("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz./", 13)), 0, 13);
+			$encrypt = crypt($phrase, "\$5\$" . $salt . "\$");
+			return "SHA256" . $salt . substr($encrypt, (43*-1));
+		} elseif ( $type === "SHA512" ) { 
+			$salt = substr(str_shuffle(str_repeat("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz./", 13)), 0, 13);
+			$encrypt = crypt($phrase, "\$6\$" . $salt . "\$");
+			return "SHA512" . $salt . substr($encrypt, (86*-1));
+		} else {
+			return "";
 		}
 
-		$md5 = crypt($phrase, "\$1\$" . $salt . "\$");
-		$md5 = substr($md5, (22*-1));
-		return 'MD5' . $salt . $md5;
 	}
 
 	/**
@@ -116,9 +135,9 @@ class Users extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('username, fullname, lastlogin, emailaddress', 'length', 'max'=>32),
-			array('password, repeat_password', 'required', 'on'=>'insert'),
-			array('password, repeat_password', 'length', 'min'=>6, 'max'=>64),
-			array('password', 'compare', 'compareAttribute'=>'repeat_password'),
+			array('initialpassword, repeatpassword', 'required', 'on'=>'insert'),
+			array('initialpassword, repeatpassword', 'length', 'min'=>6, 'max'=>64),
+			array('initialpassword', 'compare', 'compareAttribute'=>'repeatpassword'),
 			array('comments', 'safe'),
 			array('username', 'required'),
 			array('admin', 'boolean'),
@@ -147,7 +166,8 @@ class Users extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'username' => Yii::t('app','Username'),
-			'password' => Yii::t('app','Password'),
+			'initialpassword' => Yii::t('app','Password'),
+			'repeatpassword' => 'Repeat Password',
 			'fullname' => Yii::t('app','Fullname'),
 			'admin' => Yii::t('app','Admin'),
 			'comments' => Yii::t('app','Comments'),
