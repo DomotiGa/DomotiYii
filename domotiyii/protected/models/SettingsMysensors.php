@@ -47,7 +47,7 @@ class SettingsMysensors extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, tcpport, relayport, heartbeat', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug, relayenabled, useack', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug, relayenabled, useack', 'numerical'),
 			array('tcphost, type, baudrate', 'length', 'max'=>32),
 			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().

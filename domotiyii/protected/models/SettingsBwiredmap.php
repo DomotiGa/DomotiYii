@@ -48,7 +48,7 @@ class SettingsBwiredmap extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, pushtime', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			array('website, websitepicurl, title, city, user, password, screenname, gpslat, gpslong', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

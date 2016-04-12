@@ -45,7 +45,7 @@ class SettingsEmail extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, smtpport', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug, sslenabled', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug, sslenabled', 'numerical'),
 			array('fromaddress, toaddress, smtpserver, username, password', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

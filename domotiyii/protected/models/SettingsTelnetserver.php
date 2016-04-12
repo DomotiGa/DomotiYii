@@ -39,7 +39,7 @@ class SettingsTelnetserver extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, telnetport', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, telnetport, debug', 'safe', 'on'=>'search'),

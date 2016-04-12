@@ -39,7 +39,7 @@ class SettingsSound extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, volume', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, debug, volume', 'safe', 'on'=>'search'),

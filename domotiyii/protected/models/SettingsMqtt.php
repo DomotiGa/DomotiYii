@@ -55,7 +55,7 @@ class SettingsMqtt extends CActiveRecord
 			array('tcphost', 'length', 'max'=>64),
 			array('username, password', 'length', 'max'=>32),
 			array('pubtopic, subtopic', 'length', 'max'=>256),
-			array('enabled, retain, debug, enablepublish, enablesubscribe', 'boolean', 'trueValue'=>-1),
+			array('enabled, retain, debug, enablepublish, enablesubscribe', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, tcphost, tcpport, username, password, pubtopic, subtopic, heartbeat, retain, qos, debug, enablepublish, enablesubscribe', 'safe', 'on'=>'search'),

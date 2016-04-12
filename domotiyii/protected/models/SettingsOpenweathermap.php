@@ -34,7 +34,7 @@ class SettingsOpenweathermap extends CActiveRecord
 			array('id, polltime', 'numerical', 'integerOnly'=>true),
 			array('apikey, city', 'length', 'max'=>128),
 			array('cityid', 'length', 'max'=>32),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, enabled, apikey, cityid, city, polltime, debug', 'safe', 'on'=>'search'),

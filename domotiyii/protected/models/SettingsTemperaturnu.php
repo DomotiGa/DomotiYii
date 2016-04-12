@@ -43,7 +43,7 @@ class SettingsTemperaturnu extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, pushtime, deviceid', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			array('city, apikey', 'length', 'max'=>64),
 			array('devicevalue', 'length', 'max'=>8),
 			// The following rule is used by search().

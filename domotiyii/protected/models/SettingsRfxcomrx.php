@@ -46,7 +46,7 @@ class SettingsRfxcomrx extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, tcpport, relayport', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug, relayenabled, globalx10', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug, relayenabled, globalx10', 'numerical'),
 			array('tcphost, type, baudrate', 'length', 'max'=>32),
 			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().

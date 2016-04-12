@@ -32,7 +32,7 @@ class SettingsViera extends CActiveRecord
 			array('id', 'required'),
 			array('id, tcpport, refresh', 'numerical', 'integerOnly'=>true),
 			array('tcphost', 'length', 'max'=>32),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			array('enabled, debug', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

@@ -42,7 +42,7 @@ class SettingsX10cmd extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, type', 'numerical', 'integerOnly'=>true),
-			array('enabled, monitor, globalx10, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, monitor, globalx10, debug', 'numerical'),
 			array('command', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

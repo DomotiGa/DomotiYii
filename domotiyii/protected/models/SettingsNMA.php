@@ -43,7 +43,7 @@ class SettingsNMA extends CActiveRecord
 			array('id', 'numerical', 'integerOnly'=>true),
 			array('apikey', 'length', 'max'=>64),
 			array('application, event', 'length', 'max'=>32),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, apikey, application, event, debug', 'safe', 'on'=>'search'),

@@ -41,7 +41,7 @@ class SettingsGps extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, polltime, baudrate', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
                         array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

@@ -41,7 +41,7 @@ class SettingsGmail extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, polltime', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			array('user, password', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

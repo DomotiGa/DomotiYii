@@ -35,7 +35,7 @@ class SettingsOmniksol extends CActiveRecord
 			array('id, tcpport', 'numerical', 'integerOnly'=>true),
 			array('tcphost', 'length', 'max'=>32),
 			array('serial, cron', 'length', 'max'=>16),
-			array('enabled, discover, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, discover, debug', 'numerical'),
 			array('enabled, discover, debug', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

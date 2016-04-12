@@ -35,7 +35,7 @@ class SettingsForecastio extends CActiveRecord
 			array('id, polltime', 'numerical', 'integerOnly'=>true),
 			array('apikey, city', 'length', 'max'=>128),
 			array('latitude, longitude', 'length', 'max'=>32),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, enabled, apikey, latitude, longitude, city, polltime, debug', 'safe', 'on'=>'search'),

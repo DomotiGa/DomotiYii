@@ -49,7 +49,7 @@ class SettingsOpentherm extends CActiveRecord
 			array('id', 'required'),
 			array('id, polltime, tcpport, relayport', 'numerical', 'integerOnly'=>true),
 			array('temperatureoverride, serialport, thermostat, tcphost, type', 'length', 'max'=>32),
-			array('syncclock, enabled, relayenabled, debug', 'boolean', 'trueValue'=>-1),
+			array('syncclock, enabled, relayenabled, debug', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, temperatureoverride, syncclock, enabled, serialport, polltime, thermostat, tcphost, tcpport, type, relayenabled, relayport, debug', 'safe', 'on'=>'search'),

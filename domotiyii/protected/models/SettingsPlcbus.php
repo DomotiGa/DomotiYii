@@ -45,7 +45,7 @@ class SettingsPlcbus extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, polltime, threephase, ack', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			array('baudrate, housecodes', 'length', 'max'=>32),
 			array('serialport', 'length', 'max'=>128),
 			array('usercode', 'length', 'max'=>16),

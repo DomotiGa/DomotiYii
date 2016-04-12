@@ -34,7 +34,7 @@ class SettingsJsonrpc extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, httpport, maxconn, type, auth, sslcertificate_id', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug, auth, sslenabled', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug, auth, sslenabled', 'numerical'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, enabled, httpport, maxconn, type, auth, debug, sslenabled, sslcertificate_id', 'safe', 'on'=>'search'),

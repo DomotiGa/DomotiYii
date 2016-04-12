@@ -48,7 +48,7 @@ class SettingsOpenzwave extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, polltime', 'numerical', 'integerOnly'=>true),
-			array('reloadnodes, enablepollsleeping, enablepolllistening, enableupdateneighbor, enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('reloadnodes, enablepollsleeping, enablepolllistening, enableupdateneighbor, enabled, debug', 'numerical'),
 			array('baudrate', 'length', 'max'=>32),
 			array('serialport', 'length', 'max'=>128),
 			array('polltimesleeping, polltimelistening, updateneighbor', 'length', 'max'=>16),

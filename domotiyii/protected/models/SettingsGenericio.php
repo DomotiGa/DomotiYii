@@ -35,7 +35,7 @@ class SettingsGenericio extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, tcpport', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			array('tcphost, type, baudrate', 'length', 'max'=>32),
 			array('serialport, regex, delimiter', 'length', 'max'=>128),
 			// The following rule is used by search().

@@ -49,7 +49,7 @@ class SettingsPvoutput extends CActiveRecord
 			array('id, pushtime, deviceid, usagedeviceid, tempdeviceid', 'numerical', 'integerOnly'=>true),
 			array('api, pvoutputid', 'length', 'max'=>64),
 			array('devicevalue, usagedevicevalue, tempdevicevalue', 'length', 'max'=>8),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, api, pvoutputid, pushtime, debug, deviceid, devicevalue, usagedeviceid, usagedevicevalue, tempdeviceid, tempdevicevalue', 'safe', 'on'=>'search'),

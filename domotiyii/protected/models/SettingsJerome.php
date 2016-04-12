@@ -34,7 +34,7 @@ class SettingsJerome extends CActiveRecord
 			array('id', 'required'),
 			array('id, tcpport, polltime', 'numerical', 'integerOnly'=>true),
 			array('tcphost', 'length', 'max'=>32),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			array('username, password', 'length', 'max'=>64),
 			array('enabled, debug', 'safe'),
 			// The following rule is used by search().

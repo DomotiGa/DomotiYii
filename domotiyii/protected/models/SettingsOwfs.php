@@ -41,7 +41,7 @@ class SettingsOwfs extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, polltime', 'numerical', 'integerOnly'=>true),
-			array('enabled, cached, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, cached, debug', 'numerical'),
 			array('basedir', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

@@ -46,7 +46,7 @@ class SettingsVideoserver extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, tcpport', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			array('tcphost, user, password, channel1, channel2, channel3, channel4', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

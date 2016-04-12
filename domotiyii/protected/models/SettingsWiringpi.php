@@ -29,7 +29,7 @@ class SettingsWiringpi extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, polltime', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, enabled, polltime, debug', 'safe', 'on'=>'search'),

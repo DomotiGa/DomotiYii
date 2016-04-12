@@ -33,7 +33,7 @@ class SettingsDevicediscover extends CActiveRecord
 			array('id', 'required'),
 			array('id, multicastport, broadcastinterval', 'numerical', 'integerOnly'=>true),
 			array('multicasthost', 'length', 'max'=>32),
-			array('enabled, listenonly, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, listenonly, debug', 'numerical'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, enabled, multicasthost, multicastport, listenonly, broadcastinterval, debug', 'safe', 'on'=>'search'),

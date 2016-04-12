@@ -42,7 +42,7 @@ class SettingsCtx35 extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, polltime', 'numerical', 'integerOnly'=>true),
-			array('enabled, globalx10, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, globalx10, debug', 'numerical'),
 			array('baudrate', 'length', 'max'=>32),
 			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().

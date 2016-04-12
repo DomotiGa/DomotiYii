@@ -44,7 +44,7 @@ class SettingsCallerid extends CActiveRecord
 			array('id', 'required'),
 			array('id', 'numerical', 'integerOnly'=>true),
 			array('countrycode, areacode, prefixnational, prefixinternational', 'length', 'max'=>16),
-			array('enabled, autocreatecontacts, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, autocreatecontacts, debug', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, countrycode, areacode, prefixnational, prefixinternational, autocreatecontacts, debug', 'safe', 'on'=>'search'),

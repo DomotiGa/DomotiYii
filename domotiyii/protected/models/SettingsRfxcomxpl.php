@@ -42,7 +42,7 @@ class SettingsRfxcomxpl extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id', 'numerical', 'integerOnly'=>true),
-			array('enabled, oldaddrfmt, globalx10, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, oldaddrfmt, globalx10, debug', 'numerical'),
 			array('rxaddress, txaddress', 'length', 'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

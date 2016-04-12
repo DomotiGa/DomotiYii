@@ -52,7 +52,7 @@ class SettingsMain extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, sleeptime, flushtime, debug, logbuffer, authentication, debugevents, debugdevices, debugenergy, autodevicecreate', 'numerical', 'integerOnly'=>true),
-			array('debug, authentication, debugevents, debugdevices, debugenergy, autodevicecreate, logallvalueupdates', 'boolean', 'trueValue'=>-1),
+			array('debug, authentication, debugevents, debugdevices, debugenergy, autodevicecreate, logallvalueupdates', 'numerical'),
 			array('startpage', 'length', 'max'=>32),
 			array('hometoppanel, homeleftpanel, homerightpanel, homebottompanel', 'length', 'max'=>256),
 			array('logprefix', 'length', 'max'=>16),

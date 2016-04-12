@@ -47,7 +47,7 @@ class SettingsSmartmeter extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, tcpport, databits, stopbits, parity', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			array('tcphost, type, baudrate, requestline', 'length', 'max'=>32),
 			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().

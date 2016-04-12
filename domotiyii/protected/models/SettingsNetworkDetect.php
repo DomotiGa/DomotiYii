@@ -43,7 +43,7 @@ class SettingsNetworkDetect extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, polltime, timeout', 'numerical', 'integerOnly'=>true),
-			array('enabled, enable_ping, enable_arpscan, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, enable_ping, enable_arpscan, debug', 'numerical'),
 			array('interface', 'length', 'max'=>16),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

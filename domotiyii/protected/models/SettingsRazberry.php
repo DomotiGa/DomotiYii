@@ -35,7 +35,7 @@ class SettingsRazberry extends CActiveRecord
 			array('id, tcpport, polltime', 'numerical', 'integerOnly'=>true),
 			array('tcphost', 'length', 'max'=>32),
 			array('username, password', 'length', 'max'=>64),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, enabled, tcphost, tcpport, username, password, polltime, debug', 'safe', 'on'=>'search'),

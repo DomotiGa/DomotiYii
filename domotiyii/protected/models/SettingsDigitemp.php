@@ -42,7 +42,7 @@ class SettingsDigitemp extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, polltime, readtime', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			array('command, config', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

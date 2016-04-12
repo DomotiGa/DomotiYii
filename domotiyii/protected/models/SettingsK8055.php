@@ -42,7 +42,7 @@ class SettingsK8055 extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, polltime, boardaddress, debouncetime1, debouncetime2', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, polltime, boardaddress, debouncetime1, debouncetime2, debug', 'safe', 'on'=>'search'),

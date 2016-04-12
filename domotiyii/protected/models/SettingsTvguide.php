@@ -40,7 +40,7 @@ class SettingsTvguide extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			array('xmlgrabcmd, xmlfile', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

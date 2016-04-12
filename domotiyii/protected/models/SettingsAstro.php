@@ -46,7 +46,7 @@ class SettingsAstro extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, timezone', 'numerical', 'integerOnly'=>true),
-			array('debug, dst', 'boolean', 'trueValue'=>-1),
+			array('debug, dst', 'numerical'),
 			array('latitude, longitude, twilight, seasons, seasonstarts', 'length', 'max'=>32),
 			array('temperature, currency', 'length', 'max'=>6),
 			// The following rule is used by search().

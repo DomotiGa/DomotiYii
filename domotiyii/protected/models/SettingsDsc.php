@@ -42,7 +42,7 @@ class SettingsDsc extends CActiveRecord
 		return array(
 			array('id', 'required'),
 			array('id, baudrate, type', 'numerical', 'integerOnly'=>true),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			array('serialport', 'length', 'max'=>128),
 			array('mastercode', 'length', 'max'=>16),
 			// The following rule is used by search().

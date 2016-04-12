@@ -34,7 +34,7 @@ class SettingsPhilipsHue extends CActiveRecord
 			array('id', 'required'),
 			array('id, polltime', 'numerical', 'integerOnly'=>true),
 			array('username', 'length', 'max'=>64),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, enabled, username, polltime, debug', 'safe', 'on'=>'search'),

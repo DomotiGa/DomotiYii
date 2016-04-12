@@ -36,7 +36,7 @@ class SettingsVelbus extends CActiveRecord
 			array('id', 'required'),
 			array('id, tcpport, relayport', 'numerical', 'integerOnly'=>true),
 			array('serialport, tcphost, type, baudrate', 'length', 'max'=>32),
-			array('enabled, relayenabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, relayenabled, debug', 'numerical'),
 			array('enabled, relayenabled, debug', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

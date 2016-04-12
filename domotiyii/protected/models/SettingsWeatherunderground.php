@@ -42,7 +42,7 @@ class SettingsWeatherunderground extends CActiveRecord
 			array('id', 'required'),
 			array('id, polltime', 'numerical', 'integerOnly'=>true),
 			array('apikey, city', 'length', 'max'=>128),
-			array('enabled, debug', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, apikey, city, polltime, debug', 'safe', 'on'=>'search'),
