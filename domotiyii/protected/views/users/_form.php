@@ -17,7 +17,7 @@
 		<?php echo $form->passwordFieldControlGroup($model,'initialpassword'); ?>
 		<?php echo $form->passwordFieldControlGroup($model,'repeatpassword'); ?>
 		<?php echo $form->textFieldControlGroup($model,'emailaddress'); ?>
-		<?php echo $form->checkBoxControlGroup($model,'admin',array('value'=>1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'admin',array('value'=>-1)); ?>
 		<?php echo $form->textFieldControlGroup($model,'lastlogin'); ?>
 		<?php echo $form->textFieldControlGroup($model,'comments'); ?>
 </fieldset>

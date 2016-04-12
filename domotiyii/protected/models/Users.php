@@ -140,7 +140,7 @@ class Users extends CActiveRecord
 			array('initialpassword', 'compare', 'compareAttribute'=>'repeatpassword'),
 			array('comments', 'safe'),
 			array('username', 'required'),
-			array('admin', 'boolean'),
+			array('admin', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, username, password, fullname, admin, comments, lastlogin, emailaddress', 'safe', 'on'=>'search'),

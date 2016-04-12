@@ -48,7 +48,7 @@ class SettingsVisonic extends CActiveRecord
 			array('serialport', 'length', 'max'=>128),
 			array('mastercode', 'length', 'max'=>16),
 			array('motiontimeout, sensorarmstatus', 'length', 'max'=>11),
-			array('enabled, debug, autosynctime, forcestandardmode', 'boolean', 'trueValue'=>-1),
+			array('enabled, debug, autosynctime, forcestandardmode', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, enabled, serialport, type, mastercode, debug', 'safe', 'on'=>'search'),
