@@ -34,6 +34,23 @@ function switchTypeExtra(element){
     }
 }
 
+function switchTypeMisc(element){
+    var sel = $(element).val();
+    if (sel == 'serial') {
+        $('#tcphost').attr('readonly','readonly');
+        $('#tcpport').attr('readonly','readonly');
+        $('#heartbeat').attr('readonly','readonly');
+        $('#serialport').removeAttr('readonly');
+        $('#baudrate').removeAttr('readonly');
+    } else {
+        $('#tcphost').removeAttr('readonly');
+        $('#tcpport').removeAttr('readonly');
+        $('#heartbeat').removeAttr('readonly');
+        $('#serialport').attr('readonly','readonly');
+        $('#baudrate').attr('readonly','readonly');
+    }
+}
+
 function switchRelay(element){
     if (element.checked) {
         $('#relayport').removeAttr('readonly');

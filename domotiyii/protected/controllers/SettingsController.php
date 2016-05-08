@@ -141,6 +141,7 @@ class SettingsController extends Controller {
         $listPlugins[] = 'lirc';
         $listPlugins[] = 'meteohub';
         $listPlugins[] = 'mochad';
+        $listPlugins[] = 'modbus';
         $listPlugins[] = 'mysensors';
         $listPlugins[] = 'ncid';
         $listPlugins[] = 'networkdetect';
@@ -265,6 +266,22 @@ class SettingsController extends Controller {
             }
         }
         $this->render('broadcastudp',array('model'=>$model));
+    }
+
+    public function actionModbus()
+    {
+        $model = SettingsModbus::model()->findByPk(1);
+
+        if(isset($_POST['SettingsModbus']))
+        {
+            $model->attributes=$_POST['SettingsModbus'];
+            if($model->validate())
+            {
+                // form inputs are valid, do something here
+                $this->do_save_restart($model, 'modbus');
+            }
+        }
+        $this->render('modbus',array('model'=>$model));
     }
 
     public function actionMysensors()

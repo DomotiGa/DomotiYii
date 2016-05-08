@@ -140,6 +140,7 @@
                     )),
                     array('label'=>'Network Detect', 'url'=> array('settings/networkdetect')),
                     array('label'=>'NMEA GPS', 'url'=> array('settings/gps')),
+                    array('label'=>'Modbus', 'url'=> array('settings/modbus')),
                     array('label'=>'MySensors', 'url'=> array('settings/mysensors')),
                     array('label'=>'Omniksol', 'url'=> array('settings/omniksol')),
                     array('label'=>'OpenTherm', 'url'=> array('settings/opentherm')),
