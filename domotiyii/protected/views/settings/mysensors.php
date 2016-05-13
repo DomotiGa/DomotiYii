@@ -26,6 +26,7 @@ $this->widget('bootstrap.widgets.TbBreadcrumb', array(
                 <?php echo $form->numberFieldControlGroup($model,'relayport', array('readonly'=>($model->relayenabled == false)? true : false, 'id'=>'relayport')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'useack', array('value'=>-1)); ?>
                 <?php echo $form->numberFieldControlGroup($model,'heartbeat', array('readonly'=>($model->type == 'tcp')? false : true, 'id'=>'heartbeat')); ?>
+		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 </fieldset>
 
 <?php echo TbHtml::formActions(array(
