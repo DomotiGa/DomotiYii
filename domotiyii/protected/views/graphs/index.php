@@ -167,7 +167,7 @@ if ( (isset($_GET['type']) && $_GET['type'] == 'Control') OR $type == 'Control')
 if ( (isset($_GET['location']) && $_GET['location'] <> 'All') ) {
 	$locs = $this->getLocation($_GET['location']);
 	foreach($locs as $item){
-		$where_location = " d.location = " . $item;
+		$where_location = " d.location_id = " . $item;
 	}
 } else {
 	$where_location = null;
