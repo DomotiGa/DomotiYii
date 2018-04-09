@@ -19,6 +19,10 @@
  * @property boolean $debug
  * @property boolean $enablepublish
  * @property boolean $enablesubscribe
+ * @property boolean $sslenabled
+ * @property integer $sslcertificate_id
+ * @property boolean $birthlastwill
+ * @property boolean $sendallvalues
  */
 class SettingsMqtt extends CActiveRecord
 {
@@ -49,16 +53,16 @@ class SettingsMqtt extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, tcpport, heartbeat, qos', 'numerical', 'integerOnly'=>true),
+			array('id, tcpport, heartbeat, qos, sslcertificate_id', 'numerical', 'integerOnly'=>true),
 			array('qos', 'numerical', 'integerOnly'=>true, 'min'=>0, 'max'=>2),
 			array('clientname', 'length', 'max'=>23),
 			array('tcphost', 'length', 'max'=>64),
 			array('username, password', 'length', 'max'=>32),
-			array('pubtopic, subtopic', 'length', 'max'=>256),
-			array('enabled, retain, debug, enablepublish, enablesubscribe', 'numerical'),
+			array('pubtopic, subtopic', 'length', 'max'=>1024),
+			array('enabled, retain, debug, enablepublish, enablesubscribe, sslenabled, birthlastwill, sendallvalues', 'numerical'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enabled, tcphost, tcpport, username, password, pubtopic, subtopic, heartbeat, retain, qos, debug, enablepublish, enablesubscribe', 'safe', 'on'=>'search'),
+			array('id, enabled, tcphost, tcpport, username, password, pubtopic, subtopic, heartbeat, retain, qos, debug, enablepublish, enablesubscribe, sslenabled, sslcertificate_id, birthlastwill, sendallvalues', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -94,6 +98,10 @@ class SettingsMqtt extends CActiveRecord
 			'debug' => 'Debug',
 			'enablesubscribe' => 'Subscribe',
 			'enablepublish' => 'Publish',
+                        'sslenabled' => 'SSL Enabled',
+                        'sslcertificate_id' => 'SSL Certificate ID',
+                        'birthlastwill' => 'Birth and Last Will',
+                        'sendallvalues' => 'Send All Values',
 		);
 	}
 
@@ -123,6 +131,10 @@ class SettingsMqtt extends CActiveRecord
 		$criteria->compare('debug',$this->debug);
 		$criteria->compare('enablepublish',$this->enablepublish);
 		$criteria->compare('enablesubscribe',$this->enablesubscribe);
+		$criteria->compare('sslenabled',$this->sslenabled);
+		$criteria->compare('sslcertificate_id',$this->sslcertificate_id);
+		$criteria->compare('birthlastwill',$this->birthlastwill);
+		$criteria->compare('sendallvalues',$this->sendallvalues);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

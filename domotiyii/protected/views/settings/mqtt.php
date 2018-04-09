@@ -31,6 +31,10 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->numberFieldControlGroup($model,'heartbeat', array('append' => 'Seconds')); ?>
 		<?php echo $form->checkBoxControlGroup($model,'retain', array('value'=>-1)); ?>
 		<?php echo $form->numberFieldControlGroup($model,'qos'); ?>
+		<?php echo $form->checkBoxControlGroup($model,'sslenabled', array('value'=>-1)); ?>
+		<?php echo $form->dropDownListControlGroup($model,'sslcertificate_id',Sslcertificates::getSSLCertificates(), array('readonly'=>($model->sslenabled == 0)? true : false, 'id'=>'sslcertificate_id')); ?>
+		<?php echo $form->checkBoxControlGroup($model,'birthlastwill', array('value'=>-1)); ?>
+		<?php echo $form->checkBoxControlGroup($model,'sendallvalues', array('value'=>-1)); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 </fieldset>
 

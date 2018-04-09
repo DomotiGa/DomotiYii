@@ -38,8 +38,8 @@ class Devicetypes extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, description, protocol', 'length', 'max'=>32),
-			array('addressformat', 'length', 'max'=>128),
+			array('name, protocol', 'length', 'max'=>32),
+			array('addressformat, description', 'length', 'max'=>128),
 			array('name, protocol, addressformat', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

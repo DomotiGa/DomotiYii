@@ -16,6 +16,7 @@
  * @property integer $parity
  * @property string $requestline
  * @property boolean $debug
+ * @property integer $updateinterval
  */
 class SettingsSmartmeter extends CActiveRecord
 {
@@ -46,13 +47,13 @@ class SettingsSmartmeter extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id', 'required'),
-			array('id, tcpport, databits, stopbits, parity', 'numerical', 'integerOnly'=>true),
+			array('id, tcpport, databits, stopbits, parity, updateinterval', 'numerical', 'integerOnly'=>true),
 			array('enabled, debug', 'numerical'),
 			array('tcphost, type, baudrate, requestline', 'length', 'max'=>32),
 			array('serialport', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, enabled, tcphost, tcpport, type, serialport, baudrate, databits, stopbits, parity, requestline, debug', 'safe', 'on'=>'search'),
+			array('id, enabled, tcphost, tcpport, type, serialport, baudrate, databits, stopbits, parity, requestline, debug, updateinterval', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -85,6 +86,7 @@ class SettingsSmartmeter extends CActiveRecord
 			'parity' => 'Parity',
 			'requestline' => 'Requestline',
 			'debug' => 'Debug',
+			'updateinterval' => 'Update Interval',
 		);
 	}
 
@@ -111,6 +113,7 @@ class SettingsSmartmeter extends CActiveRecord
 		$criteria->compare('parity',$this->parity);
 		$criteria->compare('requestline',$this->requestline,true);
 		$criteria->compare('debug',$this->debug);
+		$criteria->compare('updateinterval',$this->updateinterval);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

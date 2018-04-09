@@ -26,6 +26,7 @@ $form=$this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		<?php echo $form->numberFieldControlGroup($model,'databits', array('readonly'=>($model->type == 'serial')? false : true, 'id'=>'databits')); ?>
 		<?php echo $form->numberFieldControlGroup($model,'stopbits', array('readonly'=>($model->type == 'serial')? false : true, 'id'=>'stopbits')); ?>
 		<?php echo $form->numberFieldControlGroup($model,'parity', array('readonly'=>($model->type == 'serial')? false : true, 'id'=>'parity')); ?>
+		<?php echo $form->numberFieldControlGroup($model,'updateinterval'); ?>
 		<?php echo $form->checkBoxControlGroup($model,'debug', array('value'=>-1)); ?>
 </fieldset>
 
