@@ -30,11 +30,18 @@
             $request = json_encode($data);
         }
 
+        // Check if we need to do HTTP basic authentication
+        $headerauth = "";
+        if (! empty(Yii::app()->params['jsonrpcUser'])) {
+          $headerauth = "Authorization: Basic " . base64_encode(Yii::app()->params['jsonrpcUser'] . ":" . Yii::app()->params['jsonrpcPassword']) . "\r\n";
+        } 
+
         $context = stream_context_create(
             array('http' =>
                 array('method' => "POST",
                     'header' => "Content-Type: application/json\r\n" .
-                    "Accept: application/json\r\n",
+                    "Accept: application/json\r\n" .
+                    $headerauth,
                     'content' => $request)));
         $file = @file_get_contents(Yii::app()->params['jsonrpcHost'], false, $context);
         if ($file === false) {

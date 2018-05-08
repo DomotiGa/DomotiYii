@@ -98,12 +98,14 @@ return array(
 
 		// server settings
 		'jsonrpcHost'=>'http://localhost:9090',
+		'jsonrpcUser'=>'',
+		'jsonrpcPassword'=>'',
 
 		// security allow mobile control without login
 	  	'allowMobileWithoutLogin'=>False, // don't allow, you can do this if you have setup ssl client certificate
 
 		// database minimum version needed
-		'versionDBRequired'=>'1.0.023',
+		'versionDBRequired'=>'1.0.025',
 
 		// base path to domotiga
 		'basePathDomotiGa'=>'/home/<changethis>/domotiga/',
